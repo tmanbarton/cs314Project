@@ -1,4 +1,4 @@
-# Preferences for _yournamehere_
+# Preferences for Andy H
 
 1. __Is it generally easier to reach you by text, electronic mail, voice mail, or something else?  What hours?__ 
     Text, email, discord and slack are all great ways to reach me. I need to check my email and discord for work a few times a day anyway, so its likely I will respond on those.
