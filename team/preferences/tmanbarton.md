@@ -11,9 +11,9 @@
 1. __What happens if some people on the team want to get an “A” while others think a “B” will be acceptable?__ 
    * Agree to disagree and go for a C :) Actually, maybe we can come to a compromise and say a high B/low A is acceptable yet still aim for an A.
 1. __Is it acceptable for some team members to do more work on the assignment in order to get an “A”?__ 
-   * No
+   * Sure, as long as they don't do so much more that they wind up doing other people's work.
 1. __How much time per week do you anticipate it will take to make the project successful?__ 
-   * 5
+   * It's hard to say until it gets started, but it depends on the person I think. 
 1. __How will you decide who should do what on the project and activities?__ 
    * Who has the least to do coming up and who is the most comfortable/with what needs to be done.
 1. __What will happen if someone doesn’t follow through on a commitment (missing deadline, no show, etc.)?__ 
@@ -21,16 +21,16 @@
 1. __What happens if people have different opinions on the quality of the work?__ 
    * Understand everyone's perspective, find neutral ground, and decide how to improve
 1. __How will you deal with different work habits of team members?__ 
-   * Communicate communicate communicate
+   * Communicate communicate communicate. Understanding each others' work habits will help us be able to navigate around the differences.
 1. __Do you want to have a standing meeting time outside of class?__ 
-   * Yes
+   * Yes. ANy time outside of the class will be helpful.
 1. __How often do you think the team will need to meet outside of class?__ 
-   * Once a week
+   * At least once a week though I'd prefer more.
 1. __Will you need approval of every team member before making a decision?__ 
-   * Depends on the decision but if involves the whole team, yes
+   * Depends on the decision but if involves the whole team everyone's input is necessary.
 1. __What will you do if every team member except one agrees on something?__ 
-   * Find a comprimize, or if none can be made whatever it is probably isn't going to happen
+   * Find a comprimize, or if none can be made whatever it is probably isn't going to happen.
 1. __What will you do if one person seems to be dominating the team process?__ 
-   * Call him out in a respectful way to remind him that we are doing this as a team
+   * He might just need reminding that we are doing this as a team, so I'd respectfully do that
 1. __What will you do if you feel most of the facilitation responsibilities are falling on you?__ 
    * Ask for others' input and/or specifically start to ask for other people to facilitate.
