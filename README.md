@@ -7,7 +7,7 @@
 | Last Name   | First Name  |    eName    |   GitHub    |      CSU Email           |
 | ----------- | ----------- | ----------- | ----------- | ------------------------ | 
 |   Hantke    |  Andy       | ahantke     | ahantke1    | ahantke@colostate.edu    |
-|   Raissi    |  Amir       | amirr23     | amir-raissi | amirr23@colostate.edu    |
+|             |             |             |             |                          |
 |             |             |             |             |                          |
 |             |             |             |             |                          |
 |             |             |             |             |                          |
