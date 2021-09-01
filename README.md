@@ -1,8 +1,16 @@
-## Team Information
+# t13 - TeamNameHere
 
------ This Section to be filled ------
+----- Team Image Here (also found in team/images) ------
 
-## Member Informations
+## Member Information
+
+| Last Name   | First Name  |    eName    |   GitHub    |      CSU Email           |
+| ----------- | ----------- | ----------- | ----------- | ------------------------ | 
+|   Hantke    |  Andy       | ahantke     | ahantke1    | ahantke@colostate.edu    |
+|             |             |             |             |                          |
+|             |             |             |             |                          |
+|             |             |             |             |                          |
+|             |             |             |             |                          |
 
 ----- This Section to be filled ------
 
