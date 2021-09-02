@@ -1,4 +1,4 @@
-# Sprint #1 - t13 - Penguinz
+# Sprint 1 - t13 - Penguinz
 
 ## Product Goal
 ### *The Product Goal is an easy-to-use mobile trip planning application that satisfies a global audience.*
@@ -46,10 +46,10 @@ These metrics reflect what was planned at the beginning of the sprint and what w
 
 | Statistic | # Planned | # Completed |
 | --- | ---: | ---: |
-| Epics | 2 |  |
-| Tasks |  11   |  | 
-| Story Points |  14 |  | 
-
+| Epics | *count* | *count* |
+| Tasks |  *count*   | *count* | 
+| Story Points |  14 | *count* | 
+| *date* | #*task, ...* | #*task, ...* | *none* | 
 
 ## Scrums
 
