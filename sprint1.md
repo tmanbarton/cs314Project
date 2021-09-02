@@ -34,8 +34,11 @@
 
 
 ## Planned Epics
+There are two epics planned for this sprint: Team Identification and About. Both of these epics are aimed at provided information to the user regarding the team and each team member.
 
-{REMOVE THIS:  Write paragraphs, not bullets.}
+The goal of the Team Identification epic is to provide the user with the name of the team that built the application. To accomplish this we will pick a name to identify our team to the rest of the organization. We will then update the team identification (t## team name) in the browser tab/HTML Title and the application header/footer. 
+
+The goal of the About epic is to provide the user with information on each of the individual team members. We will provide an image, mission statement, name, and short biography for each team member. 
 
 ## Metrics
 
