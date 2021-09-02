@@ -1,9 +1,8 @@
 # t13 - Penguinz
 
-<figure>
-  <img src="team/images/team.png" alt="Team Photo"/>
-  <figcaption align="center">Team Penguinz</figcaption>
-</figure>
+| ![Team Photo](team/images/team.png "Team Penguinz") | 
+|:--:| 
+| *Team Penguinz* |
 
 ## Member Information
 
