@@ -9,7 +9,7 @@
 |   Hantke    |  Andy       | ahantke     | ahantke1    | ahantke@colostate.edu    |
 |   Raissi    |  Amir       | amirr23     | amir-raissi | amirr23@colostate.edu    |
 |   Price     |  William    | bilprice    | bilprice    | bilprice@colostate.edu   |
-|             |             |             |             |                          |
+|   Barton    |  Tyler      | tmanb       | tmanbarton  | tmanb@rams.colostate.edu |
 |             |             |             |             |                          |
 
 
