@@ -1,4 +1,4 @@
-# Sprint # - *your team number* - *your team name*
+# Sprint #1 - t13 - Penguinz
 
 ## Product Goal
 ### *The Product Goal is an easy-to-use mobile trip planning application that satisfies a global audience.*
@@ -7,7 +7,7 @@
 ### *Tell them who we are.*
 
 ## Scrum Master
-### *firstname lastname*
+### *Tyler Barton*
 
 ## Definition of Done
 
@@ -43,9 +43,9 @@ These metrics reflect what was planned at the beginning of the sprint and what w
 
 | Statistic | # Planned | # Completed |
 | --- | ---: | ---: |
-| Epics | *count* | *count* |
-| Tasks |  *count*   | *count* | 
-| Story Points |  14 | *count* | 
+| Epics | 2 |  |
+| Tasks |  11   |  | 
+| Story Points |  14 |  | 
 
 
 ## Scrums
@@ -55,7 +55,7 @@ The #*task* numbers refer to the issue numbers in GitHub.
 
 | Date | Tasks closed  | Tasks in progress | Impediments |
 | :--- | :--- | :--- | :--- |
-| *date* | #*task, ...* | #*task, ...* | *none* | 
+|      |      |      |      | 
 
 
 ## Review
