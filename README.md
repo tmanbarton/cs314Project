@@ -1,6 +1,6 @@
 # t13 - Penguinz
 
------ Team Image Here (also found in team/images) ------
+![Team Photo](team/images/team.png)
 
 ## Member Information
 
