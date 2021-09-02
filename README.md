@@ -1,4 +1,4 @@
-# t13 - TeamNameHere
+# t13 - Penguinz
 
 ----- Team Image Here (also found in team/images) ------
 
@@ -8,7 +8,7 @@
 | ----------- | ----------- | ----------- | ----------- | ------------------------ | 
 |   Hantke    |  Andy       | ahantke     | ahantke1    | ahantke@colostate.edu    |
 |   Raissi    |  Amir       | amirr23     | amir-raissi | amirr23@colostate.edu    |
-|             |             |             |             |                          |
+|   William   |  Price      | bilprice    | bilprice    | bilprice@colostate.edu   |
 |             |             |             |             |                          |
 |             |             |             |             |                          |
 
