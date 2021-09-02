@@ -1,7 +1,10 @@
 # t13 - Penguinz
 
-![Team Photo](team/images/team.png)
-*Team Penguinz*
+<figure>
+  <img src="team/images/team.png" alt="Team Photo"/>
+  <figcaption align="center">Team Penguinz</figcaption>
+</figure>
+
 ## Member Information
 
 | Last Name   | First Name  |    eName    |   GitHub     |      CSU Email           |
