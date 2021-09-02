@@ -1,7 +1,7 @@
 # t13 - Penguinz
 
 ![Team Photo](team/images/team.png)
-
+*Team Penguinz*
 ## Member Information
 
 | Last Name   | First Name  |    eName    |   GitHub     |      CSU Email           |
