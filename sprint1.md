@@ -45,7 +45,7 @@ These metrics reflect what was planned at the beginning of the sprint and what w
 | --- | ---: | ---: |
 | Epics | *count* | *count* |
 | Tasks |  *count*   | *count* | 
-| Story Points |  *count*  | *count* | 
+| Story Points |  14 | *count* | 
 
 
 ## Scrums
