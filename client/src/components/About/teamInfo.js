@@ -1,7 +1,7 @@
 import memberPic from "../../static/images/Placeholder.jpg";
 import andyPic from "../../static/images/andy_picture.png";
 import amirPic from "../../static/images/amir_picture.png";
-import teamPic from "../../static/images/PlaceholderTeam.jpg";
+import teamPic from "../../static/images/teamPicWebsite.png";
 
 export const teamData = {
 	teamName: "Team Name",
