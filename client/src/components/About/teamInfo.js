@@ -5,7 +5,7 @@ import tylerPic from "../../static/images/tyler_picture.png";
 import teamPic from "../../static/images/teamPicWebsite.png";
 
 export const teamData = {
-	teamName: "Team Name",
+	teamName: "Penguinz",
 	missionStatement: "Mission Statement",
 	imagePath: teamPic,
 };
