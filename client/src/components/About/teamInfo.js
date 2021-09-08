@@ -1,6 +1,7 @@
 import memberPic from "../../static/images/Placeholder.jpg";
 import andyPic from "../../static/images/andy_picture.png";
 import amirPic from "../../static/images/amir_picture.png";
+import tylerPic from "../../static/images/tyler_picture.png";
 import teamPic from "../../static/images/teamPicWebsite.png";
 
 export const teamData = {
@@ -23,10 +24,10 @@ export const memberData = [
 		imagePath: amirPic,
 	},
 	{
-		name: "Team Member 3",
-		bio: "Bio Here",
-		homeTown: "Hometown",
-		imagePath: memberPic,
+		name: "Tyler Barton",
+		bio: "Tyler is a senior at CSU, studying Computer Science. He has experience in front-end development and an interest in back-end development. Tyler enjoys coding personal projects when he doesn't have homework and has a passion for Rubik's Cubes.",
+		homeTown: "Parker, CO",
+		imagePath: tylerPic,
 	},
 	{
 		name: "Team Member 4",
