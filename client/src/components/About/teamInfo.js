@@ -6,7 +6,7 @@ import teamPic from "../../static/images/teamPicWebsite.png";
 
 export const teamData = {
 	teamName: "Penguinz",
-	missionStatement: "Mission Statement",
+	missionStatement: "We strive to help travelers plan and have their best trip.",
 	imagePath: teamPic,
 };
 
