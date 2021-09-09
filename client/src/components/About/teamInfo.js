@@ -30,10 +30,10 @@ export const memberData = [
 		imagePath: tylerPic,
 	},
 	{
-		name: "Team Member 4",
-		bio: "Bio Here",
-		homeTown: "Hometown",
-		imagePath: memberPic,
+		name: "Richard Newby",
+		bio: "Richard is a an online student at CSU, studying computer science with a focus in software engineering, though has a background in electrical engineering and is pursuing a second bachelors degree. Richard currently works as a software engineer for an educational technology company and enjoys playing guitar when not working.",
+		homeTown: "San Diego, CA",
+		imagePath: rickPic,
 	},
 	{
 		name: "Team Member 5",
