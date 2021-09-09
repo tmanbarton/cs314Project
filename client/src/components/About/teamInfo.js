@@ -4,6 +4,7 @@ import amirPic from "../../static/images/amir_picture.png";
 import tylerPic from "../../static/images/tyler_picture.png";
 import rickPic from "../../static/images/rick_picture.png";
 import teamPic from "../../static/images/teamPicWebsite.png";
+import billPic from "../../static/images/bill_picture.png";
 
 export const teamData = {
 	teamName: "Penguinz",
@@ -37,9 +38,9 @@ export const memberData = [
 		imagePath: rickPic,
 	},
 	{
-		name: "Team Member 5",
-		bio: "Bio Here",
-		homeTown: "Hometown",
-		imagePath: memberPic,
+		name: "William (Bill) Price",
+		bio: "William is a junior at CSU, studying computer science with a focus on cyber security. He has experience in Java, C, C++, and HTML. He enjoys playing guitar and snowboarding in his free time.",
+		homeTown: "Milwaukee, WI",
+		imagePath: billPic,
 	},
 ];
