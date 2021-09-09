@@ -13,7 +13,7 @@ public class ConfigRequest extends Request {
 
     @Override
     public void buildResponse() {
-        serverName = "t13 team name";
+        serverName = "t13 Penguinz";
         features = new ArrayList<>();
         features.add("config");
         log.trace("buildResponse -> {}", this);
