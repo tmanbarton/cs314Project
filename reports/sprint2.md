@@ -4,7 +4,7 @@
 ### *Find places to go.*
 
 ## Sprint Leader: 
-### *firstname lastname*
+### *Andy Hantke*
 
 ## Definition of Done
 
@@ -40,7 +40,7 @@
 
 | Statistic | # Planned | # Completed |
 | --- | ---: | ---: |
-| Epics | *count* | *count* |
+| Epics | *2* | *count* |
 | Tasks |  *count*   | *count* | 
 | Story Points |  *sum*  | *sum* | 
 
@@ -49,7 +49,7 @@
 
 | Date | Tasks closed  | Tasks in progress | Impediments |
 | :--- | :--- | :--- | :--- |
-| *date* | *#task, ...* | *#task, ...* |  | 
+| *9/14/21* | *none* | *#80, #81* | Trying to split epics into tasks | 
 
 
 ## Review
