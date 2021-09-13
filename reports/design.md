@@ -141,6 +141,26 @@ There are no changes to the server class structure in this sprint.
 Only minor changes to text constants are required.
 
 # Sprint 2
+
+### User Interface
+
+In this sprint, we will focus on adding a search feature.
+There are two primary parts:
+* deciding on using either a seperate search icon 
+  * or extending the existing menu
+* adding a searchbar after the search icon is click/pressed
+
+Whenever a user clicks on the search icon (regardless of if its standalone or not) a search bar should drop down and allow the user to type in location information.
+
+<img src="images/T13 Sprint2 UI Updates.png"
+     alt="T13 Sprint2 UI Updates.png"
+     style="float: left; margin-right: 10px;" />
+     
+     
+This diagram shows the changes with the icon seperate from the existing dropdown.
+ 
+
+
 # Sprint 3
 # Sprint 4 
 # Sprint 5
