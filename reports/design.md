@@ -175,6 +175,10 @@ This diagram shows the changes with the icon seperate from the existing dropdown
 
 ### Server Classes
 
+In order to support the search feature the *find* protocol will be implemented on the server. This will entail adding a new *FindRequest* class to provide responses to *find* requests from the client as shown in the diagram below. 
+
+![class diagram](images/ServerClassesSprint2.png)
+
 # Sprint 3
 
 # Sprint 4
