@@ -171,7 +171,14 @@ Whenever a user clicks on the search icon (regardless of if its standalone or no
 
 ### Client Components
 
-This diagram shows the changes with the icon seperate from the existing dropdown.
+In this sprint we will complete the following Epics: Find Places and Interoperability.
+
+- Search icon will be added to dropdown in itenaray.js
+- Search term will be passed to iterary.js
+- List of avaliable features will be extracted from Server Config
+  - Features will be used to show interoperability through message pop-up
+
+![clientCompS2](images/ClientComponentDiagramSP2.png)
 
 ### Server Classes
 
