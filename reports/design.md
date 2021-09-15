@@ -182,7 +182,7 @@ In this sprint we will complete the following Epics: Find Places and Interoperab
   - Changes how Footer.js and ServerSettings.js operate.
   - ServerSettings.js will now instead show a dropdown of avaliable servers to select from.
     - If a user selects a different server, a Model will pop up.
-      - Modal contents will show list fo default features avaliable and compare to those that are avalible to the user after selecting new server.
+      - Modal contents will show list of default features avaliable and compare to those that are avalible to the user after selecting new server.
     - ModalFeatures.js is a child to Backdrop.js
 
 ![clientCompS2](images/ClientComponentDiagramSP2.png "Client Component Diagram Sprint2")
