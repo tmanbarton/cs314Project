@@ -154,7 +154,7 @@ Only minor changes to text constants are required.
 
 # Sprint 2
 
-### User Interface
+## User Interface
 
 In this sprint, we will focus on adding a search feature and a change servers feature.
 
@@ -167,10 +167,11 @@ In this sprint, we will focus on adding a search feature and a change servers fe
     - These items should be auto added onclick and the search should requery to update the list to replace the newly added item
   - Shouldn't include places already on the list 
 
-<img src="https://github.com/CSU-CS-314-Fall-2021/t13/blob/f30d0a1a60710a66d9e574890440a5ccd7bc95bc/reports/images/T13%20Sprint2%20UI%20Updates.png" alt="FindUI"/>
+
+![findUIChanges](images/Sprint2UIUpdatesFind.png "Find UI Changes")
 
 
-### Change server Feature UI Wireframe
+### Change Server Feature UI Wireframe
 - Editing current footer
   - Extend footer size slightly so that Conected to teamname text and localhost text is stackable
 - With new open space on rightside implement drop-up to change servers
@@ -178,9 +179,9 @@ In this sprint, we will focus on adding a search feature and a change servers fe
   - Modal should list what is and what isn't available
 
 
-![findUIChanges](images/Sprint2ChangeServersUIInteroperability.png "Find UI Changes")
+![interoperabilityUIChanges](images/Sprint2ChangeServersUI.png "Interoperability UI Changes")
 
-### Client Components
+## Client Components
 
 In this sprint we will complete the following Epics: Find Places and Interoperability.
 - Find Places Epic: 
@@ -200,7 +201,7 @@ In this sprint we will complete the following Epics: Find Places and Interoperab
 
 ![clientCompS2](images/ClientComponentDiagramSP2.png "Client Component Diagram Sprint2")
 
-### Server Classes
+## Server Classes
 
 In order to support the search feature the *find* protocol will be implemented on the server. This will entail adding a new *FindRequest* class to provide responses to *find* requests from the client as shown in the diagram below. 
 
