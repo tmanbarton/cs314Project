@@ -176,18 +176,28 @@ In this sprint, we will focus on adding a search feature and a change servers fe
 - Add modal telling the user the switched servers
   - Modal should list what is and what isn't available
 
+
 ![uiUpdatesS2](images/Sprint2ChangeServersUI.png "Sprint2 UI Updates")
 
 ### Client Components
 
 In this sprint we will complete the following Epics: Find Places and Interoperability.
+- Find Places Epic: 
+  - Search icon will be added to dropdown in itenaray.js
+    - New Search Component will be needed.
+      - Search component has two children:
+        - SearchInput.js:
+          - Responsible for holding input components
+        - SearchResults.js:
+          - Responsible for showing list of responses based on the SearchInput
+- Interoperability Epic: 
+  - Changes how Footer.js and ServerSettings.js operate.
+  - ServerSettings.js will now instead show a dropdown of avaliable servers to select from.
+    - If a user selects a different server, a Model will pop up.
+      - Modal contents will show list of default features avaliable and compare to those that are avalible to the user after selecting new server.
+    - ModalFeatures.js is a child to Backdrop.js
 
-- Search icon will be added to dropdown in itenaray.js
-- Search term will be passed to iterary.js
-- List of avaliable features will be extracted from Server Config
-  - Features will be used to show interoperability through message pop-up
-
-![clientCompS2](images/ClientComponentDiagramSP2.png)
+![clientCompS2](images/ClientComponentDiagramSP2.png "Client Component Diagram Sprint2")
 
 ### Server Classes
 
