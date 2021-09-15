@@ -156,18 +156,27 @@ Only minor changes to text constants are required.
 
 ### User Interface
 
-In this sprint, we will focus on adding a search feature.
-There are two primary parts:
+In this sprint, we will focus on adding a search feature and a change servers feature.
 
-- deciding on using either a seperate search icon
-  - or extending the existing menu
+### Search ('find') Feature UI Wireframe
+
+- extending existing menu
+  - Might take away menu and replace with menu icons (depending on how many) for accessibility purposes later but as of now it will be faster to implement it as is
 - adding a searchbar after the search icon is click/pressed
+  - Should dynamically pull items as the User types
+    - These items should be auto added onclick and the search should requery to update the list to replace the newly added item
+  - Shouldn't include places already on the list 
 
-Whenever a user clicks on the search icon (regardless of if its standalone or not) a search bar should drop down and allow the user to type in location information.
+![uiUpdatesS2](images/Sprint2UIUpdates.png "Sprint2 UI Updates")
 
-<img src="images/T13 Sprint2 UI Updates.png"
-     alt="T13 Sprint2 UI Updates.png"
-     style="float: left; margin-right: 10px;" />
+### Change server Feature UI Wireframe
+- Editing current footer
+  - Extend footer size slightly so that Conected to teamname text and localhost text is stackable
+- With new open space on rightside implement drop-up to change servers
+- Add modal telling the user the switched servers
+  - Modal should list what is and what isn't available
+
+![uiUpdatesS2](images/Sprint2UIUpdates.png "Sprint2 UI Updates")
 
 ### Client Components
 
