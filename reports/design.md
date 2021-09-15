@@ -167,7 +167,7 @@ In this sprint, we will focus on adding a search feature and a change servers fe
     - These items should be auto added onclick and the search should requery to update the list to replace the newly added item
   - Shouldn't include places already on the list 
 
-![uiUpdatesS2](images/Sprint2UIUpdates.png "Sprint2 UI Updates")
+<img src="https://github.com/CSU-CS-314-Fall-2021/t13/blob/f30d0a1a60710a66d9e574890440a5ccd7bc95bc/reports/images/T13%20Sprint2%20UI%20Updates.png" alt="FindUI"/>
 
 ### Change server Feature UI Wireframe
 - Editing current footer
@@ -176,7 +176,7 @@ In this sprint, we will focus on adding a search feature and a change servers fe
 - Add modal telling the user the switched servers
   - Modal should list what is and what isn't available
 
-![uiUpdatesS2](images/Sprint2UIUpdates.png "Sprint2 UI Updates")
+![uiUpdatesS2](images/Sprint2ChangeServersUI.png "Sprint2 UI Updates")
 
 ### Client Components
 
