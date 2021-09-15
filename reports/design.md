@@ -187,7 +187,7 @@ In this sprint we will complete the following Epics: Find Places and Interoperab
       - Modal contents will show list fo default features avaliable and compare to those that are avalible to the user after selecting new server.
     - ModalFeatures.js is a child to Backdrop.js
 
-![clientCompS2](images/ClientComponentDiagramSP2.png)
+![clientCompS2](images/ClientComponentDiagramSP2.png "Client Component Diagram Sprint2")
 
 ### Server Classes
 
