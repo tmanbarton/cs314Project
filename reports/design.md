@@ -169,6 +169,7 @@ In this sprint, we will focus on adding a search feature and a change servers fe
 
 <img src="https://github.com/CSU-CS-314-Fall-2021/t13/blob/f30d0a1a60710a66d9e574890440a5ccd7bc95bc/reports/images/T13%20Sprint2%20UI%20Updates.png" alt="FindUI"/>
 
+
 ### Change server Feature UI Wireframe
 - Editing current footer
   - Extend footer size slightly so that Conected to teamname text and localhost text is stackable
@@ -177,7 +178,7 @@ In this sprint, we will focus on adding a search feature and a change servers fe
   - Modal should list what is and what isn't available
 
 
-![uiUpdatesS2](images/Sprint2ChangeServersUI.png "Sprint2 UI Updates")
+![findUIChanges](images/Sprint2ChangeServersUIInteroperability.png "Find UI Changes")
 
 ### Client Components
 
