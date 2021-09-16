@@ -1,9 +1,11 @@
 import Ajv from 'ajv';
 import * as configSchema from '../../schemas/ConfigResponse';
+import * as findSchema from '../../schemas/FindResponse';
 import { LOG } from './constants';
 
 const SCHEMAS = {
-    config: configSchema
+    config: configSchema,
+    find: findSchema
 }
 
 export async function sendAPIRequest(requestBody, serverUrl) {
