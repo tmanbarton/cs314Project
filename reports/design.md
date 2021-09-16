@@ -154,26 +154,58 @@ Only minor changes to text constants are required.
 
 # Sprint 2
 
-### User Interface
+## User Interface
 
-In this sprint, we will focus on adding a search feature.
-There are two primary parts:
+In this sprint, we will focus on adding a search feature and a change servers feature.
 
-- deciding on using either a seperate search icon
-  - or extending the existing menu
+### Search ('find') Feature UI Wireframe
+
+- extending existing menu
+  - Might take away menu and replace with menu icons (depending on how many) for accessibility purposes later but as of now it will be faster to implement it as is
 - adding a searchbar after the search icon is click/pressed
+  - Should dynamically pull items as the User types
+    - These items should be auto added onclick and the search should requery to update the list to replace the newly added item
+  - Shouldn't include places already on the list 
 
-Whenever a user clicks on the search icon (regardless of if its standalone or not) a search bar should drop down and allow the user to type in location information.
 
-<img src="images/T13 Sprint2 UI Updates.png"
-     alt="T13 Sprint2 UI Updates.png"
-     style="float: left; margin-right: 10px;" />
+![findUIChanges](images/Sprint2UIUpdatesFind.png "Find UI Changes")
 
-### Client Components
 
-This diagram shows the changes with the icon seperate from the existing dropdown.
+### Change Server Feature UI Wireframe
+- Editing current footer
+  - Extend footer size slightly so that Conected to teamname text and localhost text is stackable
+- With new open space on rightside implement drop-up to change servers
+- Add modal telling the user the switched servers
+  - Modal should list what is and what isn't available
 
-### Server Classes
+
+![interoperabilityUIChanges](images/Sprint2ChangeServersUI.png "Interoperability UI Changes")
+
+## Client Components
+
+In this sprint we will complete the following Epics: Find Places and Interoperability.
+- Find Places Epic: 
+  - Search icon will be added to dropdown in itenaray.js
+    - New Search Component will be needed.
+      - Search component has two children:
+        - SearchInput.js:
+          - Responsible for holding input components
+        - SearchResults.js:
+          - Responsible for showing list of responses based on the SearchInput
+- Interoperability Epic: 
+  - Changes how Footer.js and ServerSettings.js operate.
+  - ServerSettings.js will now instead show a dropdown of avaliable servers to select from.
+    - If a user selects a different server, a Model will pop up.
+      - Modal contents will show list of default features avaliable and compare to those that are avalible to the user after selecting new server.
+    - ModalFeatures.js is a child to Backdrop.js
+
+![clientCompS2](images/ClientComponentDiagramSP2.png "Client Component Diagram Sprint2")
+
+## Server Classes
+
+In order to support the search feature the *find* protocol will be implemented on the server. This will entail adding a new *FindRequest* class to provide responses to *find* requests from the client as shown in the diagram below. 
+
+![class diagram](images/ServerClassesSprint2.png)
 
 # Sprint 3
 

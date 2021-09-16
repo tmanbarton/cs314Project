@@ -11,6 +11,8 @@
 * The Increment release for `v2.x` created as a GitHub Release and deployed on black-bottle under SPRINT.
 * The design document (`design.md`) is updated.
 * The sprint document (`sprint.md`) is updated with scrums, completed metrics, review, and retrospective.
+* The Find places epic is complete, along with each of its related tasks
+* The interoperability epic is complete, along with each of its related tasks.
 
 ## Policies
 
@@ -41,8 +43,8 @@
 | Statistic | # Planned | # Completed |
 | --- | ---: | ---: |
 | Epics | *2* | *count* |
-| Tasks |  *count*   | *count* | 
-| Story Points |  *sum*  | *sum* | 
+| Tasks |  *10*  | *count* | 
+| Story Points |  *31*  | *sum* | 
 
 
 ## Scrums
