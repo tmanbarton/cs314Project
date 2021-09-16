@@ -154,20 +154,34 @@ Only minor changes to text constants are required.
 
 # Sprint 2
 
-### User Interface
+## User Interface
 
-In this sprint, we will focus on adding a search feature.
-There are two primary parts:
+In this sprint, we will focus on adding a search feature and a change servers feature.
 
-- deciding on using either a seperate search icon
-  - or extending the existing menu
+### Search ('find') Feature UI Wireframe
+
+- extending existing menu
+  - Might take away menu and replace with menu icons (depending on how many) for accessibility purposes later but as of now it will be faster to implement it as is
 - adding a searchbar after the search icon is click/pressed
+  - Should dynamically pull items as the User types
+    - These items should be auto added onclick and the search should requery to update the list to replace the newly added item
+  - Shouldn't include places already on the list 
 
-Whenever a user clicks on the search icon (regardless of if its standalone or not) a search bar should drop down and allow the user to type in location information.
 
-![uiUpdatesS2](images/Sprint2UIUpdates.png "Sprint2 UI Updates")
+![findUIChanges](images/Sprint2UIUpdatesFind.png "Find UI Changes")
 
-### Client Components
+
+### Change Server Feature UI Wireframe
+- Editing current footer
+  - Extend footer size slightly so that Conected to teamname text and localhost text is stackable
+- With new open space on rightside implement drop-up to change servers
+- Add modal telling the user the switched servers
+  - Modal should list what is and what isn't available
+
+
+![interoperabilityUIChanges](images/Sprint2ChangeServersUI.png "Interoperability UI Changes")
+
+## Client Components
 
 In this sprint we will complete the following Epics: Find Places and Interoperability.
 - Find Places Epic: 
@@ -187,7 +201,7 @@ In this sprint we will complete the following Epics: Find Places and Interoperab
 
 ![clientCompS2](images/ClientComponentDiagramSP2.png "Client Component Diagram Sprint2")
 
-### Server Classes
+## Server Classes
 
 In order to support the search feature the *find* protocol will be implemented on the server. This will entail adding a new *FindRequest* class to provide responses to *find* requests from the client as shown in the diagram below. 
 
