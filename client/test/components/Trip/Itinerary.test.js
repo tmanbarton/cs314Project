@@ -1,25 +1,30 @@
-import '../../jestConfig/enzyme.config.js';
-
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import user from '@testing-library/user-event';
 import { beforeEach, describe, expect, it } from '@jest/globals';
-import Itinerary from '../../../src/components/Trip/Itinerary/Itinerary.js';
 import { MOCK_PLACES } from "../../sharedMocks";
+import Itinerary from '../../../src/components/Trip/Itinerary/Itinerary.js';
 
 describe('Itinerary', () => {
-    let places;
-
     beforeEach(() => {
-        places = MOCK_PLACES;
+        render(<Itinerary places={MOCK_PLACES} placeActions={{append: jest.fn()}} />);
     });
 
     it('renders a cell with given place expected', () => {
-        const { getByRole } = render(<Itinerary places={places} />);
-        expect(getByRole('cell', { name: /40.0/i }).textContent).toContain('40.00, 50.00');
+        expect(screen.getByRole('cell', { name: /40.0/i }).textContent)
+            .toContain('40.00, 50.00');
     });
 
     it('renders the name attribute', () => {
-        const { getByRole } = render(<Itinerary places={places} />);
-        getByRole('cell', { name: /Place A/i });
+        screen.getByRole('cell', { name: /Place A/i });
+    });
+
+    it('toggles row dropdown when clicked', () => {
+        const dropdown = screen.getByTestId('row-toggle-0');
+        expect(dropdown.getAttribute('aria-expanded')).toEqual('false');
+
+        user.click(dropdown);
+        expect(dropdown.getAttribute('aria-expanded')).toEqual('true');
     });
 });

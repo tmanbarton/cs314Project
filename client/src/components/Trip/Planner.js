@@ -5,7 +5,7 @@ import Itinerary from './Itinerary/Itinerary';
 import { usePlaces } from '../../hooks/usePlaces';
 
 export default function Planner() {
-    const [places, selectedIndex, placeActions] = usePlaces();
+    const {places, selectedIndex, placeActions} = usePlaces();
 
     return (
         <Container>
