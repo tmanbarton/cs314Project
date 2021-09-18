@@ -2,10 +2,10 @@
 
 umask 077;
 
-if [[ -z "$S_PORT" ]]; then 
-  export S_PORT=8000; 
+if [[ -z "$S_PORT" ]]; then
+  export S_PORT=8000;
 fi
-if [[ -z "$C_PORT" ]]; then 
+if [[ -z "$C_PORT" ]]; then
   export C_PORT=3000;
 fi
 
@@ -40,7 +40,18 @@ function get_repo_root_dir {
   done;
 
   export REPO_ROOT=$dir;
+}
 
+function get_nfs_mounted {
+  OS=$(uname);
+  if [[ "$OS" == "Darwin" ]]; then
+    return;
+  fi
+
+  file_system="$(stat -f -L -c %T ${REPO_ROOT})";
+  if [[ "$file_system" == "nfs" ]]; then
+    export NFS_MOUNTED=1;
+  fi
 }
 
 function get_default_prefix {
@@ -52,7 +63,7 @@ function get_default_prefix {
 }
 
 get_repo_root_dir $0;
-NFS_MOUNTED=`if [[ "$(stat -f -L -c %T ${REPO_ROOT})" == "nfs" ]]; then echo 1; fi;`
+get_nfs_mounted;
 get_default_prefix;
 
 function install_client_dependencies {
@@ -174,8 +185,11 @@ fi;
 
 echo "Building and Starting the Application in $([[ "$CS314_ENV" == "dev" ]] && echo 'DEVELOPMENT' || echo 'PRODUCTION' ) Mode."
 
+# Remove target to avoid huge Maven shade warnings
+rm -rf ${BUILD_DIRECTORY_PREFIX}/target
+
 if [[ -n "${NFS_MOUNTED}" ]]; then
-  mkdir -p ${BUILD_DIRECTORY_PREFIX}/target 
+  mkdir -p ${BUILD_DIRECTORY_PREFIX}/target
   if [[ ! -L "${REPO_ROOT}/target" && -d "${REPO_ROOT}/target" ]]; then
     echo "Cleaning NFS mounted target"
     rm -rf ${REPO_ROOT}/target
@@ -200,7 +214,7 @@ run_client_tests
 
 if [[ "$CS314_ENV" == "dev" ]]; then
   build_server
-  run_server_and_hotloader 
+  run_server_and_hotloader
 else
   bundle_client
   build_server
