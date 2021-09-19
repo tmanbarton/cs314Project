@@ -3,7 +3,7 @@ package com.tco.requests;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FindRequest extends Requests{
+public class FindRequest extends Request{
     private String match;
     private int limit = 10;
     private final transient Logger log = LoggerFactory.getLogger(FindRequest.class);
@@ -19,18 +19,18 @@ public class FindRequest extends Requests{
 
     //getters setters for match
 
-    get("/find", (req, res)-> {
-        //Evaluate req to see what params passed through
-        this.match = req.params("match");
+    // get("/find", (req, res)-> {
+    //     //Evaluate req to see what params passed through
+    //     this.match = req.params("match");
 
-        return DBQuery.findByString(this.match, this.limit);
-    });
+    //     return DBQuery.findByString(this.match, this.limit);
+    // });
 
-    public getMatch() {
+    public String getMatch() {
         return this.match;
     }
 
-    public setMatch(String match) {
+    public void setMatch(String match) {
         this.match = match;
     }
 
