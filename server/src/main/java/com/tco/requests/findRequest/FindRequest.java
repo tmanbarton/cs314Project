@@ -3,7 +3,7 @@ package com.tco.requests;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FindRequest extends Requests{
+public class FindRequest extends Request{
     private String match;
     private int limit = 10;
     private final transient Logger log = LoggerFactory.getLogger(FindRequest.class);
