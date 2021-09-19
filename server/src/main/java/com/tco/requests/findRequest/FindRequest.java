@@ -19,18 +19,18 @@ public class FindRequest extends Requests{
 
     //getters setters for match
 
-    get("/find", (req, res)-> {
-        //Evaluate req to see what params passed through
-        this.match = req.params("match");
+    // get("/find", (req, res)-> {
+    //     //Evaluate req to see what params passed through
+    //     this.match = req.params("match");
 
-        return DBQuery.findByString(this.match, this.limit);
-    });
+    //     return DBQuery.findByString(this.match, this.limit);
+    // });
 
-    public getMatch() {
+    public String getMatch() {
         return this.match;
     }
 
-    public setMatch(String match) {
+    public void setMatch(String match) {
         this.match = match;
     }
 
