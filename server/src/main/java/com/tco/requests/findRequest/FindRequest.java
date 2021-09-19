@@ -26,6 +26,12 @@ public class FindRequest extends Requests{
         return DBQuery.findByString(this.match, this.limit);
     });
 
+    public getMatch() {
+        return this.match;
+    }
 
+    public setMatch(String match) {
+        this.match = match;
+    }
 
 }
