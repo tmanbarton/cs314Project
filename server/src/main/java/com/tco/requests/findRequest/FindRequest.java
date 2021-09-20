@@ -1,11 +1,14 @@
 package com.tco.requests;
 
+import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class FindRequest extends Request{
     private String match;
-    private int limit = 10;
+    private int limit;
+    private ArrayList<Object> places;
+    private int found;
     private final transient Logger log = LoggerFactory.getLogger(FindRequest.class);
 
     public FindRequest(){
@@ -14,17 +17,12 @@ public class FindRequest extends Request{
 
     @Override
     public void buildResponse(){
-
+        // DBQuery db = new DBQuery(match, limit);
+        places = new ArrayList<>();
+        // places = db.findByString();
+        // this.found = db.found;
+        log.trace("buildResponse -> {}", this);
     }
-
-    //getters setters for match
-
-    // get("/find", (req, res)-> {
-    //     //Evaluate req to see what params passed through
-    //     this.match = req.params("match");
-
-    //     return DBQuery.findByString(this.match, this.limit);
-    // });
 
     public String getMatch() {
         return this.match;
