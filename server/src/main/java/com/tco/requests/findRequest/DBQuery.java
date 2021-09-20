@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 public class DBQuery {
     
-    public List<Object> findByString(String match, int limit){
+    public ArrayList<Object> findByString(String match, int limit){
         //logic here
         return null;
     }
