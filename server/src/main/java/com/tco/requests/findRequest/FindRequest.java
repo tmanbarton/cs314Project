@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 public class FindRequest extends Request{
     private String match;
     private int limit;
-    private ArrayList<Object> places;
+    private Places places;
     private int found;
     private final transient Logger log = LoggerFactory.getLogger(FindRequest.class);
 
@@ -18,7 +18,7 @@ public class FindRequest extends Request{
     @Override
     public void buildResponse() {
         // DBQuery db = new DBQuery(match, limit);
-        places = new ArrayList<>();
+        places = new ArrayList<Place>();
         // places = db.findByString();
         // this.found = db.found;
         log.trace("buildResponse -> {}", this);
@@ -44,7 +44,7 @@ public class FindRequest extends Request{
         return this.found;
     }
 
-    public ArrayList<Object> getPlaces() {
+    public Places getPlaces() {
         return this.places;
     }
 
