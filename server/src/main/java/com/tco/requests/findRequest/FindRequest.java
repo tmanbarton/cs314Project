@@ -20,7 +20,7 @@ public class FindRequest extends Request{
         // DBQuery db = new DBQuery(match, limit);
         places = new Places();
         // places = db.findByString();
-        // this.found = db.found;
+        // this.found = db.getFound();
         log.trace("buildResponse -> {}", this);
     }
 
