@@ -11,9 +11,10 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 
 public class DBQuery {
+    private final transient Logger log = LoggerFactory.getLogger(DBQuery.class);
     private String match;
     private int limit;
-    public int found;
+    private int found;
 
     public DBQuery(String match,int limit){
         this.match = match;
@@ -33,6 +34,9 @@ public class DBQuery {
     public String getMatch() {
         return this.match;
     }
+    public void setFound(int found){
+        this.found = found;
+    }
 
     
     public ArrayList<Object> findByString(){
@@ -43,9 +47,20 @@ public class DBQuery {
             Object places = searchDB.query(sql, dbCredential);
             listOfPlaces.add(places);
         } catch (Exception e) {
-            System.err.println("Exception: " + e.getMessage());
+            log.error("Exception: ", e);
         }
         return listOfPlaces;
+    }
+    public int getFound(){
+        int count = 0;
+        try {
+            Credential dbCredential = new Credential();
+            String sql = Select.count(match);
+            count = searchDB.countQuery(sql, dbCredential);
+        } catch (Exception e) {
+            log.error("Exception: ", e);
+        }
+        return count;
     }
 
     static class Credential {
@@ -74,6 +89,14 @@ public class DBQuery {
             + " LIMIT " + Integer.toString(limit)
             + ";";
         }
+        static String count(String column){
+            return "SELECT " 
+            + " count(*) " 
+            + " FROM world " 
+            + " WHERE name "
+            + " LIKE '%" + column + "%' "
+            + ";";
+        }
     }
 
     static class searchDB {
@@ -88,6 +111,17 @@ public class DBQuery {
                 throw e;
             }
         }
+
+        static int countQuery(String sql, Credential db) throws Exception {
+            try (
+                Connection conn = DriverManager.getConnection(db.url(), db.USER, db.PASSWORD);
+                Statement query = conn.createStatement();
+                ResultSet results = query.executeQuery(sql);
+            ) { return results.getInt("count(*)");
+            } catch (Exception e) {
+                throw e;
+            }
+        }
     }
 
     // Converts Queried Results into an object that is filled with 'Place' objects
@@ -97,6 +131,5 @@ public class DBQuery {
         Object t = new Object();
         return t;
     }
-
 
 }
