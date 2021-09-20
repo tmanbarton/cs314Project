@@ -36,4 +36,9 @@ public class FindRequest extends Request{
 
     public void setLimit(int limit) { this.limit = limit; }
 
+    public int getFound() { return this.found; }
+
+    public void setFound(int limit) { this.found = found; }
+
+
 }
