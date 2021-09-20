@@ -43,4 +43,9 @@ public class FindRequest extends Request{
     public int getFound() {
         return this.found;
     }
+
+    public ArrayList<Object> getPlaces() {
+        return this.places;
+    }
+
 }
