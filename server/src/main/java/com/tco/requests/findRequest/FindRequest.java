@@ -34,6 +34,6 @@ public class FindRequest extends Request{
 
     public int getLimit() { return this.limit; }
 
-    public void setLimit(String limit) { this.limit = limit; }
+    public void setLimit(int limit) { this.limit = limit; }
 
 }
