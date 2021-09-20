@@ -28,6 +28,7 @@ public class TestConfigRequest {
     @DisplayName("Features includes \"config\"")
     public void testFeatures(){
         assertTrue(conf.validFeature("config"));
+        assertTrue(conf.validFeature("find"));
     }
 
     @Test
