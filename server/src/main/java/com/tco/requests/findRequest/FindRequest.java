@@ -32,4 +32,8 @@ public class FindRequest extends Request{
         this.match = match;
     }
 
+    public int getLimit() { return this.limit; }
+
+    public void setLimit(String limit) { this.limit = limit; }
+
 }
