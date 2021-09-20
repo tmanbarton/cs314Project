@@ -11,12 +11,12 @@ public class FindRequest extends Request{
     private int found;
     private final transient Logger log = LoggerFactory.getLogger(FindRequest.class);
 
-    public FindRequest(){
+    public FindRequest() {
         this.requestType = "find";
     }
 
     @Override
-    public void buildResponse(){
+    public void buildResponse() {
         // DBQuery db = new DBQuery(match, limit);
         places = new ArrayList<>();
         // places = db.findByString();
@@ -32,8 +32,15 @@ public class FindRequest extends Request{
         this.match = match;
     }
 
-    public int getLimit() { return this.limit; }
+    public int getLimit() {
+        return this.limit;
+    }
 
-    public void setLimit(int limit) { this.limit = limit; }
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
 
+    public int getFound() {
+        return this.found;
+    }
 }
