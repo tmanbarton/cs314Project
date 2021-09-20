@@ -18,6 +18,34 @@ public class TestFindRequest {
         find = new FindRequest();
         find.setMatch(match);
         find.setLimit(limit);
+        find.buildResponse();
+    }
+
+    @Test
+    @DisplayName("Request type is \"find\"")
+    public void testType(){
+        String type = find.getRequestType();
+        assertEquals("find", type);
+    }
+
+    @Test
+    @DisplayName("Match is correct")
+    public void testMatch(){
+        String match = find.getMatch();
+        assertEquals(this.match, match);
+    }
+
+    @Test
+    @DisplayName("Limit is correct")
+    public void testLimit(){
+        int limit = find.getLimit();
+        assertEquals(this.limit, limit);
+    }
+
+    @Test
+    @DisplayName("Places is correct")
+    public void testPlaces(){
+        
     }
     
 }
