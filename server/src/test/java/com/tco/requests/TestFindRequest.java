@@ -9,6 +9,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestFindRequest {
 
+    private FindRequest find;
+    private String match = "airport";
+    private int limit = 10;
 
+    @BeforeEach
+    public void createConfigurationForTestCases(){
+        find = new FindRequest();
+        find.setMatch(match);
+        find.setLimit(limit);
+    }
     
 }
