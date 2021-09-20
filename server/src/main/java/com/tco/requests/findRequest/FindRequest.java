@@ -18,7 +18,7 @@ public class FindRequest extends Request{
     @Override
     public void buildResponse() {
         // DBQuery db = new DBQuery(match, limit);
-        places = new ArrayList<Place>();
+        places = new Places();
         // places = db.findByString();
         // this.found = db.found;
         log.trace("buildResponse -> {}", this);
