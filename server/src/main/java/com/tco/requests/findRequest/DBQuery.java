@@ -63,12 +63,16 @@ public class DBQuery {
             }
         }
     }
-    // SQL Statement builder class
+
     static class Select {
-        // Driving Method
         static String match(String column, int limit) {
-            // TODO
-            return " ";
+            return "SELECT " 
+            + " DISTINCT * " 
+            + " FROM world " 
+            + " WHERE name "
+            + " LIKE '%" + column + "%' "
+            + " LIMIT " + Integer.toString(limit)
+            + ";";
         }
     }
 
