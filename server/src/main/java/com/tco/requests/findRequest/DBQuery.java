@@ -21,6 +21,7 @@ public class DBQuery {
     public void setLimit(int limit){
         this.limit = limit;
     }
+    
     public int getLimit(){
         return this.limit;
     }
