@@ -8,8 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestFindRequest {
-
+    
     private FindRequest find;
+    private DBQuery dbq;
+    //Change these values to change the testing input
     private String match = "airport";
     private int limit = 10;
 
@@ -18,6 +20,7 @@ public class TestFindRequest {
         find = new FindRequest();
         find.setMatch(match);
         find.setLimit(limit);
+        dbq = new DBQuery(match, limit);
         find.buildResponse();
     }
 
@@ -45,7 +48,17 @@ public class TestFindRequest {
     @Test
     @DisplayName("Places is correct")
     public void testPlaces(){
-        
+        Places findPlaces = find.getPlaces();
+        Places dbqPlaces = dbq.findByString();
+        assertEquals(dbqPlaces, findPlaces);
+    }
+
+    @Test
+    @DisplayName("Found is correct")
+    public void testFound(){
+        int findFound = find.getFound();
+        int dbqFound = dbq.getFound();
+        assertEquals(dbqFound, findFound);
     }
     
 }
