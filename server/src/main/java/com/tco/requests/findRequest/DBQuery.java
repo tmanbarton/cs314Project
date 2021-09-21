@@ -133,4 +133,5 @@ public class DBQuery {
             places.add(place);
         }
         return places;
+    }
 }
