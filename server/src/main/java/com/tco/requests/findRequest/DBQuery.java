@@ -121,7 +121,6 @@ public class DBQuery {
     // Related to 'select' class
     static Places convertQueryResultsToPlaces(ResultSet results) throws Exception {
         Places places = new Places();
-        int count = 0;
         while (results.next()) {
             Place place = new Place();
             place.put("name", results.getString("name"));
