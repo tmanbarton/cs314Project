@@ -34,4 +34,8 @@ public class ConfigRequest extends Request {
     public boolean validFeature(String feature){
         return features.contains(feature);
     }
+
+    public ArrayList<String> getFeatures(){
+        return features;
+    }
 }
