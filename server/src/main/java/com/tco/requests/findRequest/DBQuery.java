@@ -129,6 +129,7 @@ public class DBQuery {
             place.put("name", results.getString("name"));
             place.put("longitude", results.getString("longitude"));
             place.put("latitude", results.getString("latitude"));
+            place.put("altitude", results.getString("altitude"));
             places.add(place);
         }
         return places;
