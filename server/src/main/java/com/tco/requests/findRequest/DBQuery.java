@@ -28,6 +28,7 @@ public class DBQuery {
     public void setMatch(){
         this.match = match;
     }
+
     public String getMatch() {
         return this.match;
     }
