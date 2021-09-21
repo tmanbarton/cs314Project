@@ -54,13 +54,6 @@ public class TestFindRequest {
   }
 
   @Test
-  @DisplayName("Places size is correct")
-  public void testPlacesSize(){
-    int size = find.getPlaces().size();
-    assertEquals(size, limit);    
-  }
-
-  @Test
   @DisplayName("Found is correct")
   public void testFound() {
     int findFound = find.getFound();
