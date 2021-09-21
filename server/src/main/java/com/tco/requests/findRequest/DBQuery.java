@@ -14,7 +14,6 @@ public class DBQuery {
     private final transient Logger log = LoggerFactory.getLogger(DBQuery.class);
     private String match;
     private int limit;
-    private int found;
 
     public DBQuery(String match,int limit){
         this.match = match;
@@ -34,22 +33,17 @@ public class DBQuery {
     public String getMatch() {
         return this.match;
     }
-    public void setFound(int found){
-        this.found = found;
-    }
-
     
-    public ArrayList<Object> findByString(){
-        ArrayList<Object> listOfPlaces = new ArrayList(limit);
+    public Places findByString(){
+        Places places = new Places();
         try {
             Credential dbCredential = new Credential();
             String sql = Select.match(match, limit);
-            Object places = searchDB.query(sql, dbCredential);
-            listOfPlaces.add(places);
+            places = searchDB.query(sql, dbCredential);
         } catch (Exception e) {
             log.error("Exception: ", e);
         }
-        return listOfPlaces;
+        return places;
     }
     public int getFound(){
         int count = 0;
@@ -100,7 +94,7 @@ public class DBQuery {
     }
 
     static class searchDB {
-        static Object query(String sql, Credential db) throws Exception {
+        static Places query(String sql, Credential db) throws Exception {
             try (
                 Connection conn = DriverManager.getConnection(db.url(), db.USER, db.PASSWORD);
                 Statement query = conn.createStatement();
@@ -119,16 +113,16 @@ public class DBQuery {
                 ResultSet results = query.executeQuery(sql);
             ) { return results.getInt("count(*)");
             } catch (Exception e) {
-                throw e;
+                throw e; // bad practice
             }
         }
     }
 
     // Converts Queried Results into an object that is filled with 'Place' objects
     // Related to 'select' class
-    static Object convertQueryResultsToPlaces(ResultSet results) throws Exception {
+    static Places convertQueryResultsToPlaces(ResultSet results) throws Exception {
         //  TODO
-        Object t = new Object();
+        Places t = new Places();
         return t;
     }
 

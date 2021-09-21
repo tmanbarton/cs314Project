@@ -17,10 +17,10 @@ public class FindRequest extends Request{
 
     @Override
     public void buildResponse() {
-        // DBQuery db = new DBQuery(match, limit);
+        DBQuery db = new DBQuery(match, limit);
         places = new Places();
         // places = db.findByString();
-        // this.found = db.getFound();
+        this.found = db.getFound();
         log.trace("buildResponse -> {}", this);
     }
 
