@@ -52,6 +52,7 @@
 | Date | Tasks closed  | Tasks in progress | Impediments |
 | :--- | :--- | :--- | :--- |
 | *9/14/21* | *none* | *#80, #81* | Trying to split epics into tasks | 
+| *9/21/21* | *#86-167* | *#168,133* <br> Trying to get all surface level changes done for class 9/22/21 | Front end knowledge |
 
 
 ## Review
