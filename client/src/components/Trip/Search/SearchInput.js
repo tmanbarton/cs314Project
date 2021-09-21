@@ -13,7 +13,7 @@ async function sendFindRequest() {
 	if (findResponse) {
 		const places = findResponse["properties"].places;
 	} else {
-		showMessage(`Config request to ${serverUrl} failed. Check the log for more details.`, "error");
+		showMessage(`Find request to ${serverUrl} failed. Check the log for more details.`, "error");
 	}
 	return places;
 }
