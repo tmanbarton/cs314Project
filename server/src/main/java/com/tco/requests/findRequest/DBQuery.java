@@ -1,7 +1,5 @@
 package com.tco.requests;
 
-import java.util.ArrayList;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,6 +43,7 @@ public class DBQuery {
         }
         return places;
     }
+
     public int getFound(){
         int count = 0;
         try {
@@ -121,9 +120,14 @@ public class DBQuery {
     // Converts Queried Results into an object that is filled with 'Place' objects
     // Related to 'select' class
     static Places convertQueryResultsToPlaces(ResultSet results) throws Exception {
-        //  TODO
-        Places t = new Places();
-        return t;
-    }
-
+        Places places = new Places();
+        int count = 0;
+        while (results.next()) {
+            Place place = new Place();
+            place.put("name", results.getString("name"));
+            place.put("longitude", results.getString("longitude"));
+            place.put("latitude", results.getString("latitude"));
+            places.add(place);
+        }
+        return places;
 }
