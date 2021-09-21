@@ -1,5 +1,8 @@
 package com.tco.requests;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -10,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TestConfigRequest {
 
     private ConfigRequest conf;
+    private final ArrayList<String> ourFeatures = new ArrayList<String>(Arrays.asList("config", "find"));
 
     @BeforeEach
     public void createConfigurationForTestCases() {
@@ -27,8 +31,8 @@ public class TestConfigRequest {
     @Test
     @DisplayName("Features includes \"config\" + \"find\"")
     public void testFeatures(){
-        assertTrue(conf.validFeature("config"));
-        assertTrue(conf.validFeature("find"));
+        ArrayList<String> features = conf.getFeatures();
+        assertEquals(ourFeatures, features);
     }
 
     @Test
