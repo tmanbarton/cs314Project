@@ -1,7 +1,5 @@
 package com.tco.requests;
 
-import java.util.ArrayList;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,6 +21,7 @@ public class DBQuery {
     public void setLimit(int limit){
         this.limit = limit;
     }
+
     public int getLimit(){
         return this.limit;
     }
@@ -30,6 +29,7 @@ public class DBQuery {
     public void setMatch(){
         this.match = match;
     }
+
     public String getMatch() {
         return this.match;
     }
@@ -45,6 +45,7 @@ public class DBQuery {
         }
         return places;
     }
+
     public int getFound(){
         int count = 0;
         try {
@@ -83,6 +84,7 @@ public class DBQuery {
             + " LIMIT " + Integer.toString(limit)
             + ";";
         }
+
         static String count(String column){
             return "SELECT " 
             + " count(*) " 
@@ -121,9 +123,15 @@ public class DBQuery {
     // Converts Queried Results into an object that is filled with 'Place' objects
     // Related to 'select' class
     static Places convertQueryResultsToPlaces(ResultSet results) throws Exception {
-        //  TODO
-        Places t = new Places();
-        return t;
+        Places places = new Places();
+        while (results.next()) {
+            Place place = new Place();
+            place.put("name", results.getString("name"));
+            place.put("longitude", results.getString("longitude"));
+            place.put("latitude", results.getString("latitude"));
+            place.put("altitude", results.getString("altitude"));
+            places.add(place);
+        }
+        return places;
     }
-
 }
