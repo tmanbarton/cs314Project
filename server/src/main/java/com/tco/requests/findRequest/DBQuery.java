@@ -109,11 +109,15 @@ public class DBQuery {
         }
 
         static int countQuery(String sql, Credential db) throws Exception {
-            try (
+            int count = 0;
+            try {
                 Connection conn = DriverManager.getConnection(db.url(), db.USER, db.PASSWORD);
                 Statement query = conn.createStatement();
                 ResultSet results = query.executeQuery(sql);
-            ) { return results.getInt("count(*)");
+                while(results.next()){
+                    count = results.getInt("count(*)");
+                }
+                return count;
             } catch (Exception e) {
                 throw e; // bad practice
             }
