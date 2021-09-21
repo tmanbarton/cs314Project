@@ -1,57 +1,55 @@
-import '../../jestConfig/enzyme.config.js';
-
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import user from '@testing-library/user-event';
 import { beforeEach, describe, it, jest } from '@jest/globals';
 import { VALID_CONFIG_RESPONSE } from '../../sharedMocks';
 import Footer from '../../../src/components/Margins/Footer';
 
 describe('Footer', () => {
     const processServerConfigSuccess = jest.fn();
-    let footerRender;
     const serverSettings = {
         serverConfig: { 'requestType': 'config', 'serverName': 't99' },
         serverUrl: 'http://localhost:8000'
     };
 
+    let serverSettingsLink;
+
     beforeEach(() => {
         fetch.resetMocks();
         fetch.mockResponse(VALID_CONFIG_RESPONSE);
-        footerRender = render(<Footer
+
+        render(<Footer
             serverSettings={serverSettings}
             processServerConfigSuccess={processServerConfigSuccess}
         />);
+
+        serverSettingsLink = screen.getByText(`(${serverSettings.serverUrl}).`);
     });
 
     it('opens ServerSettings on link pressed and closes on cancel button', async () => {
-        const { getByText, queryByDisplayValue, getByRole } = footerRender;
+        user.click(serverSettingsLink);
 
-        fireEvent.click(getByText(`(${serverSettings.serverUrl}).`));
-
-        await waitFor(() => {
-            expect(queryByDisplayValue(serverSettings.serverUrl)).toBeTruthy();
-        });
-
-        fireEvent.click(getByRole('button', { name: /cancel/i }));
+        const cancelButton = screen.getByRole('button', { name: /cancel/i });
+        user.click(cancelButton);
 
         await waitFor(() => {
-            expect(queryByDisplayValue(serverSettings.serverUrl)).toBeFalsy();
+            expect(screen.queryByDisplayValue(serverSettings.serverUrl)).toBe(null);
         });
     });
 
     it('opens ServerSettings on link pressed and saves on close button', async () => {
-        const { getByText, queryByDisplayValue, getByRole } = footerRender;
+        user.click(serverSettingsLink);
 
-        fireEvent.click(getByText(`(${serverSettings.serverUrl}).`));
-
+        const saveButton = screen.getByRole('button', { name: /save/i });
         await waitFor(() => {
-            expect(queryByDisplayValue(serverSettings.serverUrl)).toBeTruthy();
+            expect(saveButton.classList.contains("disabled")).toBe(false);
         });
-
-        fireEvent.click(getByRole('button', { name: /save/i }));
+        user.click(saveButton);
 
         await waitFor(() => {
-            expect(queryByDisplayValue(serverSettings.serverUrl)).toBeFalsy();
+            const modalInput = screen.queryByDisplayValue(serverSettings.serverUrl);
+            expect(modalInput).not.toBeInTheDocument();
         });
     });
 });

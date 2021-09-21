@@ -1,9 +1,10 @@
-
 global.fetch = require('jest-fetch-mock');
 
 // Subdue Console Messages in Jest Output (Console.error WILL get through for Testing!)
 
-console.log = jest.fn();
+// Allow 'log' for debugging tests: screen.debug()
+//console.log = jest.fn();
+
 console.info = jest.fn();
 console.debug = jest.fn();
 console.trace = jest.fn();
@@ -22,4 +23,3 @@ global.document.createElementNS = function(namespaceURI, qualifiedName) {
     }
     return createElementNSOrig.apply(this, arguments);
 }
-

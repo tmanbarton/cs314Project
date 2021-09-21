@@ -16,7 +16,7 @@ export function usePlaces() {
         selectIndex: (index) => selectIndex(index, context)
     };
 
-    return [places, selectedIndex, placeActions];
+    return {places, selectedIndex, placeActions};
 }
 
 async function append(place, context) {

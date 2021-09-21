@@ -1,8 +1,7 @@
-import '../jestConfig/enzyme.config.js';
-
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { beforeEach, describe, it } from '@jest/globals';
+import { LOG } from '../../src/utils/constants';
 import App from '../../src/components/App';
 
 describe('App', () => {
@@ -10,11 +9,13 @@ describe('App', () => {
         fetch.resetMocks();
     });
 
-    it('bad connection shows snackbar', async () => {
-        fetch.mockReject(() => "API is down (expected).");
+    it('shows error snackbar if no server config', async () => {
+        jest.spyOn(LOG, 'error').mockImplementation(() => {});
+        fetch.mockReject(() => Promise.reject("API is down (expected)."));
 
-        const { findByText } = render(<App />);
-        await findByText(/failed/i);
+        render(<App />);
+
+        await screen.findByText(/failed/i);
     });
 });
 
