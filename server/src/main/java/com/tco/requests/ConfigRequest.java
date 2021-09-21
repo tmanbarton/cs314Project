@@ -16,6 +16,7 @@ public class ConfigRequest extends Request {
         serverName = "t13 Penguinz";
         features = new ArrayList<>();
         features.add("config");
+        features.add("find");
         log.trace("buildResponse -> {}", this);
     }
 

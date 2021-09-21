@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonGroup, DropdownItem, DropdownMenu, DropdownToggle, Input, UncontrolledDropdown } from 'reactstrap';
+import { ButtonGroup, DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown } from 'reactstrap';
 import { BiDotsVerticalRounded } from 'react-icons/bi';
 import { FaHome, FaTrash, FaTrashAlt } from 'react-icons/fa';
 import { DEFAULT_STARTING_PLACE } from '../../../utils/constants';
@@ -40,10 +40,4 @@ function ActionsDropdown(props) {
             </DropdownMenu>
         </UncontrolledDropdown>
     );
-}
-
-function ShowSearchBar(props) {
-    return (
-        <Input/>
-    )
 }

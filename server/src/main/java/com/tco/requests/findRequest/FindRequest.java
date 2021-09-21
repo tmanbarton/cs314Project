@@ -1,31 +1,51 @@
 package com.tco.requests;
 
+import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FindRequest extends Requests{
+public class FindRequest extends Request{
     private String match;
-    private int limit = 10;
+    private int limit;
+    private Places places;
+    private int found;
     private final transient Logger log = LoggerFactory.getLogger(FindRequest.class);
 
-    public FindRequest(){
+    public FindRequest() {
         this.requestType = "find";
     }
 
     @Override
-    public void buildResponse(){
-
+    public void buildResponse() {
+        DBQuery db = new DBQuery(match, limit);
+        places = new Places();
+        places = db.findByString();
+        this.found = db.getFound();
+        log.trace("buildResponse -> {}", this);
     }
 
-    //getters setters for match
+    public String getMatch() {
+        return this.match;
+    }
 
-    get("/find", (req, res)-> {
-        //Evaluate req to see what params passed through
-        this.match = req.params("match");
+    public void setMatch(String match) {
+        this.match = match;
+    }
 
-        return DBQuery.findByString(this.match, this.limit);
-    });
+    public int getLimit() {
+        return this.limit;
+    }
 
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
 
+    public int getFound() {
+        return this.found;
+    }
+
+    public Places getPlaces() {
+        return this.places;
+    }
 
 }
