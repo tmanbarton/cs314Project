@@ -1,5 +1,6 @@
 import React from 'react';
-import { Input, Table, Collapse, Container } from 'reactstrap';
+import { Table, ButtonGroup, Container, Row, Col } from 'reactstrap';
+import { PlaceActionsDropdown } from './actions.js';
 import { latLngToText } from '../../../utils/transformers';
 import { FaHome, FaTrashAlt, FaSearch } from 'react-icons/fa';
 import { DEFAULT_STARTING_PLACE } from '../../../utils/constants';
@@ -7,10 +8,14 @@ import { useToggle } from '../../../hooks/useToggle';
 
 export default function Itinerary(props) {
     return (
-        <Table responsive striped>
+        <Container>
             <Header placeActions={props.placeActions} />
-            <Body places={props.places} placeActions={props.placeActions} />
-        </Table>
+            <hr />
+            <Table responsive striped>
+                <Body places={props.places} placeActions={props.placeActions} />
+            </Table>
+        </Container>
+        
     );
 }
 
@@ -18,26 +23,21 @@ function Header(props) {
     const [showSearch, toggleSearch] = useToggle(false);
     
     return (
-        <thead>
-            <tr>
-                <th/>
-                <th>My Trip</th>
-                <th>
-                    <FaHome onClick={() => props.placeActions.append(DEFAULT_STARTING_PLACE)} data-testid='home-button'/>
-                </th>    
-                <th>
-                    <Search toggleSearch={toggleSearch}/>
-                    <Container>
-                        <Collapse isOpen={showSearch}>
-                            <Input />
-                        </Collapse>
-                    </Container>
-                </th>
-                <th>
-                    <FaTrashAlt onClick={() => props.placeActions.removeAll()} data-testid='delete-all-button'/>
-                </th>
-            </tr>
-        </thead>
+        <Row>
+            <Col>
+                <h4>My Trip</h4>
+            </Col>
+            <Col>
+                <div class="float-right"> 
+                    <FaHome size={24} onClick={() => props.placeActions.append(DEFAULT_STARTING_PLACE)} data-testid='home-button'></FaHome>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <FaSearch size={24} />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <FaTrashAlt size={24} onClick={() => props.placeActions.removeAll()} data-testid='delete-all-button'></FaTrashAlt>
+                </div>
+            </Col>
+        </Row>
+
     );
 }
 
