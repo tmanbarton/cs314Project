@@ -1,8 +1,8 @@
 import React from 'react';
 import { Table } from 'reactstrap';
-import { ItineraryActionsDropdown, PlaceActionsDropdown } from './actions.js';
+import { PlaceActionsDropdown } from './actions.js';
 import { latLngToText } from '../../../utils/transformers';
-import { FaHome, FaTrash, FaTrashAlt, FaSearch } from 'react-icons/fa';
+import { FaHome, FaTrashAlt, FaSearch } from 'react-icons/fa';
 import { DEFAULT_STARTING_PLACE } from '../../../utils/constants';
 
 export default function Itinerary(props) {
