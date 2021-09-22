@@ -1,9 +1,9 @@
 import React from 'react';
-import { Table } from 'reactstrap';
-// import { PlaceActionsDropdown } from './actions.js';
+import { Input, Table, Collapse, Container } from 'reactstrap';
 import { latLngToText } from '../../../utils/transformers';
 import { FaHome, FaTrashAlt, FaSearch } from 'react-icons/fa';
 import { DEFAULT_STARTING_PLACE } from '../../../utils/constants';
+import { useToggle } from '../../../hooks/useToggle';
 
 export default function Itinerary(props) {
     return (
@@ -15,22 +15,40 @@ export default function Itinerary(props) {
 }
 
 function Header(props) {
+    const [showSearch, toggleSearch] = useToggle(false);
+    
     return (
         <thead>
             <tr>
                 <th/>
                 <th>My Trip</th>
                 <th>
-                    <FaHome onClick={() => props.placeActions.append(DEFAULT_STARTING_PLACE)} data-testid='home-button'></FaHome>
+                    <FaHome onClick={() => props.placeActions.append(DEFAULT_STARTING_PLACE)} data-testid='home-button'/>
                 </th>    
                 <th>
-                    <FaSearch />
+                    <Search toggleSearch={toggleSearch}/>
+                    <Container>
+                        <Collapse isOpen={showSearch}>
+                            <Input />
+                        </Collapse>
+                    </Container>
                 </th>
                 <th>
-                    <FaTrashAlt onClick={() => props.placeActions.removeAll()} data-testid='delete-all-button'></FaTrashAlt>
+                    <FaTrashAlt onClick={() => props.placeActions.removeAll()} data-testid='delete-all-button'/>
                 </th>
             </tr>
+            <tr>
+                {/* <Input/> */}
+            </tr>
         </thead>
+    );
+}
+
+function Search(props) {
+    return (
+        <>
+            <FaSearch onClick={props.toggleSearch}/>
+        </>
     );
 }
 
