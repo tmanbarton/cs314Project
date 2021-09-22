@@ -12,6 +12,7 @@ export default function Planner() {
             <Section>
                 <Map places={places} selectedIndex={selectedIndex} placeActions={placeActions} />
             </Section>
+            <hr />
             <Section>
                 <Itinerary places={places} selectedIndex={selectedIndex} placeActions={placeActions} />
             </Section>
