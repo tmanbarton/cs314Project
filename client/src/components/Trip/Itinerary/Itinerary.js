@@ -2,6 +2,7 @@ import React from 'react';
 import { Table } from 'reactstrap';
 import { ItineraryActionsDropdown, PlaceActionsDropdown } from './actions.js';
 import { latLngToText } from '../../../utils/transformers';
+import { FaHome, FaTrash, FaTrashAlt, FaSearch } from 'react-icons/fa';
 
 export default function Itinerary(props) {
     return (
@@ -18,8 +19,7 @@ function Header(props) {
             <tr>
                 <th/>
                 <th>My Trip</th>
-                <th>
-                    <ItineraryActionsDropdown placeActions={props.placeActions} />
+                <th><FaHome />    <FaSearch />  <FaTrashAlt />
                 </th>
             </tr>
         </thead>
