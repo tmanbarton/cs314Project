@@ -37,9 +37,6 @@ function Header(props) {
                     <FaTrashAlt onClick={() => props.placeActions.removeAll()} data-testid='delete-all-button'/>
                 </th>
             </tr>
-            <tr>
-                {/* <Input/> */}
-            </tr>
         </thead>
     );
 }
