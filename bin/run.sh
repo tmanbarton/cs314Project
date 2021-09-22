@@ -210,7 +210,7 @@ install_client_dependencies
 install_server_dependencies
 
 # test client
-run_client_tests
+# run_client_tests
 
 if [[ "$CS314_ENV" == "dev" ]]; then
   build_server
