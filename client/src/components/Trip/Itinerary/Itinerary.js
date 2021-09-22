@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table } from 'reactstrap';
-import { PlaceActionsDropdown } from './actions.js';
+// import { PlaceActionsDropdown } from './actions.js';
 import { latLngToText } from '../../../utils/transformers';
 import { FaHome, FaTrashAlt, FaSearch } from 'react-icons/fa';
 import { DEFAULT_STARTING_PLACE } from '../../../utils/constants';
@@ -62,7 +62,7 @@ function TableRow(props) {
                 <small className="text-muted">{location}</small>
             </td>
             <td>
-                <PlaceActionsDropdown placeActions={props.placeActions} index={props.index} />
+                <FaTrashAlt onClick={() => props.placeActions.removeAtIndex(props.index)} data-testid={`delete-button-${props.index}`}/>
             </td>
         </tr>
     );
