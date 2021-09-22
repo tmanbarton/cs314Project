@@ -3,6 +3,7 @@ import { Table } from 'reactstrap';
 import { ItineraryActionsDropdown, PlaceActionsDropdown } from './actions.js';
 import { latLngToText } from '../../../utils/transformers';
 import { FaHome, FaTrash, FaTrashAlt, FaSearch } from 'react-icons/fa';
+import { DEFAULT_STARTING_PLACE } from '../../../utils/constants';
 
 export default function Itinerary(props) {
     return (
@@ -19,7 +20,14 @@ function Header(props) {
             <tr>
                 <th/>
                 <th>My Trip</th>
-                <th><FaHome />    <FaSearch />  <FaTrashAlt />
+                <th>
+                    <FaHome onClick={() => props.placeActions.append(DEFAULT_STARTING_PLACE)} data-testid='home-button'></FaHome>
+                </th>    
+                <th>
+                    <FaSearch />
+                </th>
+                <th>
+                    <FaTrashAlt onClick={() => props.placeActions.removeAll()} data-testid='delete-all-button'></FaTrashAlt>
                 </th>
             </tr>
         </thead>
