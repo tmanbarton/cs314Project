@@ -1,6 +1,5 @@
 import React from 'react';
 import { Table, ButtonGroup, Container, Row, Col } from 'reactstrap';
-import { PlaceActionsDropdown } from './actions.js';
 import { latLngToText } from '../../../utils/transformers';
 import { FaHome, FaTrashAlt, FaSearch } from 'react-icons/fa';
 import { DEFAULT_STARTING_PLACE } from '../../../utils/constants';
@@ -28,24 +27,16 @@ function Header(props) {
                 <h4>My Trip</h4>
             </Col>
             <Col>
-                <div className="float-right"> 
-                    <FaHome size={24} onClick={() => props.placeActions.append(DEFAULT_STARTING_PLACE)} data-testid='home-button'></FaHome>
+                <div class="float-right"> 
+                    <FaHome size={24} onClick={() => props.placeActions.append(DEFAULT_STARTING_PLACE)} data-testid='home-button'/>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <FaSearch size={24} />
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <FaTrashAlt size={24} onClick={() => props.placeActions.removeAll()} data-testid='delete-all-button'></FaTrashAlt>
+                    <FaTrashAlt size={24} onClick={() => props.placeActions.removeAll()} data-testid='delete-all-button'/>
                 </div>
             </Col>
         </Row>
 
-    );
-}
-
-function Search(props) {
-    return (
-        <>
-            <FaSearch onClick={props.toggleSearch}/>
-        </>
     );
 }
 
