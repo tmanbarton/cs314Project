@@ -43,7 +43,7 @@ function buildRequest(match) {
 async function sendFindRequest(request, method) {
 	const findResponse = await sendAPIRequest(request, serverUrl);
 	if (findResponse) {
-		method(findResponse["places"].places);
+		method(findResponse["places"]);
 	} else {
 		showMessage(
 			`Find request to ${serverUrl} failed. Check the log for more details.`,
