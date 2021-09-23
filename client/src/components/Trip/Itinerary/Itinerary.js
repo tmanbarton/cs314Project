@@ -24,9 +24,7 @@ export default function Itinerary(props) {
     );
 }
 
-function Header(props) {
-    const [showSearch, toggleSearch] = useToggle(false);
-    
+function Header(props) {    
     return (
         <Row>
             <Col>
@@ -36,18 +34,12 @@ function Header(props) {
                 <div className="float-right">
                     <FaHome size={24} onClick={() => props.placeActions.append(DEFAULT_STARTING_PLACE)} data-testid='home-button'/>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <FaSearch size={24} onClick={() => props.toggleSearch} />
+                    <FaSearch size={24} onClick={props.toggleSearch} />
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <FaTrashAlt size={24} onClick={() => props.placeActions.removeAll()} data-testid='delete-all-button'/>
                 </div>
             </Col>
         </Row>
-
-function Search(props) {
-    return (
-        <>
-            <FaSearch onClick={props.toggleSearch}/>
-        </>
     );
 }
 
@@ -79,7 +71,7 @@ function TableRow(props) {
                 <small className="text-muted">{location}</small>
             </td>
             <td>
-                <PlaceActionsDropdown placeActions={​​​​​props.placeActions}​​​​​ index={​​​​​props.index}​​​​​ />
+                <PlaceActionsDropdown placeActions={props.placeActions} index={props.index} />
             </td>
         </tr>
     );
