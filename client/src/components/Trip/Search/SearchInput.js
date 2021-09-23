@@ -40,10 +40,10 @@ function buildRequest(match) {
 	};
 }
 
-async function sendFindRequest(request, method) {
+async function sendFindRequest(request, setPlaces) {
 	const findResponse = await sendAPIRequest(request, serverUrl);
 	if (findResponse) {
-		method(findResponse["places"]);
+		setPlaces(findResponse["places"]);
 	} else {
 		showMessage(
 			`Find request to ${serverUrl} failed. Check the log for more details.`,
