@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, ButtonGroup, Container, Row, Col, Collapse } from 'reactstrap';
+import { Table, Container, Row, Col, Collapse } from 'reactstrap';
 import { latLngToText } from '../../../utils/transformers';
 import { FaHome, FaTrashAlt, FaSearch } from 'react-icons/fa';
 import { DEFAULT_STARTING_PLACE } from '../../../utils/constants';
@@ -25,6 +25,8 @@ export default function Itinerary(props) {
 }
 
 function Header(props) {
+    const [showSearch, toggleSearch] = useToggle(false);
+    
     return (
         <Row>
             <Col>
@@ -41,6 +43,11 @@ function Header(props) {
             </Col>
         </Row>
 
+function Search(props) {
+    return (
+        <>
+            <FaSearch onClick={props.toggleSearch}/>
+        </>
     );
 }
 
