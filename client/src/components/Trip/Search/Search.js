@@ -2,12 +2,10 @@ import React from 'react'
 import { Collapse, Container } from 'reactstrap';
 import SearchInput from './SearchInput';
 
-export default function Search(props) {
+export default function Search() {
     return (
         <Container>
-            <Collapse isOpen={props.showSearch}>
-                <SearchInput />
-            </Collapse>
+            <SearchInput />
         </Container>
     );
 }
