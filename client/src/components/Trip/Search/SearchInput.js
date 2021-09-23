@@ -1,49 +1,49 @@
-import { React, useState } from "react";
-import { Input } from "reactstrap";
+import  React, { useState } from "react";
+import { Input, Container } from "reactstrap";
 import { sendAPIRequest, getOriginalServerUrl } from "../../../utils/restfulAPI";
 import { SearchResults } from "./SearchResults";
 
-const [match, setMatch] = useState("");
-const [places, setPlaces] = useState({});
 const limit = 10;
 const serverUrl = getOriginalServerUrl();
 
 export default function SearchInput() {
+	const [match, setMatch] = useState("");
+	const [places, setPlaces] = useState();
+
+	function inputChanged(input) {
+		setMatch(input.target.value);
+		const request = buildRequest(match);
+		sendFindRequest(request, setPlaces);
+	}
+
 	return (
 		<Container>
-			<Section>
+			<div>
 				<Input
 					type="text"
 					placeholder="Search for Places"
 					onChange={inputChanged}
 				></Input>
-			</Section>
-			<Section>
-				<SearchResults places={places} />
-			</Section>
+			</div>
+			<div>
+				{/* <SearchResults places={places} /> */}
+			</div>
 		</Container>
 	);
 }
 
-function inputChanged(input) {
-	setMatch(input);
-	buildRequest();
-	sendFindRequest();
-}
-
-function buildRequest() {
-	let request = {
+function buildRequest(match) {
+	return {
 		requestType: "find",
 		match: match,
 		limit: limit,
 	};
-	sendFindRequest(request);
 }
 
-async function sendFindRequest(request) {
+async function sendFindRequest(request, method) {
 	const findResponse = await sendAPIRequest(request, serverUrl);
 	if (findResponse) {
-		setPlaces(findResponse["properties"].places);
+		method(findResponse["places"].places);
 	} else {
 		showMessage(
 			`Find request to ${serverUrl} failed. Check the log for more details.`,
