@@ -1,19 +1,53 @@
-import React from 'react'
+import  React, { useState } from "react";
+import { Input, Container } from "reactstrap";
+import { sendAPIRequest, getOriginalServerUrl } from "../../../utils/restfulAPI";
+import { SearchResults } from "./SearchResults";
 
+const limit = 10;
+const serverUrl = getOriginalServerUrl();
 
-export default function SearchInput(props) {
-    // return (
+export default function SearchInput() {
+	const [match, setMatch] = useState("");
+	const [places, setPlaces] = useState();
 
-    // );
+	function inputChanged(input) {
+		setMatch(input.target.value);
+		const request = buildRequest(match);
+		sendFindRequest(request, setPlaces);
+	}
+
+	return (
+		<Container>
+			<div>
+				<Input
+					type="text"
+					placeholder="Search for Places"
+					onChange={inputChanged}
+				></Input>
+			</div>
+			<div>
+				{/* <SearchResults places={places} /> */}
+			</div>
+		</Container>
+	);
 }
 
+function buildRequest(match) {
+	return {
+		requestType: "find",
+		match: match,
+		limit: limit,
+	};
+}
 
-async function sendFindRequest() {
-	const findResponse = await sendAPIRequest({ requestType: "find" }, serverUrl);
+async function sendFindRequest(request, method) {
+	const findResponse = await sendAPIRequest(request, serverUrl);
 	if (findResponse) {
-		const places = findResponse["properties"].places;
+		method(findResponse["places"]);
 	} else {
-		showMessage(`Find request to ${serverUrl} failed. Check the log for more details.`, "error");
+		showMessage(
+			`Find request to ${serverUrl} failed. Check the log for more details.`,
+			"error"
+		);
 	}
-	return places;
 }
