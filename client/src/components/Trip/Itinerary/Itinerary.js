@@ -25,7 +25,7 @@ function Header(props) {
                 <h4>My Trip</h4>
             </Col>
             <Col>
-                <div class="float-right"> 
+                <div className="float-right"> 
                     <FaHome size={24} onClick={() => props.placeActions.append(DEFAULT_STARTING_PLACE)} data-testid='home-button'></FaHome>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <FaSearch size={24} />
