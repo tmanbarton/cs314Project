@@ -1,12 +1,15 @@
-import  React, { useState } from "react";
+import React, { useState } from "react";
 import { Input, Container } from "reactstrap";
-import { sendAPIRequest, getOriginalServerUrl } from "../../../utils/restfulAPI";
+import {
+	sendAPIRequest,
+	getOriginalServerUrl,
+} from "../../../utils/restfulAPI";
 import { SearchResults } from "./SearchResults";
 
 const limit = 5;
 const serverUrl = getOriginalServerUrl();
 
-export default function SearchInput() {
+export default function SearchInput(props) {
 	const [match, setMatch] = useState("");
 	const [places, setPlaces] = useState();
 
@@ -27,7 +30,7 @@ export default function SearchInput() {
 			</div>
 			<hr />
 			<div>
-				{<SearchResults places={places} />}
+				<SearchResults places={places} append={props.append} />
 			</div>
 		</Container>
 	);

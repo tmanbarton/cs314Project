@@ -1,11 +1,11 @@
-import React from 'react'
-import { Collapse, Container } from 'reactstrap';
-import SearchInput from './SearchInput';
+import React from "react";
+import { Container } from "reactstrap";
+import SearchInput from "./SearchInput";
 
-export default function Search() {
-    return (
-        <Container>
-            <SearchInput />
-        </Container>
-    );
+export default function Search(props) {
+	return (
+		<Container>
+			<SearchInput append={props.append} />
+		</Container>
+	);
 }
