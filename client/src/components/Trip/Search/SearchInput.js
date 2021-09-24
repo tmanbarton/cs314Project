@@ -25,6 +25,7 @@ export default function SearchInput() {
 					onChange={inputChanged}
 				></Input>
 			</div>
+			<hr />
 			<div>
 				{/* <SearchResults places={places} /> */}
 			</div>
