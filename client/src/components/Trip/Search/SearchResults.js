@@ -5,13 +5,13 @@ import { latLngToText } from "../../../utils/transformers";
 import { useToggle } from "../../../hooks/useToggle";
 
 export function SearchResults(props) {
-	const [resultsFound, toggleResults] = useToggle(false);
+	const [onStart, toggleOnStart] = useToggle(false);
 
 	let places;
 	if (props.places) {
 		places = Object.values(props.places);
-		if (!resultsFound) {
-			toggleResults();
+		if (!onStart) {
+			toggleOnStart();
 		}
 	} else {
 		places = [];
@@ -19,15 +19,14 @@ export function SearchResults(props) {
 
 	return (
 		<Container>
-			<Collapse isOpen={!resultsFound}>
-				<ShowNoResults />
+			<Collapse isOpen={!onStart}>
+				<ShowOnStart />
 			</Collapse>
-			<Collapse isOpen={resultsFound}>
+			<Collapse isOpen={onStart}>
 				<Table responsive striped>
 					<Body
 						append={props.append}
 						places={places}
-						toggleResults={toggleResults}
 					/>
 				</Table>
 			</Collapse>
@@ -35,18 +34,18 @@ export function SearchResults(props) {
 	);
 }
 
-function ShowNoResults() {
+function ShowOnStart() {
 	return (
 		<Container>
 			<div>
-				<h3>No Results Found.</h3>
+				<p>Search to get Started.</p>
 			</div>
 		</Container>
 	);
 }
 
 function Body(props) {
-	return (
+	return props.places.length > 0 ? (
 		<tbody>
 			{props.places.map((place, index) => (
 				<TableRow
@@ -58,6 +57,12 @@ function Body(props) {
 					append={props.append}
 				/>
 			))}
+		</tbody>
+	) : (
+		<tbody>
+			<tr>
+				<td>No Results Found.</td>
+			</tr>
 		</tbody>
 	);
 }
