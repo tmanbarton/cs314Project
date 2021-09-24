@@ -3,7 +3,7 @@ import { Input, Container } from "reactstrap";
 import { sendAPIRequest, getOriginalServerUrl } from "../../../utils/restfulAPI";
 import { SearchResults } from "./SearchResults";
 
-const limit = 10;
+const limit = 5;
 const serverUrl = getOriginalServerUrl();
 
 export default function SearchInput() {
@@ -27,7 +27,7 @@ export default function SearchInput() {
 			</div>
 			<hr />
 			<div>
-				{/* <SearchResults places={places} /> */}
+				{<SearchResults places={places} />}
 			</div>
 		</Container>
 	);
