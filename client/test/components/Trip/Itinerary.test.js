@@ -19,12 +19,4 @@ describe('Itinerary', () => {
     it('renders the name attribute', () => {
         screen.getByRole('cell', { name: /Place A/i });
     });
-
-    it('toggles row dropdown when clicked', () => {
-        const dropdown = screen.getByTestId('row-toggle-0');
-        expect(dropdown.getAttribute('aria-expanded')).toEqual('false');
-
-        user.click(dropdown);
-        expect(dropdown.getAttribute('aria-expanded')).toEqual('true');
-    });
 });

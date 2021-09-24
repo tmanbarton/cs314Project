@@ -5,11 +5,10 @@ import { FaTrash } from 'react-icons/fa';
 
 export function PlaceActionsDropdown(props) {
     return (
-        <ActionsDropdown {...props}>
-            <DropdownItem onClick={() => props.placeActions.removeAtIndex(props.index)} data-testid={`delete-button-${props.index}`}>
-                <FaTrash />
-            </DropdownItem>
-        </ActionsDropdown>
+        <div>
+            <FaTrash onClick={() => props.placeActions.removeAtIndex(props.index)} data-testid={`delete-button-${props.index}`}/>
+        </div>
+
     );
 }
 
