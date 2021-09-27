@@ -10,11 +10,10 @@ const limit = 5;
 const serverUrl = getOriginalServerUrl();
 
 export default function SearchInput(props) {
-	const [match, setMatch] = useState("");
 	const [places, setPlaces] = useState();
 
 	function inputChanged(input) {
-		setMatch(input.target.value);
+		let match = input.target.value;
 		const request = buildRequest(match);
 		sendFindRequest(request, setPlaces);
 	}
