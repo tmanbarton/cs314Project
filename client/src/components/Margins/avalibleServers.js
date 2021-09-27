@@ -1,118 +1,118 @@
 export const avaliableServers = [
 	{
-		teamNumber: "t00",
+		teamName: "t00 Double Aughts",
 		extension: "31400",
 	},
 	{
-		teamNumber: "t01",
+		teamName: "t01 TRNG",
 		extension: "31401",
 	},
 	{
-		teamNumer: "t02",
+		teamName: "t02 Git Good",
 		extension: "31402",
 	},
 	{
-		teamNumer: "t03",
+		teamName: "t03 Indecisive Individuals",
 		extension: "31403",
 	},
 	{
-		teamNumer: "t04",
+		teamName: "t04 Geek Velocity",
 		extension: "31404",
 	},
 	{
-		teamNumer: "t05",
+		teamName: "t05 Tabsoverspaces",
 		extension: "31405",
 	},
 	{
-		teamNumer: "t06",
+		teamName: "t06 Here For Now",
 		extension: "31406",
 	},
 	{
-		teamNumer: "t07",
+		teamName: "t07 007",
 		extension: "31407",
 	},
 	{
-		teamNumer: "t08",
+		teamName: "t08 Ambiguous Aardvarks",
 		extension: "31408",
 	},
 	{
-		teamNumer: "t09",
+		teamName: "t09 Coding Crew",
 		extension: "31409",
 	},
 	{
-		teamNumer: "t10",
+		teamName: "t10 Brunch Boys",
 		extension: "31410",
 	},
 	{
-		teamNumer: "t11",
+		teamName: "t11 The Brewsters",
 		extension: "31411",
 	},
 	{
-		teamNumer: "t12",
+		teamName: "t12 Dodeca-Rams",
 		extension: "31412",
 	},
 	{
-		teamNumer: "t13",
+		teamName: "t13 Penguinz",
 		extension: "31413",
 	},
 	{
-		teamNumer: "t14",
+		teamName: "t14 The Kahunas",
 		extension: "31414",
 	},
 	{
-		teamNumer: "t15",
+		teamName: "t15 Golden Potatoes",
 		extension: "31415",
 	},
 	{
-		teamNumer: "t16",
+		teamName: "t16 The Sixteens",
 		extension: "31416",
 	},
 	{
-		teamNumer: "t17",
+		teamName: "t17 We Push To Main",
 		extension: "31417",
 	},
 	{
-		teamNumer: "t18",
+		teamName: "t18 Break Main",
 		extension: "31418",
 	},
 	{
-		teamNumer: "t19",
+		teamName: "t19 The Space Between",
 		extension: "31419",
 	},
 	{
-		teamNumer: "t20",
+		teamName: "t20 Squinting in the Back",
 		extension: "31420",
 	},
 	{
-		teamNumer: "t21",
+		teamName: "t21 Ctrl Alt Elite",
 		extension: "31421",
 	},
 	{
-		teamNumer: "t22",
+		teamName: "t22 2 Eazy",
 		extension: "31422",
 	},
 	{
-		teamNumer: "t23",
+		teamName: "t23 Stuck in Beta",
 		extension: "31423",
 	},
 	{
-		teamNumer: "t24",
+		teamName: "t24 24 Karat",
 		extension: "31424",
 	},
 	{
-		teamNumer: "t25",
+		teamName: "t25 Boat Smarts",
 		extension: "31425",
 	},
 	{
-		teamNumer: "t26",
+		teamName: "t26 Hamiltonian Cycle",
 		extension: "31426",
 	},
 	{
-		teamNumer: "t27",
+		teamName: "t27 Codey Crew",
 		extension: "31427",
 	},
 	{
-		teamNumer: "t99",
+		teamName: "t99 team name",
 		extension: "31499",
 	},
 ];
