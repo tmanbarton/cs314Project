@@ -56,16 +56,19 @@ function ServerInformation(props) {
 						>
 							<DropdownToggle caret>{serverName}</DropdownToggle>
 							<DropdownMenu>
-								{avaliableServers.map((server) => (
-									<DropdownItem onClick={props.toggleServerSettings}>{server.teamName}</DropdownItem>
+								{avaliableServers.map((server, index) => (
+									<DropdownItem
+										key={`table-${JSON.stringify(server)}-${index}`}
+										onClick={props.toggleServerSettings}
+									>
+										{server.teamName}
+									</DropdownItem>
 								))}
 							</DropdownMenu>
 						</Dropdown>
 					</div>
 					<br />
-					<a className="tco-text">
-						({props.serverSettings.serverUrl}).
-					</a>
+					<a className="tco-text">({props.serverSettings.serverUrl}).</a>
 					<ServerSettings
 						isOpen={props.serverSettingsOpen}
 						toggleOpen={props.toggleServerSettings}
