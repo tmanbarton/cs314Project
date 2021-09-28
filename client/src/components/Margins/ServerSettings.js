@@ -5,6 +5,8 @@ import { useServerInputValidation } from '../../hooks/useServerInputValidation';
 export default function ServerSettings(props) {
     const [serverInput, setServerInput, config, validServer, resetModal]
         = useServerInputValidation(props.serverSettings.serverUrl, props.toggleOpen);
+    
+    const supportedFeatures = ["config", "find"];
 
     return (
         <Modal isOpen={props.isOpen} toggle={props.toggleOpen}>

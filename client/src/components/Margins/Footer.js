@@ -45,7 +45,7 @@ function ServerInformation(props) {
 	return (
 		<div className="vertical-center tco-text">
 			<Container>
-				<div className="centered my-dropdown">
+				<div className="my-dropdown">
 					{linkStatusSymbol} Connected to{" "}
 					<div className="div-inline">
 						<Dropdown
@@ -56,16 +56,19 @@ function ServerInformation(props) {
 						>
 							<DropdownToggle caret>{serverName}</DropdownToggle>
 							<DropdownMenu>
-								{avaliableServers.map((server) => (
-									<DropdownItem>{server.teamName}</DropdownItem>
+								{avaliableServers.map((server, index) => (
+									<DropdownItem
+										key={`table-${JSON.stringify(server)}-${index}`}
+										onClick={props.toggleServerSettings}
+									>
+										{server.teamName}
+									</DropdownItem>
 								))}
 							</DropdownMenu>
 						</Dropdown>
 					</div>
-					&nbsp;
-					<a className="tco-text" onClick={props.toggleServerSettings}>
-						({props.serverSettings.serverUrl}).
-					</a>
+					<br />
+					<a className="tco-text">({props.serverSettings.serverUrl}).</a>
 					<ServerSettings
 						isOpen={props.serverSettingsOpen}
 						toggleOpen={props.toggleServerSettings}
