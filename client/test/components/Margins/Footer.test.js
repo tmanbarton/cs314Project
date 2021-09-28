@@ -7,11 +7,11 @@ import { VALID_CONFIG_RESPONSE } from '../../sharedMocks';
 import Footer from '../../../src/components/Margins/Footer';
 
 describe('Footer', () => {
-    // const processServerConfigSuccess = jest.fn();
-    // const serverSettings = {
-    //     serverConfig: { 'requestType': 'config', 'serverName': 't99' },
-    //     serverUrl: 'http://localhost:8000'
-    // };
+    const processServerConfigSuccess = jest.fn();
+    const serverSettings = {
+        serverConfig: { 'requestType': 'config', 'serverName': 't99' },
+        serverUrl: 'http://localhost:8000'
+    };
 
     // let serverSettingsLink;
 
@@ -28,7 +28,10 @@ describe('Footer', () => {
     // });
 
     it('renders', async () =>{
-        render(<Footer />);
+        render(<Footer
+                    serverSettings={serverSettings}
+                    processServerConfigSuccess={processServerConfigSuccess}
+                />);
     });
 
     // it('opens ServerSettings on link pressed and closes on cancel button', async () => {
