@@ -49,7 +49,7 @@ function Header(props) {
 
 function Body(props) {
     const urlInput =
-        <Input
+        <Input readOnly
             value={props.serverInput}
             placeholder={props.serverSettings.serverUrl}
             onChange={(e) => { props.setServerInput(e.target.value) }}
@@ -61,7 +61,10 @@ function Body(props) {
         <ModalBody>
             <Container>
                 <SettingsRow label="Name" value={props.serverName} />
-                <SettingsRow label="URL" value={urlInput} />
+                <SettingsRow label="URL" value={props.serverSettings.serverUrl} />
+                <SettingsRow label="Available Settings" />
+            </Container>
+            <Container>
             </Container>
         </ModalBody>
     );
@@ -83,14 +86,12 @@ function SettingsRow({label, value}) {
 function Footer(props) {
     return (
         <ModalFooter>
-            <Button color="secondary" onClick={props.resetModal}>Cancel</Button>
             <Button color="primary" onClick={() => {
-                props.processServerConfigSuccess(props.config, props.serverInput);
                 props.resetModal(props.serverInput);
             }}
                 disabled={!props.validServer}
             >
-                Save
+                Continue
             </Button>
         </ModalFooter>
     );
