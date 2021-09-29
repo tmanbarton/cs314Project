@@ -203,7 +203,11 @@ In this sprint we will complete the following Epics: Find Places and Interoperab
 
 ## Server Classes
 
-In order to support the search feature the *find* protocol will be implemented on the server. This will entail adding a new *FindRequest* class to provide responses to *find* requests from the client as shown in the diagram below. 
+In order to support the search feature the *find* protocol will be implemented on the server. This will entail adding
+a new *FindRequest* class to provide responses to *find* requests from the client as shown in the diagram below. The 
+*FindRequest* class will perform database queries using the *DBQuery* class, which will return the results of the 
+query as a *Places* object. The *Places* object will contain a list of *Place* objects representing each place
+found in the database matching the request.
 
 ![class diagram](images/ServerClassesSprint2.png)
 
