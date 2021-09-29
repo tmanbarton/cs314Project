@@ -5,7 +5,7 @@ import SearchInput from "./SearchInput";
 export default function Search(props) {
 	return (
 		<Container>
-			<SearchInput append={props.append} />
+			<SearchInput showMessage={props.showMessage} append={props.append} />
 		</Container>
 	);
 }

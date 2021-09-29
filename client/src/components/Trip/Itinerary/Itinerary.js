@@ -12,10 +12,10 @@ export default function Itinerary(props) {
 
 	return (
 		<Container>
-			<Header placeActions={props.placeActions} toggleSearch={toggleSearch} />
+			<Header placeActions={props.placeActions} toggleSearch={toggleSearch} disableSearch={props.disableSearch}/>
 			<hr />
 			<Collapse isOpen={showSearch}>
-				<Search append={props.placeActions.append} />
+				<Search append={props.placeActions.append} showMessage={props.showMessage}/>
 			</Collapse>
 			<Table responsive striped>
 				<Body places={props.places} placeActions={props.placeActions} />
@@ -38,7 +38,7 @@ function Header(props) {
 						data-testid="home-button"
 					/>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<FaSearch size={24} onClick={props.toggleSearch} />
+					<FaSearch className={ props.disableSearch ? "fa-disabled" : ""} size={24} onClick={props.disableSearch ? null : props.toggleSearch } />
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<FaTrashAlt
 						size={24}

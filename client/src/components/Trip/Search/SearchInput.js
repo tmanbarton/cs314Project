@@ -17,7 +17,7 @@ export default function SearchInput(props) {
 	function inputChanged(input) {
 		let match = input.target.value;
 		const request = buildRequest(match);
-		sendFindRequest(request, setPlaces);
+		sendFindRequest(request, setPlaces, props.showMessage);
 	}
 
 	return (
@@ -45,7 +45,7 @@ function buildRequest(match) {
 	};
 }
 
-async function sendFindRequest(request, setPlaces) {
+async function sendFindRequest(request, setPlaces, showMessage) {
 	const findResponse = await sendAPIRequest(request, serverUrl);
 	if (findResponse && isJsonResponseValid(findResponse, findResponse)) {
 		setPlaces(findResponse["places"]);
