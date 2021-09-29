@@ -27,10 +27,26 @@ export default function Footer(props) {
 				showMessage={props.showMessage}
 				featuresRecieved={featuresRecieved}
 				setFeaturesRecieved={setFeaturesRecieved}
+				setDisableSearch={props.setDisableSearch}
+				disableSearch={props.disableSearch}
 				{...props}
 			/>
 		</div>
 	);
+}
+
+function evaluateFeatures(
+	avaliableFeatures,
+	featureItem,
+	toggle,
+	disableSearch
+) {
+	if (
+		(avaliableFeatures.indexOf(featureItem) == -1 && !disableSearch) ||
+		(avaliableFeatures.indexOf(featureItem) > -1 && disableSearch)
+	) {
+		toggle();
+	}
 }
 
 async function changeServers(
@@ -38,7 +54,9 @@ async function changeServers(
 	processServerConfigSuccess,
 	toggleServerSettings,
 	setFeaturesRecieved,
-	showMessage
+	showMessage,
+	setDisableSearch,
+	disableSearch
 ) {
 	const baseUrl = "https://localhost:";
 	const newUrl = baseUrl + server.extension;
@@ -47,6 +65,12 @@ async function changeServers(
 	if (response) {
 		processServerConfigSuccess(response, newUrl);
 		setFeaturesRecieved(response.features);
+		evaluateFeatures(
+			response.features,
+			"find",
+			setDisableSearch,
+			disableSearch
+		);
 		toggleServerSettings();
 	} else {
 		showMessage(
@@ -93,7 +117,9 @@ function ServerInformation(props) {
 												props.processServerConfigSuccess,
 												props.toggleServerSettings,
 												props.setFeaturesRecieved,
-												props.showMessage
+												props.showMessage,
+												props.setDisableSearch,
+												props.disableSearch
 											)
 										}
 									>

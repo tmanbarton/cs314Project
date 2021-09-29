@@ -11,6 +11,7 @@ import { getOriginalServerUrl, sendAPIRequest } from '../utils/restfulAPI';
 export default function Page(props) {
 	const [showAbout, toggleAbout] = useToggle(false);
 	const [serverSettings, processServerConfigSuccess] = useServerSettings(props.showMessage);
+	const [disableSearch, setDisableSearch] = useToggle(false);
 
 	return (
 		<>
@@ -20,10 +21,12 @@ export default function Page(props) {
 					<About closePage={toggleAbout} />
 				</Collapse>
 				<Collapse isOpen={!showAbout} data-testid="planner-collapse">
-					<Planner showMessage={props.showMessage} />
+					<Planner disableSearch={disableSearch} showMessage={props.showMessage} />
 				</Collapse>
 			</div>
 			<Footer
+				disableSearch={disableSearch}
+				setDisableSearch={setDisableSearch}
 				showMessage={props.showMessage}
 				serverSettings={serverSettings}
 				processServerConfigSuccess={processServerConfigSuccess}
