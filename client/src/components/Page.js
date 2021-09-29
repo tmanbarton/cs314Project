@@ -24,6 +24,7 @@ export default function Page(props) {
 				</Collapse>
 			</div>
 			<Footer
+				showMessage={props.showMessage}
 				serverSettings={serverSettings}
 				processServerConfigSuccess={processServerConfigSuccess}
 			/>
