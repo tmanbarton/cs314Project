@@ -68,7 +68,13 @@
 ## Retrospective
 
 ### Things that went well
+We completed both planned epics for this sprint, find places, and interoperability.
+Communication between team members has been solid and non-confrontational.
+As a team, we are begining to understand each others strengths and weaknesses.
 
 ### Things we need to improve
+We only planned 2 epics for the sprint when we could've added additional epics to the sprint backlog.
+In general we could do more extensive planning ahead of time in terms of tasks, epics, etc. On our team storyboard.
 
 ### One thing we will change next time
+For the next sprint we will take on more work with the goal of completing as much as we can, rather than planning what we know we can finish in time.
