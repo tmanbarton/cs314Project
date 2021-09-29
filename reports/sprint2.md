@@ -1,4 +1,4 @@
-# Sprint 2 - *your team number* - *your team name*
+# Sprint 2 - *T13* - *Penguinz*
 
 ## Goal
 ### *Find places to go.*
