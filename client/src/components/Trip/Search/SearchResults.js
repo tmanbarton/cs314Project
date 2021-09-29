@@ -52,7 +52,7 @@ function Body(props) {
 					key={`table-${JSON.stringify(place)}-${index}`}
 					lat={parseFloat(place.latitude)}
 					lng={parseFloat(place.longitude)}
-					name={place.name}
+					name={place.airport}
 					place={place}
 					append={props.append}
 				/>
