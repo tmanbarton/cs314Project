@@ -36,7 +36,8 @@
 
 
 ## Planned Epics
-
+* Find Places
+* Interoperability
 
 ## Metrics
 
@@ -57,9 +58,12 @@
 
 ## Review
 
-### Epics completed  
+### Epics completed
+* Find Places
+* Interoperability
 
-### Epics not completed 
+### Epics not completed
+* None
 
 ## Retrospective
 
