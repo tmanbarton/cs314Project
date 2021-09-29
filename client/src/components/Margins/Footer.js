@@ -50,7 +50,7 @@ async function changeServers(
 		toggleServerSettings();
 	} else {
 		showMessage(
-			`Switching to server, '${server.teamName} using url ${newUrl} failed. Check the log for more details.`,
+			`Switching to server: '${server.teamName}', using url: ${newUrl} failed. Check the log for more details.`,
 			"error"
 		);
 	}
