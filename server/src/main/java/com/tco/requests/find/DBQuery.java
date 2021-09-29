@@ -76,21 +76,38 @@ public class DBQuery {
 
     static class Select {
         static String match(String column, int limit) {
-            return "SELECT " 
-            + " DISTINCT * " 
-            + " FROM world " 
-            + " WHERE name "
-            + " LIKE '%" + column + "%' "
-            + " LIMIT " + Integer.toString(limit)
+            return "SELECT world.name as airport, world.municipality, region.name as region, country.name as country, continent.name as continent, latitude, longitude "
+            + "FROM continent "
+            + "INNER JOIN country ON continent.id = country.continent "
+            + "INNER JOIN region ON country.id = region.iso_country "
+            + "INNER JOIN world ON region.id = world.iso_region "
+            + "WHERE country.name "
+            + "LIKE '%" + column + "%' "
+            + "OR region.name "
+            + "LIKE '%" + column + "%' "
+            + "OR world.name "
+            + "LIKE '%" + column + "%' "
+            + "OR world.municipality "
+            + "LIKE '%" + column + "%' "
+            + "LIMIT " + limit + ""
             + ";";
         }
 
         static String count(String column){
             return "SELECT " 
-            + " count(*) " 
-            + " FROM world " 
-            + " WHERE name "
-            + " LIKE '%" + column + "%' "
+            + " DISTINCT count(*) " 
+             + "FROM continent "
+            + "INNER JOIN country ON continent.id = country.continent "
+            + "INNER JOIN region ON country.id = region.iso_country "
+            + "INNER JOIN world ON region.id = world.iso_region "
+            + "WHERE country.name "
+            + "LIKE '%" + column + "%' "
+            + "OR region.name "
+            + "LIKE '%" + column + "%' "
+            + "OR world.name "
+            + "LIKE '%" + column + "%' "
+            + "OR world.municipality "
+            + "LIKE '%" + column + "%' "
             + ";";
         }
     }
@@ -130,10 +147,13 @@ public class DBQuery {
         Places places = new Places();
         while (results.next()) {
             Place place = new Place();
-            place.put("name", results.getString("name"));
-            place.put("longitude", results.getString("longitude"));
+            place.put("airport", results.getString("airport"));
+            place.put("municipality", results.getString("municipality"));
+            place.put("region", results.getString("region"));
+            place.put("country", results.getString("country"));
+            place.put("continent", results.getString("continent"));
             place.put("latitude", results.getString("latitude"));
-            place.put("altitude", results.getString("altitude"));
+            place.put("longitude", results.getString("longitude"));
             places.add(place);
         }
         return places;
