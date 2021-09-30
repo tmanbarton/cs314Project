@@ -48,15 +48,6 @@ function Header(props) {
 }
 
 function Body(props) {
-    const urlInput =
-        <Input readOnly
-            value={props.serverInput}
-            placeholder={props.serverSettings.serverUrl}
-            onChange={(e) => { props.setServerInput(e.target.value) }}
-            valid={props.validServer}
-            invalid={!props.validServer}
-        />;
-
     return (
         <ModalBody>
             <Container>
