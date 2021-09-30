@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListGroup, ListGroupItem, Modal, ModalBody, ModalHeader} from 'reactstrap';
+import { Row, Col, Modal, ModalBody, ModalHeader} from 'reactstrap';
 import { FaCheck, FaWindowClose } from "react-icons/fa";
 
 const supportedFeatures = ["config", "find"];
@@ -35,11 +35,18 @@ function Body(props) {
     return (
         
         <ModalBody>
-            <ListGroup>
                 {supportedFeatures.map((feature, index)=>(
-                    <ListGroupItem key={`${index} - ${feature}`}>{feature} {evaluateSupport(props.features, feature) ? <FaCheck /> : <FaWindowClose />}</ListGroupItem>
+                    <Row className="centered" key={`${index} - ${feature}`}>
+                        <Col>
+                            <h2>{feature}</h2> 
+                        </Col>
+                        <Col>
+                            {evaluateSupport(props.features, feature) ? <FaCheck size={32}/> : <FaWindowClose size={32}/>}
+                        </Col>
+                        <hr />
+                    </Row>
                 ))}
-            </ListGroup>
+
         </ModalBody>
     );
 }
