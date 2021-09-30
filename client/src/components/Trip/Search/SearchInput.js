@@ -8,7 +8,6 @@ import {
 import { SearchResults } from "./SearchResults";
 
 const limit = 5;
-const serverUrl = getOriginalServerUrl();
 
 export default function SearchInput(props) {
 	const [places, setPlaces] = useState();
@@ -16,7 +15,7 @@ export default function SearchInput(props) {
 	function inputChanged(input) {
 		let match = input.target.value;
 		const request = buildRequest(match);
-		sendFindRequest(request, setPlaces, props.showMessage);
+		sendFindRequest(request, setPlaces, props.serverSettings, props.showMessage);
 	}
 
 	return (
@@ -44,8 +43,8 @@ function buildRequest(match) {
 	};
 }
 
-async function sendFindRequest(request, setPlaces, showMessage) {
-	const findResponse = await sendAPIRequest(request, serverUrl);
+async function sendFindRequest(request, setPlaces, serverSettings, showMessage) {
+	const findResponse = await sendAPIRequest(request, serverSettings.serverUrl);
 	if (findResponse && isJsonResponseValid(findResponse, findResponse)) {
 		setPlaces(findResponse["places"]);
 	} else {

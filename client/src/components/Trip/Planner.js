@@ -19,6 +19,7 @@ export default function Planner(props) {
 			<hr />
 			<Section>
 				<Itinerary
+					serverSettings={props.serverSettings}
 					showMessage={props.showMessage}
 					disableSearch={props.disableSearch}
 					places={places}
