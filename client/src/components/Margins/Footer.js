@@ -135,10 +135,8 @@ function ServerInformation(props) {
 					</a>
 					<ServerSettings
 						isOpen={props.serverSettingsOpen}
-						processServerConfigSuccess={props.processServerConfigSuccess}
 						toggleOpen={props.toggleServerSettings}
-						serverSettings={props.serverSettings}
-						featuresRecieved={props.featuresRecieved}
+						features={props.featuresRecieved}
 					/>
 				</div>
 			</Container>

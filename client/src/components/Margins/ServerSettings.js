@@ -1,89 +1,76 @@
-import React from 'react';
-import { Button, Col, Container, Input, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
-import { useServerInputValidation } from '../../hooks/useServerInputValidation';
+import React from "react";
+import {
+	Row,
+	Col,
+	Modal,
+	ModalBody,
+	ModalHeader,
+	ModalFooter,
+	Button,
+} from "reactstrap";
+import { FaCheckSquare, FaWindowClose, FaCheck } from "react-icons/fa";
+
+const supportedFeatures = ["config", "find"];
 
 export default function ServerSettings(props) {
-    const [serverInput, setServerInput, config, validServer, resetModal]
-        = useServerInputValidation(props.serverSettings.serverUrl, props.toggleOpen);
-    
-    const supportedFeatures = ["config", "find"];
-
-    return (
-        <Modal isOpen={props.isOpen} toggle={props.toggleOpen}>
-            <Header toggleOpen={props.toggleOpen} />
-            <Body
-                serverInput={serverInput}
-                setServerInput={setServerInput}
-                serverSettings={props.serverSettings}
-                serverName={getCurrentServerName(config, props.serverSettings)}
-                validServer={validServer}
-            />
-            <Footer
-                config={config}
-                serverInput={serverInput}
-                validServer={validServer}
-                resetModal={resetModal}
-                processServerConfigSuccess={props.processServerConfigSuccess}
-            />
-        </Modal>
-    );
+	return (
+		<Modal isOpen={props.isOpen} toggle={props.toggleOpen}>
+			<Header />
+			<Body features={props.features} />
+			<Footer toggleOpen={props.toggleOpen} />
+		</Modal>
+	);
 }
 
-function getCurrentServerName(config, serverSettings) {
-    if (config) {
-        return config.serverName;
-    }
-    else if (serverSettings.serverConfig) {
-        return serverSettings.serverConfig.serverName;
-    }
-    return "";
+function evaluateSupport(newFeatures, supportedFeature) {
+	return newFeatures.indexOf(supportedFeature) > -1;
 }
 
-function Header(props) {
-    return (
-        <ModalHeader className="ml-2" toggle={props.toggleOpen}>
-            Server Connection
-        </ModalHeader>
-    );
+function Header() {
+	return (
+		<ModalHeader className="centered">
+			Features Checklist &nbsp;
+			<FaCheck size={20}/>
+		</ModalHeader>
+	);
 }
 
 function Body(props) {
-    return (
-        <ModalBody>
-            <Container>
-                <SettingsRow label="Name" value={props.serverName} />
-                <SettingsRow label="URL" value={props.serverSettings.serverUrl} />
-                <SettingsRow label="Available Settings" />
-            </Container>
-            <Container>
-            </Container>
-        </ModalBody>
-    );
-}
-
-function SettingsRow({label, value}) {
-    return (
-        <Row className="my-2 vertical-center">
-            <Col xs={3}>
-                {label}:
-            </Col>
-            <Col xs={9}>
-                {value}
-            </Col>
-        </Row>
-    );
+	return (
+		<ModalBody>
+			{supportedFeatures.map((feature, index) => (
+				<Row className="centered" key={`${index} - ${feature}`}>
+					<Col>
+						<h2
+							style={
+								evaluateSupport(props.features, feature)
+									? { color: "#00FF00" }
+									: { color: "#FF0000" }
+							}
+						>
+							{feature}
+						</h2>
+					</Col>
+					<Col>
+						{evaluateSupport(props.features, feature) ? (
+							<FaCheckSquare style={{ color: "#00FF00" }} size={32} />
+						) : (
+							<FaWindowClose style={{ color: "#FF0000" }} size={32} />
+						)}
+					</Col>
+					<hr />
+				</Row>
+			))}
+		</ModalBody>
+	);
 }
 
 function Footer(props) {
-    return (
-        <ModalFooter>
-            <Button color="primary" onClick={() => {
-                props.resetModal(props.serverInput);
-            }}
-                disabled={!props.validServer}
-            >
-                Continue
-            </Button>
-        </ModalFooter>
-    );
+	return (
+		<ModalFooter className="centered">
+			<Button color="primary" onClick={props.toggleOpen}>
+				Continue
+			</Button>
+		</ModalFooter>
+	);
 }
