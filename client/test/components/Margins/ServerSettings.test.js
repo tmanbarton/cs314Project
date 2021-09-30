@@ -9,12 +9,8 @@ import ServerSettings from '../../../src/components/Margins/ServerSettings';
 describe('Server Settings Modal', () => {
     const validUrl = 'http://localhost:8000';
     const invalidUrl = 'BAD URL';
-    const serverSettings = { 'serverUrl': validUrl, 'serverConfig': null };
     const toggleOpen = jest.fn();
-    const processServerConfigSuccess = jest.fn();
-
-    let inputBox;
-    let saveButton;
+    const features = ["config", "find"];
 
     beforeEach(() => {
         jest.clearAllMocks();
@@ -25,19 +21,18 @@ describe('Server Settings Modal', () => {
 
         render(<ServerSettings
             isOpen={true}
-            serverSettings={serverSettings}
+            features={features}
             toggleOpen={toggleOpen}
-            processServerConfigSuccess={processServerConfigSuccess}
+            
         />);
-        saveButton = screen.getByRole('button', { name: /continue/i });
     });
 
     it('renders', async () =>{
         render(<ServerSettings
             isOpen={true}
-            serverSettings={serverSettings}
+            features={features}
             toggleOpen={true}
-            processServerConfigSuccess={processServerConfigSuccess}
+            
         />);
     });
 });
