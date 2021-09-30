@@ -15,7 +15,6 @@ export default function ServerSettings(props) {
                 serverInput={serverInput}
                 setServerInput={setServerInput}
                 serverSettings={props.serverSettings}
-                serverName={getCurrentServerName(config, props.serverSettings)}
                 validServer={validServer}
             />
             <Footer
@@ -23,20 +22,9 @@ export default function ServerSettings(props) {
                 serverInput={serverInput}
                 validServer={validServer}
                 resetModal={resetModal}
-                processServerConfigSuccess={props.processServerConfigSuccess}
             />
         </Modal>
     );
-}
-
-function getCurrentServerName(config, serverSettings) {
-    if (config) {
-        return config.serverName;
-    }
-    else if (serverSettings.serverConfig) {
-        return serverSettings.serverConfig.serverName;
-    }
-    return "";
 }
 
 function Header(props) {

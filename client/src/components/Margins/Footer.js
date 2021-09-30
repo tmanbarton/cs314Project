@@ -17,7 +17,6 @@ const UNKNOWN_SERVER_NAME = "Unknown";
 
 export default function Footer(props) {
 	const [serverSettingsOpen, toggleServerSettings] = useToggle(false);
-	const [featuresRecieved, setFeaturesRecieved] = useState(["config", "find"]);
 
 	return (
 		<div className="full-width footer">
@@ -25,8 +24,6 @@ export default function Footer(props) {
 				toggleServerSettings={toggleServerSettings}
 				serverSettingsOpen={serverSettingsOpen}
 				showMessage={props.showMessage}
-				featuresRecieved={featuresRecieved}
-				setFeaturesRecieved={setFeaturesRecieved}
 				setDisableSearch={props.setDisableSearch}
 				disableSearch={props.disableSearch}
 				{...props}
@@ -53,7 +50,6 @@ async function changeServers(
 	server,
 	processServerConfigSuccess,
 	toggleServerSettings,
-	setFeaturesRecieved,
 	showMessage,
 	setDisableSearch,
 	disableSearch
@@ -64,7 +60,6 @@ async function changeServers(
 
 	if (response) {
 		processServerConfigSuccess(response, newUrl);
-		setFeaturesRecieved(response.features);
 		evaluateFeatures(
 			response.features,
 			"find",
@@ -116,7 +111,6 @@ function ServerInformation(props) {
 												server,
 												props.processServerConfigSuccess,
 												props.toggleServerSettings,
-												props.setFeaturesRecieved,
 												props.showMessage,
 												props.setDisableSearch,
 												props.disableSearch
@@ -135,10 +129,8 @@ function ServerInformation(props) {
 					</a>
 					<ServerSettings
 						isOpen={props.serverSettingsOpen}
-						processServerConfigSuccess={props.processServerConfigSuccess}
 						toggleOpen={props.toggleServerSettings}
 						serverSettings={props.serverSettings}
-						featuresRecieved={props.featuresRecieved}
 					/>
 				</div>
 			</Container>
