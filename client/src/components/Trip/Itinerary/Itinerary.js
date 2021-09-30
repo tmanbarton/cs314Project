@@ -15,7 +15,7 @@ export default function Itinerary(props) {
 			<Header placeActions={props.placeActions} toggleSearch={toggleSearch} disableSearch={props.disableSearch}/>
 			<hr />
 			<Collapse isOpen={showSearch}>
-				<Search append={props.placeActions.append} showMessage={props.showMessage}/>
+				<Search serverSettings={props.serverSettings} append={props.placeActions.append} showMessage={props.showMessage}/>
 			</Collapse>
 			<Table responsive striped>
 				<Body places={props.places} placeActions={props.placeActions} />

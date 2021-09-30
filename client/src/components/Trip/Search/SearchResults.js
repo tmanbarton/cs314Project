@@ -24,10 +24,7 @@ export function SearchResults(props) {
 			</Collapse>
 			<Collapse isOpen={onStart}>
 				<Table responsive striped>
-					<Body
-						append={props.append}
-						places={places}
-					/>
+					<Body append={props.append} places={places} />
 				</Table>
 			</Collapse>
 		</Container>
@@ -52,7 +49,6 @@ function Body(props) {
 					key={`table-${JSON.stringify(place)}-${index}`}
 					lat={parseFloat(place.latitude)}
 					lng={parseFloat(place.longitude)}
-					name={place.airport}
 					place={place}
 					append={props.append}
 				/>
@@ -73,10 +69,9 @@ function addItem(append, place, setAdded) {
 }
 
 function TableRow(props) {
-	const name = props.name ? props.name : "-";
-	const location = latLngToText(props);
-
 	const [added, setAdded] = useState(false);
+	const name = props.place.name ? props.place.name : "-";
+	const location = latLngToText(props);
 
 	return !added ? (
 		<tr onClick={() => addItem(props.append, props.place, setAdded)}>

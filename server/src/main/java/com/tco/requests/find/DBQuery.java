@@ -147,7 +147,7 @@ public class DBQuery {
         Places places = new Places();
         while (results.next()) {
             Place place = new Place();
-            place.put("airport", results.getString("airport"));
+            place.put("name", results.getString("airport"));
             place.put("municipality", results.getString("municipality"));
             place.put("region", results.getString("region"));
             place.put("country", results.getString("country"));
