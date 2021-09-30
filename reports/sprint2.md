@@ -1,7 +1,7 @@
 # Sprint 2 - *T13* - *Penguinz*
 
 ## Goal
-### *Find places to go.*
+### *Find places to go. Ensure interoperability.*
 
 ## Sprint Leader: 
 ### *Andy Hantke*
@@ -44,9 +44,9 @@ Interoperability - This epic allows the user to switch servers and continue usin
 
 | Statistic | # Planned | # Completed |
 | --- | ---: | ---: |
-| Epics | *2* | *count* |
-| Tasks |  *10*  | *count* | 
-| Story Points |  *31*  | *sum* | 
+| Epics | *2* | *2* |
+| Tasks |  *10*  | *84* | 
+| Story Points |  *31*  | *102* | 
 
 
 ## Scrums
