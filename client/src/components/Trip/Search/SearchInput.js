@@ -6,7 +6,6 @@ import {
 	isJsonResponseValid
 } from "../../../utils/restfulAPI";
 import { SearchResults } from "./SearchResults";
-import FindResponse from "../../../../schemas/FindResponse.json"
 
 const limit = 5;
 const serverUrl = getOriginalServerUrl();
