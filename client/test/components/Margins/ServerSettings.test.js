@@ -29,51 +29,15 @@ describe('Server Settings Modal', () => {
             toggleOpen={toggleOpen}
             processServerConfigSuccess={processServerConfigSuccess}
         />);
-
-        inputBox = screen.getByDisplayValue(validUrl);
-        saveButton = screen.getByRole('button', { name: /save/i });
-
-        act(() => {
-            user.clear(inputBox);
-        });
+        saveButton = screen.getByRole('button', { name: /continue/i });
     });
 
-    it('updates input text onChange and disables save button with invalid url', async () => {
-        user.type(inputBox, invalidUrl);
-
-        await waitFor(() => {
-            expect(inputBox.value).toEqual(invalidUrl);
-            expect(saveButton.classList.contains('disabled')).toBe(true);
-        });
-    });
-
-    it('disables save button on invalid Config response from url', async () => {
-        fetch.mockResponseOnce(INVALID_REQUEST);
-
-        user.type(inputBox, validUrl);
-
-        await waitFor(() => {
-            expect(saveButton.classList.contains('disabled')).toBe(true);
-        });
-        expect(LOG.error.mock.calls.length).toBeGreaterThanOrEqual(1);
-    });
-
-    it('disables save button on config request rejection', async () => {
-        fetch.mockRejectOnce(new Error('Rejected'));
-
-        user.type(inputBox, validUrl);
-
-        await waitFor(() => {
-            expect(saveButton.classList.contains('disabled')).toBe(true);
-        });
-        expect(LOG.error.mock.calls.length).toBeGreaterThanOrEqual(1);
-    });
-
-    it('save button is enabled with valid url', async () => {
-        user.type(inputBox, validUrl);
-
-        await waitFor(() => {
-            expect(saveButton.classList.contains('disabled')).toBeFalsy();
-        });
+    it('renders', async () =>{
+        render(<ServerSettings
+            isOpen={true}
+            serverSettings={serverSettings}
+            toggleOpen={true}
+            processServerConfigSuccess={processServerConfigSuccess}
+        />);
     });
 });
