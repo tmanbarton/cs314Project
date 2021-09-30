@@ -1,77 +1,47 @@
 import React from 'react';
-import { Button, Col, Container, Input, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
-import { useServerInputValidation } from '../../hooks/useServerInputValidation';
+import { ListGroup, ListGroupItem, Modal, ModalBody, ModalHeader} from 'reactstrap';
+import { FaCheck, FaWindowClose } from "react-icons/fa";
+
+const supportedFeatures = ["config", "find"];
 
 export default function ServerSettings(props) {
-    const [serverInput, setServerInput, config, validServer, resetModal]
-        = useServerInputValidation(props.serverSettings.serverUrl, props.toggleOpen);
     
-    const supportedFeatures = ["config", "find"];
+
 
     return (
         <Modal isOpen={props.isOpen} toggle={props.toggleOpen}>
             <Header toggleOpen={props.toggleOpen} />
             <Body
-                serverInput={serverInput}
-                setServerInput={setServerInput}
-                serverSettings={props.serverSettings}
-                validServer={validServer}
-            />
-            <Footer
-                config={config}
-                serverInput={serverInput}
-                validServer={validServer}
-                resetModal={resetModal}
+                features={props.features}
             />
         </Modal>
     );
 }
 
+function evaluateSupport(newFeatures, supportedFeature){
+    return newFeatures.indexOf(supportedFeature) > -1;
+}
+
 function Header(props) {
     return (
         <ModalHeader className="ml-2" toggle={props.toggleOpen}>
-            Server Connection
+            Features Checklist
         </ModalHeader>
     );
 }
 
 function Body(props) {
+
     return (
+        
         <ModalBody>
-            <Container>
-                <SettingsRow label="Name" value={props.serverName} />
-                <SettingsRow label="URL" value={props.serverSettings.serverUrl} />
-                <SettingsRow label="Available Settings" />
-            </Container>
-            <Container>
-            </Container>
+            <ListGroup>
+                {supportedFeatures.map((feature, index)=>(
+                    <ListGroupItem key={`${index} - ${feature}`}>{feature} {evaluateSupport(props.features, feature) ? <FaCheck /> : <FaWindowClose />}</ListGroupItem>
+                ))}
+            </ListGroup>
         </ModalBody>
     );
 }
 
-function SettingsRow({label, value}) {
-    return (
-        <Row className="my-2 vertical-center">
-            <Col xs={3}>
-                {label}:
-            </Col>
-            <Col xs={9}>
-                {value}
-            </Col>
-        </Row>
-    );
-}
 
-function Footer(props) {
-    return (
-        <ModalFooter>
-            <Button color="primary" onClick={() => {
-                props.resetModal(props.serverInput);
-            }}
-                disabled={!props.validServer}
-            >
-                Continue
-            </Button>
-        </ModalFooter>
-    );
-}
