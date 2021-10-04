@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Input, Container } from "reactstrap";
 import {
 	sendAPIRequest,
-	getOriginalServerUrl,
 	isJsonResponseValid
 } from "../../../utils/restfulAPI";
 import { SearchResults } from "./SearchResults";

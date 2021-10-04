@@ -10,13 +10,11 @@ import {
 } from "reactstrap";
 import { FaCheckSquare, FaWindowClose, FaCheck } from "react-icons/fa";
 
-const supportedFeatures = ["config", "find"];
-
-export default function ServerSettings(props) {
+export default function FeaturesChecklist(props) {
 	return (
 		<Modal isOpen={props.isOpen} toggle={props.toggleOpen}>
 			<Header />
-			<Body features={props.features} />
+			<Body supportedFeatures={props.supportedFeatures} features={props.features} />
 			<Footer toggleOpen={props.toggleOpen} />
 		</Modal>
 	);
@@ -38,7 +36,7 @@ function Header() {
 function Body(props) {
 	return (
 		<ModalBody>
-			{supportedFeatures.map((feature, index) => (
+			{props.supportedFeatures.map((feature, index) => (
 				<Row className="centered" key={`${index} - ${feature}`}>
 					<Col>
 						<h2
