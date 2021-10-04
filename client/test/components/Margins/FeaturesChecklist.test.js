@@ -4,13 +4,14 @@ import user from '@testing-library/user-event';
 import { expect, it } from '@jest/globals';
 import { VALID_CONFIG_RESPONSE, INVALID_REQUEST } from '../../sharedMocks';
 import { LOG } from '../../../src/utils/constants';
-import ServerSettings from '../../../src/components/Margins/ServerSettings';
+import FeaturesChecklist from '../../../src/components/Margins/FeaturesChecklist';
 
 describe('Server Settings Modal', () => {
     const validUrl = 'http://localhost:8000';
     const invalidUrl = 'BAD URL';
     const toggleOpen = jest.fn();
     const features = ["config", "find"];
+    const supportedFeatures = ["config", "find"];
 
     beforeEach(() => {
         jest.clearAllMocks();
@@ -19,20 +20,20 @@ describe('Server Settings Modal', () => {
         jest.spyOn(LOG, 'error').mockImplementation(() => {});
         fetch.mockResponse(VALID_CONFIG_RESPONSE);
 
-        render(<ServerSettings
+        render(<FeaturesChecklist
             isOpen={true}
             features={features}
             toggleOpen={toggleOpen}
-            
+            supportedFeatures={supportedFeatures}
         />);
     });
 
     it('renders', async () =>{
-        render(<ServerSettings
+        render(<FeaturesChecklist
             isOpen={true}
             features={features}
             toggleOpen={true}
-            
+            supportedFeatures={supportedFeatures}
         />);
     });
 });
