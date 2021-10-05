@@ -76,7 +76,7 @@ public class DBQuery {
 
     static class Select {
         static String match(String column, int limit) {
-            return "SELECT world.name as airport, world.municipality, region.name as region, country.name as country, continent.name as continent, latitude, longitude "
+            return "SELECT world.name as airport, world.municipality, region.name as region, country.name as country, continent.name as continent, world.id as id, latitude, longitude "
             + "FROM continent "
             + "INNER JOIN country ON continent.id = country.continent "
             + "INNER JOIN region ON country.id = region.iso_country "
@@ -88,6 +88,8 @@ public class DBQuery {
             + "OR world.name "
             + "LIKE '%" + column + "%' "
             + "OR world.municipality "
+            + "LIKE '%" + column + "%' "
+            + "OR world.id "
             + "LIKE '%" + column + "%' "
             + "LIMIT " + limit + ""
             + ";";
@@ -107,6 +109,8 @@ public class DBQuery {
             + "OR world.name "
             + "LIKE '%" + column + "%' "
             + "OR world.municipality "
+            + "LIKE '%" + column + "%' "
+            + "OR world.id "
             + "LIKE '%" + column + "%' "
             + ";";
         }
