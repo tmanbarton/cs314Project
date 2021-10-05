@@ -77,7 +77,8 @@ function TableRow(props) {
 	const [distances, setDistances] = useState();
 	const name = props.place.name ? props.place.name : "-";
 	const location = latLngToText(props.place);
-	const request = buildRequest(props.places, 3,958);
+	const placeList = buildPlacesList(props.places);
+	const request = buildRequest(placeList, 3,958);
 	sendDistanceRequest(request, setDistances, props.serverSettings, props.showMessage);
 	const distance = distances;
 	const units = 'mi' // at some point need to be dynamic
@@ -100,6 +101,18 @@ function TableRow(props) {
 			</td>
 		</tr>
 	);
+}
+
+function buildPlacesList(places){
+	let placeList = []
+	places.forEach(place => {
+		let newPlace = {
+			latitude: String(place.lat),
+			longitude: String(place.lng)
+		}
+		placeList.push(newPlace);
+	});
+	return placeList;
 }
 
 function buildRequest(places, radius){
