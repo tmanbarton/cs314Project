@@ -209,7 +209,7 @@ a new *FindRequest* class to provide responses to *find* requests from the clien
 query as a *Places* object. The *Places* object will contain a list of *Place* objects representing each place
 found in the database matching the request.
 
-![class diagram](images/ServerClassesSprint2.png)
+![serverDiagramS2](images/ServerClassesSprint2.png)
 
 # Sprint 3
 
@@ -227,6 +227,13 @@ In this sprint, we will focus on adding a trips componet and a running distances
 
 
 ![sprint3UI](images/sprint3UI.png "Sprint 3 UI")
+
+## Client Components
+
+In this sprint we will add one new component that will house the functionality of both Load and Save Trip.
+- FileModal will render buttons and options for the user to either load a trip or save their current trip to CSV or JSON.
+
+![clientCompS3](images/ClientComponentDiagramSP3.png "Client Component Diagram Sprint3")
 
 
 # Sprint 4
