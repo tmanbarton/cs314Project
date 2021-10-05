@@ -79,7 +79,7 @@ function TableRow(props) {
 	const location = latLngToText(props.place);
 	const placeList = buildPlacesList(props.places);
 	const request = buildRequest(placeList, 3,958);
-	sendDistanceRequest(request, setDistances, props.serverSettings, props.showMessage);
+	// sendDistanceRequest(request, setDistances, props.serverSettings, props.showMessage);
 	const distance = distances;
 	const units = 'mi' // at some point need to be dynamic
 	return (
