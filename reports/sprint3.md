@@ -47,9 +47,9 @@ The second Epic to complete is named, "Distances". This epic calculates the plac
 
 | Statistic | # Planned | # Completed |
 | --- | ---: | ---: |
-| Epics | *count* | *count* |
-| Tasks |  *count*   | *count* | 
-| Story Points |  *sum*  | *sum* | 
+| Epics | *5* | *count* |
+| Tasks |  *20*   | *count* | 
+| Story Points |  *32*  | *sum* | 
 
 
 ## Scrums
