@@ -43,11 +43,11 @@ The first Epic to complete is named, "Where Am I?". This epic enhances our curre
 
 The second Epic to complete is named, "Distances". This epic calculates the place by place distance of all the places in the user's trip. We will need to implement the Distance Protocol in order to recieve a distance request from the client and to recieve the response of the distances from the server. We will then take these distances and display them to the user as a running total for each place in their trip. At the bottom of their trip they will see the total distance for their trip.
 
-The third Epic to complete is "Load Trip". This epic lets users load a previously saved trip that is stored locally. We will have a button that opens a modal with an option to load a saved trip. This will have a similar look and feel to our interoperabililty modal.
+The third Epic to complete is "Load Trip". This epic lets users load a previously saved trip that is stored locally. Supported options for loading trips will be CSV and JSON objects. We will have a button that opens a modal with an option to load a saved trip. This will have a similar look and feel to our interoperabililty modal.
 
-The fourth Epic to complete is "Save Trip". This epic lets users save trips in local storage that they have made. We will utilize the same modal that the load trip option is on for the save trip feature. There will be multiple available formats for saving
+The fourth Epic to complete is "Save Trip". This epic lets users save trips in local storage that they have made. We will utilize the same modal that the load trip option is on for the save trip feature. There will be options for saving the trips as a CSV or JSON object.
 
-The fifth Epic we have planned it "Trip Name". This epic allows users to customizt the name of their trips. We will change the title of the trip to an input box to allow the user to click in and change the name directly on the page.
+The fifth Epic we have planned it "Trip Name". This epic allows users to customize the name of their trips. We will change the title of the trip to an input box to allow the user to click in and change the name directly on the page.
 
 ## Metrics
 
