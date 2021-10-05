@@ -213,6 +213,22 @@ found in the database matching the request.
 
 # Sprint 3
 
+## User Interface
+
+In this sprint, we will focus on adding a trips componet and a running distances componet.
+
+### UI Design for Trip and Running Distances
+
+- Extending existing menu to allow for editing of trip name
+     - Also adds icon that allows users to save/export trips
+          - Icon opens modal with name, load, and save trip options
+- Extending existing list items to include a running distance
+- Adding a total distance traveled componet to the list
+
+
+![sprint3UI](images/sprint3UI.png "Sprint 3 UI")
+
+
 # Sprint 4
 
 # Sprint 5
