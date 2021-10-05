@@ -125,8 +125,8 @@ function buildRequest(places, radius){
 
 async function sendDistanceRequest(request, setDistances, serverSettings, showMessage) {
 	const distanceResponse = await sendAPIRequest(request, serverSettings.serverUrl);
-	if (findResponse && isJsonResponseValid(distanceResponse, distanceResponse)) {
-		setDistances(distanceResponse["distances"].items);
+	if (distanceResponse && isJsonResponseValid(distanceResponse, distanceResponse)) {
+		setDistances(distanceResponse["distances"]);
 	} else {
 		showMessage(
 			`Distance request to ${serverUrl} failed. Check the log for more details.`,
