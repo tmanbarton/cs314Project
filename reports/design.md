@@ -45,7 +45,7 @@ They will be added later in the semester.
 ![base](images/Map.png)
 
 The basic screen in black shows the view on a mobile device, with a header, footer, and trip.
-The header contains a earth logo and the team name obtained from the server when the client was loaded.
+The header contains an earth logo and the team name obtained from the server when the client was loaded.
 The footer contains a connection icon along with the current server name and server URL the client is connected to.
 The trip shows a map and the current list of destinations.
 
@@ -83,7 +83,7 @@ When the user clicks the Save button, the server connection should change and th
 
 ### Component Hierarchy
 
-The component hierarchy for the base application depicted below shows the our top level App component with four children components.
+The component hierarchy for the base application depicted below shows the top level App component with four children components.
 
 - App renders the major components on the screen.
 - Header renders an icon and a team name in the top banner.
@@ -173,7 +173,7 @@ In this sprint, we will focus on adding a search feature and a change servers fe
 
 ### Change Server Feature UI Wireframe
 - Editing current footer
-  - Extend footer size slightly so that Conected to teamname text and localhost text is stackable
+  - Extend footer size slightly so that Connected to teamname text and localhost text is stackable
 - With new open space on rightside implement drop-up to change servers
 - Add modal telling the user the switched servers
   - Modal should list what is and what isn't available
@@ -185,7 +185,7 @@ In this sprint, we will focus on adding a search feature and a change servers fe
 
 In this sprint we will complete the following Epics: Find Places and Interoperability.
 - Find Places Epic: 
-  - Search icon will be added to dropdown in itenaray.js
+  - Search icon will be added to dropdown in itinerary.js
     - New Search Component will be needed.
       - Search component has two children:
         - SearchInput.js:
@@ -194,9 +194,9 @@ In this sprint we will complete the following Epics: Find Places and Interoperab
           - Responsible for showing list of responses based on the SearchInput
 - Interoperability Epic: 
   - Changes how Footer.js and ServerSettings.js operate.
-  - ServerSettings.js will now instead show a dropdown of avaliable servers to select from.
+  - ServerSettings.js will now instead show a dropdown of available servers to select from.
     - If a user selects a different server, a Model will pop up.
-      - Modal contents will show list of default features avaliable and compare to those that are avalible to the user after selecting new server.
+      - Modal contents will show list of default features available and compare to those that are available to the user after selecting new server.
     - ModalFeatures.js is a child to Backdrop.js
 
 ![clientCompS2](images/ClientComponentDiagramSP2.png "Client Component Diagram Sprint2")
@@ -215,7 +215,7 @@ found in the database matching the request.
 
 ## User Interface
 
-In this sprint, we will focus on adding a trips componet and a running distances componet.
+In this sprint, we will focus on adding a trips component and a running distances component.
 
 ### UI Design for Trip and Running Distances
 
@@ -223,7 +223,7 @@ In this sprint, we will focus on adding a trips componet and a running distances
      - Also adds icon that allows users to save/export trips
           - Icon opens modal with name, load, and save trip options
 - Extending existing list items to include a running distance
-- Adding a total distance traveled componet to the list
+- Adding a total distance traveled component to the list
 
 
 ![sprint3UI](images/sprint3UI.png "Sprint 3 UI")
@@ -235,6 +235,9 @@ In this sprint we will add one new component that will house the functionality o
 
 ![clientCompS3](images/ClientComponentDiagramSP3.png "Client Component Diagram Sprint3")
 
+## Server Classes
+
+![serverDiagramS3](images/ServerClassesSprint3.png)
 
 # Sprint 4
 
