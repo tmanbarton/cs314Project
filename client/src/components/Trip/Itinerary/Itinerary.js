@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Table, Container, Row, Col, Collapse } from "reactstrap";
 import { latLngToText } from "../../../utils/transformers";
 import { FaHome, FaTrashAlt, FaSearch } from "react-icons/fa";
@@ -6,6 +6,10 @@ import { DEFAULT_STARTING_PLACE } from "../../../utils/constants";
 import { useToggle } from "../../../hooks/useToggle";
 import Search from "../Search/Search";
 import { PlaceActionsDropdown } from "./actions.js";
+import {
+	sendAPIRequest,
+	isJsonResponseValid
+} from "../../../utils/restfulAPI";
 
 export default function Itinerary(props) {
 	const [showSearch, toggleSearch] = useToggle(false);
@@ -18,7 +22,7 @@ export default function Itinerary(props) {
 				<Search serverSettings={props.serverSettings} append={props.placeActions.append} showMessage={props.showMessage}/>
 			</Collapse>
 			<Table responsive striped>
-				<Body places={props.places} placeActions={props.placeActions} />
+				<Body serverSettings={props.serverSettings} showMessage={props.showMessage} places={props.places} placeActions={props.placeActions} />
 			</Table>
 		</Container>
 	);
@@ -34,10 +38,7 @@ function Header(props) {
 				<div className="float-right">
 					<FaHome
 						size={24}
-						onClick={() => {
-							//props.placeActions.append(DEFAULT_STARTING_PLACE)
-							props.placeActions.moveToHome()
-						}}
+						onClick={() => props.placeActions.append(DEFAULT_STARTING_PLACE)}
 						data-testid="home-button"
 					/>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -63,6 +64,9 @@ function Body(props) {
 					place={place}
 					placeActions={props.placeActions}
 					index={index}
+					places={props.places}
+					serverSettings={props.serverSettings}
+					showMessage={props.showMessage}
 				/>
 			))}
 		</tbody>
@@ -70,9 +74,13 @@ function Body(props) {
 }
 
 function TableRow(props) {
+	const [distances, setDistances] = useState();
 	const name = props.place.name ? props.place.name : "-";
 	const location = latLngToText(props.place);
-
+	const request = buildRequest(props.places, 3,958);
+	sendDistanceRequest(request, setDistances, props.serverSettings, props.showMessage);
+	const distance = distances;
+	const units = 'mi' // at some point need to be dynamic
 	return (
 		<tr>
 			<th scope="row">{props.index + 1}</th>
@@ -80,7 +88,10 @@ function TableRow(props) {
 				{name}
 				<br />
 				<small className="text-muted">{location}</small>
-			</td>
+				<br />
+				<small className="text-muted">Distance: {distance} {units}</small>
+			</td>				
+				
 			<td>
 				<PlaceActionsDropdown
 					placeActions={props.placeActions}
@@ -89,4 +100,24 @@ function TableRow(props) {
 			</td>
 		</tr>
 	);
+}
+
+function buildRequest(places, radius){
+	return {
+		requestType: "distances",
+		places: places,
+		earthRadius: radius,
+	};
+}
+
+async function sendDistanceRequest(request, setDistances, serverSettings, showMessage) {
+	const distanceResponse = await sendAPIRequest(request, serverSettings.serverUrl);
+	if (findResponse && isJsonResponseValid(distanceResponse, distanceResponse)) {
+		setDistances(distanceResponse["distances"].items);
+	} else {
+		showMessage(
+			`Distance request to ${serverUrl} failed. Check the log for more details.`,
+			"error"
+		);
+	}
 }
