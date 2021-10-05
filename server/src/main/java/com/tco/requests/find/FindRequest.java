@@ -11,10 +11,7 @@ public class FindRequest extends Request{
     private int found;
     private final transient Logger log = LoggerFactory.getLogger(FindRequest.class);
 
-    public FindRequest() {
-        this.requestType = "find";
-    }
-
+    
     @Override
     public void buildResponse() {
         DBQuery db = new DBQuery(match, limit);
@@ -22,6 +19,10 @@ public class FindRequest extends Request{
         places = db.findByString();
         this.found = db.getFound();
         log.trace("buildResponse -> {}", this);
+    }
+
+    public FindRequest() {
+        this.requestType = "find";
     }
 
     public String getMatch() {
