@@ -18,14 +18,14 @@ const UNKNOWN_SERVER_NAME = "Unknown";
 const supportedFeatures = ["config", "find"];
 
 export default function Footer(props) {
-	const [FeaturesChecklistOpen, toggleServerSettings] = useToggle(false);
+	const [featuresChecklistOpen, toggleFeaturesChecklist] = useToggle(false);
 	const [featuresRecieved, setFeaturesRecieved] = useState(["config", "find"]);
 
 	return (
 		<div className="full-width footer">
 			<ServerInformation
-				toggleServerSettings={toggleServerSettings}
-				FeaturesChecklistOpen={FeaturesChecklistOpen}
+				toggleFeaturesChecklist={toggleFeaturesChecklist}
+				featuresChecklistOpen={featuresChecklistOpen}
 				showMessage={props.showMessage}
 				featuresRecieved={featuresRecieved}
 				setFeaturesRecieved={setFeaturesRecieved}
@@ -65,7 +65,7 @@ async function changeServers(server, stateMethods, states, showMessage) {
 			{ setDisableSearch: stateMethods.setDisableSearch },
 			{ disableSearch: states.disableSearch }
 		);
-		stateMethods.toggleServerSettings();
+		stateMethods.toggleFeaturesChecklist();
 	} else {
 		showMessage(
 			`Switching to server: '${server.teamName}', using url: ${newUrl} failed. Check the log for more details.`,
@@ -109,7 +109,7 @@ function ServerInformation(props) {
 											changeServers(
 												server,
 												{
-													toggleServerSettings: props.toggleServerSettings,
+													toggleFeaturesChecklist: props.toggleFeaturesChecklist,
 													setFeaturesRecieved: props.setFeaturesRecieved,
 													setDisableSearch: props.setDisableSearch,
 													processServerConfigSuccess:
@@ -127,12 +127,12 @@ function ServerInformation(props) {
 						</Dropdown>
 					</div>
 					<br />
-					<a className="tco-text" onClick={props.toggleServerSettings}>
+					<a className="tco-text" onClick={props.toggleFeaturesChecklist}>
 						({props.serverSettings.serverUrl}).
 					</a>
 					<FeaturesChecklist
-						isOpen={props.FeaturesChecklistOpen}
-						toggleOpen={props.toggleServerSettings}
+						isOpen={props.featuresChecklistOpen}
+						toggleOpen={props.toggleFeaturesChecklist}
 						features={props.featuresRecieved}
 						supportedFeatures={supportedFeatures}
 					/>
