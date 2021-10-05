@@ -13,7 +13,8 @@ export function usePlaces() {
         append: async (place) => append(place, context),
         removeAtIndex: (index) => removeAtIndex(index, context),
         removeAll: () => removeAll(context),
-        selectIndex: (index) => selectIndex(index, context)
+        selectIndex: (index) => selectIndex(index, context),
+        moveToHome: () => moveToHome(context)
     };
 
     return {places, selectedIndex, placeActions};
@@ -65,3 +66,20 @@ function selectIndex(index, context) {
     }
     setSelectedIndex(index);
 }
+
+async function moveToHome(context) {
+    if (navigator.geolocation) {
+      await navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    }
+    
+    function onSuccess({coords}) {
+      const place = {latitude: coords.latitude, longitude: coords.longitude};
+      append(place, context);
+  
+      console.log(`The user is located at ${JSON.stringify(place)}.`); // use LOG.info() instead
+    }
+  
+    function onError(error) {
+      console.log(error.message);
+    }
+  }
