@@ -237,7 +237,7 @@ In this sprint we will add one new component that will house the functionality o
 
 ## Server Classes
 
-In order to support the distances feature a Distancesrequest class will need to be added. This class queries the database to get the longitude and latitude of a Place object and calculates the distances between them based on that information.
+In order to support the distances feature a DistancesRequest class will need to be added. All this class does is receive the necessary values to calculate the distance between two locations via their longitude and latitude.
 
 ![serverDiagramS3](images/ServerClassesSprint3.png)
 
