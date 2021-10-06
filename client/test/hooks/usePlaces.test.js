@@ -15,11 +15,12 @@ describe('usePlaces', () => {
     };
 
     let hook;
-
+    const serverSettings = {serverUrl: "http://localhost:8000"}
+    const mockMessage = jest.fn();
     beforeEach(() => {
         jest.clearAllMocks();
         fetch.resetMocks();
-        const { result } = renderHook(() => usePlaces());
+        const { result } = renderHook(() => usePlaces(serverSettings, mockMessage));
         hook = result;
     });
 
