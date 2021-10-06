@@ -37,8 +37,8 @@ public class DistancesRequest extends Request {
     }
 
     public double computeDistance(double latitude1, double latitude2, double longitude1, double longitude2) {
-        lattitude1 = Math.toRadians(lattitude1);
-        lattitude2 = Math.toRadians(lattitude2);
+        latitude1 = Math.toRadians(latitude1);
+        latitude2 = Math.toRadians(latitude2);
         longitude1 = Math.toRadians(longitude1);
         longitude2 = Math.toRadians(longitude2);
 //        distance = 2 * radius * arcsin(sqrt(sin^2((lat2 - lat1)/2) + cos(lat1)*cos(lat2)*sin^2((long2 - long1)/2)))
