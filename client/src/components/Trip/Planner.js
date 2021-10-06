@@ -5,7 +5,7 @@ import Itinerary from "./Itinerary/Itinerary";
 import { usePlaces } from "../../hooks/usePlaces";
 
 export default function Planner(props) {
-	const { places, selectedIndex, placeActions } = usePlaces();
+	const { places, selectedIndex, placeActions, distances } = usePlaces(props.serverSettings, props.showMessage);
 
 	return (
 		<Container>
@@ -25,6 +25,7 @@ export default function Planner(props) {
 					places={places}
 					selectedIndex={selectedIndex}
 					placeActions={placeActions}
+					distances={distances}
 				/>
 			</Section>
 		</Container>

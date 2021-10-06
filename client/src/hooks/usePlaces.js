@@ -1,14 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { placeToLatLng } from '../utils/transformers';
 import { reverseGeocode } from '../utils/reverseGeocode';
 import { LOG } from '../utils/constants';
+import {
+	sendAPIRequest,
+	isJsonResponseValid
+} from "../utils/restfulAPI";
 
-export function usePlaces() {
+export function usePlaces(serverSettings, showMessage) {
     const [places, setPlaces] = useState([]);
     const [selectedIndex, setSelectedIndex] = useState(-1);
-
-    const context = { places, setPlaces, selectedIndex, setSelectedIndex };
-
+    const [distances, setDistances] = useState();
+    useEffect(() => {
+        console.log(showMessage)
+      }, [showMessage])
+    const context = { places, setPlaces, selectedIndex, setSelectedIndex, serverSettings, showMessage, distances, setDistances };
     const placeActions = {
         append: async (place) => append(place, context),
         removeAtIndex: (index) => removeAtIndex(index, context),
@@ -17,20 +23,55 @@ export function usePlaces() {
         moveToHome: () => moveToHome(context)
     };
 
-    return {places, selectedIndex, placeActions};
+    return {places, selectedIndex, placeActions, distances};
 }
 
 async function append(place, context) {
-    const { places, setPlaces, setSelectedIndex } = context;
+    const { places, setPlaces, setSelectedIndex, serverSettings, showMessage, setDistances } = context;
 
     const newPlaces = [...places];
 
     const fullPlace = await reverseGeocode(placeToLatLng(place));
     newPlaces.push(fullPlace);
+    // dis req
+    const placeList = buildPlacesList(places);
+    const request = buildRequest(placeList, 3,958);
+    sendDistanceRequest(request, setDistances, serverSettings,showMessage);
 
     setPlaces(newPlaces);
     setSelectedIndex(newPlaces.length - 1);
 }
+
+function buildPlacesList(places){
+	let placeList = []
+	places.forEach(place => {
+		let newPlace = {
+			latitude: String(place.lat),
+			longitude: String(place.lng)
+		}
+		placeList.push(newPlace);
+	});
+	return placeList;
+}
+function buildRequest(places, radius){
+	return {
+		requestType: "distances",
+		places: places,
+		earthRadius: radius,
+	};
+}
+async function sendDistanceRequest(request, setDistances, serverSettings, showMessage) {
+	const distanceResponse = await sendAPIRequest(request, serverSettings.serverUrl);
+	if (distanceResponse && isJsonResponseValid(distanceResponse, distanceResponse)) {
+		setDistances(distanceResponse["distances"]);
+	} else {
+		showMessage(
+			`Distance request to ${serverSettings.serverUrl} failed. Check the log for more details.`,
+			"error"
+		);
+	}
+}
+
 
 function removeAtIndex(index, context) {
     const { places, setPlaces, selectedIndex, setSelectedIndex } = context;
