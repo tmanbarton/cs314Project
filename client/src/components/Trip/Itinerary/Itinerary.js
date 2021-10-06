@@ -6,10 +6,6 @@ import { DEFAULT_STARTING_PLACE } from "../../../utils/constants";
 import { useToggle } from "../../../hooks/useToggle";
 import Search from "../Search/Search";
 import { PlaceActionsDropdown } from "./actions.js";
-import {
-	sendAPIRequest,
-	isJsonResponseValid
-} from "../../../utils/restfulAPI";
 
 export default function Itinerary(props) {
 	const [showSearch, toggleSearch] = useToggle(false);
@@ -22,7 +18,7 @@ export default function Itinerary(props) {
 				<Search serverSettings={props.serverSettings} append={props.placeActions.append} showMessage={props.showMessage}/>
 			</Collapse>
 			<Table responsive striped>
-				<Body serverSettings={props.serverSettings} showMessage={props.showMessage} places={props.places} placeActions={props.placeActions} />
+				<Body distances={props.distances} places={props.places} placeActions={props.placeActions} />
 			</Table>
 		</Container>
 	);
@@ -65,8 +61,7 @@ function Body(props) {
 					placeActions={props.placeActions}
 					index={index}
 					places={props.places}
-					serverSettings={props.serverSettings}
-					showMessage={props.showMessage}
+					distances={props.distances}
 				/>
 			))}
 		</tbody>
@@ -74,14 +69,12 @@ function Body(props) {
 }
 
 function TableRow(props) {
-	const [distances, setDistances] = useState();
 	const name = props.place.name ? props.place.name : "-";
 	const location = latLngToText(props.place);
-	const placeList = buildPlacesList(props.places);
-	const request = buildRequest(placeList, 3,958);
-	// sendDistanceRequest(request, setDistances, props.serverSettings, props.showMessage);
-	const distance = distances;
+	
+	const distance = parseDistance(props.distances, props.index);
 	const units = 'mi' // at some point need to be dynamic
+	
 	return (
 		<tr>
 			<th scope="row">{props.index + 1}</th>
@@ -102,35 +95,11 @@ function TableRow(props) {
 		</tr>
 	);
 }
-
-function buildPlacesList(places){
-	let placeList = []
-	places.forEach(place => {
-		let newPlace = {
-			latitude: String(place.lat),
-			longitude: String(place.lng)
-		}
-		placeList.push(newPlace);
-	});
-	return placeList;
-}
-
-function buildRequest(places, radius){
-	return {
-		requestType: "distances",
-		places: places,
-		earthRadius: radius,
-	};
-}
-
-async function sendDistanceRequest(request, setDistances, serverSettings, showMessage) {
-	const distanceResponse = await sendAPIRequest(request, serverSettings.serverUrl);
-	if (distanceResponse && isJsonResponseValid(distanceResponse, distanceResponse)) {
-		setDistances(distanceResponse["distances"]);
-	} else {
-		showMessage(
-			`Distance request to ${serverUrl} failed. Check the log for more details.`,
-			"error"
-		);
+function parseDistance(distances, index){
+	if ((distances == undefined) || (index == 0)){
+		return 0
+	}
+	else {
+		return distances[index-1];
 	}
 }
