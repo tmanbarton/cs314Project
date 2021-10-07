@@ -1,6 +1,7 @@
 package com.tco.requests;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.lang.Math;
 import java.util.Arrays;
 
@@ -28,16 +29,16 @@ public class DistancesRequest extends Request {
         double latitude2 = 0;
         double longitude2 = 0;
         for(int i = 1; i <= places.size(); i++) {
-            latitude1 = Integer.parseInt(places[i - 1].get("latitude"));
-            longitude1 = Integer.parseInt(places[i - 1].get("longitude"));
+            latitude1 = Double.parseDouble(places.get(i - 1).get("latitude"));
+            longitude1 = Double.parseDouble(places.get(i - 1).get("longitude"));
             
             if(i == places.size()) {
-                latitude2 = Integer.parseInt(places[0].get("latitude"));
-                longitude2 = Integer.parseInt(places[0].get("longitude"));
+                latitude2 = Double.parseDouble(places.get(0).get("latitude"));
+                longitude2 = Double.parseDouble(places.get(0).get("longitude"));
             }
             else {
-                latitude2 = Integer.parseInt(places[i].get("latitude"));
-                longitude2 = Integer.parseInt(places[i].get("longitude"));
+                latitude2 = Double.parseDouble(places.get(i).get("latitude"));
+                longitude2 = Double.parseDouble(places.get(i).get("longitude"));
             }
             int distance = computeDistance(latitude1, latitude2, longitude1, longitude2);
             distances.add(distance);
