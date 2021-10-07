@@ -27,11 +27,11 @@ public class DistancesRequest extends Request {
         double longitude1 = 0;
         double latitude2 = 0;
         double longitude2 = 0;
-        for(int i = 1; i <= places.length; i++) {
+        for(int i = 1; i <= places.length(); i++) {
             latitude1 = Integer.parseInt(places[i - 1].get("latitude"));
             longitude1 = Integer.parseInt(places[i - 1].get("longitude"));
             
-            if(i == places.length) {
+            if(i == places.length()) {
                 latitude2 = Integer.parseInt(places[0].get("latitude"));
                 longitude2 = Integer.parseInt(places[0].get("longitude"));
             }
