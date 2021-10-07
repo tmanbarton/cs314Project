@@ -34,7 +34,7 @@ async function append(place, context) {
     const fullPlace = await reverseGeocode(placeToLatLng(place));
     newPlaces.push(fullPlace);
     // dis req
-    const placeList = buildPlacesList(places);
+    const placeList = buildPlacesList(newPlaces);
     const request = buildRequest(placeList, 3958);
     sendDistanceRequest(request, setDistances, serverSettings,showMessage);
 
