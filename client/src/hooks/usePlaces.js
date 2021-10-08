@@ -35,7 +35,7 @@ async function append(place, context) {
     newPlaces.push(fullPlace);
     // dis req
     const placeList = buildPlacesList(places);
-    const request = buildRequest(placeList, 3,958);
+    const request = buildRequest(placeList, 3958);
     sendDistanceRequest(request, setDistances, serverSettings,showMessage);
 
     setPlaces(newPlaces);
