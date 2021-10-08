@@ -24,7 +24,7 @@ public class TestDistancesRequest {
       new ArrayList<Integer>(Arrays.asList(277, 2072, 123, 487, 1928, 978));
 
   private DistancesRequest distances;
-  Places places = new Places();
+  private Places places = new Places();
   private double earthRadius = 3958.8;
 
   @BeforeEach

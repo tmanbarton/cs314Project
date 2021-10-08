@@ -3,7 +3,6 @@ package com.tco.requests;
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +19,10 @@ public class DistancesRequest extends Request {
     distances = getDistances(places);
 
     log.trace("buildResponse -> {}", this);
+  }
+
+  public DistancesRequest() { 
+      this.requestType = "distances"; 
   }
 
   public ArrayList<Integer> getDistances(Places places) {
@@ -54,27 +57,26 @@ public class DistancesRequest extends Request {
     return distances;
   }
 
-  public DistancesRequest() { this.requestType = "distances"; }
-
-  public int computeDistance(double latitude1, double latitude2,
+  private int computeDistance(double latitude1, double latitude2,
                              double longitude1, double longitude2) {
     latitude1 = Math.toRadians(latitude1);
     latitude2 = Math.toRadians(latitude2);
     longitude1 = Math.toRadians(longitude1);
     longitude2 = Math.toRadians(longitude2);
     double distance =
-        2 * (this.earthRadius * 1.609344) * //this is a temp fix converting the earthRadius to km
+        2 * (this.earthRadius * 1.609344) *
         Math.asin(Math.sqrt(
             Math.pow(Math.sin((latitude2 - latitude1) / 2), 2) +
             Math.cos(latitude1) * Math.cos(latitude2) *
                 Math.pow(Math.sin((longitude2 - longitude1) / 2), 2)));
-    distance *= .6214; //this is a temp fix converting the distance to miles
+    distance *= .6214;
     return (int)distance;
   }
 
   public void setEarthRadius(double earthRadius){
       this.earthRadius = earthRadius;
   }
+  
   public double getEarthRadius(){
       return earthRadius;
   }
