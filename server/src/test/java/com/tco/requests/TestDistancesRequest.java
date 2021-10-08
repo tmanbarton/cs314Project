@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class TestDistancesRequest {
+public class TestDistancesRequest {  
   private ArrayList<String> jsonStrings = new ArrayList<String>(Arrays.asList(
       "{\"latitude\": \"34.305599212646484\", \"longitude\": \"-112.16500091552734\"}",
       "{\"latitude\": \"35.350498199499995\",\"longitude\": \"-116.888000488\"}",
@@ -18,7 +18,8 @@ public class TestDistancesRequest {
       "{\"latitude\": \"27.230899810791016\",\"longitude\": \"-80.96920013427734\"}",
       "{\"latitude\": \"33.76750183105469\",\"longitude\": \"-84.06829833984375\"}",
       "{\"latitude\": \"48.145301818847656\",\"longitude\": \"-116.21399688720703\"}"));
-
+  //Distances came from https://keisan.casio.com/exec/system/1224587128#! and that value was convert to miles using Google's km to miles converter.
+  //Everything rounded down.
   private ArrayList<Integer> correctDistances =
       new ArrayList<Integer>(Arrays.asList(277, 2072, 123, 487, 1928, 978));
 
