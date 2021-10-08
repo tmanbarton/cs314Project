@@ -34,7 +34,10 @@ function Header(props) {
 				<div className="float-right">
 					<FaHome
 						size={24}
-						onClick={() => props.placeActions.append(DEFAULT_STARTING_PLACE)}
+						onClick={() => {
+							//props.placeActions.append(DEFAULT_STARTING_PLACE)
+							props.placeActions.moveToHome()
+						}}
 						data-testid="home-button"
 					/>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
