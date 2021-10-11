@@ -6,8 +6,9 @@ import {
 	ModalHeader,
 	ModalFooter,
 	Container,
+	Button,
 } from "reactstrap";
-import { FaToolbox } from "react-icons/fa";
+import { FaToolbox, FaUpload } from "react-icons/fa";
 
 export default function FileModal(props) {
 	return (
@@ -46,6 +47,7 @@ function LoadTrip(){
 		<Container>
 			<h5>Load Trip</h5>
 			<hr />
+			<Button color="primary"><FaUpload /></Button>
 		</Container>
 	);
 }
