@@ -62,7 +62,8 @@ public class DBQuery {
         final static String USER = "cs314-db";
         final static String PASSWORD = "eiK5liet1uej";
         static String url(){
-            String checkTunnel = System.getenv("CS314_USE_DATABASE_TUNNEL");
+            // String checkTunnel = System.getenv("CS314_USE_DATABASE_TUNNEL");
+            String checkTunnel = "true";
             String dburl;
             if (checkTunnel != null && checkTunnel.equals("true")){
                 dburl = "jdbc:mariadb://127.0.0.1:56247/cs314";
