@@ -16,14 +16,16 @@ public class DistancesRequest extends Request {
 
   @Override
   public void buildResponse() {
-    distances = getDistances(places);
+    if (places.size() == 0) {
+      distances = new ArrayList<Integer>();
+    } else {
+      distances = getDistances(places);
+    }
 
     log.trace("buildResponse -> {}", this);
   }
 
-  public DistancesRequest() { 
-      this.requestType = "distances"; 
-  }
+  public DistancesRequest() { this.requestType = "distances"; }
 
   public ArrayList<Integer> getDistances(Places places) {
     ArrayList<Integer> distances = new ArrayList<Integer>();
@@ -58,7 +60,7 @@ public class DistancesRequest extends Request {
   }
 
   private int computeDistance(double latitude1, double latitude2,
-                             double longitude1, double longitude2) {
+                              double longitude1, double longitude2) {
     latitude1 = Math.toRadians(latitude1);
     latitude2 = Math.toRadians(latitude2);
     longitude1 = Math.toRadians(longitude1);
@@ -73,11 +75,9 @@ public class DistancesRequest extends Request {
     return (int)distance;
   }
 
-  public void setEarthRadius(double earthRadius){
-      this.earthRadius = earthRadius;
+  public void setEarthRadius(double earthRadius) {
+    this.earthRadius = earthRadius;
   }
-  
-  public double getEarthRadius(){
-      return earthRadius;
-  }
+
+  public double getEarthRadius() { return earthRadius; }
 }
