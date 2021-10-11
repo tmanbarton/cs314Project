@@ -15,7 +15,7 @@ const UNICODE_LINK_SYMBOL = "\uD83D\uDD17";
 const UNICODE_WARNING_SIGN = "\u26A0";
 const UNKNOWN_SERVER_NAME = "Unknown";
 
-const supportedFeatures = ["config", "find"];
+const supportedFeatures = ["config", "find", "distances"];
 
 export default function Footer(props) {
 	const [featuresChecklistOpen, toggleFeaturesChecklist] = useToggle(false);
