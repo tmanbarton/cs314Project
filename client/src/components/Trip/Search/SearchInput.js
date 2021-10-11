@@ -24,6 +24,7 @@ export default function SearchInput(props) {
 					type="text"
 					placeholder="Search for Places"
 					onChange={inputChanged}
+					data-testid="searchBar"
 				></Input>
 			</div>
 			<hr />
