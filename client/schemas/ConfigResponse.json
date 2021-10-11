@@ -20,7 +20,7 @@
       "type": "array",
       "items": {
         "type": "string",
-        "enum": ["config", "find", "distance", "tour", "type", "where", "units", "title"]
+        "enum": ["config", "find", "distances", "tour", "type", "where", "units", "title"]
       }
     },
     "type": {
