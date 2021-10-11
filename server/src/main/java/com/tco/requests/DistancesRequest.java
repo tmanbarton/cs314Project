@@ -63,12 +63,15 @@ public class DistancesRequest extends Request {
     latitude2 = Math.toRadians(latitude2);
     longitude1 = Math.toRadians(longitude1);
     longitude2 = Math.toRadians(longitude2);
-    double distance =
-        2 * (this.earthRadius * 1.609344) *
-        Math.asin(Math.sqrt(
-            Math.pow(Math.sin((latitude2 - latitude1) / 2), 2) +
-            Math.cos(latitude1) * Math.cos(latitude2) *
-                Math.pow(Math.sin((longitude2 - longitude1) / 2), 2)));
+    double centralAngle = Math.atan2(Math.sqrt(Math.pow(Math.cos(latitude1)*Math.sin(longitude2-longitude1), 2) +(Math.cos(latitude1) * Math.sin(latitude2) - Math.sin(latitude2) * Math.cos(latitude2) * Math.cos(longitude2 - longitude1)))/((Math.sin(latitude1) * Math.sin(latitude2) + Math.cos(latitude1) * Math.cos(latitude2) * Math.cos(longitude2 - longitude1))));
+    distance = this.earthRadius * 1.609344 * centralAngle;
+    
+    // double distance =
+    //     2 * (this.earthRadius * 1.609344) *
+    //     Math.asin(Math.sqrt(
+    //         Math.pow(Math.sin((latitude2 - latitude1) / 2), 2) +
+    //         Math.cos(latitude1) * Math.cos(latitude2) *
+    //             Math.pow(Math.sin((longitude2 - longitude1) / 2), 2)));
     distance *= .6214;
     return (int)distance;
   }
