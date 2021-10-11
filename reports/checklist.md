@@ -4,6 +4,7 @@ The goal of an Inspection is to find defects.
 This checklist is our guide to help us look for defects.
 The checklist will be updated as we identify new faults in our code that we wish to prevent in future inspections.
 
+
 ### Data faults
 
 - Are all program variables initialized before their values are used?
@@ -11,6 +12,8 @@ The checklist will be updated as we identify new faults in our code that we wish
 - Should the upper bound of arrays be equal to the size of the array or size-1?
 - If character strings are used, is a delimiter explicitly assigned?
 - Is there any possibility of a buffer overflow?
+- Does the variable need to be constant? Should it be if it is not?
+- Do all variables have a descriptive, yet concise name that follows the naming convention deicded on?
 
 ### Control faults
 
