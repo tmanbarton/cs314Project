@@ -65,17 +65,59 @@ public class DistancesRequest extends Request {
     latitude2 = Math.toRadians(latitude2);
     longitude1 = Math.toRadians(longitude1);
     longitude2 = Math.toRadians(longitude2);
-    double centralAngle = Math.atan2(Math.sqrt(Math.pow(Math.cos(latitude1)*Math.sin(longitude2-longitude1), 2) +(Math.cos(latitude1) * Math.sin(latitude2) - Math.sin(latitude2) * Math.cos(latitude2) * Math.cos(longitude2 - longitude1)))/((Math.sin(latitude1) * Math.sin(latitude2) + Math.cos(latitude1) * Math.cos(latitude2) * Math.cos(longitude2 - longitude1))));
-    distance = this.earthRadius * 1.609344 * centralAngle;
+
+    double radiusAtEquator = 6378137;
+    double radiusAtPoles = 6356752.314245;
+    double flattenElipsoid = 1 / 298.257223563;
+    double longitudeDifference = Math.toRadians(longitude2 - longitude1);
+    double U1 = Math.atan((1 - flattenElipsoid) * Math.tan(Math.toRadians(latitude1)));
+    double U2 = Math.atan((1 - flattenElipsoid) * Math.tan(Math.toRadians(latitude2)));
+    double sinU1 = Math.sin(U1);
+    double cosU1 = Math.cos(U1);
+    double sinU2 = Math.sin(U2);
+    double cosU2 = Math.cos(U2);
+    double cosSqAlpha, sinSigma, cos2SigmaM, cosSigma, sigma;
+    double lambda = longitudeDifference;
+    double lambdaP;
+    double iterationLimit = 100;
     
-    // double distance =
-    //     2 * (this.earthRadius * 1.609344) *
-    //     Math.asin(Math.sqrt(
-    //         Math.pow(Math.sin((latitude2 - latitude1) / 2), 2) +
-    //         Math.cos(latitude1) * Math.cos(latitude2) *
-    //             Math.pow(Math.sin((longitude2 - longitude1) / 2), 2)));
-    distance *= .6214;
-    return (int)distance;
+  do {
+    double sinLambda = Math.sin(lambda), cosLambda = Math.cos(lambda);
+    sinSigma = Math.sqrt( (cosU2 * sinLambda)
+      * (cosU2 * sinLambda)
+      + (cosU1 * sinU2 - sinU1 * cosU2 * cosLambda)
+      * (cosU1 * sinU2 - sinU1 * cosU2 * cosLambda)
+    );
+
+    if (sinSigma == 0) return 0;
+
+    cosSigma = sinU1 * sinU2 + cosU1 * cosU2 * cosLambda;
+    sigma = Math.atan2(sinSigma, cosSigma);
+    double sinAlpha = cosU1 * cosU2 * sinLambda / sinSigma;
+    cosSqAlpha = 1 - sinAlpha * sinAlpha;
+    cos2SigmaM = cosSigma - 2 * sinU1 * sinU2 / cosSqAlpha;
+    double C = flattenElipsoid / 16 * cosSqAlpha * (4 + flattenElipsoid * (4 - 3 * cosSqAlpha));
+    lambdaP = lambda;
+    lambda =  longitudeDifference + (1 - C) * flattenElipsoid * sinAlpha  
+      * (sigma + C * sinSigma 
+        * (cos2SigmaM + C * cosSigma
+          *(-1 + 2 * cos2SigmaM * cos2SigmaM)
+        )
+      );
+  } while (Math.abs(lambda - lambdaP) > 1e-12 && --iterationLimit > 0);
+
+  if(iterationLimit == 0) return 0;
+  double uSq = cosSqAlpha * (radiusAtEquator * radiusAtEquator - radiusAtPoles * radiusAtPoles) / (radiusAtPoles * radiusAtPoles);
+  double A = 1 + uSq / 16384 * (4069 + uSq * (-768 + uSq * (329 - 175 * uSq)));
+  double B = uSq / 1024 * (256 + uSq * (-128 + uSq * (74 - 47 * uSq)));
+  double deltaSigma = B * sinSigma
+    * (cos2SigmaM + B / 4
+      * (cosSigma
+        * (-1 + 2 * cos2SigmaM * cos2SigmaM) - B / 6 * cos2SigmaM
+          * (-3 + 4 * sinSigma * sinSigma)
+            * (-3 + 4 * cos2SigmaM * cos2SigmaM)));
+  double s = radiusAtPoles * A * (sigma - deltaSigma);
+  return (int)s;
   }
 
   public void setEarthRadius(double earthRadius) {
