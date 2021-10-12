@@ -27,7 +27,7 @@ export default function FileModal(props) {
 
 function Header(props) {
 	return (
-		<ModalHeader toggle={props.toggle}>
+		<ModalHeader cssModule={{'modal-title': 'w-100 text-center'}}>
 			Trip Toolbox &nbsp;
 			<FaToolbox size={20} />
 		</ModalHeader>
@@ -36,7 +36,7 @@ function Header(props) {
 
 function Body(props) {
 	return (
-		<ModalBody>
+		<ModalBody className="center-modal-body">
 			<Row>
 				<LoadTrip setFileName={props.setFileName} fileName={props.fileName} />
 			</Row>
@@ -55,7 +55,7 @@ function LoadTrip(props) {
 	}
 
 	return (
-		<Container className="centered">
+		<Container>
 			<Container>
 				<h5>Load Trip</h5>
 				<hr />
