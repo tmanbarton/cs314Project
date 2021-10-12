@@ -33,13 +33,17 @@ async function append(place, context) {
 
     const fullPlace = await reverseGeocode(placeToLatLng(place));
     newPlaces.push(fullPlace);
-    // dis req
-    const placeList = buildPlacesList(newPlaces);
-    const request = buildRequest(placeList, 3958);
-    sendDistanceRequest(request, setDistances, serverSettings,showMessage);
+        
+    buildAndSendDistanceRequest(newPlaces, setDistances, serverSettings, showMessage);
 
     setPlaces(newPlaces);
     setSelectedIndex(newPlaces.length - 1);
+}
+
+function buildAndSendDistanceRequest(newPlaces, setDistances, serverSettings, showMessage){
+    const placeList = buildPlacesList(newPlaces);
+    const request = buildDistanceRequest(placeList, 3958);
+    sendDistanceRequest(request, setDistances, serverSettings,showMessage);
 }
 
 function buildPlacesList(places){
@@ -53,7 +57,7 @@ function buildPlacesList(places){
 	});
 	return placeList;
 }
-function buildRequest(places, radius){
+function buildDistanceRequest(places, radius){
 	return {
 		requestType: "distances",
 		places: places,
@@ -88,9 +92,7 @@ function removeAtIndex(index, context) {
         setDistances(undefined);
     } else if (selectedIndex >= index && selectedIndex !== 0) {
         setSelectedIndex(selectedIndex - 1);
-        const placeList = buildPlacesList(newPlaces);
-        const request = buildRequest(placeList, 3958);
-        sendDistanceRequest(request, setDistances, serverSettings,showMessage);
+        buildAndSendDistanceRequest(newPlaces, setDistances, serverSettings, showMessage);
     }
 }
 
@@ -100,7 +102,6 @@ function removeAll(context) {
     setDistances(undefined);
     setPlaces([]);
     setSelectedIndex(-1);
-    setDistances(0);
 }
 
 function selectIndex(index, context) {
