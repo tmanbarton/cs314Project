@@ -13,7 +13,7 @@ export default function SearchInput(props) {
 
 	function inputChanged(input) {
 		let match = input.target.value;
-		const request = buildRequest(match);
+		const request = buildFindRequest(match);
 		sendFindRequest(request, setPlaces, props.serverSettings, props.showMessage);
 	}
 
@@ -35,7 +35,7 @@ export default function SearchInput(props) {
 	);
 }
 
-function buildRequest(match) {
+function buildFindRequest(match) {
 	return {
 		requestType: "find",
 		match: match,

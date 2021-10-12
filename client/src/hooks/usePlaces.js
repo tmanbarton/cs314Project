@@ -33,13 +33,17 @@ async function append(place, context) {
 
     const fullPlace = await reverseGeocode(placeToLatLng(place));
     newPlaces.push(fullPlace);
-    // dis req
-    const placeList = buildPlacesList(newPlaces);
-    const request = buildRequest(placeList, 3958);
-    sendDistanceRequest(request, setDistances, serverSettings,showMessage);
+        
+    buildAndSendDistanceRequest(newPlaces, setDistances, serverSettings, showMessage);
 
     setPlaces(newPlaces);
     setSelectedIndex(newPlaces.length - 1);
+}
+
+function buildAndSendDistanceRequest(newPlaces, setDistances, serverSettings, showMessage){
+    const placeList = buildPlacesList(newPlaces);
+    const request = buildDistanceRequest(placeList, 3958);
+    sendDistanceRequest(request, setDistances, serverSettings,showMessage);
 }
 
 function buildPlacesList(places){
@@ -53,7 +57,7 @@ function buildPlacesList(places){
 	});
 	return placeList;
 }
-function buildRequest(places, radius){
+function buildDistanceRequest(places, radius){
 	return {
 		requestType: "distances",
 		places: places,
@@ -74,7 +78,7 @@ async function sendDistanceRequest(request, setDistances, serverSettings, showMe
 
 
 function removeAtIndex(index, context) {
-    const { places, setPlaces, selectedIndex, setSelectedIndex } = context;
+    const { places, setPlaces, selectedIndex, setSelectedIndex, serverSettings, showMessage, setDistances } = context;
 
     if (index < 0 || index >= places.length) {
         LOG.error(`Attempted to remove index ${index} in places list of size ${places.length}.`);
@@ -85,14 +89,17 @@ function removeAtIndex(index, context) {
 
     if (newPlaces.length === 0) {
         setSelectedIndex(-1);
+        setDistances(undefined);
     } else if (selectedIndex >= index && selectedIndex !== 0) {
         setSelectedIndex(selectedIndex - 1);
+        buildAndSendDistanceRequest(newPlaces, setDistances, serverSettings, showMessage);
     }
 }
 
 function removeAll(context) {
-    const { setPlaces, setSelectedIndex } = context;
+    const { setPlaces, setSelectedIndex, setDistances } = context;
 
+    setDistances(undefined);
     setPlaces([]);
     setSelectedIndex(-1);
 }

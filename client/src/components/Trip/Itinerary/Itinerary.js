@@ -137,33 +137,29 @@ function parseDistance(distances, index) {
 
 function Bottom(props)
 {
-	if (props.wasRest == true){
-		let total = 0
-	} else {
-		
+	if(props.distances){
+		const total = totalDistance(props.distances);
+		return (
+			<Container>
+				<strong>Total Trip Distance: {total}</strong>
+			</Container>
+		);
+	}else{
+		return(
+			null
+		);
 	}
-	let total = totalDistance(props.distances);
-	return props.distances ? (
-		<Container>
-			<strong>Total Trip Distance: {total}</strong>
-		</Container>
-
-	) : null;
+	
 }
 
 function totalDistance(distances)
 {
-	var total = 0;
-	if (distances == undefined)
+	let total = 0;
+
+	for (let i = 0; i < distances.length; i++)
 	{
-		return 0
+		total += distances[i];
 	}
-	else
-	{
-		for (var i = 0; i < distances.length; i++)
-		{
-			total += distances[i];
-		}
-		return total;
-	}
+	return total;
+	
 }
