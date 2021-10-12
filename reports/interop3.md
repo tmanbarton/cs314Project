@@ -11,7 +11,7 @@ This table lists each student in the team, the team they verified interoperabili
 
 | Name | Team | Time |
 | ---- | ---- | ---- |
-|      | t01  |      |
+| Amir | t01  |      |
 |      | t12  |      |
 |      | t04  |      |
 |      | t23  |      |
