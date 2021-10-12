@@ -76,6 +76,7 @@ function LoadTrip(props) {
 
 				{props.fileName.length > 0 ? (
 					<Container>
+						<br />
 						<p>
 							Uploaded <strong>{props.fileName}</strong> <FaCheck />
 						</p>
