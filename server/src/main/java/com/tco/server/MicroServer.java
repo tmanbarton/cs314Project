@@ -48,6 +48,15 @@ class MicroServer {
     private String processHttpRequest(spark.Request httpRequest, spark.Response httpResponse, Type requestType) {
         setupResponse(httpResponse);
         String jsonString = httpRequest.body();
+
+        if(requestType == FindRequest.class){
+            if(jsonString.contains("where") || jsonString.contains("type")){
+                httpResponse.status(HTTP_BAD_REQUEST);
+                log.info("Bad Request - {}", jsonString);
+                return jsonString;
+            }
+        }
+
         try {
             JSONValidator.validate(jsonString, requestType);
             Request requestObj = new Gson().fromJson(jsonString, requestType);

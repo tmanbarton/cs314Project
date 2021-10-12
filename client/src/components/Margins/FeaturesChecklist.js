@@ -26,7 +26,7 @@ function evaluateSupport(newFeatures, supportedFeature) {
 
 function Header() {
 	return (
-		<ModalHeader className="centered">
+		<ModalHeader cssModule={{'modal-title': 'w-100 text-center'}}>
 			Features Checklist &nbsp;
 			<FaCheck size={20}/>
 		</ModalHeader>
@@ -35,7 +35,7 @@ function Header() {
 
 function Body(props) {
 	return (
-		<ModalBody>
+		<ModalBody className="center-modal-body">
 			{props.supportedFeatures.map((feature, index) => (
 				<Row className="centered" key={`${index} - ${feature}`}>
 					<Col>
