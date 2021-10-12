@@ -34,8 +34,8 @@ export default function Itinerary(props) {
 					places={props.places}
 					placeActions={props.placeActions}
 				/>
-				<Bottom distances={props.distances}/>
 			</Table>
+			<Bottom distances={props.distances}/>
 		</Container>
 	);
 }
@@ -143,12 +143,12 @@ function Bottom(props)
 		
 	}
 	let total = totalDistance(props.distances);
-	return (
+	return props.distances ? (
 		<Container>
 			<strong>Total Trip Distance: {total}</strong>
 		</Container>
 
-	);
+	) : null;
 }
 
 function totalDistance(distances)
