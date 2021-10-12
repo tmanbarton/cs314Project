@@ -48,3 +48,9 @@ The checklist will be updated as we identify new faults in our code that we wish
 ### Exception faults
 
 - Have all possible error conditions been considered?
+
+### Reusability
+
+- Are all available libraries being used effectively?
+- Is the code as generalized/abstracted as it could be?
+- Is the same code being written more than once or is there copied-and-pasted code from another class.
