@@ -35,6 +35,7 @@ export default function Itinerary(props) {
 					placeActions={props.placeActions}
 				/>
 			</Table>
+			<Bottom distances={props.distances}/>
 		</Container>
 	);
 }
@@ -131,5 +132,38 @@ function parseDistance(distances, index) {
 		return 0;
 	} else {
 		return distances[index - 1];
+	}
+}
+
+function Bottom(props)
+{
+	if (props.wasRest == true){
+		let total = 0
+	} else {
+		
+	}
+	let total = totalDistance(props.distances);
+	return props.distances ? (
+		<Container>
+			<strong>Total Trip Distance: {total}</strong>
+		</Container>
+
+	) : null;
+}
+
+function totalDistance(distances)
+{
+	var total = 0;
+	if (distances == undefined)
+	{
+		return 0
+	}
+	else
+	{
+		for (var i = 0; i < distances.length; i++)
+		{
+			total += distances[i];
+		}
+		return total;
 	}
 }

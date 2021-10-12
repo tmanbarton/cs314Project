@@ -69,6 +69,7 @@ The fifth Epic we have planned it "Trip Name". This epic allows users to customi
 | :--------- | :----------------------- | :----------------------------------------------------- | :------------------------------------- |
 | _10/04/21_ | _None_                   | _#220, #227, #228, #262_ <br> Sprint 3 plan in general | None                                   |
 | _10/06/21_ | _#220, #227, #228, #262_ | _#233, #253, #254, #258_                               | Distance request being sent infinitely |
+| _10/11/21_ | _#233, #264, #278, #279, #281, #280, #284, #286, #287, #237, #241, #254, #288, #289_ | _#290, #292, #298, #300, #303, #294, #295_ | Total distance not updating when removing a place. <br> We used the wrong formula to calculate distances. |
 
 ## Review
 
