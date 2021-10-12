@@ -91,10 +91,11 @@ function removeAtIndex(index, context) {
 }
 
 function removeAll(context) {
-    const { setPlaces, setSelectedIndex } = context;
+    const { setPlaces, setSelectedIndex, setDistances } = context;
 
     setPlaces([]);
     setSelectedIndex(-1);
+    setDistances(0);
 }
 
 function selectIndex(index, context) {
