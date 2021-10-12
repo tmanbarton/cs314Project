@@ -13,8 +13,8 @@ This table lists each student in the team, the team they verified interoperabili
 | ---- | ---- | ---- |
 | Amir | t01  |      |
 |      | t12  |      |
-|      | t04  |      |
-|      | t23  |      |
+|      | t22  |      |
+|      | t16  |      |
 
 ### Client Problems found
 
