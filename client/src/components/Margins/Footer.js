@@ -19,7 +19,7 @@ const supportedFeatures = ["config", "find", "distances"];
 
 export default function Footer(props) {
 	const [featuresChecklistOpen, toggleFeaturesChecklist] = useToggle(false);
-	const [featuresRecieved, setFeaturesRecieved] = useState(["config", "find"]);
+	const [featuresRecieved, setFeaturesRecieved] = useState(supportedFeatures);
 	let stateMethods = {
 		toggleFeaturesChecklist: toggleFeaturesChecklist,
 		setFeaturesRecieved: setFeaturesRecieved,
