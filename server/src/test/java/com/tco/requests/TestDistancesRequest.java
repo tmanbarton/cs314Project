@@ -44,17 +44,17 @@ public class TestDistancesRequest {
     assertEquals("distances", type);
   }
 
-  // @Test
-  // @DisplayName("Earth Radius is correct")
-  // public void testEarthRadius() {
-  //   double eR = distances.getEarthRadius();
-  //   assertEquals(eR, earthRadius);
-  // }
+  @Test
+  @DisplayName("Earth Radius is correct")
+  public void testEarthRadius() {
+    double eR = distances.getEarthRadius();
+    assertEquals(eR, earthRadius);
+  }
 
-  // @Test
-  // @DisplayName("Distances is correct")
-  // public void testDistances() {
-  //   ArrayList<Integer> distancesArr = distances.getDistances(places);
-  //   assertEquals(distancesArr, correctDistances);
-  // }
+  @Test
+  @DisplayName("Distances is correct")
+  public void testDistances() {
+    ArrayList<Integer> distancesArr = distances.getDistances(places);
+    assertEquals(distancesArr, correctDistances);
+  }
 }
