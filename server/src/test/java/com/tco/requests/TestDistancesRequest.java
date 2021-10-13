@@ -17,13 +17,11 @@ public class TestDistancesRequest {
       "{\"latitude\": \"28.64550018310547\",\"longitude\": \"-82.21900177001953\"}",
       "{\"latitude\": \"27.230899810791016\",\"longitude\": \"-80.96920013427734\"}",
       "{\"latitude\": \"33.76750183105469\",\"longitude\": \"-84.06829833984375\"}",
-      "{\"latitude\": \"48.145301818847656\",\"longitude\": \"-116.21399688720703\"}",
-      "{\"latitude\": \"36.169941\",\"longitude\": \"-115.139832\"}",
-      "{\"latitude\": \"35.689487\",\"longitude\": \"139.691711\"}"));
+      "{\"latitude\": \"48.145301818847656\",\"longitude\": \"-116.21399688720703\"}"));
   //Distances came from https://keisan.casio.com/exec/system/1224587128#! and that value was convert to miles using Google's km to miles converter.
   //Everything rounded down.
   private ArrayList<Integer> correctDistances =
-      new ArrayList<Integer>(Arrays.asList(277, 2072, 123, 487, 1928, 829, 5531, 5742));
+      new ArrayList<Integer>(Arrays.asList(277, 2072, 123, 487, 1928, 978));
 
   private DistancesRequest distances;
   private Places places = new Places();
