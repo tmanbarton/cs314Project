@@ -113,11 +113,11 @@ function TableRow(props) {
 			<td>
 				{name}
 				<br />
-				<small className="text-muted">{location}</small>
-				<br />
-				<small className="text-muted">
-					Distance: {distance} {units}
+				<small>
+					<strong>One Way Distance: {distance} {units}</strong>
 				</small>
+				<br />
+				<small className="text-muted">{location}</small>
 			</td>
 
 			<td>
@@ -133,7 +133,7 @@ function parseDistance(distances, index) {
 	if (distances == undefined || index == 0) {
 		return 0;
 	} else {
-		return distances[index - 1];
+		return totalDistance(distances.slice(0, index));
 	}
 }
 
