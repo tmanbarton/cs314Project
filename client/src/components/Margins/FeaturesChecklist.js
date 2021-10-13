@@ -42,8 +42,8 @@ function Body(props) {
 						<h2
 							style={
 								evaluateSupport(props.features, feature)
-									? { color: "#00FF00" }
-									: { color: "#FF0000" }
+									? { color: "#2e8540" }
+									: { color: "#cd2026" }
 							}
 						>
 							{feature}
@@ -51,9 +51,9 @@ function Body(props) {
 					</Col>
 					<Col>
 						{evaluateSupport(props.features, feature) ? (
-							<FaCheckSquare style={{ color: "#00FF00" }} size={32} />
+							<FaCheckSquare style={{ color: "#2e8540" }} size={32} />
 						) : (
-							<FaWindowClose style={{ color: "#FF0000" }} size={32} />
+							<FaWindowClose style={{ color: "#cd2026" }} size={32} />
 						)}
 					</Col>
 					<hr />
