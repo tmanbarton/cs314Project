@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Table, Container, Row, Col, Collapse } from "reactstrap";
 import { latLngToText } from "../../../utils/transformers";
-import { FaHome, FaTrashAlt, FaSearch, FaToolbox } from "react-icons/fa";
+import { FaHome, FaTrashAlt, FaSearch, FaToolbox, FaMapSigns } from "react-icons/fa";
 import { useToggle } from "../../../hooks/useToggle";
 import Search from "../Search/Search";
 import { PlaceActionsDropdown } from "./actions.js";
@@ -27,7 +27,8 @@ export default function Itinerary(props) {
 					append={props.placeActions.append}
 					showMessage={props.showMessage}
 				/>
-			</Collapse>			
+			</Collapse>	
+			<TotalDistances distances={props.distances}/>		
 			<Table responsive striped>
 				<Body
 					distances={props.distances}
@@ -35,7 +36,8 @@ export default function Itinerary(props) {
 					placeActions={props.placeActions}
 				/>
 			</Table>
-			<Bottom distances={props.distances}/>
+			<TotalDistances distances={props.distances}/>
+			
 		</Container>
 	);
 }
@@ -135,13 +137,13 @@ function parseDistance(distances, index) {
 	}
 }
 
-function Bottom(props)
+function TotalDistances(props)
 {
 	if(props.distances){
 		const total = totalDistance(props.distances);
 		return (
 			<Container>
-				<strong>Total Trip Distance: {total}</strong>
+				<h5><FaMapSigns />{" "}<strong>Total Trip Distance: {total}</strong></h5>
 			</Container>
 		);
 	}else{
