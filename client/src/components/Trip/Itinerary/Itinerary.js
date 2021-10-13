@@ -47,9 +47,9 @@ function Header(props) {
 				<Row>
 					<h4>My Trip</h4>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<FaToolbox size={24} onClick={()=>{
+					{/* <FaToolbox size={24} onClick={()=>{
 						props.toggleToolbox();
-					}}/>
+					}}/> */}
 				</Row>
 			</Col>
 			<Col>
