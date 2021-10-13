@@ -16,6 +16,7 @@ We note the amount of time each person spent reviewing the code in preparation f
 | Name | Preparation Time |
 | ---- | ---------------- |
 | Amir | 1h30min          |
+| Bill | 45 min           |
 
 ### Problems found
 
@@ -27,3 +28,4 @@ We add a GitHub issue for each defect that requires a modification to the system
 | 47-60     | evaluateFeatures not needed for every feature. Unnessary checks.                                         |    med     |   Amir    |         |
 | 23, 29    | stateMethods and stateVariables could probably be const.                                                 |    low     |   Amir    |         |
 | 50-56     | If statement to disableSearch, could probably be cleaned up or put in a function for better readability. |    med     |   Amir    |         |
+| 89-150     | ServerInformation function could possibly be broken up into multiple less complex functions for better readibility and reduced complexity |    low     |   Bill    |       |     
