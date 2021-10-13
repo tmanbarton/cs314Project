@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 import { FaToolbox, FaUpload, FaCheck } from "react-icons/fa";
 
-export default function FileModal(props) {
+export default function TripToolbox(props) {
 	const [fileName, setFileName] = useState("");
 	return (
 		<Modal isOpen={props.isOpen} toggle={props.toggleToolbox}>
@@ -27,9 +27,9 @@ export default function FileModal(props) {
 
 function Header(props) {
 	return (
-		<ModalHeader cssModule={{'modal-title': 'w-100 text-center'}}>
-			Trip Toolbox &nbsp;
-			<FaToolbox size={20} />
+		<ModalHeader tag="h3" cssModule={{'modal-title': 'w-100 text-center'}}>
+			<strong>Trip Toolbox</strong> &nbsp; 
+			<FaToolbox className="fa-inline" size={26}/>
 		</ModalHeader>
 	);
 }
