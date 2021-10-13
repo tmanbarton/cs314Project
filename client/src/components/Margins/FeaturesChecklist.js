@@ -26,9 +26,9 @@ function evaluateSupport(newFeatures, supportedFeature) {
 
 function Header() {
 	return (
-		<ModalHeader cssModule={{'modal-title': 'w-100 text-center'}}>
-			Features Checklist &nbsp;
-			<FaCheck size={20}/>
+		<ModalHeader tag="h3" cssModule={{'modal-title': 'w-100 text-center'}}>
+			<strong>Features Checklist</strong> &nbsp;
+			<FaCheck className="fa-inline" size={26}/>
 		</ModalHeader>
 	);
 }

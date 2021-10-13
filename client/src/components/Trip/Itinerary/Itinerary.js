@@ -5,7 +5,7 @@ import { FaHome, FaTrashAlt, FaSearch, FaToolbox, FaMapSigns } from "react-icons
 import { useToggle } from "../../../hooks/useToggle";
 import Search from "../Search/Search";
 import { PlaceActionsDropdown } from "./actions.js";
-import FileModal from "./TripToolbox";
+import TripToolbox from "./TripToolbox";
 
 export default function Itinerary(props) {
 	const [showSearch, toggleSearch] = useToggle(false);
@@ -47,11 +47,10 @@ function Header(props) {
 		<Row>
 			<Col>
 				<Row>
-					<h4>My Trip</h4>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					{/* <FaToolbox size={24} onClick={()=>{
-						props.toggleToolbox();
-					}}/> */}
+					<h4>
+						My Trip&nbsp;&nbsp;					
+						<FaToolbox onClick={()=>{props.toggleToolbox();}}/>
+					</h4>
 				</Row>
 			</Col>
 			<Col>
@@ -78,7 +77,7 @@ function Header(props) {
 				</div>
 			</Col>
 
-			<FileModal isOpen={props.showToolbox} toggleToolbox={props.toggleToolbox}/>			
+			<TripToolbox isOpen={props.showToolbox} toggleToolbox={props.toggleToolbox}/>			
 		</Row>
 	);
 }
