@@ -16,6 +16,7 @@ export default function TripToolbox(props) {
 		<Modal isOpen={props.isOpen} toggle={props.toggleToolbox}>
 			<Header toggle={props.toggleToolbox} />
 			<Body
+				showMessage={props.showMessage}
 				fileName={fileName}
 				setFileName={setFileName}
 				toggle={props.toggleToolbox}
@@ -38,7 +39,7 @@ function Body(props) {
 	return (
 		<ModalBody className="center-modal-body">
 			<Row>
-				<LoadTrip setFileName={props.setFileName} fileName={props.fileName} />
+				<LoadTrip showMessage={props.showMessage} setFileName={props.setFileName} fileName={props.fileName} />
 			</Row>
 			<Row>
 				<SaveTrip />
@@ -47,11 +48,29 @@ function Body(props) {
 	);
 }
 
+function getFileType(fileName){
+	let parts = fileName.split('.');
+	return parts[parts.length - 1].toLowerCase();
+}
+
+function processFile(file, fileName, showMessage){
+	let fileType = getFileType(fileName);
+	switch (fileType){
+		case "csv":
+
+			showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
+		case "json":
+
+			showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
+	}
+}
+
 function LoadTrip(props) {
 	const fileInputRef = useRef();
 
 	function fileUploaded(file) {
 		props.setFileName(file.target.files[0].name);
+		processFile(file, file.target.files[0].name, props.showMessage);
 	}
 
 	return (

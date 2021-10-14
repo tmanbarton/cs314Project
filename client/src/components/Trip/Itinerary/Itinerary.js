@@ -15,6 +15,7 @@ export default function Itinerary(props) {
 		<Container>
 			<Header
 				placeActions={props.placeActions}
+				showMessage={props.showMessage}
 				showToolbox = {showToolbox}
 				toggleToolbox = {toggleToolbox}
 				toggleSearch={toggleSearch}
@@ -77,7 +78,7 @@ function Header(props) {
 				</div>
 			</Col>
 
-			<TripToolbox isOpen={props.showToolbox} toggleToolbox={props.toggleToolbox}/>			
+			<TripToolbox showMessage={props.showMessage} isOpen={props.showToolbox} toggleToolbox={props.toggleToolbox}/>			
 		</Row>
 	);
 }
