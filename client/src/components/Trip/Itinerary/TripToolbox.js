@@ -10,16 +10,17 @@ import {
 } from "reactstrap";
 import { FaToolbox, FaUpload, FaCheck } from "react-icons/fa";
 
+
 export default function TripToolbox(props) {
 	const [fileName, setFileName] = useState("");
 	return (
 		<Modal isOpen={props.isOpen} toggle={props.toggleToolbox}>
 			<Header toggle={props.toggleToolbox} />
 			<Body
-				showMessage={props.showMessage}
 				fileName={fileName}
 				setFileName={setFileName}
 				toggle={props.toggleToolbox}
+				toolboxMethods={props.toolboxMethods}
 			/>
 			<Footer toggleOpen={props.toggleToolbox} />
 		</Modal>
@@ -39,7 +40,7 @@ function Body(props) {
 	return (
 		<ModalBody className="center-modal-body">
 			<Row>
-				<LoadTrip showMessage={props.showMessage} setFileName={props.setFileName} fileName={props.fileName} />
+				<LoadTrip toolboxMethods={props.toolboxMethods} setFileName={props.setFileName} fileName={props.fileName} />
 			</Row>
 			<Row>
 				<SaveTrip />
@@ -53,24 +54,25 @@ function getFileType(fileName){
 	return parts[parts.length - 1].toLowerCase();
 }
 
-function processFile(file, fileName, showMessage){
+function processFile(file, fileName, toolboxMethods, showMessage){
 	let fileType = getFileType(fileName);
+	toolboxMethods.removeAll();
 	switch (fileType){
 		case "csv":
-
-			showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
+			toolboxMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
 		case "json":
 
-			showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
+			toolboxMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
 	}
 }
 
 function LoadTrip(props) {
 	const fileInputRef = useRef();
 
-	function fileUploaded(file) {
-		props.setFileName(file.target.files[0].name);
-		processFile(file, file.target.files[0].name, props.showMessage);
+	function fileUploaded(fileObject) {
+		let file = fileObject.target.files[0];
+		props.setFileName(fileObject.target.files[0].name);
+		processFile(file, fileObject.target.files[0].name, props.toolboxMethods, props.showMessage);
 	}
 
 	return (

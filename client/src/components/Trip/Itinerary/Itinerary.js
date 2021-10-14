@@ -44,6 +44,11 @@ export default function Itinerary(props) {
 }
 
 function Header(props) {
+	let toolboxMethods = {
+		append: props.placeActions.append,
+		removeAll: props.placeActions.removeAll,
+		showMessage: props.showMessage
+	};
 	return (
 		<Row>
 			<Col>
@@ -78,7 +83,7 @@ function Header(props) {
 				</div>
 			</Col>
 
-			<TripToolbox showMessage={props.showMessage} isOpen={props.showToolbox} toggleToolbox={props.toggleToolbox}/>			
+			<TripToolbox toolboxMethods={toolboxMethods} isOpen={props.showToolbox} toggleToolbox={props.toggleToolbox}/>			
 		</Row>
 	);
 }
