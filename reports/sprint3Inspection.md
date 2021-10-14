@@ -29,3 +29,7 @@ We add a GitHub issue for each defect that requires a modification to the system
 | 23, 29    | stateMethods and stateVariables could probably be const.                                                 |    low     |   Amir    |         |
 | 50-56     | If statement to disableSearch, could probably be cleaned up or put in a function for better readability. |    med     |   Amir    |         |
 | 89-150     | ServerInformation function could possibly be broken up into multiple less complex functions for better readibility and reduced complexity |    low     |   Bill    |       |     
+|     18     | Not dynamic, could we pull this information from the backend? | low | Andy | |
+| 62-87    | Could be broken up into multiple functions for readablility | med | Andy| |
+| 89-152   | I think the parent and thier child componets should be next to eachother with helper functions defined after. Makes the file more readable. | low | Andy | | 
+
