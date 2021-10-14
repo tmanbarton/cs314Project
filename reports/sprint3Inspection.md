@@ -17,6 +17,7 @@ We note the amount of time each person spent reviewing the code in preparation f
 | ---- | ---------------- |
 | Amir | 1h30min          |
 | Bill | 45 min           |
+| Andy | 1 hr             |
 
 ### Problems found
 
