@@ -11,7 +11,7 @@ This table lists each student in the team, the team they verified interoperabili
 
 | Name | Team | Time |
 | ---- | ---- | ---- |
-| Amir | t01  |      |
+| Amir | t01  |20mins|
 | Andy | t12  |      |
 | Tyler| t22  |      |
 |      | t16  |      |
@@ -22,10 +22,12 @@ We found these problems when connecting our client to another team's server.
 
 | team | problem | github# |
 | :--- | :------ | ------- |
-|      |         |         |
+|  t01    |   Do not get 'find' or 'distances' back as features. This disables our search feature and disables the ability to send a distance request.  |    NA    |
 
 ### Server Problems found
 
 We found these problems when connecting the other team's client to our server.
 
 | team | problem | github# |
+| :--- | :------ | ------- |
+| t01  | Client says 'Invalid Server URL!' when trying to connect to our server. This prevented further testing. | NA |
