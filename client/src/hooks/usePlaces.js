@@ -33,9 +33,11 @@ async function append(place, context) {
 
     const fullPlace = await reverseGeocode(placeToLatLng(place));
     newPlaces.push(fullPlace);
-        
-    buildAndSendDistanceRequest(newPlaces, setDistances, serverSettings, showMessage);
 
+    if(serverSettings.serverConfig.features.indexOf("distances") > -1){
+        buildAndSendDistanceRequest(newPlaces, setDistances, serverSettings, showMessage);
+    }
+    
     setPlaces(newPlaces);
     setSelectedIndex(newPlaces.length - 1);
 }
