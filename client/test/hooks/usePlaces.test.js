@@ -15,7 +15,7 @@ describe('usePlaces', () => {
     };
 
     let hook;
-    const serverSettings = {serverUrl: "http://localhost:8000"}
+    const serverSettings = {serverUrl: "http://localhost:8000", serverConfig: {"serverName":"t13 Penguinz","features":["config","find","distances"],"requestType":"config"}}
     const mockMessage = jest.fn();
     beforeEach(() => {
         jest.clearAllMocks();
