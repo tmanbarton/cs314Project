@@ -14,7 +14,7 @@ This table lists each student in the team, the team they verified interoperabili
 | Amir | t01  |20mins|
 | Andy | t12  |      |
 | Tyler| t22  |      |
-|      | t16  |      |
+| Bill | t16  |15mins|
 
 ### Client Problems found
 
@@ -23,6 +23,7 @@ We found these problems when connecting our client to another team's server.
 | team | problem | github# |
 | :--- | :------ | ------- |
 |  t01    |   Do not get 'find' or 'distances' back as features. This disables our search feature and disables the ability to send a distance request.  |    NA    |
+| t16  | Distances is not a supported feature | NA |
 
 ### Server Problems found
 
@@ -31,3 +32,4 @@ We found these problems when connecting the other team's client to our server.
 | team | problem | github# |
 | :--- | :------ | ------- |
 | t01  | Client says 'Invalid Server URL!' when trying to connect to our server. This prevented further testing. | NA |
+|t16| Console says "Server config response json is invalid. Check the Server." upon switching. Nothing more could be done regarding switching servers. | NA |
