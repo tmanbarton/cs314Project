@@ -8,7 +8,7 @@ import {
 	Container,
 	Button,
 } from "reactstrap";
-import { FaToolbox, FaUpload, FaCheck } from "react-icons/fa";
+import { FaToolbox, FaUpload, FaCheck, FaDownload } from "react-icons/fa";
 
 
 export default function TripToolbox(props) {
@@ -78,7 +78,7 @@ function LoadTrip(props) {
 	return (
 		<Container>
 			<Container>
-				<h5>Load Trip</h5>
+				<h4>Load Trip</h4>
 				<hr />
 			</Container>
 
@@ -112,8 +112,21 @@ function LoadTrip(props) {
 function SaveTrip() {
 	return (
 		<Container>
-			<h5>Save Trip</h5>
+			<h4>Save Trip</h4>
 			<hr />
+			<div className="save-trip-button">
+				<Button color="primary">
+					<strong> CSV </strong>
+					<FaDownload/>
+				</Button>
+
+				<h6>OR</h6>
+
+				<Button color="primary">
+					<strong> JSON </strong>
+					<FaDownload/>
+				</Button>
+			</div>
 		</Container>
 	);
 }
