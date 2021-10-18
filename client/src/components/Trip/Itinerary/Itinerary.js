@@ -45,10 +45,11 @@ export default function Itinerary(props) {
 
 function Header(props) {
 	let toolboxMethods = {
-		append: props.placeActions.append,
+		bulkAppend: props.placeActions.bulkAppend,
 		removeAll: props.placeActions.removeAll,
 		showMessage: props.showMessage
 	};
+	
 	return (
 		<Row>
 			<Col>
@@ -107,7 +108,7 @@ function Body(props) {
 
 function TableRow(props) {
 	const name = props.place.name ? props.place.name : "-";
-	const location = latLngToText(props.place);
+	const location = latLngToText({lat: parseFloat(props.place.latitude), lng: parseFloat(props.place.longitude)});
 
 	const distance = parseDistance(props.distances, props.index);
 	const units = "mi"; // at some point need to be dynamic

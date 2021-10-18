@@ -20,7 +20,8 @@ export function usePlaces(serverSettings, showMessage) {
         removeAtIndex: (index) => removeAtIndex(index, context),
         removeAll: () => removeAll(context),
         selectIndex: (index) => selectIndex(index, context),
-        moveToHome: () => moveToHome(context)
+        moveToHome: () => moveToHome(context),
+        bulkAppend: async (place) => setPlaces(place)
     };
 
     return {places, selectedIndex, placeActions, distances};

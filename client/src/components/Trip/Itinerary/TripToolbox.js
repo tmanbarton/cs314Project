@@ -9,6 +9,7 @@ import {
 	Button,
 } from "reactstrap";
 import { FaToolbox, FaUpload, FaCheck, FaDownload } from "react-icons/fa";
+import Papa from 'papaparse';
 
 
 export default function TripToolbox(props) {
@@ -49,16 +50,26 @@ function Body(props) {
 	);
 }
 
+async function csvToTrip(file, bulkAppend){
+	const papaAwait = file => new Promise(resolve => Papa.parse(file, {header: true, complete: results => resolve(results.data)}));
+	let places = await papaAwait(file);
+	console.log(places);
+	places.pop();
+	console.log(places);
+	bulkAppend(places);
+}
+
 function getFileType(fileName){
 	let parts = fileName.split('.');
 	return parts[parts.length - 1].toLowerCase();
 }
 
-function processFile(file, fileName, toolboxMethods, showMessage){
+async function processFile(file, fileName, toolboxMethods){
 	let fileType = getFileType(fileName);
-	toolboxMethods.removeAll();
+	await toolboxMethods.removeAll();
 	switch (fileType){
 		case "csv":
+			csvToTrip(file, toolboxMethods.bulkAppend);
 			toolboxMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
 		case "json":
 
