@@ -83,7 +83,7 @@ function LoadTrip(props) {
 			</Container>
 
 			<Container>
-				<Button color="primary" onClick={() => fileInputRef.current.click()}>
+				<Button data-testid="upload-btn" color="primary" onClick={() => fileInputRef.current.click()}>
 					<FaUpload />
 				</Button>
 				<input
