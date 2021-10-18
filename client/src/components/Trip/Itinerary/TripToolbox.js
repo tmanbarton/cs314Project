@@ -7,6 +7,7 @@ import {
 	ModalFooter,
 	Container,
 	Button,
+	Col,
 } from "reactstrap";
 import { FaToolbox, FaUpload, FaCheck, FaDownload } from "react-icons/fa";
 
@@ -114,19 +115,19 @@ function SaveTrip() {
 		<Container>
 			<h4>Save Trip</h4>
 			<hr />
-			<div className="save-trip-button">
-				<Button color="primary">
-					<strong> CSV </strong>
-					<FaDownload/>
-				</Button>
+			<Row>
+				<Col>
+					<Button color="primary">
+						<h6> CSV <FaDownload/> </h6>
+					</Button>
+				</Col>
 
-				<h6>OR</h6>
-
-				<Button color="primary">
-					<strong> JSON </strong>
-					<FaDownload/>
-				</Button>
-			</div>
+				<Col>
+					<Button color="primary">
+						<h6> JSON <FaDownload/> </h6>
+					</Button>
+				</Col>
+			</Row>
 		</Container>
 	);
 }
