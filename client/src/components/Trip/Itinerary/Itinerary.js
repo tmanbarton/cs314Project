@@ -1,4 +1,4 @@
-import React from "react";
+import  React, { useState } from "react";
 import { Table, Container, Row, Col, Collapse, Input } from "reactstrap";
 import { latLngToText, placeToLatLng } from "../../../utils/transformers";
 import { FaHome, FaTrashAlt, FaSearch, FaToolbox, FaMapSigns } from "react-icons/fa";
@@ -44,6 +44,7 @@ export default function Itinerary(props) {
 }
 
 function Header(props) {
+	const [tripName , setTripName] = useState("My Trip")
 	let toolboxMethods = {
 		append: props.placeActions.append,
 		removeAll: props.placeActions.removeAll,
@@ -56,7 +57,7 @@ function Header(props) {
 				<Row>
 					
 					<h4>	
-						<Input data-testid="My Trip" placeholder="My Trip"></Input>				
+						<Input value={tripName} data-testid="My Trip" placeholder={tripName} onChange={e => setTripName(e.target.value)}></Input>				
 					</h4>
 					&nbsp;&nbsp;
 					<FaToolbox size={24} onClick={()=>{props.toggleToolbox();}}/>
@@ -86,7 +87,7 @@ function Header(props) {
 				</div>
 			</Col>
 
-			<TripToolbox toolboxMethods={toolboxMethods} isOpen={props.showToolbox} toggleToolbox={props.toggleToolbox}/>			
+			<TripToolbox tripName={tripName} toolboxMethods={toolboxMethods} isOpen={props.showToolbox} toggleToolbox={props.toggleToolbox}/>			
 		</Row>
 	);
 }
