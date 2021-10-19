@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Table, Container, Row, Col, Collapse } from "reactstrap";
-import { latLngToText } from "../../../utils/transformers";
+import { latLngToText, placeToLatLng } from "../../../utils/transformers";
 import { FaHome, FaTrashAlt, FaSearch, FaToolbox, FaMapSigns } from "react-icons/fa";
 import { useToggle } from "../../../hooks/useToggle";
 import Search from "../Search/Search";
@@ -45,7 +45,7 @@ export default function Itinerary(props) {
 
 function Header(props) {
 	let toolboxMethods = {
-		bulkAppend: props.placeActions.bulkAppend,
+		append: props.placeActions.append,
 		removeAll: props.placeActions.removeAll,
 		showMessage: props.showMessage
 	};
@@ -108,7 +108,7 @@ function Body(props) {
 
 function TableRow(props) {
 	const name = props.place.name ? props.place.name : "-";
-	const location = latLngToText({lat: parseFloat(props.place.latitude), lng: parseFloat(props.place.longitude)});
+	const location = latLngToText(placeToLatLng(props.place));
 
 	const distance = parseDistance(props.distances, props.index);
 	const units = "mi"; // at some point need to be dynamic

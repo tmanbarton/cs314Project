@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { placeToLatLng } from '../utils/transformers';
+import { latLngToPlace, placeToLatLng } from '../utils/transformers';
 import { reverseGeocode } from '../utils/reverseGeocode';
 import { LOG } from '../utils/constants';
 import {
@@ -21,7 +21,6 @@ export function usePlaces(serverSettings, showMessage) {
         removeAll: () => removeAll(context),
         selectIndex: (index) => selectIndex(index, context),
         moveToHome: () => moveToHome(context),
-        bulkAppend: async (place) => setPlaces(place)
     };
 
     return {places, selectedIndex, placeActions, distances};
@@ -30,18 +29,18 @@ export function usePlaces(serverSettings, showMessage) {
 async function append(place, context) {
     const { places, setPlaces, setSelectedIndex, serverSettings, showMessage, setDistances } = context;
 
-    const newPlaces = [...places];
-
     const fullPlace = await reverseGeocode(placeToLatLng(place));
-    newPlaces.push(fullPlace);
-
-    if(serverSettings.serverConfig.features.indexOf("distances") > -1){
-        buildAndSendDistanceRequest(newPlaces, setDistances, serverSettings, showMessage);
-    }
+    places.push(fullPlace);
     
-    setPlaces(newPlaces);
-    setSelectedIndex(newPlaces.length - 1);
+    if(serverSettings.serverConfig.features.indexOf("distances") > -1){
+        buildAndSendDistanceRequest(places, setDistances, serverSettings, showMessage);
+    }
+
+    setPlaces(places);
+    setSelectedIndex(places.length - 1);
+
 }
+
 
 function buildAndSendDistanceRequest(newPlaces, setDistances, serverSettings, showMessage){
     const placeList = buildPlacesList(newPlaces);
@@ -52,11 +51,7 @@ function buildAndSendDistanceRequest(newPlaces, setDistances, serverSettings, sh
 function buildPlacesList(places){
 	let placeList = []
 	places.forEach(place => {
-		let newPlace = {
-			latitude: String(place.lat),
-			longitude: String(place.lng)
-		}
-		placeList.push(newPlace);
+		placeList.push(latLngToPlace(place));
 	});
 	return placeList;
 }
@@ -99,9 +94,9 @@ function removeAtIndex(index, context) {
     }
 }
 
-function removeAll(context) {
-    const { setPlaces, setSelectedIndex, setDistances } = context;
-
+async function removeAll(context) {
+    const { places, setPlaces, setSelectedIndex, setDistances } = context;
+    places.length = 0;
     setDistances(undefined);
     setPlaces([]);
     setSelectedIndex(-1);
@@ -127,7 +122,7 @@ async function moveToHome(context) {
       const place = {latitude: coords.latitude, longitude: coords.longitude};
       append(place, context);
   
-      console.log(`The user is located at ${JSON.stringify(place)}.`); // use LOG.info() instead
+    //   console.log(`The user is located at ${JSON.stringify(place)}.`); // use LOG.info() instead
     }
   
     function onError(error) {

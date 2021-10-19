@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
 	Row,
 	Modal,
@@ -50,13 +50,15 @@ function Body(props) {
 	);
 }
 
-async function csvToTrip(file, bulkAppend){
+async function csvToTrip(file, append){
 	const papaAwait = file => new Promise(resolve => Papa.parse(file, {header: true, complete: results => resolve(results.data)}));
 	let places = await papaAwait(file);
-	console.log(places);
 	places.pop();
-	console.log(places);
-	bulkAppend(places);
+
+	for(let i = 0; i < places.length; i++){
+		await append(places[i]);
+	}
+
 }
 
 function getFileType(fileName){
@@ -66,10 +68,10 @@ function getFileType(fileName){
 
 async function processFile(file, fileName, toolboxMethods){
 	let fileType = getFileType(fileName);
-	await toolboxMethods.removeAll();
+	toolboxMethods.removeAll();
 	switch (fileType){
 		case "csv":
-			csvToTrip(file, toolboxMethods.bulkAppend);
+			csvToTrip(file, toolboxMethods.append);
 			toolboxMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
 		case "json":
 

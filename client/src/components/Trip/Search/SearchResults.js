@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Collapse, Container, Table } from "reactstrap";
 import { FaPlus } from "react-icons/fa";
-import { latLngToText } from "../../../utils/transformers";
+import { latLngToText, placeToLatLng } from "../../../utils/transformers";
 import { useToggle } from "../../../hooks/useToggle";
 
 export function SearchResults(props) {
@@ -47,8 +47,6 @@ function Body(props) {
 			{props.places.map((place, index) => (
 				<TableRow
 					key={`table-${JSON.stringify(place)}-${index}`}
-					lat={parseFloat(place.latitude)}
-					lng={parseFloat(place.longitude)}
 					place={place}
 					append={props.append}
 				/>
@@ -71,7 +69,7 @@ function addItem(append, place, setAdded) {
 function TableRow(props) {
 	const [added, setAdded] = useState(false);
 	const name = props.place.name ? props.place.name : "-";
-	const location = latLngToText(props);
+	const location = latLngToText(placeToLatLng(props.place));
 
 	return !added ? (
 		<tr onClick={() => addItem(props.append, props.place, setAdded)}>
