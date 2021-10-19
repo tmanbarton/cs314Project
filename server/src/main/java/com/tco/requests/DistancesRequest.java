@@ -66,7 +66,7 @@ public class DistancesRequest extends Request {
     longitude1 = Math.toRadians(longitude1);
     longitude2 = Math.toRadians(longitude2);
 
-    double radius = getEarthRadius();
+    long radius = getEarthRadius();
     double longitudeDifference = longitude2 - longitude1;
     double distance = radius * Math.acos(
       Math.sin(latitude1) * Math.sin(latitude2) +
@@ -74,9 +74,9 @@ public class DistancesRequest extends Request {
     return (int)distance;
   }
 
-  public void setEarthRadius(double earthRadius) {
+  public void setEarthRadius(long earthRadius) {
     this.earthRadius = earthRadius;
   }
 
-  public double getEarthRadius() { return earthRadius; }
+  public long getEarthRadius() { return Double.valueOf(earthRadius).longValue(); }
 }
