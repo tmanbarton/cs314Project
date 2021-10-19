@@ -22,6 +22,7 @@ export default function Map(props) {
             boxZoom={false}
             useFlyTo={true}
             zoom={15}
+            tap={false}
             minZoom={MAP_MIN_ZOOM}
             maxZoom={MAP_MAX_ZOOM}
             maxBounds={MAP_BOUNDS}
