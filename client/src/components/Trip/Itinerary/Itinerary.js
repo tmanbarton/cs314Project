@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Table, Container, Row, Col, Collapse } from "reactstrap";
+import React from "react";
+import { Table, Container, Row, Col, Collapse, Input } from "reactstrap";
 import { latLngToText, placeToLatLng } from "../../../utils/transformers";
 import { FaHome, FaTrashAlt, FaSearch, FaToolbox, FaMapSigns } from "react-icons/fa";
 import { useToggle } from "../../../hooks/useToggle";
@@ -54,10 +54,12 @@ function Header(props) {
 		<Row>
 			<Col>
 				<Row>
-					<h4>
-						My Trip&nbsp;&nbsp;					
-						<FaToolbox onClick={()=>{props.toggleToolbox();}}/>
+					
+					<h4>	
+						<Input data-testid="My Trip" placeholder="My Trip"></Input>				
 					</h4>
+					&nbsp;&nbsp;
+					<FaToolbox size={24} onClick={()=>{props.toggleToolbox();}}/>
 				</Row>
 			</Col>
 			<Col>
