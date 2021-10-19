@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Table, Container, Row, Col, Collapse, Input } from "reactstrap";
-import { latLngToText } from "../../../utils/transformers";
+import { latLngToText, placeToLatLng } from "../../../utils/transformers";
 import { FaHome, FaTrashAlt, FaSearch, FaToolbox, FaMapSigns } from "react-icons/fa";
 import { useToggle } from "../../../hooks/useToggle";
 import Search from "../Search/Search";
@@ -49,6 +49,7 @@ function Header(props) {
 		removeAll: props.placeActions.removeAll,
 		showMessage: props.showMessage
 	};
+	
 	return (
 		<Row>
 			<Col>
@@ -109,7 +110,7 @@ function Body(props) {
 
 function TableRow(props) {
 	const name = props.place.name ? props.place.name : "-";
-	const location = latLngToText(props.place);
+	const location = latLngToText(placeToLatLng(props.place));
 
 	const distance = parseDistance(props.distances, props.index);
 	const units = "mi"; // at some point need to be dynamic

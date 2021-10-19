@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
 	Row,
 	Modal,
@@ -10,6 +10,7 @@ import {
 	Col,
 } from "reactstrap";
 import { FaToolbox, FaUpload, FaCheck, FaDownload } from "react-icons/fa";
+import Papa from 'papaparse';
 
 
 export default function TripToolbox(props) {
@@ -50,16 +51,28 @@ function Body(props) {
 	);
 }
 
+async function csvToTrip(file, append){
+	const papaAwait = file => new Promise(resolve => Papa.parse(file, {header: true, complete: results => resolve(results.data)}));
+	let places = await papaAwait(file);
+	places.pop();
+
+	for(let i = 0; i < places.length; i++){
+		await append(places[i]);
+	}
+
+}
+
 function getFileType(fileName){
 	let parts = fileName.split('.');
 	return parts[parts.length - 1].toLowerCase();
 }
 
-function processFile(file, fileName, toolboxMethods, showMessage){
+async function processFile(file, fileName, toolboxMethods){
 	let fileType = getFileType(fileName);
 	toolboxMethods.removeAll();
 	switch (fileType){
 		case "csv":
+			csvToTrip(file, toolboxMethods.append);
 			toolboxMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
 		case "json":
 
@@ -118,13 +131,13 @@ function SaveTrip() {
 			<Row>
 				<Col>
 					<Button color="primary">
-						<h6> CSV <FaDownload/> </h6>
+						<h6> CSV &nbsp; <FaDownload/> </h6>
 					</Button>
 				</Col>
 
 				<Col>
 					<Button color="primary">
-						<h6> JSON <FaDownload/> </h6>
+						<h6> JSON &nbsp; <FaDownload/> </h6>
 					</Button>
 				</Col>
 			</Row>
