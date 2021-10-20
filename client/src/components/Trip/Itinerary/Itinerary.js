@@ -20,6 +20,7 @@ export default function Itinerary(props) {
 				toggleToolbox = {toggleToolbox}
 				toggleSearch={toggleSearch}
 				disableSearch={props.disableSearch}
+				places={props.places}
 			/>
 			<hr />
 			<Collapse isOpen={showSearch}>
@@ -87,7 +88,7 @@ function Header(props) {
 				</div>
 			</Col>
 
-			<TripToolbox tripName={tripName} toolboxMethods={toolboxMethods} isOpen={props.showToolbox} toggleToolbox={props.toggleToolbox}/>			
+			<TripToolbox tripName={tripName} toolboxMethods={toolboxMethods} isOpen={props.showToolbox} toggleToolbox={props.toggleToolbox} places={props.places}/>			
 		</Row>
 	);
 }
