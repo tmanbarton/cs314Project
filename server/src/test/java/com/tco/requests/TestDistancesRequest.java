@@ -27,8 +27,7 @@ public class TestDistancesRequest {
 
   private DistancesRequest distances;
   private Places places = new Places();
-  // private double earthRadius = 3958.8;
-  private long earthRadius = Double.valueOf(3958.8).longValue();
+  private double earthRadius = 3958.8;
 
   @BeforeEach
   public void createConfigurationForTestCases() {
