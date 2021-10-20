@@ -50,7 +50,7 @@ function Body(props) {
 				<LoadTrip toolboxMethods={props.toolboxMethods} setFileName={props.setFileName} fileName={props.fileName} />
 			</Row>
 			<Row>
-				<SaveTrip tripName={props.tripName} fileName={props.fileName} places={props.places}/>
+				<SaveTrip tripName={props.tripName} fileName={props.fileName} places={props.places} showMessage={props.toolboxMethods.showMessage}/>
 			</Row>
 		</ModalBody>
 	);
@@ -174,7 +174,7 @@ function SaveTrip(props) {
 				</Col>
 				
 				<Col>
-					<Button color="primary" onClick={() =>storeJSON(props.places, props.tripName)}>
+					<Button color="primary" onClick={() =>storeJSON(props.places, props.tripName, props.showMessage)}>
 						<h6> JSON &nbsp; <FaDownload/> </h6>
 					</Button>
 				</Col>
@@ -187,21 +187,11 @@ function Footer(props) {
 	return <ModalFooter></ModalFooter>;
 }
 
-function storeJSON(places, tripName) 
+function storeJSON(places, tripName, showMessage) 
 {
 	localStorage.clear();
 	localStorage.setItem("fileExt", "JSON");
 
-	console.log("STORE JSON CLICKED");
-	if(places == undefined) 
-	{
-		console.log("PLACES IS UNDEFINED");
-	}
-	else
-	{
-		console.log(places);
-		console.log(tripName);
-	}
 	let formattedPlaces = [];
 
 	for(let i = 0; i < places.length; i++){
@@ -223,4 +213,7 @@ function storeJSON(places, tripName)
 		document.body.removeChild(link);
 		window.URL.revokeObjectURL(url);
 	  }, 0);
+	
+	showMessage(`Successfully downloaded ${tripName} to JSON.`, "success");
 }
+
