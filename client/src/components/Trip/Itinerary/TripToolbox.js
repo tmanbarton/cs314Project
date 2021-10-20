@@ -56,23 +56,28 @@ function Body(props) {
 	);
 }
 
+function isValid(place){
+	return Object.keys(place).length > 2;
+}
+
 async function csvToTrip(file, append){
 	const papaAwait = file => new Promise(resolve => Papa.parse(file, {header: true, complete: results => resolve(results.data)}));
 	let places = await papaAwait(file);
 
 	for(let i = 0; i < places.length; i++){
-		await append(places[i]);
+		if(isValid(places[i])){
+			await append(places[i]);
+		}
 	}
-
 }
 
 async function jsonToTrip(file, append){
-	const fileContents = await readFile(file)
-	let jsonFile = JSON.parse(fileContents)
-	let places = jsonFile["places"]
+	const fileContents = await readFile(file);
+	let jsonFile = JSON.parse(fileContents);
+	let places = jsonFile["places"];
 	
 	for (let i= 0; i < places.length; i++){
-		await append(places[i])
+		await append(places[i]);
 	}
 }
 
@@ -171,7 +176,7 @@ function SaveTrip(props) {
 			<hr />
 			<Row>
 				<Col>
-					<Button color="primary" onClick={() =>storeCSV(props.places, props.tripName, props.showMessage)}>
+					<Button disabled={loading} color="primary" onClick={() =>storeCSV(props.places, props.tripName, props.showMessage)}>
 						<h6> CSV &nbsp; <FaDownload/> </h6>
 					</Button>
 				</Col>
