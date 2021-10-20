@@ -23,6 +23,7 @@ export default function TripToolbox(props) {
 				setFileName={setFileName}
 				toggle={props.toggleToolbox}
 				toolboxMethods={props.toolboxMethods}
+				tripName={props.tripName}
 			/>
 			<Footer toggleOpen={props.toggleToolbox} />
 		</Modal>
@@ -45,7 +46,7 @@ function Body(props) {
 				<LoadTrip toolboxMethods={props.toolboxMethods} setFileName={props.setFileName} fileName={props.fileName} />
 			</Row>
 			<Row>
-				<SaveTrip />
+				<SaveTrip tripName={props.tripName}/>
 			</Row>
 		</ModalBody>
 	);
@@ -123,10 +124,10 @@ function LoadTrip(props) {
 	);
 }
 
-function SaveTrip() {
+function SaveTrip(props) {
 	return (
 		<Container>
-			<h4>Save Trip</h4>
+			<h4>Save {props.tripName}</h4>
 			<hr />
 			<Row>
 				<Col>
