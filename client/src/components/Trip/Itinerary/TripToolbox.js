@@ -168,7 +168,7 @@ function SaveTrip(props) {
 			<hr />
 			<Row>
 				<Col>
-					<Button color="primary" onClick={() =>console.log(localStorage)}>
+					<Button color="primary" onClick={() =>storeCSV(props.places, props.tripName)}>
 						<h6> CSV &nbsp; <FaDownload/> </h6>
 					</Button>
 				</Col>
@@ -187,10 +187,40 @@ function Footer(props) {
 	return <ModalFooter></ModalFooter>;
 }
 
+function storeCSV(places, tripName) {
+	localStorage.clear();
+	localStorage.setItem("fileExtension", "CSV");
+	console.log("STORE CSV");
+	
+	if(places == undefined) {
+		console.log("PLACES UNDEFINED");
+	}
+	else {
+		console.log(places);
+		console.log(tripName);
+	}
+	const placesCSV = Papa.unparse(places);
+	console.log("placesCSV");
+	console.log(placesCSV);
+
+	const fileNameWithExtension = tripName + ".CSV";
+	const trip = new Blob([placesCSV], { type: CSV });
+	const link = document.createElement("a");
+	const url = URL.createObjectURL(trip);
+	link.href = url;
+	link.download = fileNameWithExtension;
+	document.body.appendChild(link);
+	link.click();
+	setTimeout(function() {
+		document.body.removeChild(link);
+		window.URL.revokeObjectURL(url);
+	  }, 0);
+}
+
 function storeJSON(places, tripName, showMessage) 
 {
 	localStorage.clear();
-	localStorage.setItem("fileExt", "JSON");
+		localStorage.setItem("fileExtension", "JSON");
 
 	let formattedPlaces = [];
 
