@@ -59,7 +59,6 @@ function Body(props) {
 async function csvToTrip(file, append){
 	const papaAwait = file => new Promise(resolve => Papa.parse(file, {header: true, complete: results => resolve(results.data)}));
 	let places = await papaAwait(file);
-	places.pop();
 
 	for(let i = 0; i < places.length; i++){
 		await append(places[i]);
@@ -168,7 +167,7 @@ function SaveTrip(props) {
 			<hr />
 			<Row>
 				<Col>
-					<Button color="primary" onClick={() =>storeCSV(props.places, props.tripName)}>
+					<Button color="primary" onClick={() =>storeCSV(props.places, props.tripName, props.showMessage)}>
 						<h6> CSV &nbsp; <FaDownload/> </h6>
 					</Button>
 				</Col>
@@ -187,7 +186,7 @@ function Footer(props) {
 	return <ModalFooter></ModalFooter>;
 }
 
-function storeCSV(places, tripName) {
+function storeCSV(places, tripName, showMessage) {
 	localStorage.clear();
 	localStorage.setItem("fileExtension", "CSV");
 	console.log("STORE CSV");
@@ -199,12 +198,18 @@ function storeCSV(places, tripName) {
 		console.log(places);
 		console.log(tripName);
 	}
-	const placesCSV = Papa.unparse(places);
+	
+	let formattedPlaces = [];
+	
+	for(let i = 0; i < places.length; i++){
+		formattedPlaces.push({...latLngToPlace(places[i]), name: places[i].name});
+	}
+	
+	const placesCSV = Papa.unparse(formattedPlaces);
 	console.log("placesCSV");
 	console.log(placesCSV);
-
-	const fileNameWithExtension = tripName + ".CSV";
-	const trip = new Blob([placesCSV], { type: CSV });
+	const fileNameWithExtension = tripName + ".csv";
+	const trip = new Blob([placesCSV], { type: "text/csv" });
 	const link = document.createElement("a");
 	const url = URL.createObjectURL(trip);
 	link.href = url;
@@ -214,7 +219,8 @@ function storeCSV(places, tripName) {
 	setTimeout(function() {
 		document.body.removeChild(link);
 		window.URL.revokeObjectURL(url);
-	  }, 0);
+	}, 0);
+	showMessage(`Successfully downloaded ${tripName} to JSON.`, "success");
 }
 
 function storeJSON(places, tripName, showMessage) 
@@ -233,6 +239,8 @@ function storeJSON(places, tripName, showMessage)
 		places: formattedPlaces
 	});
 	const trip = new Blob([placesJSON], { type: JSON });
+	console.log(trip);
+	console.log("TRIP");
 	const link = document.createElement("a");
 	const url = URL.createObjectURL(trip);
 	link.href = url;
