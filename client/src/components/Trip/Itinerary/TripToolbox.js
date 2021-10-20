@@ -8,10 +8,12 @@ import {
 	Container,
 	Button,
 	Col,
+	Spinner
 } from "reactstrap";
 import { FaToolbox, FaUpload, FaCheck, FaDownload } from "react-icons/fa";
 import Papa from 'papaparse';
 
+let loading = false;
 
 export default function TripToolbox(props) {
 	const [fileName, setFileName] = useState("");
@@ -73,7 +75,8 @@ async function processFile(file, fileName, toolboxMethods){
 	toolboxMethods.removeAll();
 	switch (fileType){
 		case "csv":
-			csvToTrip(file, toolboxMethods.append);
+			await csvToTrip(file, toolboxMethods.append);
+			loading = false;
 			toolboxMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
 		case "json":
 
@@ -85,6 +88,7 @@ function LoadTrip(props) {
 	const fileInputRef = useRef();
 
 	function fileUploaded(fileObject) {
+		loading = true;
 		let file = fileObject.target.files[0];
 		props.setFileName(fileObject.target.files[0].name);
 		processFile(file, fileObject.target.files[0].name, props.toolboxMethods, props.showMessage);
@@ -99,7 +103,11 @@ function LoadTrip(props) {
 
 			<Container>
 				<Button data-testid="upload-btn" color="primary" onClick={() => fileInputRef.current.click()}>
-					<FaUpload />
+					{loading ? (
+						<Spinner size="sm"/>
+					):
+						<FaUpload />
+					}
 				</Button>
 				<input
 					type="file"
@@ -110,7 +118,7 @@ function LoadTrip(props) {
 					hidden
 				/>
 
-				{props.fileName.length > 0 ? (
+				{props.fileName.length > 0 && !loading ? (
 					<Container>
 						<br />
 						<p>
