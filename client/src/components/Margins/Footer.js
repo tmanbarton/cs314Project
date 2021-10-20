@@ -111,9 +111,10 @@ function ServerInformation(props) {
 							toggle={setDropdownOpen}
 							direction="up"
 							size="sm"
+							data-testid="interop-dropdown"
 						>
 							<DropdownToggle caret>{serverName}</DropdownToggle>
-							<DropdownMenu>
+							<DropdownMenu data-testid="interop-dropdown-menu">
 								{avaliableServers.map((server, index) => (
 									<DropdownItem
 										key={`table-${JSON.stringify(server)}-${index}`}
