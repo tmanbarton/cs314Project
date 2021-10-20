@@ -114,10 +114,15 @@ async function processFile(file, fileName, toolboxMethods){
 			await csvToTrip(file, toolboxMethods.append);
 			loading = false;
 			toolboxMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
+			break;
 		case "json":
+			console.log("Why");
 			await jsonToTrip(file, toolboxMethods.append);
 			loading = false;
 			toolboxMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
+			break
+		default:
+			break;
 	}
 }
 
@@ -224,7 +229,7 @@ function storeCSV(places, tripName, showMessage) {
 		document.body.removeChild(link);
 		window.URL.revokeObjectURL(url);
 	}, 0);
-	showMessage(`Successfully downloaded ${tripName} to JSON.`, "success");
+	showMessage(`Successfully downloaded ${tripName} to CSV.`, "success");
 }
 
 function storeJSON(places, tripName, showMessage) 
