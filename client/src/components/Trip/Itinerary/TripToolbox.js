@@ -11,6 +11,7 @@ import {
 	Spinner
 } from "reactstrap";
 import { FaToolbox, FaUpload, FaCheck, FaDownload } from "react-icons/fa";
+import { latLngToPlace  } from "../../../utils/transformers";
 import Papa from 'papaparse';
 
 let loading = false;
@@ -21,6 +22,7 @@ export default function TripToolbox(props) {
 		<Modal isOpen={props.isOpen} toggle={props.toggleToolbox}>
 			<Header toggle={props.toggleToolbox} />
 			<Body
+				places={props.places}
 				fileName={fileName}
 				setFileName={setFileName}
 				toggle={props.toggleToolbox}
@@ -48,7 +50,7 @@ function Body(props) {
 				<LoadTrip toolboxMethods={props.toolboxMethods} setFileName={props.setFileName} fileName={props.fileName} />
 			</Row>
 			<Row>
-				<SaveTrip tripName={props.tripName}/>
+				<SaveTrip tripName={props.tripName} fileName={props.fileName} places={props.places}/>
 			</Row>
 		</ModalBody>
 	);
@@ -139,13 +141,13 @@ function SaveTrip(props) {
 			<hr />
 			<Row>
 				<Col>
-					<Button color="primary">
+					<Button color="primary" onClick={() =>console.log(localStorage)}>
 						<h6> CSV &nbsp; <FaDownload/> </h6>
 					</Button>
 				</Col>
-
+				
 				<Col>
-					<Button color="primary">
+					<Button color="primary" onClick={() =>storeJSON(props.places, props.tripName)}>
 						<h6> JSON &nbsp; <FaDownload/> </h6>
 					</Button>
 				</Col>
@@ -156,4 +158,42 @@ function SaveTrip(props) {
 
 function Footer(props) {
 	return <ModalFooter></ModalFooter>;
+}
+
+function storeJSON(places, tripName) 
+{
+	localStorage.clear();
+	localStorage.setItem("fileExt", "JSON");
+
+	console.log("STORE JSON CLICKED");
+	if(places == undefined) 
+	{
+		console.log("PLACES IS UNDEFINED");
+	}
+	else
+	{
+		console.log(places);
+		console.log(tripName);
+	}
+	let formattedPlaces = [];
+
+	for(let i = 0; i < places.length; i++){
+		formattedPlaces.push({...latLngToPlace(places[i]), name: places[i].name});
+	}
+	
+	const fileNameWithExtension = tripName + ".JSON";
+	const placesJSON = JSON.stringify({
+		places: formattedPlaces
+	});
+	const trip = new Blob([placesJSON], { type: JSON });
+	const link = document.createElement("a");
+	const url = URL.createObjectURL(trip);
+	link.href = url;
+	link.download = fileNameWithExtension;
+	document.body.appendChild(link);
+	link.click();
+	setTimeout(function() {
+		document.body.removeChild(link);
+		window.URL.revokeObjectURL(url);
+	  }, 0);
 }
