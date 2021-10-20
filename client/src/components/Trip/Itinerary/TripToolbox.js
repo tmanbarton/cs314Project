@@ -19,7 +19,7 @@ let loading = false;
 export default function TripToolbox(props) {
 	const [fileName, setFileName] = useState("");
 	return (
-		<Modal isOpen={props.isOpen} toggle={props.toggleToolbox}>
+		<Modal isOpen={props.isOpen} toggle={!loading ? props.toggleToolbox : null}>
 			<Header toggle={props.toggleToolbox} />
 			<Body
 				places={props.places}
@@ -29,7 +29,7 @@ export default function TripToolbox(props) {
 				toolboxMethods={props.toolboxMethods}
 				tripName={props.tripName}
 			/>
-			<Footer toggleOpen={props.toggleToolbox} />
+			<Footer fileName={fileName} toggleToolbox={props.toggleToolbox} />
 		</Modal>
 	);
 }
@@ -71,11 +71,9 @@ async function jsonToTrip(file, append){
 	let jsonFile = JSON.parse(fileContents)
 	let places = jsonFile["places"]
 	
-
 	for (let i= 0; i < places.length; i++){
 		await append(places[i])
 	}
-
 }
 
 function readFile(file) {
@@ -96,8 +94,14 @@ function getFileType(fileName){
 	return parts[parts.length - 1].toLowerCase();
 }
 
+function trimFileName(fileName){
+	let parts = fileName.split('.');
+	parts.pop();
+	return parts.join('.');
+}
+
 async function processFile(file, fileName, toolboxMethods){
-	toolboxMethods.setTripName(fileName);
+	toolboxMethods.setTripName(trimFileName(fileName));
 	let fileType = getFileType(fileName);
 	toolboxMethods.removeAll();
 	switch (fileType){
@@ -173,7 +177,7 @@ function SaveTrip(props) {
 				</Col>
 				
 				<Col>
-					<Button color="primary" onClick={() =>storeJSON(props.places, props.tripName, props.showMessage)}>
+					<Button disabled={loading} color="primary" onClick={() =>storeJSON(props.places, props.tripName, props.showMessage)}>
 						<h6> JSON &nbsp; <FaDownload/> </h6>
 					</Button>
 				</Col>
@@ -183,7 +187,13 @@ function SaveTrip(props) {
 }
 
 function Footer(props) {
-	return <ModalFooter></ModalFooter>;
+	return (
+	<ModalFooter className="centered">
+		<Button color="primary" disabled={loading} onClick={()=>props.toggleToolbox()}>
+			{loading ? `Please Wait for ${props.fileName} to Upload` : 'Continue'}
+		</Button>
+	</ModalFooter>
+	);
 }
 
 function storeCSV(places, tripName, showMessage) {
