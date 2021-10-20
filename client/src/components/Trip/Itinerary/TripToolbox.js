@@ -189,15 +189,6 @@ function Footer(props) {
 function storeCSV(places, tripName, showMessage) {
 	localStorage.clear();
 	localStorage.setItem("fileExtension", "CSV");
-	console.log("STORE CSV");
-	
-	if(places == undefined) {
-		console.log("PLACES UNDEFINED");
-	}
-	else {
-		console.log(places);
-		console.log(tripName);
-	}
 	
 	let formattedPlaces = [];
 	
@@ -206,8 +197,6 @@ function storeCSV(places, tripName, showMessage) {
 	}
 	
 	const placesCSV = Papa.unparse(formattedPlaces);
-	console.log("placesCSV");
-	console.log(placesCSV);
 	const fileNameWithExtension = tripName + ".csv";
 	const trip = new Blob([placesCSV], { type: "text/csv" });
 	const link = document.createElement("a");
@@ -239,8 +228,6 @@ function storeJSON(places, tripName, showMessage)
 		places: formattedPlaces
 	});
 	const trip = new Blob([placesJSON], { type: JSON });
-	console.log(trip);
-	console.log("TRIP");
 	const link = document.createElement("a");
 	const url = URL.createObjectURL(trip);
 	link.href = url;
