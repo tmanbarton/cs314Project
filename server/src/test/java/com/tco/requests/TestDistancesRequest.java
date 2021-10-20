@@ -23,7 +23,7 @@ public class TestDistancesRequest {
   //Distances came from https://keisan.casio.com/exec/system/1224587128#! and that value was convert to miles using Google's km to miles converter.
   //Everything rounded down.
   private ArrayList<Integer> correctDistances =
-      new ArrayList<Integer>(Arrays.asList(277, 2072, 123, 487, 1928, 829, 5531, 5742));
+      new ArrayList<Integer>(Arrays.asList(277, 2072, 124, 488, 1929, 829, 5531, 5743));
 
   private DistancesRequest distances;
   private Places places = new Places();
