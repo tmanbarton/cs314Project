@@ -49,7 +49,8 @@ function Header(props) {
 	let toolboxMethods = {
 		append: props.placeActions.append,
 		removeAll: props.placeActions.removeAll,
-		showMessage: props.showMessage
+		showMessage: props.showMessage,
+		setTripName: setTripName
 	};
 	
 	return (
