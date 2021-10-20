@@ -129,3 +129,8 @@ async function moveToHome(context) {
       console.log(error.message);
     }
   }
+
+//   export function getPlaces()
+//   {
+//       return places;
+//   }
