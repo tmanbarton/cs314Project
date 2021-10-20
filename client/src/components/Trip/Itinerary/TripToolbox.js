@@ -59,7 +59,6 @@ function Body(props) {
 async function csvToTrip(file, append){
 	const papaAwait = file => new Promise(resolve => Papa.parse(file, {header: true, complete: results => resolve(results.data)}));
 	let places = await papaAwait(file);
-	places.pop();
 
 	for(let i = 0; i < places.length; i++){
 		await append(places[i]);
@@ -172,7 +171,7 @@ function SaveTrip(props) {
 			<hr />
 			<Row>
 				<Col>
-					<Button disabled={loading} color="primary" onClick={() =>console.log(localStorage)}>
+					<Button color="primary" onClick={() =>storeCSV(props.places, props.tripName, props.showMessage)}>
 						<h6> CSV &nbsp; <FaDownload/> </h6>
 					</Button>
 				</Col>
@@ -197,10 +196,36 @@ function Footer(props) {
 	);
 }
 
+function storeCSV(places, tripName, showMessage) {
+	localStorage.clear();
+	localStorage.setItem("fileExtension", "CSV");
+	
+	let formattedPlaces = [];
+	
+	for(let i = 0; i < places.length; i++){
+		formattedPlaces.push({...latLngToPlace(places[i]), name: places[i].name});
+	}
+	
+	const placesCSV = Papa.unparse(formattedPlaces);
+	const fileNameWithExtension = tripName + ".csv";
+	const trip = new Blob([placesCSV], { type: "text/csv" });
+	const link = document.createElement("a");
+	const url = URL.createObjectURL(trip);
+	link.href = url;
+	link.download = fileNameWithExtension;
+	document.body.appendChild(link);
+	link.click();
+	setTimeout(function() {
+		document.body.removeChild(link);
+		window.URL.revokeObjectURL(url);
+	}, 0);
+	showMessage(`Successfully downloaded ${tripName} to JSON.`, "success");
+}
+
 function storeJSON(places, tripName, showMessage) 
 {
 	localStorage.clear();
-	localStorage.setItem("fileExt", "JSON");
+		localStorage.setItem("fileExtension", "JSON");
 
 	let formattedPlaces = [];
 
