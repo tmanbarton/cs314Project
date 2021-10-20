@@ -67,6 +67,31 @@ async function csvToTrip(file, append){
 
 }
 
+async function jsonToTrip(file, append){
+	const fileContents = await readFile(file)
+	let jsonFile = JSON.parse(fileContents)
+	let places = jsonFile["places"]
+	
+
+	for (let i= 0; i < places.length; i++){
+		await append(places[i])
+	}
+
+}
+
+function readFile(file) {
+	return new Promise((resolve, reject) => {
+	  const reader = new FileReader();
+  
+	  reader.onload = res => {
+		resolve(res.target.result);
+	  };
+	  reader.onerror = err => reject(err);
+  
+	  reader.readAsText(file);
+	});
+  }
+
 function getFileType(fileName){
 	let parts = fileName.split('.');
 	return parts[parts.length - 1].toLowerCase();
@@ -81,7 +106,8 @@ async function processFile(file, fileName, toolboxMethods){
 			loading = false;
 			toolboxMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
 		case "json":
-
+			await jsonToTrip(file, toolboxMethods.append);
+			loading = false;
 			toolboxMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
 	}
 }
