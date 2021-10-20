@@ -98,6 +98,7 @@ function getFileType(fileName){
 }
 
 async function processFile(file, fileName, toolboxMethods){
+	toolboxMethods.setTripName(fileName);
 	let fileType = getFileType(fileName);
 	toolboxMethods.removeAll();
 	switch (fileType){
