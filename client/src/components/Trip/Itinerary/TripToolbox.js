@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
 	Row,
 	Modal,
@@ -8,9 +8,12 @@ import {
 	Container,
 	Button,
 	Col,
+	Spinner
 } from "reactstrap";
 import { FaToolbox, FaUpload, FaCheck, FaDownload } from "react-icons/fa";
+import Papa from 'papaparse';
 
+let loading = false;
 
 export default function TripToolbox(props) {
 	const [fileName, setFileName] = useState("");
@@ -22,6 +25,7 @@ export default function TripToolbox(props) {
 				setFileName={setFileName}
 				toggle={props.toggleToolbox}
 				toolboxMethods={props.toolboxMethods}
+				tripName={props.tripName}
 			/>
 			<Footer toggleOpen={props.toggleToolbox} />
 		</Modal>
@@ -44,10 +48,21 @@ function Body(props) {
 				<LoadTrip toolboxMethods={props.toolboxMethods} setFileName={props.setFileName} fileName={props.fileName} />
 			</Row>
 			<Row>
-				<SaveTrip />
+				<SaveTrip tripName={props.tripName}/>
 			</Row>
 		</ModalBody>
 	);
+}
+
+async function csvToTrip(file, append){
+	const papaAwait = file => new Promise(resolve => Papa.parse(file, {header: true, complete: results => resolve(results.data)}));
+	let places = await papaAwait(file);
+	places.pop();
+
+	for(let i = 0; i < places.length; i++){
+		await append(places[i]);
+	}
+
 }
 
 function getFileType(fileName){
@@ -55,11 +70,13 @@ function getFileType(fileName){
 	return parts[parts.length - 1].toLowerCase();
 }
 
-function processFile(file, fileName, toolboxMethods, showMessage){
+async function processFile(file, fileName, toolboxMethods){
 	let fileType = getFileType(fileName);
 	toolboxMethods.removeAll();
 	switch (fileType){
 		case "csv":
+			await csvToTrip(file, toolboxMethods.append);
+			loading = false;
 			toolboxMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
 		case "json":
 
@@ -71,6 +88,7 @@ function LoadTrip(props) {
 	const fileInputRef = useRef();
 
 	function fileUploaded(fileObject) {
+		loading = true;
 		let file = fileObject.target.files[0];
 		props.setFileName(fileObject.target.files[0].name);
 		processFile(file, fileObject.target.files[0].name, props.toolboxMethods, props.showMessage);
@@ -85,7 +103,11 @@ function LoadTrip(props) {
 
 			<Container>
 				<Button data-testid="upload-btn" color="primary" onClick={() => fileInputRef.current.click()}>
-					<FaUpload />
+					{loading ? (
+						<Spinner size="sm"/>
+					):
+						<FaUpload />
+					}
 				</Button>
 				<input
 					type="file"
@@ -96,7 +118,7 @@ function LoadTrip(props) {
 					hidden
 				/>
 
-				{props.fileName.length > 0 ? (
+				{props.fileName.length > 0 && !loading ? (
 					<Container>
 						<br />
 						<p>
@@ -110,21 +132,21 @@ function LoadTrip(props) {
 	);
 }
 
-function SaveTrip() {
+function SaveTrip(props) {
 	return (
 		<Container>
-			<h4>Save Trip</h4>
+			<h4>Save {props.tripName}</h4>
 			<hr />
 			<Row>
 				<Col>
 					<Button color="primary">
-						<h6> CSV <FaDownload/> </h6>
+						<h6> CSV &nbsp; <FaDownload/> </h6>
 					</Button>
 				</Col>
 
 				<Col>
 					<Button color="primary">
-						<h6> JSON <FaDownload/> </h6>
+						<h6> JSON &nbsp; <FaDownload/> </h6>
 					</Button>
 				</Col>
 			</Row>

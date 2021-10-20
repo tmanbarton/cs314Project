@@ -3,7 +3,7 @@ export function latLngToText(latLng, precision = 2) {
 }
 
 export function placeToLatLng(place) {
-    return place ? { lat: parseFloat(place.latitude), lng: parseFloat(place.longitude) } : place;
+    return place && place.latitude && place.longitude ? { lat: parseFloat(place.latitude), lng: parseFloat(place.longitude) } : place;
 }
 
 export function latLngToPlace(latLng) {

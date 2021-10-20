@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import  React, { useState } from "react";
 import { Table, Container, Row, Col, Collapse, Input } from "reactstrap";
-import { latLngToText } from "../../../utils/transformers";
+import { latLngToText, placeToLatLng } from "../../../utils/transformers";
 import { FaHome, FaTrashAlt, FaSearch, FaToolbox, FaMapSigns } from "react-icons/fa";
 import { useToggle } from "../../../hooks/useToggle";
 import Search from "../Search/Search";
@@ -44,20 +44,22 @@ export default function Itinerary(props) {
 }
 
 function Header(props) {
+	const [tripName , setTripName] = useState("My Trip")
 	let toolboxMethods = {
 		append: props.placeActions.append,
 		removeAll: props.placeActions.removeAll,
 		showMessage: props.showMessage
 	};
+	
 	return (
 		<Row>
 			<Col>
 				<Row>
-					
-					<h4>	
-						<Input data-testid="My Trip" placeholder="My Trip"></Input>				
-					</h4>
-					&nbsp;&nbsp;
+					<Col>
+						<h4>	
+							<Input value={tripName} data-testid="My Trip" placeholder={tripName} onChange={e => setTripName(e.target.value)}></Input>				
+						</h4>
+					</Col>
 					<FaToolbox size={24} onClick={()=>{props.toggleToolbox();}}/>
 				</Row>
 			</Col>
@@ -85,7 +87,7 @@ function Header(props) {
 				</div>
 			</Col>
 
-			<TripToolbox toolboxMethods={toolboxMethods} isOpen={props.showToolbox} toggleToolbox={props.toggleToolbox}/>			
+			<TripToolbox tripName={tripName} toolboxMethods={toolboxMethods} isOpen={props.showToolbox} toggleToolbox={props.toggleToolbox}/>			
 		</Row>
 	);
 }
@@ -109,7 +111,7 @@ function Body(props) {
 
 function TableRow(props) {
 	const name = props.place.name ? props.place.name : "-";
-	const location = latLngToText(props.place);
+	const location = latLngToText(placeToLatLng(props.place));
 
 	const distance = parseDistance(props.distances, props.index);
 	const units = "mi"; // at some point need to be dynamic

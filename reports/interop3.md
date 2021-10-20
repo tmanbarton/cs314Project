@@ -12,7 +12,7 @@ This table lists each student in the team, the team they verified interoperabili
 | Name | Team | Time |
 | ---- | ---- | ---- |
 | Amir | t01  |20mins|
-| Andy | t12  |      |
+| Andy | t12  |  15min    |
 | Tyler| t22  |      |
 | Bill | t16  |15mins|
 
@@ -22,8 +22,9 @@ We found these problems when connecting our client to another team's server.
 
 | team | problem | github# |
 | :--- | :------ | ------- |
-|  t01    |   Do not get 'find' or 'distances' back as features. This disables our search feature and disables the ability to send a distance request.  |    NA    |
+|  t01    |   None found, client correctly sent config and find request. This is everything their client supports.  |    NA    |
 | t16  | Distances is not a supported feature | NA |
+| t12  | No Issues Found | NA |
 
 ### Server Problems found
 
@@ -31,5 +32,7 @@ We found these problems when connecting the other team's client to our server.
 
 | team | problem | github# |
 | :--- | :------ | ------- |
-| t01  | Client says 'Invalid Server URL!' when trying to connect to our server. This prevented further testing. | NA |
+| t01  | Find Request - it does not appear that the limit set by our client is being respect (expected:5, got:10). We are also only getting a found value of 10 for every query. Our servers also populated different results for the same query, looks like they are searching by alphabetical order? <br> Distances Request - didn't get back 'distances' in features array so our distance request never sends.  | NA |
 |t16| Console says "Server config response json is invalid. Check the Server." upon switching. Nothing more could be done regarding switching servers. | NA |
+|t12   | Console logs "Server config response json is invalid. Check the Server." upon switching. As well as other errors. | NA |
+|t12   | Straight up not allowed to access servers that don't have all the same features. | NA |
