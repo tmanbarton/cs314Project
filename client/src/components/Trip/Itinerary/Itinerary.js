@@ -1,10 +1,9 @@
 import  React, { useState } from "react";
 import { Table, Container, Row, Col, Collapse, Input } from "reactstrap";
 import { latLngToText, placeToLatLng } from "../../../utils/transformers";
-import { FaHome, FaTrashAlt, FaSearch, FaToolbox, FaMapSigns } from "react-icons/fa";
+import { FaHome, FaTrashAlt, FaSearch, FaToolbox, FaMapSigns, FaTrash } from "react-icons/fa";
 import { useToggle } from "../../../hooks/useToggle";
 import Search from "../Search/Search";
-import { PlaceActionsDropdown } from "./actions.js";
 import TripToolbox from "./TripToolbox";
 
 export default function Itinerary(props) {
@@ -135,10 +134,7 @@ function TableRow(props) {
 			</td>
 
 			<td>
-				<PlaceActionsDropdown
-					placeActions={props.placeActions}
-					index={props.index}
-				/>
+				<FaTrash onClick={() => props.placeActions.removeAtIndex(props.index)} data-testid={`delete-button-${props.index}`}/>
 			</td>
 		</tr>
 	);
