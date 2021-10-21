@@ -1,7 +1,6 @@
 import React from 'react';
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import TripToolbox from '../../../src/components/Trip/Itinerary/TripToolbox';
-import Button from '../../../src/components/Trip/Itinerary/TripToolbox';
 import { render,screen } from '@testing-library/react';
 
 
@@ -41,8 +40,4 @@ describe('Trip Toolbox Modal', ()=>{
         expect(cont).toBeTruthy();
         
     });
-
-    it('should call storeJSON on button click', () => {
-        
-    })
 });
