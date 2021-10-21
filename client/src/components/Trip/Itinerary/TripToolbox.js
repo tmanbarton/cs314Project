@@ -74,7 +74,6 @@ async function csvToTrip(file, append){
 
 async function jsonToTrip(file, append){
 	const fileContents = await readFile(file);
-	console.log("JSONTOTRIP FIRED");
 	let jsonFile = JSON.parse(fileContents);
 	let places = jsonFile["places"];
 	
@@ -121,6 +120,8 @@ async function processFile(file, fileName, toolboxMethods, setLoading){
 			await jsonToTrip(file, toolboxMethods.append);
 			setLoading(false);
 			toolboxMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
+			break
+		default:
 			break;
 	}
 }
@@ -180,13 +181,16 @@ function SaveTrip(props) {
 			<hr />
 			<Row>
 				<Col>
+
 					<Button data-testid="CSV-download-button" disabled={props.loading} color="primary" onClick={() =>storeCSV(props.places, props.tripName, props.showMessage)}>
+
 						<h6> CSV &nbsp; <FaDownload/> </h6>
 					</Button>
 				</Col>
 				
 				<Col>
 					<Button data-testid="JSON-download-button" disabled={props.loading} color="primary" onClick={() =>storeJSON(props.places, props.tripName, props.showMessage)}>
+
 						<h6> JSON &nbsp; <FaDownload/> </h6>
 					</Button>
 				</Col>
