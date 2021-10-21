@@ -82,6 +82,7 @@ function LoadTrip(props) {
 					}
 				</Button>
 				<input
+					data-testid="input"
 					type="file"
 					accept=".json, .csv, application/json, text/csv"
 					ref={fileInputRef}
