@@ -59,9 +59,9 @@ The fifth Epic we have planned it "Trip Name". This epic allows users to customi
 
 | Statistic    | # Planned | # Completed |
 | ------------ | --------: | ----------: |
-| Epics        |       _5_ |     _count_ |
-| Tasks        |      _20_ |     _count_ |
-| Story Points |      _32_ |       _sum_ |
+| Epics        |       _5_ |     _5_     |
+| Tasks        |      _20_ |     _84_    |
+| Story Points |      _32_ |       _97_  |
 
 ## Scrums
 
@@ -74,8 +74,23 @@ The fifth Epic we have planned it "Trip Name". This epic allows users to customi
 ## Review
 
 ### Epics completed
+#### Where am I?
+The user is now able to add their current location to the trip. The Web App will prompt the User to allow premission to do this. This epic went fairly smoothly and we ran into very little issues completing it. With this epic completed the User will have an improved trip experience.
+
+#### Distances
+The User is now able to see two seperate statistics regarding the distances in their trip. First, they will now be able to easily see the round trip length of all items in the trip. They will also get a chance to see a "running" distance, so that they can tell how far away each place is from eachother. This epic was harder then 'Where am I?' but was still accomplished relatively struggle free.
+
+#### Load Trip
+The User is now able to load a privously saved trip into the Web App or a trip they created on a different platform. The Web App only takes CSV and JSON files but then loads them into the trip. Load Trip was one of the harder epics given issues with asyc events. While this epic was completed, there could be some slight tweaks made.
+
+#### Save Trip
+The User is now able to save their current trip. They can save the trip as either JSON or CSV to their local file system. This allows for Users to store trips over multiple sessions without losing any of their data. This Epic was also fairly easy, but there was some slightl struggles getting it to work at the start.
+
+#### Name Trip
+The User is now able to name their trip. Naming the trip as 2 features: on-load and on-save. On-load, the file name is set to the trip name. On-save the trip name is set to the exported file name. This epic was very easy to complete and did not take much time.
 
 ### Epics not completed
+- None
 
 ## Retrospective
 
