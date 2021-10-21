@@ -181,13 +181,13 @@ function SaveTrip(props) {
 			<hr />
 			<Row>
 				<Col>
-					<Button disabled={loading} color="primary" onClick={() =>storeCSV(props.places, props.tripName, props.showMessage)}>
+					<Button data-testid="CSV-download-button" disabled={loading} color="primary" onClick={() =>storeCSV(props.places, props.tripName, props.showMessage)}>
 						<h6> CSV &nbsp; <FaDownload/> </h6>
 					</Button>
 				</Col>
 				
 				<Col>
-					<Button disabled={loading} color="primary" onClick={() =>storeJSON(props.places, props.tripName, props.showMessage)}>
+					<Button data-testid="JSON-download-button" disabled={loading} color="primary" onClick={() =>storeJSON(props.places, props.tripName, props.showMessage)}>
 						<h6> JSON &nbsp; <FaDownload/> </h6>
 					</Button>
 				</Col>
@@ -199,7 +199,7 @@ function SaveTrip(props) {
 function Footer(props) {
 	return (
 	<ModalFooter className="centered">
-		<Button color="primary" disabled={loading} onClick={()=>props.toggleToolbox()}>
+		<Button data-testid="continue-button" color="primary" disabled={loading} onClick={()=>props.toggleToolbox()}>
 			{loading ? `Please Wait for ${props.fileName} to Upload` : 'Continue'}
 		</Button>
 	</ModalFooter>
