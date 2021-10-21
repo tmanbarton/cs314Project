@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import {
 	Row,
 	Modal,
@@ -19,7 +19,7 @@ export default function TripToolbox(props) {
 	const [loading, setLoading] = useState(false);
 	return (
 		<Modal isOpen={props.isOpen} toggle={!loading ? props.toggleToolbox : null}>
-			<Header toggle={props.toggleToolbox} />
+			<Header />
 			<Body
 				places={props.places}
 				fileName={fileName}
@@ -35,7 +35,7 @@ export default function TripToolbox(props) {
 	);
 }
 
-function Header(props) {
+function Header() {
 	return (
 		<ModalHeader tag="h3" cssModule={{'modal-title': 'w-100 text-center'}}>
 			<strong>Trip Toolbox</strong> &nbsp; 
@@ -57,53 +57,81 @@ function Body(props) {
 	);
 }
 
-function isValid(place){
-	return Object.keys(place).length > 2;
-}
+function LoadTrip(props) {
+	const fileInputRef = useRef();
 
-async function csvToTrip(file, append){
-	const papaAwait = file => new Promise(resolve => Papa.parse(file, {header: true, complete: results => resolve(results.data)}));
-	let places = await papaAwait(file);
-
-	for(let i = 0; i < places.length; i++){
-		if(isValid(places[i])){
-			await append(places[i]);
-		}
+	function fileUploaded(fileObject) {
+		props.setLoading(true);
+		let file = fileObject.target.files[0];
+		props.setFileName(fileObject.target.files[0].name);
+		processFile(file, fileObject.target.files[0].name, props.toolboxMethods, props.setLoading);
 	}
+
+	return (
+		<Container>
+			<Container>
+				<h4>Load Trip</h4>
+				<hr />
+			</Container>
+			<Container>
+				<Button data-testid="upload-btn" color="primary" onClick={() => fileInputRef.current.click()}>
+					{props.loading ? (
+						<Spinner size="sm"/>
+					):
+						<FaUpload />
+					}
+				</Button>
+				<input
+					type="file"
+					accept=".json, .csv, application/json, text/csv"
+					ref={fileInputRef}
+					onChange={fileUploaded}
+					type="file"
+					hidden
+				/>
+				{props.fileName.length > 0 && !props.loading ? (
+					<Container>
+						<br />
+						<p>
+							Uploaded <strong>{props.fileName}</strong> <FaCheck />
+						</p>
+					</Container>
+				) : null}
+			</Container>
+			<hr />
+		</Container>
+	);
 }
 
-async function jsonToTrip(file, append){
-	const fileContents = await readFile(file);
-	let jsonFile = JSON.parse(fileContents);
-	let places = jsonFile["places"];
-	
-	for (let i= 0; i < places.length; i++){
-		await append(places[i]);
-	}
+function SaveTrip(props) {
+	return (
+		<Container>
+			<h4>Save {props.tripName}</h4>
+			<hr />
+			<Row>
+				<Col>
+					<Button data-testid="CSV-download-button" disabled={props.loading} color="primary" onClick={() =>storeCSV(props.places, props.tripName, props.showMessage)}>
+						<h6> CSV &nbsp; <FaDownload/> </h6>
+					</Button>
+				</Col>
+				<Col>
+					<Button data-testid="JSON-download-button" disabled={props.loading} color="primary" onClick={() =>storeJSON(props.places, props.tripName, props.showMessage)}>
+						<h6> JSON &nbsp; <FaDownload/> </h6>
+					</Button>
+				</Col>
+			</Row>
+		</Container>
+	);
 }
 
-function readFile(file) {
-	return new Promise((resolve, reject) => {
-	  const reader = new FileReader();
-  
-	  reader.onload = res => {
-		resolve(res.target.result);
-	  };
-	  reader.onerror = err => reject(err);
-  
-	  reader.readAsText(file);
-	});
-  }
-
-function getFileType(fileName){
-	let parts = fileName.split('.');
-	return parts[parts.length - 1].toLowerCase();
-}
-
-function trimFileName(fileName){
-	let parts = fileName.split('.');
-	parts.pop();
-	return parts.join('.');
+function Footer(props) {
+	return (
+	<ModalFooter className="centered">
+		<Button data-testid="continue-button" color="primary" disabled={props.loading} onClick={()=>props.toggleToolbox()}>
+			{props.loading ? `Please Wait for ${props.fileName} to Upload` : 'Continue'}
+		</Button>
+	</ModalFooter>
+	);
 }
 
 async function processFile(file, fileName, toolboxMethods, setLoading){
@@ -126,99 +154,62 @@ async function processFile(file, fileName, toolboxMethods, setLoading){
 	}
 }
 
-function LoadTrip(props) {
-	const fileInputRef = useRef();
+function trimFileName(fileName){
+	let parts = fileName.split('.');
+	parts.pop();
+	return parts.join('.');
+}
 
-	function fileUploaded(fileObject) {
-		props.setLoading(true);
-		let file = fileObject.target.files[0];
-		props.setFileName(fileObject.target.files[0].name);
-		processFile(file, fileObject.target.files[0].name, props.toolboxMethods, props.setLoading);
+function getFileType(fileName){
+	let parts = fileName.split('.');
+	return parts[parts.length - 1].toLowerCase();
+}
+
+async function csvToTrip(file, append){
+	const papaAwait = file => new Promise(resolve => Papa.parse(file, {header: true, complete: results => resolve(results.data)}));
+	let places = await papaAwait(file);
+
+	for(let i = 0; i < places.length; i++){
+		if(isValid(places[i])){
+			await append(places[i]);
+		}
 	}
-
-	return (
-		<Container>
-			<Container>
-				<h4>Load Trip</h4>
-				<hr />
-			</Container>
-
-			<Container>
-				<Button data-testid="upload-btn" color="primary" onClick={() => fileInputRef.current.click()}>
-					{props.loading ? (
-						<Spinner size="sm"/>
-					):
-						<FaUpload />
-					}
-				</Button>
-				<input
-					type="file"
-					accept=".json, .csv, application/json, text/csv"
-					ref={fileInputRef}
-					onChange={fileUploaded}
-					type="file"
-					hidden
-				/>
-
-				{props.fileName.length > 0 && !props.loading ? (
-					<Container>
-						<br />
-						<p>
-							Uploaded <strong>{props.fileName}</strong> <FaCheck />
-						</p>
-					</Container>
-				) : null}
-			</Container>
-			<hr />
-		</Container>
-	);
 }
 
-function SaveTrip(props) {
-	return (
-		<Container>
-			<h4>Save {props.tripName}</h4>
-			<hr />
-			<Row>
-				<Col>
-
-					<Button data-testid="CSV-download-button" disabled={props.loading} color="primary" onClick={() =>storeCSV(props.places, props.tripName, props.showMessage)}>
-
-						<h6> CSV &nbsp; <FaDownload/> </h6>
-					</Button>
-				</Col>
-				
-				<Col>
-					<Button data-testid="JSON-download-button" disabled={props.loading} color="primary" onClick={() =>storeJSON(props.places, props.tripName, props.showMessage)}>
-
-						<h6> JSON &nbsp; <FaDownload/> </h6>
-					</Button>
-				</Col>
-			</Row>
-		</Container>
-	);
+async function jsonToTrip(file, append){
+	const fileContents = await readFile(file);
+	let jsonFile = JSON.parse(fileContents);
+	let places = jsonFile["places"];
+	
+	for (let i= 0; i < places.length; i++){
+		if(isValid(places[i])){
+			await append(places[i]);
+		}
+	}
 }
 
-function Footer(props) {
-	return (
-	<ModalFooter className="centered">
-		<Button data-testid="continue-button" color="primary" disabled={props.loading} onClick={()=>props.toggleToolbox()}>
-			{props.loading ? `Please Wait for ${props.fileName} to Upload` : 'Continue'}
-		</Button>
-	</ModalFooter>
-	);
+function readFile(file) {
+	return new Promise((resolve, reject) => {
+	  const reader = new FileReader();
+  
+	  reader.onload = res => {
+		resolve(res.target.result);
+	  };
+	  reader.onerror = err => reject(err);
+  
+	  reader.readAsText(file);
+	});
+}
+
+function isValid(place){
+	return place.latitude && place.longitude;
 }
 
 function storeCSV(places, tripName, showMessage) {
 	localStorage.clear();
 	localStorage.setItem("fileExtension", "CSV");
 	
-	let formattedPlaces = [];
-	
-	for(let i = 0; i < places.length; i++){
-		formattedPlaces.push({...latLngToPlace(places[i]), name: places[i].name});
-	}
-	
+	const formattedPlaces = formatPlaces(places);
 	const placesCSV = Papa.unparse(formattedPlaces);
 	const fileNameWithExtension = tripName + ".csv";
 	const trip = new Blob([placesCSV], { type: "text/csv" });
@@ -238,14 +229,9 @@ function storeCSV(places, tripName, showMessage) {
 function storeJSON(places, tripName, showMessage) 
 {
 	localStorage.clear();
-		localStorage.setItem("fileExtension", "JSON");
+	localStorage.setItem("fileExtension", "JSON");
 
-	let formattedPlaces = [];
-
-	for(let i = 0; i < places.length; i++){
-		formattedPlaces.push({...latLngToPlace(places[i]), name: places[i].name});
-	}
-	
+	const formattedPlaces = formatPlaces(places);
 	const fileNameWithExtension = tripName + ".JSON";
 	const placesJSON = JSON.stringify({
 		places: formattedPlaces
@@ -264,4 +250,16 @@ function storeJSON(places, tripName, showMessage)
 	
 	showMessage(`Successfully downloaded ${tripName} to JSON.`, "success");
 }
+
+function formatPlaces(places){
+	let formattedPlaces = [];
+	
+	for(let i = 0; i < places.length; i++){
+		formattedPlaces.push({...latLngToPlace(places[i]), name: places[i].name});
+	}
+	return formattedPlaces;
+}
+
+
+
 

@@ -123,16 +123,13 @@ function TableRow(props) {
 			<th scope="row">{props.index + 1}</th>
 			<td>
 				{name}
+				<br />
 				{ props.distances ?
-				<Container>
-					<br />
 					<small>
 						<strong>One Way Distance: {distance} {units}</strong>
 					</small>
-				</Container>
 				: null
 				}
-
 				<br />
 				<small className="text-muted">{location}</small>
 			</td>
