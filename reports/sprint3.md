@@ -95,7 +95,9 @@ The User is now able to name their trip. Naming the trip as 2 features: on-load 
 ## Retrospective
 
 ### Things that went well
+In terms of things that went well, this sprint everyone contributed and communicated more. Last sprint we barely completed 2 epics and this sprint we completed 5. The team is also communicating a lot more in the Slack channel to keep everyone up to date with current workflow or problems we are incountering. This increase in communication led to the overall increase in productivity and allowed us to finish 1 day before the sprint deadline. 
 
 ### Things we need to improve
+Although we improved a lot from last Sprint in terms of our productivity and communication, there are still areas we could improve appon as a group. One of these areas is increasing the code coverage of our client tests. Currently we have tests in place that only test if the UI components are avaliable, and not the logic those UI components are responsible for. Testing in Jest is something that's new to all of us and as a team we are working on improving are skills in that department. Compared to last sprint we have improved but we need to continue to improve so we can build better and more complete tests. Another aspect we can improve apon is remaining consistent throughout the entire sprint in terms of productivity. If you take a look at our burndown chart we started out exteremly strong; however, during the middle-end of the sprint we started to fall behind and productivity decreased.   
 
 ### One thing we will change next time
