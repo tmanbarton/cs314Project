@@ -14,10 +14,9 @@ import { FaToolbox, FaUpload, FaCheck, FaDownload } from "react-icons/fa";
 import { latLngToPlace  } from "../../../utils/transformers";
 import Papa from 'papaparse';
 
-let loading = false;
-
 export default function TripToolbox(props) {
 	const [fileName, setFileName] = useState("");
+	const [loading, setLoading] = useState(false);
 	return (
 		<Modal isOpen={props.isOpen} toggle={!loading ? props.toggleToolbox : null}>
 			<Header toggle={props.toggleToolbox} />
@@ -28,8 +27,10 @@ export default function TripToolbox(props) {
 				toggle={props.toggleToolbox}
 				toolboxMethods={props.toolboxMethods}
 				tripName={props.tripName}
+				loading={loading}
+				setLoading={setLoading}
 			/>
-			<Footer fileName={fileName} toggleToolbox={props.toggleToolbox} />
+			<Footer loading={loading} fileName={fileName} toggleToolbox={props.toggleToolbox} />
 		</Modal>
 	);
 }
@@ -47,10 +48,10 @@ function Body(props) {
 	return (
 		<ModalBody className="center-modal-body">
 			<Row>
-				<LoadTrip toolboxMethods={props.toolboxMethods} setFileName={props.setFileName} fileName={props.fileName} />
+				<LoadTrip loading={props.loading} setLoading={props.setLoading} toolboxMethods={props.toolboxMethods} setFileName={props.setFileName} fileName={props.fileName} />
 			</Row>
 			<Row>
-				<SaveTrip tripName={props.tripName} fileName={props.fileName} places={props.places} showMessage={props.toolboxMethods.showMessage}/>
+				<SaveTrip loading={props.loading} tripName={props.tripName} fileName={props.fileName} places={props.places} showMessage={props.toolboxMethods.showMessage}/>
 			</Row>
 		</ModalBody>
 	);
@@ -105,20 +106,19 @@ function trimFileName(fileName){
 	return parts.join('.');
 }
 
-async function processFile(file, fileName, toolboxMethods){
+async function processFile(file, fileName, toolboxMethods, setLoading){
 	toolboxMethods.setTripName(trimFileName(fileName));
 	let fileType = getFileType(fileName);
 	toolboxMethods.removeAll();
 	switch (fileType){
 		case "csv":
 			await csvToTrip(file, toolboxMethods.append);
-			loading = false;
+			setLoading(false);
 			toolboxMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
 			break;
 		case "json":
-			console.log("Why");
 			await jsonToTrip(file, toolboxMethods.append);
-			loading = false;
+			setLoading(false);
 			toolboxMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
 			break
 		default:
@@ -130,10 +130,10 @@ function LoadTrip(props) {
 	const fileInputRef = useRef();
 
 	function fileUploaded(fileObject) {
-		loading = true;
+		props.setLoading(true);
 		let file = fileObject.target.files[0];
 		props.setFileName(fileObject.target.files[0].name);
-		processFile(file, fileObject.target.files[0].name, props.toolboxMethods, props.showMessage);
+		processFile(file, fileObject.target.files[0].name, props.toolboxMethods, props.setLoading);
 	}
 
 	return (
@@ -145,7 +145,7 @@ function LoadTrip(props) {
 
 			<Container>
 				<Button data-testid="upload-btn" color="primary" onClick={() => fileInputRef.current.click()}>
-					{loading ? (
+					{props.loading ? (
 						<Spinner size="sm"/>
 					):
 						<FaUpload />
@@ -160,7 +160,7 @@ function LoadTrip(props) {
 					hidden
 				/>
 
-				{props.fileName.length > 0 && !loading ? (
+				{props.fileName.length > 0 && !props.loading ? (
 					<Container>
 						<br />
 						<p>
@@ -181,13 +181,16 @@ function SaveTrip(props) {
 			<hr />
 			<Row>
 				<Col>
-					<Button data-testid="CSV-download-button" disabled={loading} color="primary" onClick={() =>storeCSV(props.places, props.tripName, props.showMessage)}>
+
+					<Button data-testid="CSV-download-button" disabled={props.loading} color="primary" onClick={() =>storeCSV(props.places, props.tripName, props.showMessage)}>
+
 						<h6> CSV &nbsp; <FaDownload/> </h6>
 					</Button>
 				</Col>
 				
 				<Col>
-					<Button data-testid="JSON-download-button" disabled={loading} color="primary" onClick={() =>storeJSON(props.places, props.tripName, props.showMessage)}>
+					<Button data-testid="JSON-download-button" disabled={props.loading} color="primary" onClick={() =>storeJSON(props.places, props.tripName, props.showMessage)}>
+
 						<h6> JSON &nbsp; <FaDownload/> </h6>
 					</Button>
 				</Col>
@@ -199,8 +202,8 @@ function SaveTrip(props) {
 function Footer(props) {
 	return (
 	<ModalFooter className="centered">
-		<Button data-testid="continue-button" color="primary" disabled={loading} onClick={()=>props.toggleToolbox()}>
-			{loading ? `Please Wait for ${props.fileName} to Upload` : 'Continue'}
+		<Button data-testid="continue-button" color="primary" disabled={props.loading} onClick={()=>props.toggleToolbox()}>
+			{props.loading ? `Please Wait for ${props.fileName} to Upload` : 'Continue'}
 		</Button>
 	</ModalFooter>
 	);
