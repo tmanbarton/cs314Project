@@ -11,8 +11,10 @@ import {
 	Spinner
 } from "reactstrap";
 import { FaToolbox, FaUpload, FaCheck, FaDownload } from "react-icons/fa";
+import * as TripSchema from '../../../../schemas/TripFile.json';
 import { latLngToPlace  } from "../../../utils/transformers";
 import Papa from 'papaparse';
+import { isJsonResponseValid } from "../../../utils/restfulAPI";
 
 export default function TripToolbox(props) {
 	const [fileName, setFileName] = useState("");
@@ -64,7 +66,7 @@ function LoadTrip(props) {
 		props.setLoading(true);
 		let file = fileObject.target.files[0];
 		props.setFileName(fileObject.target.files[0].name);
-		processFile(file, fileObject.target.files[0].name, props.toolboxMethods, props.setLoading);
+		processFile(file, fileObject.target.files[0].name, {...props.toolboxMethods, setFileName: props.setFileName}, props.setLoading);
 	}
 
 	return (
@@ -141,14 +143,12 @@ async function processFile(file, fileName, toolboxMethods, setLoading){
 	toolboxMethods.removeAll();
 	switch (fileType){
 		case "csv":
-			await csvToTrip(file, toolboxMethods.append);
+			await csvToTrip(file, {append: toolboxMethods.append, showMessage: toolboxMethods.showMessage, setFileName: toolboxMethods.setFileName}, fileName);
 			setLoading(false);
-			toolboxMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
 			break;
 		case "json":
-			await jsonToTrip(file, toolboxMethods.append);
+			await jsonToTrip(file, {append: toolboxMethods.append, showMessage: toolboxMethods.showMessage, setFileName: toolboxMethods.setFileName}, fileName);
 			setLoading(false);
-			toolboxMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
 			break
 		default:
 			break;
@@ -166,26 +166,37 @@ function getFileType(fileName){
 	return parts[parts.length - 1].toLowerCase();
 }
 
-async function csvToTrip(file, append){
+async function csvToTrip(file, toolboxMethods, fileName){
 	const papaAwait = file => new Promise(resolve => Papa.parse(file, {header: true, complete: results => resolve(results.data)}));
 	let places = await papaAwait(file);
-
-	for(let i = 0; i < places.length; i++){
-		if(isValid(places[i])){
-			await append(places[i]);
+	if(isValidFile({places:places})){
+		for(let i = 0; i < places.length; i++){
+			await toolboxMethods.append(places[i]);
 		}
+		toolboxMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
+	}else{
+		toolboxMethods.showMessage(`Failed to upload ${fileName}.`, "error");
+		toolboxMethods.setFileName("");
+		return;
 	}
+
 }
 
-async function jsonToTrip(file, append){
+async function jsonToTrip(file, toolboxMethods, fileName){
 	const fileContents = await readFile(file);
 	let jsonFile = JSON.parse(fileContents);
-	let places = jsonFile["places"];
-	
-	for (let i= 0; i < places.length; i++){
-		if(isValid(places[i])){
-			await append(places[i]);
+	if(isValidFile(jsonFile)){
+		let places = jsonFile["places"];
+		for (let i= 0; i < places.length; i++){
+			await toolboxMethods.append(places[i]);
 		}
+		console.log("HERE");
+		toolboxMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
+		return;
+	}else{
+		toolboxMethods.showMessage(`Failed to upload ${fileName}.`, "error");
+		toolboxMethods.setFileName("");
+		return;
 	}
 }
 
@@ -202,8 +213,8 @@ function readFile(file) {
 	});
 }
 
-function isValid(place){
-	return place.latitude && place.longitude;
+function isValidFile(places){
+	return isJsonResponseValid(places, TripSchema);
 }
 
 function storeCSV(places, tripName, showMessage) {
