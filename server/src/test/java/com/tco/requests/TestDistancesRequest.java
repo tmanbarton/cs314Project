@@ -26,6 +26,7 @@ public class TestDistancesRequest {
       new ArrayList<Integer>(Arrays.asList(277, 2072, 124, 488, 1929, 829, 5531, 5743));
 
   private DistancesRequest distances;
+  private DistanceCalculator calc;
   private Places places = new Places();
   private double earthRadius = 3958.8;
 
@@ -33,10 +34,14 @@ public class TestDistancesRequest {
   public void createConfigurationForTestCases() {
     distances = new DistancesRequest();
     distances.setEarthRadius(earthRadius);
+
     for (int i = 0; i < jsonStrings.size(); i++) {
       Place place = new Gson().fromJson(jsonStrings.get(i), Place.class);
       places.add(place);
     }
+    distances.setPlaces(places);
+    calc = new DistanceCalculator(places, earthRadius);
+    distances.buildResponse();
   }
 
   @Test
@@ -56,7 +61,7 @@ public class TestDistancesRequest {
   @Test
   @DisplayName("Distances is correct")
   public void testDistances() {
-    ArrayList<Integer> distancesArr = distances.getDistances(places);
+    ArrayList<Integer> distancesArr = distances.getDistances();
     assertEquals(distancesArr, correctDistances);
   }
 }
