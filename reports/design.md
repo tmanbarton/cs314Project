@@ -243,4 +243,25 @@ In order to support the distances feature a DistancesRequest class will need to 
 
 # Sprint 4
 
+## User Interface
+
+In this sprint, we will focus on extending the features of list items and trips. Specifically implemeting an optimize feature, a 'find on map' feature, and extending trip items to be drag and dropable.
+
+### UI Design for Shorter Trip
+
+- Simple icon for optimizing the trip
+     - Shows the user the distance saved by optimizing and the new trip
+     - User is asked to confirm/deny changes before they are finalized 
+          - So that the user can compare the differences
+- List items are clickable - highlights the location on the map(shows the marker)
+- List items are now click and dragable
+     - Allows the user to change the order of their trip as they see fit   
+
+![sprint4UI](images/sprint4UI.png "Sprint 4 UI")
+
+## Client Components
+
+
+## Server Classes
+
 # Sprint 5
