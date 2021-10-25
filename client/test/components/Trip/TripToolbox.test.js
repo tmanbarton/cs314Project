@@ -4,6 +4,7 @@ import TripToolbox from '../../../src/components/Trip/Itinerary/TripToolbox';
 import { render,screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
 
+
 describe('Trip Toolbox Modal', ()=>{
     const toggleOpen = jest.fn();
     const tripName = "testTrip";
@@ -11,6 +12,7 @@ describe('Trip Toolbox Modal', ()=>{
         append: jest.fn(),
         removeAll: jest.fn(),
         showMessage: jest.fn(),
+        setTripName: jest.fn()
     }
 
 
@@ -55,9 +57,22 @@ describe('Trip Toolbox Modal', ()=>{
         expect(download).toBeTruthy();
     });
 
+    it('Downloads a CSV file', ()=>{
+        global.URL.createObjectURL = jest.fn();
+        const download = screen.getByTestId('CSV-download-button');
+        user.click(download);
+    });
+
+    it('Downloads a JSO file', ()=>{
+        global.URL.createObjectURL = jest.fn();
+        const download = screen.getByTestId('JSON-download-button');
+        user.click(download);
+    });
+
     it('has a continue button and when clicked it closes the modal', async ()=>{
         const cont = screen.getByTestId('continue-button');
         user.click(cont);
         expect(toggleOpen).toHaveBeenCalled();
     });
+
 });
