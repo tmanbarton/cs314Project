@@ -9,10 +9,11 @@ import Itinerary from '../../../src/components/Trip/Itinerary/Itinerary.js';
 describe('Itinerary', () => {
     const placeActions ={
         append: jest.fn(),
-        removeAll: jest.fn()
+        removeAll: jest.fn(),
+        moveToHome: jest.fn()
     }
     beforeEach(() => {
-        render(<Itinerary places={MOCK_PLACES} placeActions={placeActions} />);
+        render(<Itinerary places={MOCK_PLACES} placeActions={placeActions}/>);
     });
 
     it('has an input and updates teamName', ()=>{
@@ -39,6 +40,20 @@ describe('Itinerary', () => {
     });
 
     it('renders the name attribute', () => {
+       
         screen.getByRole('cell', { name: /Place A/i });
     });
+
+    it('has a delete all button that deletes all places', ()=> {
+        const deleteBtn = screen.getByTestId('delete-all-button');
+        user.click(deleteBtn);
+        expect(placeActions.removeAll).toHaveBeenCalled();
+        
+    })
+
+    it('has a home button that calls moveToHome', ()=> {
+        const homeBtn = screen.getByTestId('home-button');
+        user.click(homeBtn);
+        expect(placeActions.moveToHome).toHaveBeenCalled();
+    })
 });
