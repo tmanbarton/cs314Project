@@ -36,14 +36,6 @@ public class DistancesRequest extends Request {
     this.places = places;
   }
 
-  public Places getPlaces(){
-    return places;
-  }
-
-  public void setDistances(ArrayList<Integer> distances){
-    this.distances = distances;
-  }
-
   public ArrayList<Integer> getDistances(){
     return distances;
   }
