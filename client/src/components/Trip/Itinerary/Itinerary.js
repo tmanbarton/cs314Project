@@ -61,7 +61,7 @@ function Header(props) {
 							<Input value={tripName} data-testid="My Trip" placeholder={tripName} onChange={e => setTripName(e.target.value)}></Input>				
 						</h4>
 					</Col>
-					<FaToolbox size={24} onClick={()=>{props.toggleToolbox();}}/>
+					<FaToolbox data-testid="toolbox-btn" size={24} onClick={()=>{props.toggleToolbox();}}/>
 				</Row>
 			</Col>
 			<Col>
