@@ -190,7 +190,6 @@ async function jsonToTrip(file, toolboxMethods, fileName){
 		for (let i= 0; i < places.length; i++){
 			await toolboxMethods.append(places[i]);
 		}
-		console.log("HERE");
 		toolboxMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
 		return;
 	}else{
