@@ -4,6 +4,7 @@ import amirPic from "../../static/images/amir_picture.png";
 import tylerPic from "../../static/images/tyler_picture.png";
 import teamPic from "../../static/images/teamPicWebsite.png";
 import billPic from "../../static/images/bill_picture.png";
+import sonuPic from "../../static/images/sonud_picture.png";
 
 export const teamData = {
 	teamName: "Penguinz",
@@ -35,5 +36,11 @@ export const memberData = [
 		bio: "William is a junior at CSU, studying computer science with a focus on cyber security. He has experience in Java, C, C++, and HTML. He enjoys playing guitar and snowboarding in his free time.",
 		homeTown: "Milwaukee, WI",
 		imagePath: billPic,
+	},
+	{
+		name: "Sonu Dileep",
+		bio: "Sonu is a first year PhD Student doing research in computer vision and machine learning. His current work is focused on methane emission modelling and automated smoke detection system. During his leisure time he loves playing soccer and piano",
+		homeTown: "Kerala, India",
+		imagePath: sonuPic,       
 	},
 ];
