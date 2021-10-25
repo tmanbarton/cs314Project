@@ -1,8 +1,6 @@
 package com.tco.requests;
 
-import java.lang.Math;
 import java.util.ArrayList;
-import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,10 +14,11 @@ public class DistancesRequest extends Request {
 
   @Override
   public void buildResponse() {
+    DistanceCalculator calc = new DistanceCalculator(places, earthRadius);
     if (places.size() == 0) {
       distances = new ArrayList<Integer>();
     } else {
-      distances = getDistances(places);
+      distances = calc.getDistances();
     }
 
     log.trace("buildResponse -> {}", this);
@@ -27,56 +26,25 @@ public class DistancesRequest extends Request {
 
   public DistancesRequest() { this.requestType = "distances"; }
 
-  public ArrayList<Integer> getDistances(Places places) {
-    ArrayList<Integer> distances = new ArrayList<Integer>();
-    double latitude1 = 0;
-    double longitude1 = 0;
-    double latitude2 = 0;
-    double longitude2 = 0;
-    for (int i = 1; i < places.size(); i++) {
-      latitude1 = Double.parseDouble(places.get(i - 1).get("latitude"));
-      longitude1 = Double.parseDouble(places.get(i - 1).get("longitude"));
-
-      latitude2 = Double.parseDouble(places.get(i).get("latitude"));
-      longitude2 = Double.parseDouble(places.get(i).get("longitude"));
-
-      int distance =
-          computeDistance(latitude1, latitude2, longitude1, longitude2);
-      distances.add(distance);
-    }
-    latitude1 =
-        Double.parseDouble(places.get(places.size() - 1).get("latitude"));
-    longitude1 =
-        Double.parseDouble(places.get(places.size() - 1).get("longitude"));
-
-    latitude2 = Double.parseDouble(places.get(0).get("latitude"));
-    longitude2 = Double.parseDouble(places.get(0).get("longitude"));
-
-    int distance =
-        computeDistance(latitude1, latitude2, longitude1, longitude2);
-    distances.add(distance);
-
-    return distances;
-  }
-
-  private int computeDistance(double latitude1, double latitude2,
-                              double longitude1, double longitude2) {
-    latitude1 = Math.toRadians(latitude1);
-    latitude2 = Math.toRadians(latitude2);
-    longitude1 = Math.toRadians(longitude1);
-    longitude2 = Math.toRadians(longitude2);
-
-    double radius = getEarthRadius();
-    double longitudeDifference = longitude2 - longitude1;
-    double distance = radius * Math.acos(
-      Math.sin(latitude1) * Math.sin(latitude2) +
-        Math.cos(latitude1) * Math.cos(latitude2) * Math.cos(longitudeDifference));
-    return (int)Math.round(distance);
-  }
-
   public void setEarthRadius(double earthRadius) {
     this.earthRadius = earthRadius;
   }
 
   public double getEarthRadius() { return this.earthRadius; }
+
+  public void setPlaces(Places places){
+    this.places = places;
+  }
+
+  public Places getPlaces(){
+    return places;
+  }
+
+  public void setDistances(ArrayList<Integer> distances){
+    this.distances = distances;
+  }
+
+  public ArrayList<Integer> getDistances(){
+    return distances;
+  }
 }
