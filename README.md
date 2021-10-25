@@ -12,6 +12,7 @@
 |   Raissi    |  Amir       | amirr23     | amir-raissi  | amirr23@colostate.edu    |
 |   Price     |  William    | bilprice    | bilprice     | bilprice@colostate.edu   |
 |   Barton    |  Tyler      | tmanb       | tmanbarton   | tmanb@rams.colostate.edu |
+|   Dileep    |  Sonu       | sonudilp    | SonuDileep   | sonudilp@colostate.edu   |
 
 
 ## Team Preferences
