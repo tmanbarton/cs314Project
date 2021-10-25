@@ -78,6 +78,7 @@ function Header(props) {
 						className={props.disableSearch ? "fa-disabled" : ""}
 						size={24}
 						onClick={props.disableSearch ? null : props.toggleSearch}
+						data-testid="srch-button"
 					/>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<FaTrashAlt
