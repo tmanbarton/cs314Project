@@ -262,7 +262,7 @@ function storeJSON(places, tripName, showMessage)
 	showMessage(`Successfully downloaded ${tripName} to JSON.`, "success");
 }
 
-function formatPlaces(places){
+export function formatPlaces(places){
 	let formattedPlaces = [];
 	
 	for(let i = 0; i < places.length; i++){
