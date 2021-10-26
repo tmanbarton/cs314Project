@@ -1,6 +1,7 @@
 import React from 'react';
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import TripToolbox from '../../../src/components/Trip/Itinerary/TripToolbox';
+import { getFileType } from '../../../src/components/Trip/Itinerary/TripToolbox';
 import { render,screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
 
