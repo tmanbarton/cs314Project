@@ -261,6 +261,12 @@ In this sprint, we will focus on extending the features of list items and trips.
 
 ## Client Components
 
+In this sprint we plan to enhance/modify our existing components in order to add the provided functionality from the epics. The file we plan to update the itinerary.js file the most.
+  - New optimize button.
+    - We will keep track of unoptimize and optimized trip for user selection.
+  - Table in itinerary.js will be editable.
+  - Add onClick to each table row for highlight places.
+![clientCompS4](images/ClientComponentDiagramSP4.png "Client Component Diagram Sprint4")
 
 ## Server Classes
 
