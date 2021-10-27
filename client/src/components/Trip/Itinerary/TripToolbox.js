@@ -12,7 +12,7 @@ import {
 } from "reactstrap";
 import { FaToolbox, FaUpload, FaCheck, FaDownload } from "react-icons/fa";
 import * as TripSchema from '../../../../schemas/TripFile.json';
-import { latLngToPlace  } from "../../../utils/transformers";
+import { formatPlaces  } from "../../../utils/transformers";
 import Papa from 'papaparse';
 import { isJsonResponseValid } from "../../../utils/restfulAPI";
 
@@ -261,16 +261,3 @@ function storeJSON(places, tripName, showMessage)
 	
 	showMessage(`Successfully downloaded ${tripName} to JSON.`, "success");
 }
-
-export function formatPlaces(places){
-	let formattedPlaces = [];
-	
-	for(let i = 0; i < places.length; i++){
-		formattedPlaces.push({...latLngToPlace(places[i]), name: places[i].name});
-	}
-	return formattedPlaces;
-}
-
-
-
-

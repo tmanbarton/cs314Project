@@ -7,5 +7,14 @@ export function placeToLatLng(place) {
 }
 
 export function latLngToPlace(latLng) {
-    return latLng ? { latitude: latLng.lat.toString(), longitude: latLng.lng.toString() } : latLng;
+    return latLng && latLng.lat && latLng.lng ? { latitude: latLng.lat.toString(), longitude: latLng.lng.toString() } : latLng;
+}
+
+export function formatPlaces(places){
+	let formattedPlaces = [];
+	
+	for(let i = 0; i < places.length; i++){
+		formattedPlaces.push({...latLngToPlace(places[i]), name: places[i].name});
+	}
+	return formattedPlaces;
 }
