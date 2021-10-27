@@ -5,6 +5,7 @@ import { FaHome, FaTrashAlt, FaSearch, FaToolbox, FaMapSigns, FaTrash } from "re
 import { useToggle } from "../../../hooks/useToggle";
 import Search from "../Search/Search";
 import TripToolbox from "./TripToolbox";
+import TripActions from "./TripActions";
 
 export default function Itinerary(props) {
 	const [showSearch, toggleSearch] = useToggle(false);
@@ -157,9 +158,12 @@ function TotalDistances(props)
 	if(props.distances){
 		const total = totalDistance(props.distances);
 		return (
-			<Container>
-				<h5><FaMapSigns />{" "}<strong>Total Trip Distance: {total}</strong></h5>
-			</Container>
+			<Row>
+				<Col>
+					<h5><FaMapSigns />{" "}<strong>Total Trip Distance: {total}</strong></h5>
+				</Col>
+				<TripActions />
+			</Row>
 		);
 	}else{
 		return(
