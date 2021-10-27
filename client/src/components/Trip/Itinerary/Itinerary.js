@@ -1,6 +1,6 @@
 import  React, { useState } from "react";
 import { Table, Container, Row, Col, Collapse, Input } from "reactstrap";
-import { latLngToText, placeToLatLng, formatPlaces } from "../../../utils/transformers";
+import { latLngToText, placeToLatLng } from "../../../utils/transformers";
 import { FaHome, FaTrashAlt, FaSearch, FaToolbox, FaMapSigns, FaTrash } from "react-icons/fa";
 import { useToggle } from "../../../hooks/useToggle";
 import Search from "../Search/Search";
@@ -10,10 +10,6 @@ import TripActions from "./TripActions";
 export default function Itinerary(props) {
 	const [showSearch, toggleSearch] = useToggle(false);
 	const [showToolbox, toggleToolbox ] = useToggle(false);
-	const revert = {
-		places: formatPlaces(props.places),
-		distances: props.distances
-	};
 
 	return (
 		<Container>
@@ -34,7 +30,7 @@ export default function Itinerary(props) {
 					showMessage={props.showMessage}
 				/>
 			</Collapse>	
-			<TotalDistances distances={props.distances}/>		
+			<TotalDistances distances={props.distances} places={props.places}/>		
 			<Table responsive striped>
 				<Body
 					distances={props.distances}
@@ -162,7 +158,7 @@ function TotalDistances(props)
 				<Col>
 					<h5><FaMapSigns />{" "}<strong>Total Trip Distance: {total}</strong></h5>
 				</Col>
-				<TripActions />
+				<TripActions distances={props.distances} places={props.places}/>
 			</Row>
 		);
 	}else{

@@ -11,10 +11,13 @@ export function latLngToPlace(latLng) {
 }
 
 export function formatPlaces(places){
-	let formattedPlaces = [];
-	
-	for(let i = 0; i < places.length; i++){
-		formattedPlaces.push({...latLngToPlace(places[i]), name: places[i].name});
+	if(places){
+		let formattedPlaces = [];
+		
+		for(let i = 0; i < places.length; i++){
+			formattedPlaces.push({...latLngToPlace(places[i]), name: places[i].name});
+		}
+		return formattedPlaces;
 	}
-	return formattedPlaces;
+	return places;
 }

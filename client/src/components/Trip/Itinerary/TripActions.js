@@ -1,8 +1,15 @@
 import  React from "react";
 import { ButtonGroup, DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown } from 'reactstrap';
 import { BiDotsVerticalRounded } from 'react-icons/bi';
+import { formatPlaces } from "../../../utils/transformers";
 
 export default function TripActions(props){
+
+    const revert = {
+		places: formatPlaces(props.places),
+		distances: props.distances
+	};
+
     return (
         <ActionsDropdown>
             <DropdownItem>
