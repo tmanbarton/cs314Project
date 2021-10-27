@@ -1,7 +1,7 @@
 # Sprint 4 - t13 - Penguinz
 
 ## Goal
-### To allow user to find the optimized path in their trip. To change the order of each destination in their trip and to allow user to highlight places.
+### To allow user to find the optimized path in their trip. To allow user to change the order of each destination in their trip and to highlight places on map. Also collect survey responses about user experience.
 ## Sprint Leader: 
 ### Amir Raissi
 
