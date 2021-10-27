@@ -270,5 +270,7 @@ In this sprint we plan to enhance/modify our existing components in order to add
 ![clientCompS4](images/ClientComponentDiagramSP4.png "Client Component Diagram Sprint4")
 
 ## Server Classes
+To simplify changing the distances while modifying the trip we moved the distance calculation to its own class so it can easily be reused.
+![serverDiagramS4](images/ServerClassesSprint4.png)
 
 # Sprint 5
