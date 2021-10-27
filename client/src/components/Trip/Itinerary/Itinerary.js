@@ -4,11 +4,15 @@ import { latLngToText, placeToLatLng } from "../../../utils/transformers";
 import { FaHome, FaTrashAlt, FaSearch, FaToolbox, FaMapSigns, FaTrash } from "react-icons/fa";
 import { useToggle } from "../../../hooks/useToggle";
 import Search from "../Search/Search";
-import TripToolbox from "./TripToolbox";
+import TripToolbox, { formatPlaces } from "./TripToolbox";
 
 export default function Itinerary(props) {
 	const [showSearch, toggleSearch] = useToggle(false);
 	const [showToolbox, toggleToolbox ] = useToggle(false);
+	const revert = {
+		places: formatPlaces(props.places),
+		distances: props.distances
+	};
 
 	return (
 		<Container>
