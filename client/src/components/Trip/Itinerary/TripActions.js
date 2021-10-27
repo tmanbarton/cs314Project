@@ -5,3 +5,7 @@ export default function TripActions(props){
         <p>Here</p>
     );
 }
+
+function reversePlaces(places) {
+	return places.reverse();
+}
