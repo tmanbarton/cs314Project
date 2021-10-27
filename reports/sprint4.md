@@ -57,7 +57,7 @@ The fourth epic is User Experience. This epic focuses on collecting survey respo
 | Tasks |  23  | *count* | 
 | Story Points |  33  | *sum* | 
 
-Past Perfromance: Base on our teams metrics from sprint #3, we should be able to complete all of our planned epics and tasks. Last sprint our team planned 5 epics, 20, tasks, and 32 story points. As a team we managed to successfully complete all 5 epics, 84 total tasks, and 97 total story points.
+Past Performance: Based on our team’s metrics from sprint #3, we should be able to complete all our planned epics and tasks. Last sprint our team planned 5 epics, 20, tasks, and 32 story points. As a team we managed to successfully complete all 5 epics, 84 total tasks, and 97 total story points.
 
 
 ## Scrums
