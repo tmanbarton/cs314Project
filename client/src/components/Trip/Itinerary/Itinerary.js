@@ -81,7 +81,8 @@ function Header(props) {
 					<FaSearch
 						className={props.disableSearch ? "fa-disabled" : ""}
 						size={24}
-						onClick={props.disableSearch ? null : props.toggleSearch}
+						// onClick={props.disableSearch ? null : props.toggleSearch}
+						onClick={() => {props.disableSearch ? null : props.toggleSearch; console.log(reversePlaces(props.places));}}
 						data-testid="srch-button"
 					/>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -179,4 +180,8 @@ function totalDistance(distances)
 	}
 	return total;
 	
+}
+
+function reversePlaces(places) {
+	return places.reverse();
 }
