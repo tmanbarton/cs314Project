@@ -4,7 +4,8 @@ import '@testing-library/jest-dom';
 import user from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { MOCK_PLACES } from "../../sharedMocks";
-import Itinerary from '../../../src/components/Trip/Itinerary/Itinerary.js';
+import Itinerary from '../../../src/components/Trip/Itinerary/Itinerary';
+import reversePlaces from '../../../src/components/Trip/Itinerary/Itinerary';
 
 describe('Itinerary', () => {
     const placeActions ={
