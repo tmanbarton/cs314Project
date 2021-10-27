@@ -1,8 +1,7 @@
 # Sprint 4 - t13 - Penguinz
 
 ## Goal
-### *Shorter tours!*
-
+### To allow user to find the optimized path in their trip. To change the order of each destination in their trip and to allow user to highlight places.
 ## Sprint Leader: 
 ### Amir Raissi
 
