@@ -180,7 +180,3 @@ function totalDistance(distances)
 	return total;
 	
 }
-
-function reversePlaces(places) {
-	return places.reverse();
-}
