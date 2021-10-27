@@ -81,8 +81,7 @@ function Header(props) {
 					<FaSearch
 						className={props.disableSearch ? "fa-disabled" : ""}
 						size={24}
-						// onClick={props.disableSearch ? null : props.toggleSearch}
-						onClick={() => {props.disableSearch ? null : props.toggleSearch; reversePlaces(props.places);}}
+						onClick={props.disableSearch ? null : props.toggleSearch}
 						data-testid="srch-button"
 					/>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
