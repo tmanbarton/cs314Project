@@ -22,8 +22,8 @@ public class TestDistancesRequest {
       "{\"latitude\": \"35.689487\",\"longitude\": \"139.691711\"}"));
   //Distances came from https://keisan.casio.com/exec/system/1224587128#! and that value was convert to miles using Google's km to miles converter.
   //Everything rounded down.
-  private ArrayList<Integer> correctDistances =
-      new ArrayList<Integer>(Arrays.asList(277, 2072, 124, 488, 1929, 829, 5531, 5743));
+  private ArrayList<Long> correctDistances =
+      new ArrayList<Long>(Arrays.asList(277L, 2072L, 124L, 488L, 1929L, 829L, 5531L, 5743L));
 
   private DistancesRequest distances;
   private DistanceCalculator calc;
@@ -61,7 +61,7 @@ public class TestDistancesRequest {
   @Test
   @DisplayName("Distances is correct")
   public void testDistances() {
-    ArrayList<Integer> distancesArr = distances.getDistances();
+    ArrayList<Long> distancesArr = distances.getDistances();
     assertEquals(distancesArr, correctDistances);
   }
 }
