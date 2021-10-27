@@ -1,16 +1,19 @@
-# Sprint 4 - *your team number* - *your team name*
+# Sprint 4 - t13 - Penguinz
 
 ## Goal
-### *Shorter tours!*
-
+### To allow user to find the optimized path in their trip. To allow user to change the order of each destination in their trip and to highlight places on map. Also collect survey responses about user experience.
 ## Sprint Leader: 
-### *firstname lastname*
+### Amir Raissi
 
 ## Definition of Done
 
 * The Increment release for `v4.x` created as a GitHub Release and deployed on black-bottle under SPRINT.
 * The design document (`design.md`) is updated.
 * The sprint document (`sprint.md`) is updated with scrums, completed metrics, review, and retrospective.
+* Complete Modify Trip Epic
+* Complete Shorter Trip Epic
+* Complete Highlight place epic
+* Complete User Experience Epic
 
 ## Policies
 
@@ -37,6 +40,13 @@
 
 
 ## Planned Epics
+The first epic to complete is Modify Trip. This allows the user to make changes to the tour. There are primarily two tasks involved in this epic. The first task is to allow the user to change the order of each destination. To complete this task we need to add a click and drag function for each destination. The second task is to allow the user to reverse the order of tours. We will add a reverse button and clicking on this will reverse the order of destinations from starting location
+
+The second epic to complete is a shorter trip. Adding this function to the website will allow the user to find the most optimized path i.e find the smallest total distance that covers all the destinations in the trip. To complete this task we will create a tour protocol, which sends a request from client to server and then server sends back the most optimized path. We will add a button to display the most optimized path and then the user can decide whether to keep the new tour or not.
+
+The third epic to complete is Highlight Place. This epic allows the user to select a particular destination and have it highlighted with a marker on the map. To complete this epic we need to add an onclick event on each destination, so that when a user clicks on one of them it should highlight both the destination as well as the marker on the map.
+
+The fourth epic is User Experience. This epic focuses on collecting survey responses from people outside the class about their experience using the website. Each team member should collect at least one response from a person outside the class and identify changes to improve the user experience.
 
 
 ## Metrics
