@@ -1,10 +1,10 @@
 import  React, { useState } from "react";
 import { Table, Container, Row, Col, Collapse, Input } from "reactstrap";
-import { latLngToText, placeToLatLng } from "../../../utils/transformers";
+import { latLngToText, placeToLatLng, formatPlaces } from "../../../utils/transformers";
 import { FaHome, FaTrashAlt, FaSearch, FaToolbox, FaMapSigns, FaTrash } from "react-icons/fa";
 import { useToggle } from "../../../hooks/useToggle";
 import Search from "../Search/Search";
-import TripToolbox, { formatPlaces } from "./TripToolbox";
+import TripToolbox from "./TripToolbox";
 
 export default function Itinerary(props) {
 	const [showSearch, toggleSearch] = useToggle(false);

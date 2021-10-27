@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { latLngToPlace, placeToLatLng } from '../utils/transformers';
+import { placeToLatLng, formatPlaces } from '../utils/transformers';
 import { reverseGeocode } from '../utils/reverseGeocode';
 import { LOG } from '../utils/constants';
 import {
@@ -41,19 +41,9 @@ async function append(place, context) {
 
 }
 
-
 function buildAndSendDistanceRequest(newPlaces, setDistances, serverSettings, showMessage){
-    const placeList = buildPlacesList(newPlaces);
-    const request = buildDistanceRequest(placeList, 3958);
+    const request = buildDistanceRequest(formatPlaces(newPlaces), 3958);
     sendDistanceRequest(request, setDistances, serverSettings,showMessage);
-}
-
-function buildPlacesList(places){
-	let placeList = []
-	places.forEach(place => {
-		placeList.push(latLngToPlace(place));
-	});
-	return placeList;
 }
 function buildDistanceRequest(places, radius){
 	return {
