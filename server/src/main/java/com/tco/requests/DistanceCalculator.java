@@ -12,12 +12,12 @@ public class DistanceCalculator {
         this.earthRadius = earthRadius;
     }
 
-    public ArrayList<Integer> getDistances(){
+    public ArrayList<Long> getDistances(){
         return buildDistancesArray(places);
     }
 
-    public ArrayList<Integer> buildDistancesArray(Places places) {
-        ArrayList<Integer> distances = new ArrayList<Integer>();
+    public ArrayList<Long> buildDistancesArray(Places places) {
+        ArrayList<Long> distances = new ArrayList<Long>();
         double latitude1 = 0;
         double longitude1 = 0;
         double latitude2 = 0;
@@ -29,7 +29,7 @@ public class DistanceCalculator {
           latitude2 = Double.parseDouble(places.get(i).get("latitude"));
           longitude2 = Double.parseDouble(places.get(i).get("longitude"));
     
-          int distance =
+          Long distance =
               computeDistance(latitude1, latitude2, longitude1, longitude2);
           distances.add(distance);
         }
@@ -41,14 +41,14 @@ public class DistanceCalculator {
         latitude2 = Double.parseDouble(places.get(0).get("latitude"));
         longitude2 = Double.parseDouble(places.get(0).get("longitude"));
     
-        int distance =
+        Long distance =
             computeDistance(latitude1, latitude2, longitude1, longitude2);
         distances.add(distance);
     
         return distances;
     }
     
-    private int computeDistance(double latitude1, double latitude2,
+    private Long computeDistance(double latitude1, double latitude2,
                                   double longitude1, double longitude2) {
         latitude1 = Math.toRadians(latitude1);
         latitude2 = Math.toRadians(latitude2);
@@ -60,7 +60,7 @@ public class DistanceCalculator {
         double distance = radius * Math.acos(
           Math.sin(latitude1) * Math.sin(latitude2) +
             Math.cos(latitude1) * Math.cos(latitude2) * Math.cos(longitudeDifference));
-        return (int)Math.round(distance);
+        return (long)Math.round(distance);
     }
     
 }

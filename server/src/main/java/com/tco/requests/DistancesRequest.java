@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 
 public class DistancesRequest extends Request {
   private double earthRadius;
-  private ArrayList<Integer> distances = new ArrayList<Integer>();
+  private ArrayList<Long> distances = new ArrayList<Long>();
   private Places places;
 
   private final transient Logger log =
@@ -16,7 +16,7 @@ public class DistancesRequest extends Request {
   public void buildResponse() {
     DistanceCalculator calc = new DistanceCalculator(places, earthRadius);
     if (places.size() == 0) {
-      distances = new ArrayList<Integer>();
+      distances = new ArrayList<Long>();
     } else {
       distances = calc.getDistances();
     }
@@ -36,7 +36,7 @@ public class DistancesRequest extends Request {
     this.places = places;
   }
 
-  public ArrayList<Integer> getDistances(){
+  public ArrayList<Long> getDistances(){
     return distances;
   }
 }
