@@ -27,9 +27,18 @@ public class TourRequest extends Request {
     }
 
     public void buildDataStructures(Places places){
+        DistanceCalculator calculator = new DistanceCalculator(places, 3959);
         for(int i = 0; i < places.size(); i++){
             this.tour[i] = i;
             this.visited[i] = false;
+            for (int j = 0; j < places.size(); j++) {
+                double latitude1 = Double.parseDouble(places.get(i).get("latitude"));
+                double latitude2 = Double.parseDouble(places.get(j).get("latitude"));
+                double longitude1 = Double.parseDouble(places.get(i).get("longitude"));
+                double longitude2 = Double.parseDouble(places.get(j).get("longitude"));
+                this.distanceMatrix[i][j] =
+                    calculator.computeDistance(latitude1, latitude2, longitude1, longitude2);
+            }
         }
     }
 }

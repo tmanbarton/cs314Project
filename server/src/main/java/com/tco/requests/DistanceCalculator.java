@@ -48,7 +48,7 @@ public class DistanceCalculator {
         return distances;
     }
     
-    private Long computeDistance(double latitude1, double latitude2,
+    public Long computeDistance(double latitude1, double latitude2,
                                   double longitude1, double longitude2) {
         latitude1 = Math.toRadians(latitude1);
         latitude2 = Math.toRadians(latitude2);
