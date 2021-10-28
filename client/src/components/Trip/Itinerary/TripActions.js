@@ -15,10 +15,10 @@ export default function TripActions(props){
     return (
         <Row>
 
-            <Collapse isOpen={!changedTrip}>
+            <Collapse data-testid="dropdown" isOpen={!changedTrip}>
                 <ActionsDropdown>
                     <DropdownItem>
-                        <IoIosSpeedometer onClick={()=> optimizeTrip(setRevert, buildTripObject(props.places, props.distances),{bulkAppend: props.bulkAppend, serverSettings: props.serverSettings, showMessage: props.showMessage}, setChangedTrip)} size={24}/>
+                        <IoIosSpeedometer data-testid="optimize" onClick={()=> optimizeTrip(setRevert, buildTripObject(props.places, props.distances),{bulkAppend: props.bulkAppend, serverSettings: props.serverSettings, showMessage: props.showMessage}, setChangedTrip)} size={24}/>
                     </DropdownItem>
                     <DropdownItem>
                         <FaSortAlphaDown size ={24}/>
