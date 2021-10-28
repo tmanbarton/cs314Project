@@ -143,11 +143,11 @@ async function processFile(file, fileName, toolboxMethods, setLoading){
 	toolboxMethods.removeAll();
 	switch (fileType){
 		case "csv":
-			await csvToTrip(file, {append: toolboxMethods.append, showMessage: toolboxMethods.showMessage, setFileName: toolboxMethods.setFileName}, fileName);
+			await csvToTrip(file, {bulkAppend: toolboxMethods.bulkAppend, showMessage: toolboxMethods.showMessage, setFileName: toolboxMethods.setFileName}, fileName);
 			setLoading(false);
 			break;
 		case "json":
-			await jsonToTrip(file, {append: toolboxMethods.append, showMessage: toolboxMethods.showMessage, setFileName: toolboxMethods.setFileName}, fileName);
+			await jsonToTrip(file, {bulkAppend: toolboxMethods.bulkAppend, showMessage: toolboxMethods.showMessage, setFileName: toolboxMethods.setFileName}, fileName);
 			setLoading(false);
 			break
 		default:
@@ -168,11 +168,9 @@ function getFileType(fileName){
 
 async function csvToTrip(file, toolboxMethods, fileName){
 	const papaAwait = file => new Promise(resolve => Papa.parse(file, {header: true, complete: results => resolve(results.data)}));
-	let places = await papaAwait(file);
+	const places = await papaAwait(file);
 	if(isValidFile({places:places})){
-		for(let i = 0; i < places.length; i++){
-			await toolboxMethods.append(places[i]);
-		}
+		toolboxMethods.bulkAppend(places);
 		toolboxMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
 	}else{
 		toolboxMethods.showMessage(`Failed to upload ${fileName}.`, "error");
@@ -186,10 +184,8 @@ async function jsonToTrip(file, toolboxMethods, fileName){
 	const fileContents = await readFile(file);
 	let jsonFile = JSON.parse(fileContents);
 	if(isValidFile(jsonFile)){
-		let places = jsonFile["places"];
-		for (let i= 0; i < places.length; i++){
-			await toolboxMethods.append(places[i]);
-		}
+		const places = jsonFile["places"];
+		toolboxMethods.bulkAppend(places);
 		toolboxMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
 		return;
 	}else{

@@ -47,7 +47,7 @@ export default function Itinerary(props) {
 function Header(props) {
 	const [tripName , setTripName] = useState("My Trip")
 	let toolboxMethods = {
-		append: props.placeActions.append,
+		bulkAppend: props.placeActions.bulkAppend,
 		removeAll: props.placeActions.removeAll,
 		showMessage: props.showMessage,
 		setTripName: setTripName
