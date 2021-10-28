@@ -4,6 +4,7 @@ import { BiDotsVerticalRounded } from 'react-icons/bi';
 import { formatPlaces } from "../../../utils/transformers";
 import { IoIosSpeedometer, IoIosShuffle } from "react-icons/io";
 import { FaAngleDoubleLeft, FaSortAlphaDown } from "react-icons/fa"
+import { ImShuffle } from "react-icons/im"
 import { EARTH_RADIUS_UNITS_DEFAULT, DEFAULT_RESPONSE_TIME } from "../../../utils/constants";
 import { isJsonResponseValid, SCHEMAS, sendAPIRequest } from "../../../utils/restfulAPI";
 
@@ -23,7 +24,7 @@ export default function TripActions(props){
                         <FaSortAlphaDown size ={24}/>
                     </DropdownItem>
                     <DropdownItem>
-                        <IoIosShuffle size = {24}/>
+                        <ImShuffle size = {24}/>
                     </DropdownItem>
                     <DropdownItem>
                         <FaAngleDoubleLeft size = {24} />
