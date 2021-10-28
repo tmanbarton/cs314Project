@@ -9,15 +9,27 @@ public class TourRequest extends Request {
     private double earthRadius;
     private double response;
 
+    private double[] tour;
+    private boolean[] visited;
+    private double[][] distanceMatrix;
+ 
     private final transient Logger log =
     LoggerFactory.getLogger(TourRequest.class);
 
     @Override
     public void buildResponse(){
+        buildDataStructures(places);
         log.trace("buildResponse -> {}", this);
     }
 
     public TourRequest(){
         this.requestType = "tour";
+    }
+
+    public void buildDataStructures(Places places){
+        for(int i = 0; i < places.size(); i++){
+            this.tour[i] = i;
+            this.visited[i] = false;
+        }
     }
 }
