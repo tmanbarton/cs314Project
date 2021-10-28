@@ -104,7 +104,6 @@ function Header(props) {
 }
 
 const DragHandle = sortableHandle(() => <MdDragHandle size={30}/>);
-// const DragHandle = sortableHandle(() => <span><FaTrash /></span>);
 
 const SortableItem = sortableElement( props  => {
 	const name = props.place.name ? props.place.name : "-";
@@ -160,7 +159,6 @@ function Body(props) {
 				i++,
 			  <SortableItem 					
 					key={`table-${JSON.stringify(place)}-${index}`}
-					// key={JSON.stringify(place)}
 					place={place}
 					placeActions={props.placeActions}
 					index={index}
@@ -173,37 +171,6 @@ function Body(props) {
 		  	</SortableContainer>
 		  	</tbody>
 		  );
-}
-
-
-function TableRow(props) {
-	const name = props.place.name ? props.place.name : "-";
-	const location = latLngToText(placeToLatLng(props.place));
-
-	const distance = parseDistance(props.distances, props.index);
-	const units = "mi"; // at some point need to be dynamic
-
-	return (
-		<tr>
-			<th scope="row">{props.index + 1}</th>
-			<td>
-				{name}
-				<br />
-				{ props.distances ?
-					<small>
-						<strong>One Way Distance: {distance} {units}</strong>
-					</small>
-				: null
-				}
-				<br />
-				<small className="text-muted">{location}</small>
-			</td>
-
-			<td>
-				<FaTrash onClick={() => props.placeActions.removeAtIndex(props.index)} data-testid={`delete-button-${props.index}`}/>
-			</td>
-		</tr>
-	);
 }
 
 function parseDistance(distances, index) {
