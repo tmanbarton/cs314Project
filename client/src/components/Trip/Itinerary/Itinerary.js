@@ -2,10 +2,18 @@ import  React, { useState } from "react";
 import { Table, Container, Row, Col, Collapse, Input } from "reactstrap";
 import { latLngToText, placeToLatLng } from "../../../utils/transformers";
 import { FaHome, FaTrashAlt, FaSearch, FaToolbox, FaMapSigns, FaTrash } from "react-icons/fa";
+import { MdOutlineDragHandle } from "react-icons/md";
 import { useToggle } from "../../../hooks/useToggle";
 import Search from "../Search/Search";
 import TripToolbox from "./TripToolbox";
 import TripActions from "./TripActions";
+import {
+	sortableContainer,
+	sortableElement,
+	sortableHandle,
+	arrayMove,
+  } from 'react-sortable-hoc';
+import { LOG } from "../../../utils/constants";
 
 export default function Itinerary(props) {
 	const [showSearch, toggleSearch] = useToggle(false);
@@ -95,22 +103,73 @@ function Header(props) {
 	);
 }
 
-function Body(props) {
+const DragHandle = sortableHandle(() => <span><MdOutlineDragHandle /></span>);
+
+const SortableItem = sortableElement( props  => {
+	const name = props.place.name ? props.place.name : "-";
+	const location = latLngToText(placeToLatLng(props.place));
+	const distance = parseDistance(props.distances, props.index);
+	const units = "mi"; // at some point need to be dynamic
 	return (
-		<tbody>
-			{props.places.map((place, index) => (
-				<TableRow
+		<tr>
+		<DragHandle />
+		<th> 
+			&nbsp;
+			{props.id + 1}
+		</th>
+			<td>
+				{name}
+				<br />
+				{ props.distances ?
+					<small>
+						<strong>One Way Distance: {distance} {units}</strong>
+					</small>
+				: null
+				}
+				<br />
+				<small className="text-muted">{location}</small>
+			</td>
+
+			<td>
+				<FaTrash onClick={() => props.placeActions.removeAtIndex(props.id)} data-testid={`delete-button-${props.id}`}/>
+			</td>
+			</tr>
+	);
+})
+
+const SortableContainer = sortableContainer(({children}) => {
+	return <ul>{children}</ul>;
+  });
+
+
+function Body(props) {
+	const [places, setPlace] = useState(props.places);
+	var onSortEnd = ({oldIndex, newIndex}) => {
+		  var newplace = arrayMove(props.places, oldIndex, newIndex)
+		  setPlace(newplace)
+		  props.placeActions.bulkAppend(newplace) 
+		};
+	LOG.info(props.places)
+	var i = -1;
+	return (
+			<SortableContainer onSortEnd={onSortEnd} useDragHandle>
+			{props.places.map((place,index) => (
+				i++,
+			  <SortableItem 					
 					key={`table-${JSON.stringify(place)}-${index}`}
+					// key={JSON.stringify(place)}
 					place={place}
 					placeActions={props.placeActions}
 					index={index}
 					places={props.places}
-					distances={props.distances}
-				/>
+					distances={props.distances} 
+					id={i}
+					/>
 			))}
-		</tbody>
-	);
+		  </SortableContainer>
+		  );
 }
+
 
 function TableRow(props) {
 	const name = props.place.name ? props.place.name : "-";
@@ -141,6 +200,7 @@ function TableRow(props) {
 		</tr>
 	);
 }
+
 function parseDistance(distances, index) {
 	if (distances == undefined || index == 0) {
 		return 0;
@@ -178,5 +238,4 @@ function totalDistance(distances)
 		total += distances[i];
 	}
 	return total;
-	
-}
+}	
