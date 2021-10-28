@@ -51,12 +51,11 @@ function computePaths(places) {
     if (places.length < 2) {
         return [];
     }
-
     const pathPointPairs = [];
     for (let i = 0; i < places.length; i++) {
         const fromPlace = places[i];
         const toPlace = places[(i+1) % places.length];
-        pathPointPairs.push([fromPlace, toPlace]);
+        pathPointPairs.push([placeToLatLng(fromPlace),placeToLatLng(toPlace)]);
     }
     return pathPointPairs;
 }

@@ -17,7 +17,7 @@ export default function Marker(props) {
         return null;
     }
     return (
-        <LeafletMarker ref={(ref) => showMarkerPopup(ref)} position={props.place} icon={MARKER_ICON}>
+        <LeafletMarker ref={(ref) => showMarkerPopup(ref)} position={placeToLatLng(props.place)} icon={MARKER_ICON}>
             <Popup offset={[0, -18]} className="font-weight-bold">
                 {props.place.name}
                 <br/>
