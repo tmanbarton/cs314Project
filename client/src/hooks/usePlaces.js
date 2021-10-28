@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { placeToLatLng, formatPlaces } from '../utils/transformers';
 import { reverseGeocode } from '../utils/reverseGeocode';
-import { LOG } from '../utils/constants';
+import { LOG, EARTH_RADIUS_UNITS_DEFAULT } from '../utils/constants';
 import {
 	sendAPIRequest,
 	isJsonResponseValid
@@ -53,7 +53,7 @@ async function append(place, context) {
 }
 
 function buildAndSendDistanceRequest(newPlaces, setDistances, serverSettings, showMessage){
-    const request = buildDistanceRequest(formatPlaces(newPlaces), 3958);
+    const request = buildDistanceRequest(formatPlaces(newPlaces), EARTH_RADIUS_UNITS_DEFAULT.miles);
     sendDistanceRequest(request, setDistances, serverSettings,showMessage);
 }
 function buildDistanceRequest(places, radius){
