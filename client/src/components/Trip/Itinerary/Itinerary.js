@@ -11,7 +11,6 @@ import {
 	sortableContainer,
 	sortableElement,
 	sortableHandle,
-	arrayMove,
   } from 'react-sortable-hoc';
 import { LOG } from "../../../utils/constants";
 
@@ -170,6 +169,23 @@ function Body(props) {
 		  	</SortableContainer>
 		  	</tbody>
 		  );
+}
+
+function arrayMoveMutable(array, fromIndex, toIndex) {
+	const startIndex = fromIndex < 0 ? array.length + fromIndex : fromIndex;
+
+	if (startIndex >= 0 && startIndex < array.length) {
+		const endIndex = toIndex < 0 ? array.length + toIndex : toIndex;
+
+		const [item] = array.splice(fromIndex, 1);
+		array.splice(endIndex, 0, item);
+	}
+}
+
+function arrayMove(array, fromIndex, toIndex) {
+	array = [...array];
+	arrayMoveMutable(array, fromIndex, toIndex);
+	return array;
 }
 
 function parseDistance(distances, index) {
