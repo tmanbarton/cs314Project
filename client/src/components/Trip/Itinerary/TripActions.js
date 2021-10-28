@@ -2,7 +2,7 @@ import  React, {useState} from "react";
 import { ButtonGroup, Collapse, Col, Container, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledDropdown, Button } from 'reactstrap';
 import { BiDotsVerticalRounded } from 'react-icons/bi';
 import { formatPlaces } from "../../../utils/transformers";
-import { IoIosSpeedometer } from "react-icons/io";
+import { IoIosSpeedometer, IoIosShuffle } from "react-icons/io";
 import { BsSortAlphaDown } from "react-icons/bs";
 import { EARTH_RADIUS_UNITS_DEFAULT, DEFAULT_RESPONSE_TIME } from "../../../utils/constants";
 import { isJsonResponseValid, SCHEMAS, sendAPIRequest } from "../../../utils/restfulAPI";
@@ -21,6 +21,9 @@ export default function TripActions(props){
                     </DropdownItem>
                     <DropdownItem>
                         <BsSortAlphaDown size ={24}/>
+                    </DropdownItem>
+                    <DropdownItem>
+                        <IoIosShuffle size = {24}/>
                     </DropdownItem>
                 </ActionsDropdown>
             </Collapse>
