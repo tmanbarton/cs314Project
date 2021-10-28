@@ -1,8 +1,8 @@
 import  React, { useState } from "react";
-import { Table, Container, Row, Col, Collapse, Input } from "reactstrap";
+import { Table, Container, Row, Col, Collapse, Input, ListGroup } from "reactstrap";
 import { latLngToText, placeToLatLng } from "../../../utils/transformers";
 import { FaHome, FaTrashAlt, FaSearch, FaToolbox, FaMapSigns, FaTrash } from "react-icons/fa";
-// import { MdOutlineDragHandle } from "react-icons/md";
+import { MdDragHandle } from "react-icons/md";
 import { useToggle } from "../../../hooks/useToggle";
 import Search from "../Search/Search";
 import TripToolbox from "./TripToolbox";
@@ -103,8 +103,8 @@ function Header(props) {
 	);
 }
 
-// const DragHandle = sortableHandle(() => <span><MdOutlineDragHandle /></span>);
-const DragHandle = sortableHandle(() => <span><FaTrash /></span>);
+const DragHandle = sortableHandle(() => <MdDragHandle size={30}/>);
+// const DragHandle = sortableHandle(() => <span><FaTrash /></span>);
 
 const SortableItem = sortableElement( props  => {
 	const name = props.place.name ? props.place.name : "-";
@@ -113,11 +113,12 @@ const SortableItem = sortableElement( props  => {
 	const units = "mi"; // at some point need to be dynamic
 	return (
 		<tr>
-		<DragHandle />
-		<th> 
-			&nbsp;
-			{props.id + 1}
-		</th>
+			<th>
+			<DragHandle />
+			</th>
+			<th scope="row"> 
+				{props.id + 1}
+			</th>
 			<td>
 				{name}
 				<br />
@@ -130,28 +131,27 @@ const SortableItem = sortableElement( props  => {
 				<br />
 				<small className="text-muted">{location}</small>
 			</td>
-
 			<td>
 				<FaTrash onClick={() => props.placeActions.removeAtIndex(props.id)} data-testid={`delete-button-${props.id}`}/>
 			</td>
-			</tr>
+		</tr>
 	);
 })
 
 const SortableContainer = sortableContainer(({children}) => {
-	return <ul>{children}</ul>;
+	return <ListGroup>{children}</ListGroup>;
   });
 
 
 function Body(props) {
 	const [places, setPlace] = useState(props.places);
-	var onSortEnd = ({oldIndex, newIndex}) => {
-		  var newplace = arrayMove(props.places, oldIndex, newIndex)
+	let onSortEnd = ({oldIndex, newIndex}) => {
+		  let newplace = arrayMove(props.places, oldIndex, newIndex)
 		  setPlace(newplace)
 		  props.placeActions.bulkAppend(newplace) 
 		};
 	LOG.info(props.places)
-	var i = -1;
+	let i = -1;
 	return (
 			<SortableContainer onSortEnd={onSortEnd} useDragHandle>
 			{props.places.map((place,index) => (
