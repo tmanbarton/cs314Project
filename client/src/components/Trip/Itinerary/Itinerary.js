@@ -111,15 +111,16 @@ const SortableItem = sortableElement( props  => {
 	const location = latLngToText(placeToLatLng(props.place));
 	const distance = parseDistance(props.distances, props.id);
 	const units = "mi"; // at some point need to be dynamic
+	const numRow = .1
 	return (
 		<tr>
 			<th>
-			<DragHandle />
+			<DragHandle style={{width: numRow + 'em'}}/>
 			</th>
-			<th scope="row"> 
+			<th scope="row" style={{width: numRow + 'em'}}> 
 				{props.id + 1}
 			</th>
-			<td>
+			<td style={{width: 100 + '%'}}> 
 				{name}
 				<br />
 				{ props.distances ?
@@ -131,7 +132,7 @@ const SortableItem = sortableElement( props  => {
 				<br />
 				<small className="text-muted">{location}</small>
 			</td>
-			<td>
+			<td style={{width: numRow + 'em'}}>
 				<FaTrash onClick={() => props.placeActions.removeAtIndex(props.id)} data-testid={`delete-button-${props.id}`}/>
 			</td>
 		</tr>
@@ -153,9 +154,11 @@ function Body(props) {
 	LOG.info(props.places)
 	let i = -1;
 	return (
+		<tbody>
 			<SortableContainer onSortEnd={onSortEnd} useDragHandle>
 			{props.places.map((place,index) => (
 				i++,
+			  <Table responsive>
 			  <SortableItem 					
 					key={`table-${JSON.stringify(place)}-${index}`}
 					// key={JSON.stringify(place)}
@@ -165,9 +168,12 @@ function Body(props) {
 					places={props.places}
 					distances={props.distances} 
 					id={i}
+					lockToContainerEdges={true}
 					/>
+				</Table>
 			))}
-		  </SortableContainer>
+		  	</SortableContainer>
+		  	</tbody>
 		  );
 }
 
