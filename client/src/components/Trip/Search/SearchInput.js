@@ -49,7 +49,7 @@ async function sendFindRequest(request, setPlaces, serverSettings, showMessage) 
 		setPlaces(findResponse["places"]);
 	} else {
 		showMessage(
-			`Find request to ${serverUrl} failed. Check the log for more details.`,
+			`Find request to ${serverSettings.serverUrl} failed. Check the log for more details.`,
 			"error"
 		);
 	}
