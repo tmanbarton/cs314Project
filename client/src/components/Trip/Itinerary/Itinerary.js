@@ -158,7 +158,6 @@ function Body(props) {
 			<SortableContainer onSortEnd={onSortEnd} useDragHandle>
 			{props.places.map((place,index) => (
 				i++,
-			  <Table responsive>
 			  <SortableItem 					
 					key={`table-${JSON.stringify(place)}-${index}`}
 					// key={JSON.stringify(place)}
@@ -170,7 +169,6 @@ function Body(props) {
 					id={i}
 					lockToContainerEdges={true}
 					/>
-				</Table>
 			))}
 		  	</SortableContainer>
 		  	</tbody>
