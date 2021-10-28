@@ -109,7 +109,7 @@ const DragHandle = sortableHandle(() => <span><FaTrash /></span>);
 const SortableItem = sortableElement( props  => {
 	const name = props.place.name ? props.place.name : "-";
 	const location = latLngToText(placeToLatLng(props.place));
-	const distance = parseDistance(props.distances, props.id););
+	const distance = parseDistance(props.distances, props.id);
 	const units = "mi"; // at some point need to be dynamic
 	return (
 		<tr>
