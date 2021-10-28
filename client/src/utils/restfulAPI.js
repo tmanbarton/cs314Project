@@ -2,12 +2,14 @@ import Ajv from 'ajv';
 import * as configSchema from '../../schemas/ConfigResponse';
 import * as findSchema from '../../schemas/FindResponse';
 import * as DistancesSchema from '../../schemas/DistancesResponse';
+import * as tourSchema from '../../schemas/TourResponse.json';
 import { LOG } from './constants';
 
-const SCHEMAS = {
+export const SCHEMAS = {
     config: configSchema,
     find: findSchema,
-    distances: DistancesSchema
+    distances: DistancesSchema,
+    tour: tourSchema
 }
 
 export async function sendAPIRequest(requestBody, serverUrl) {
