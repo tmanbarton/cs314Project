@@ -8,10 +8,11 @@ public class TourRequest extends Request {
     private Places places;
     private double earthRadius;
     private double response;
+    private int placeSize = places.size();
 
-    private double[] tour;
-    private boolean[] visited;
-    private double[][] distanceMatrix;
+    private double[] tour = new double[placeSize];
+    private boolean[] visited = new boolean[placeSize];
+    private double[][] distanceMatrix = new double[placeSize][placeSize];
  
     private final transient Logger log =
     LoggerFactory.getLogger(TourRequest.class);
@@ -27,7 +28,7 @@ public class TourRequest extends Request {
     }
 
     public void buildDataStructures(Places places){
-        for(int i = 0; i < places.size(); i++){
+        for(int i = 0; i < placeSize; i++){
             this.tour[i] = i;
             this.visited[i] = false;
         }
