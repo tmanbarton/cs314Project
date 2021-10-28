@@ -2,7 +2,7 @@ import  React, { useState } from "react";
 import { Table, Container, Row, Col, Collapse, Input } from "reactstrap";
 import { latLngToText, placeToLatLng } from "../../../utils/transformers";
 import { FaHome, FaTrashAlt, FaSearch, FaToolbox, FaMapSigns, FaTrash } from "react-icons/fa";
-import { MdOutlineDragHandle } from "react-icons/md";
+// import { MdOutlineDragHandle } from "react-icons/md";
 import { useToggle } from "../../../hooks/useToggle";
 import Search from "../Search/Search";
 import TripToolbox from "./TripToolbox";
@@ -103,7 +103,8 @@ function Header(props) {
 	);
 }
 
-const DragHandle = sortableHandle(() => <span><MdOutlineDragHandle /></span>);
+// const DragHandle = sortableHandle(() => <span><MdOutlineDragHandle /></span>);
+const DragHandle = sortableHandle(() => <span><FaTrash /></span>);
 
 const SortableItem = sortableElement( props  => {
 	const name = props.place.name ? props.place.name : "-";
