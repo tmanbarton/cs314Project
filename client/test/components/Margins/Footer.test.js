@@ -54,21 +54,7 @@ describe('Footer', () => {
         await waitFor(()=>{
             expect(dropdownMenu).toBeTruthy();
         });
-        
+        const dropdownitem = screen.getAllByTestId('dropdownitem');
+        user.click(dropdownitem[0]);
     });
-
-    // it('opens ServerSettings on link pressed and saves on close button', async () => {
-    //     user.click(serverSettingsLink);
-
-    //     const saveButton = screen.getByRole('button', { name: /save/i });
-    //     await waitFor(() => {
-    //         expect(saveButton.classList.contains("disabled")).toBe(false);
-    //     });
-    //     user.click(saveButton);
-
-    //     await waitFor(() => {
-    //         const modalInput = screen.queryByDisplayValue(serverSettings.serverUrl);
-    //         expect(modalInput).not.toBeInTheDocument();
-    //     });
-    // });
 });
