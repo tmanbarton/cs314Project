@@ -30,7 +30,7 @@ export default function Itinerary(props) {
 					showMessage={props.showMessage}
 				/>
 			</Collapse>	
-			<TotalDistances distances={props.distances} places={props.places}/>		
+			<TotalDistances distances={props.distances} places={props.places} serverSettings={props.serverSettings} bulkAppend={props.placeActions.bulkAppend}/>		
 			<Table responsive striped>
 				<Body
 					distances={props.distances}
@@ -38,8 +38,7 @@ export default function Itinerary(props) {
 					placeActions={props.placeActions}
 				/>
 			</Table>
-			<TotalDistances distances={props.distances}/>
-			
+			<TotalDistances distances={props.distances} places={props.places} serverSettings={props.serverSettings} bulkAppend={props.placeActions.bulkAppend} showMessage={props.showMessage}/>
 		</Container>
 	);
 }
@@ -158,7 +157,7 @@ function TotalDistances(props)
 				<Col>
 					<h5><FaMapSigns />{" "}<strong>Total Trip Distance: {total}</strong></h5>
 				</Col>
-				<TripActions distances={props.distances} places={props.places}/>
+				<TripActions distances={props.distances} places={props.places} serverSettings={props.serverSettings} bulkAppend={props.bulkAppend}/>
 			</Row>
 		);
 	}else{
