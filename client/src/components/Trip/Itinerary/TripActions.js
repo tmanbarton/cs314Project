@@ -2,7 +2,7 @@ import  React, {useState} from "react";
 import { ButtonGroup, Collapse, Col, Container, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledDropdown, Button } from 'reactstrap';
 import { BiDotsVerticalRounded } from 'react-icons/bi';
 import { formatPlaces } from "../../../utils/transformers";
-import { IoIosSpeedometer, IoIosShuffle } from "react-icons/io";
+import { IoIosSpeedometer } from "react-icons/io";
 import { FaAngleDoubleLeft, FaSortAlphaDown } from "react-icons/fa"
 import { ImShuffle } from "react-icons/im"
 import { EARTH_RADIUS_UNITS_DEFAULT, DEFAULT_RESPONSE_TIME } from "../../../utils/constants";

@@ -1,11 +1,19 @@
 import  React, { useState } from "react";
-import { Table, Container, Row, Col, Collapse, Input } from "reactstrap";
+import { Table, Container, Row, Col, Collapse, Input, ListGroup } from "reactstrap";
 import { latLngToText, placeToLatLng } from "../../../utils/transformers";
 import { FaHome, FaTrashAlt, FaSearch, FaToolbox, FaMapSigns, FaTrash } from "react-icons/fa";
+import { MdDragHandle } from "react-icons/md";
 import { useToggle } from "../../../hooks/useToggle";
 import Search from "../Search/Search";
 import TripToolbox from "./TripToolbox";
 import TripActions from "./TripActions";
+import {
+	sortableContainer,
+	sortableElement,
+	sortableHandle,
+	arrayMove,
+  } from 'react-sortable-hoc';
+import { LOG } from "../../../utils/constants";
 
 export default function Itinerary(props) {
 	const [showSearch, toggleSearch] = useToggle(false);
@@ -94,34 +102,23 @@ function Header(props) {
 	);
 }
 
-function Body(props) {
-	return (
-		<tbody>
-			{props.places.map((place, index) => (
-				<TableRow
-					key={`table-${JSON.stringify(place)}-${index}`}
-					place={place}
-					placeActions={props.placeActions}
-					index={index}
-					places={props.places}
-					distances={props.distances}
-				/>
-			))}
-		</tbody>
-	);
-}
+const DragHandle = sortableHandle(() => <MdDragHandle size={30}/>);
 
-function TableRow(props) {
+const SortableItem = sortableElement( props  => {
 	const name = props.place.name ? props.place.name : "-";
 	const location = latLngToText(placeToLatLng(props.place));
-
-	const distance = parseDistance(props.distances, props.index);
+	const distance = parseDistance(props.distances, props.id);
 	const units = "mi"; // at some point need to be dynamic
-
+	const numRow = .1
 	return (
 		<tr>
-			<th scope="row">{props.index + 1}</th>
-			<td>
+			<th>
+			<DragHandle style={{width: numRow + 'em'}}/>
+			</th>
+			<th scope="row" style={{width: numRow + 'em'}}> 
+				{props.id + 1}
+			</th>
+			<td style={{width: 100 + '%'}}> 
 				{name}
 				<br />
 				{ props.distances ?
@@ -133,13 +130,48 @@ function TableRow(props) {
 				<br />
 				<small className="text-muted">{location}</small>
 			</td>
-
-			<td>
-				<FaTrash onClick={() => props.placeActions.removeAtIndex(props.index)} data-testid={`delete-button-${props.index}`}/>
+			<td style={{width: numRow + 'em'}}>
+				<FaTrash onClick={() => props.placeActions.removeAtIndex(props.id)} data-testid={`delete-button-${props.id}`}/>
 			</td>
 		</tr>
 	);
+})
+
+const SortableContainer = sortableContainer(({children}) => {
+	return <ListGroup>{children}</ListGroup>;
+  });
+
+
+function Body(props) {
+	const [places, setPlace] = useState(props.places);
+	let onSortEnd = ({oldIndex, newIndex}) => {
+		  let newplace = arrayMove(props.places, oldIndex, newIndex)
+		  setPlace(newplace)
+		  props.placeActions.bulkAppend(newplace) 
+		};
+	LOG.info(props.places)
+	let i = -1;
+	return (
+		<tbody>
+			<SortableContainer onSortEnd={onSortEnd} useDragHandle>
+			{props.places.map((place,index) => (
+				i++,
+			  <SortableItem 					
+					key={`table-${JSON.stringify(place)}-${index}`}
+					place={place}
+					placeActions={props.placeActions}
+					index={index}
+					places={props.places}
+					distances={props.distances} 
+					id={i}
+					lockToContainerEdges={true}
+					/>
+			))}
+		  	</SortableContainer>
+		  	</tbody>
+		  );
 }
+
 function parseDistance(distances, index) {
 	if (distances == undefined || index == 0) {
 		return 0;
@@ -177,5 +209,4 @@ function totalDistance(distances)
 		total += distances[i];
 	}
 	return total;
-	
-}
+}	
