@@ -3,7 +3,7 @@ import { ButtonGroup, Collapse, Col, Container, DropdownItem, DropdownMenu, Drop
 import { BiDotsVerticalRounded } from 'react-icons/bi';
 import { formatPlaces } from "../../../utils/transformers";
 import { IoIosSpeedometer, IoIosShuffle } from "react-icons/io";
-import { BsSortAlphaDown } from "react-icons/bs";
+import { FaAngleDoubleLeft, FaSortAlphaDown } from "react-icons/fa"
 import { EARTH_RADIUS_UNITS_DEFAULT, DEFAULT_RESPONSE_TIME } from "../../../utils/constants";
 import { isJsonResponseValid, SCHEMAS, sendAPIRequest } from "../../../utils/restfulAPI";
 
@@ -20,10 +20,13 @@ export default function TripActions(props){
                         <IoIosSpeedometer onClick={()=> optimizeTrip(setRevert, buildTripObject(props.places, props.distances),{bulkAppend: props.bulkAppend, serverSettings: props.serverSettings, showMessage: props.showMessage}, setChangedTrip)} size={24}/>
                     </DropdownItem>
                     <DropdownItem>
-                        <BsSortAlphaDown size ={24}/>
+                        <FaSortAlphaDown size ={24}/>
                     </DropdownItem>
                     <DropdownItem>
                         <IoIosShuffle size = {24}/>
+                    </DropdownItem>
+                    <DropdownItem>
+                        <FaAngleDoubleLeft size = {24} />
                     </DropdownItem>
                 </ActionsDropdown>
             </Collapse>
