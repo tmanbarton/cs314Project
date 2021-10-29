@@ -28,11 +28,20 @@ public class TourRequest extends Request {
         this.requestType = "tour";
     }
 
+    public double getEarthRadius() {
+        return this.earthRadius;
+    }
+
+    public void setEarthRadius(double earthRadius) {
+        this.earthRadius = earthRadius;
+    }
+
     public void buildDataStructures(Places places){
         int placeSize = places.size();
         this.tour = new double[placeSize];
         this.visited = new boolean[placeSize];
         this.distanceMatrix = new double[placeSize][placeSize];
+        DistanceCalculator calculator = new DistanceCalculator(places, getEarthRadius());
         for(int i = 0; i < placeSize; i++){
             this.tour[i] = i;
             this.visited[i] = false;
