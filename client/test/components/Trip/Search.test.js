@@ -3,9 +3,9 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import  user from '@testing-library/user-event';
 import { beforeEach, describe, expect, it } from '@jest/globals';
-import SearchInput from '../../../src/components/Trip/Search/SearchInput.js';
-import SearchResults from '../../../src/components/Trip/Search/SearchResults.js';
-import { MOCK_PLACES } from "../../sharedMocks";
+import  SearchInput  from '../../../src/components/Trip/Search/SearchInput.js';
+import { SearchResults } from '../../../src/components/Trip/Search/SearchResults.js';
+import  { MOCK_PLACES } from "../../sharedMocks";
 
 describe('SearchInput', () => {
     const serverSettings = {serverUrl: "http://localhost:8000"}
@@ -34,4 +34,8 @@ describe('SearchResults', () => {
     });
 
 
+    it('Shows Queried Results', () => {
+        const resultsItems = screen.getAllByTestId('searchResults');
+        user.click(resultsItems[0]);
+    });
 });
