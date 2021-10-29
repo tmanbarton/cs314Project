@@ -41,7 +41,7 @@ public class TourRequest extends Request {
         this.tour = new double[placeSize];
         this.visited = new boolean[placeSize];
         this.distanceMatrix = new double[placeSize][placeSize];
-        DistanceCalculator calculator = new DistanceCalculator(places, getEarthRadius());
+        DistanceCalculator calculator = new DistanceCalculator(places, this.earthRadius);
         for(int i = 0; i < placeSize; i++){
             this.tour[i] = i;
             this.visited[i] = false;
