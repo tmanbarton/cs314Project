@@ -43,7 +43,7 @@ function ShowOnStart() {
 
 function Body(props) {
 	return props.places.length > 0 ? (
-		<tbody>
+		<tbody data-testid="searchResults"> 
 			{props.places.map((place, index) => (
 				<TableRow
 					key={`table-${JSON.stringify(place)}-${index}`}
