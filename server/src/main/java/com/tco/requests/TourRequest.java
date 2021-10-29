@@ -18,7 +18,9 @@ public class TourRequest extends Request {
 
     @Override
     public void buildResponse(){
-        buildDataStructures(places);
+        if (places != null){
+            buildDataStructures(places);
+        }
         log.trace("buildResponse -> {}", this);
     }
 
@@ -27,7 +29,11 @@ public class TourRequest extends Request {
     }
 
     public void buildDataStructures(Places places){
-        for(int i = 0; i < places.size(); i++){
+        int placeSize = places.size();
+        this.tour = new double[placeSize];
+        this.visited = new boolean[placeSize];
+        this.distanceMatrix = new double[placeSize][placeSize];
+        for(int i = 0; i < placeSize; i++){
             this.tour[i] = i;
             this.visited[i] = false;
         }
