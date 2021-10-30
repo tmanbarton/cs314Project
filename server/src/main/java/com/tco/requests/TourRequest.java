@@ -56,7 +56,7 @@ public class TourRequest extends Request {
         }
     }
 
-    public double[] nearestNeighbor(double[] tour) {
-        return tour;
+    public double[] nearestNeighbor() {
+        return this.tour;
     }
 }
