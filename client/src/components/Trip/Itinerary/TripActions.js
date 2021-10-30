@@ -86,8 +86,7 @@ async function sendTourRequest(request, apiObject, setChangedTrip){
     }    
 }
 
-function reversePlaces(places, append) {
+function reversePlaces(places, bulkAppend) {
     places.reverse();
-    console.log(places);
-    append.bulkAppend(places);
+    bulkAppend.bulkAppend(places);
 }
