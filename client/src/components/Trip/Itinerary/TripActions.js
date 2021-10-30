@@ -27,7 +27,7 @@ export default function TripActions(props){
                         <ImShuffle size = {24}/>
                     </DropdownItem>
                     <DropdownItem>
-                        <FaAngleDoubleLeft size = {24} />
+                        <FaAngleDoubleLeft onClick={()=> reversePlaces(props.places, {bulkAppend: props.bulkAppend})}  size = {24} />
                     </DropdownItem>
                 </ActionsDropdown>
             </Collapse>
@@ -86,6 +86,7 @@ async function sendTourRequest(request, apiObject, setChangedTrip){
     }    
 }
 
-function reversePlaces(places) {
-	return places.reverse();
+function reversePlaces(places, bulkAppend) {
+    places.reverse();
+    bulkAppend.bulkAppend(places);
 }
