@@ -89,7 +89,7 @@ async function sendTourRequest(request, apiObject, setChangedTrip){
 function reversePlaces(places, bulkAppend) {
     places.reverse();
     bulkAppend.bulkAppend(places);
-    // let changedTrip = true;
+    setChangedTrip(true);
 }
 
 function alphaSort(places, bulkAppend) {
@@ -99,5 +99,5 @@ function alphaSort(places, bulkAppend) {
         return 0;
     })
     bulkAppend.bulkAppend(places);
-    // let changedTrip = true;
+    setChangedTrip(true);
 }
