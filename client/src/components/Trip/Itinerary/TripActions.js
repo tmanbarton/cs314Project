@@ -21,7 +21,7 @@ export default function TripActions(props){
                         <IoIosSpeedometer onClick={()=> optimizeTrip(setRevert, buildTripObject(props.places, props.distances),{bulkAppend: props.bulkAppend, serverSettings: props.serverSettings, showMessage: props.showMessage}, setChangedTrip)} size={24}/>
                     </DropdownItem>
                     <DropdownItem>
-                        <FaSortAlphaDown size ={24}/>
+                        <FaSortAlphaDown onClick={()=> alphaSort(props.places, {bulkAppend: props.bulkAppend})} size ={24}/>
                     </DropdownItem>
                     <DropdownItem>
                         <ImShuffle size = {24}/>
@@ -89,4 +89,15 @@ async function sendTourRequest(request, apiObject, setChangedTrip){
 function reversePlaces(places, bulkAppend) {
     places.reverse();
     bulkAppend.bulkAppend(places);
+    // let changedTrip = true;
+}
+
+function alphaSort(places, bulkAppend) {
+    places.sort(function(a, b){
+        if(a.name < b.name) { return -1; }
+        if(a.name > b.name) { return 1; }
+        return 0;
+    })
+    bulkAppend.bulkAppend(places);
+    // let changedTrip = true;
 }
