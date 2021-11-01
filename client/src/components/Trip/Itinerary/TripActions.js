@@ -21,13 +21,13 @@ export default function TripActions(props){
                         <IoIosSpeedometer data-testid="optimize" onClick={()=> optimizeTrip(setRevert, buildTripObject(props.places, props.distances),{bulkAppend: props.bulkAppend, serverSettings: props.serverSettings, showMessage: props.showMessage}, setChangedTrip)} size={24}/>
                     </DropdownItem>
                     <DropdownItem>
-                        <FaSortAlphaDown size ={24}/>
+                        <FaSortAlphaDown onClick={()=> alphaSort(props.places, {bulkAppend: props.bulkAppend}, setChangedTrip)} size ={24}/>
                     </DropdownItem>
                     <DropdownItem>
-                        <ImShuffle size = {24}/>
+                        <ImShuffle onClick={()=> shuffleTrip(props.places, {bulkAppend: props.bulkAppend}, setChangedTrip)} size = {24}/>
                     </DropdownItem>
                     <DropdownItem>
-                        <FaAngleDoubleLeft size = {24} />
+                        <FaAngleDoubleLeft onClick={()=> reversePlaces(props.places, {bulkAppend: props.bulkAppend}, setChangedTrip)}  size = {24} />
                     </DropdownItem>
                 </ActionsDropdown>
             </Collapse>
@@ -86,6 +86,34 @@ async function sendTourRequest(request, apiObject, setChangedTrip){
     }    
 }
 
-function reversePlaces(places) {
-	return places.reverse();
+function reversePlaces(places, bulkAppend, setChangedTrip) {
+    places.reverse();
+    bulkAppend.bulkAppend(places);
+    setChangedTrip(true);
+}
+
+function alphaSort(places, bulkAppend, setChangedTrip) {
+    places.sort(function(a, b){
+        if(a.name < b.name) { return -1; }
+        if(a.name > b.name) { return 1; }
+        return 0;
+    })
+    bulkAppend.bulkAppend(places);
+    setChangedTrip(true);
+}
+
+function shuffleTrip(places, bulkAppend, setChangedTrip) {
+        let currentIndex = places.length,  randomIndex;
+      
+        while (currentIndex != 0) {
+
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex--;
+
+          [places[currentIndex], places[randomIndex]] = [
+            places[randomIndex], places[currentIndex]];
+        }
+
+        bulkAppend.bulkAppend(places);
+        setChangedTrip(true);
 }
