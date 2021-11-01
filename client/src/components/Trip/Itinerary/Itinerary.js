@@ -17,7 +17,6 @@ import { LOG } from "../../../utils/constants";
 export default function Itinerary(props) {
 	const [showSearch, toggleSearch] = useToggle(false);
 	const [showToolbox, toggleToolbox ] = useToggle(false);
-
 	return (
 		<Container>
 			<Header
@@ -37,7 +36,13 @@ export default function Itinerary(props) {
 					showMessage={props.showMessage}
 				/>
 			</Collapse>	
-			<TotalDistances distances={props.distances} places={props.places} serverSettings={props.serverSettings} bulkAppend={props.placeActions.bulkAppend}/>		
+			<TotalDistances 
+				undo={props.placeActions.undo} 
+				distances={props.distances} 
+				places={props.places} 
+				serverSettings={props.serverSettings} 
+				bulkAppend={props.placeActions.bulkAppend} 
+				showMessage={props.showMessage}/>		
 			<Table responsive striped>
 				<Body
 					distances={props.distances}
@@ -45,7 +50,15 @@ export default function Itinerary(props) {
 					placeActions={props.placeActions}
 				/>
 			</Table>
-			<TotalDistances distances={props.distances} places={props.places} serverSettings={props.serverSettings} bulkAppend={props.placeActions.bulkAppend} showMessage={props.showMessage}/>
+			{props.distances ?
+				<TotalDistances 
+				undo={props.placeActions.undo} 
+				distances={props.distances} 
+				places={props.places} 
+				serverSettings={props.serverSettings} 
+				bulkAppend={props.placeActions.bulkAppend} 
+				showMessage={props.showMessage}/>	
+			: null}
 		</Container>
 	);
 }
@@ -167,7 +180,7 @@ function Body(props) {
 					/>
 			))}
 		  	</SortableContainer>
-		  	</tbody>
+		</tbody>
 		  );
 }
 
@@ -205,12 +218,16 @@ function TotalDistances(props)
 				<Col>
 					<h5><FaMapSigns />{" "}<strong>Total Trip Distance: {total}</strong></h5>
 				</Col>
-				<TripActions distances={props.distances} places={props.places} serverSettings={props.serverSettings} bulkAppend={props.bulkAppend}/>
+				<TripActions distances={props.distances} places={props.places} serverSettings={props.serverSettings} bulkAppend={props.bulkAppend} undo={props.undo}/>
 			</Row>
 		);
 	}else{
 		return(
-			null
+			<Row>
+				<Col>
+				</Col>
+				<TripActions distances={props.distances} places={props.places} serverSettings={props.serverSettings} bulkAppend={props.bulkAppend} undo={props.undo}/>
+			</Row>
 		);
 	}
 	
