@@ -43,7 +43,7 @@ public class TourRequest extends Request {
         private Places preOptimizedPlaces;
         private double earthRadius;
 
-        public OptimizeTrip(Places Places, double earthRadius){
+        private OptimizeTrip(Places Places, double earthRadius){
             this.preOptimizedPlaces = places;
             this.earthRadius = earthRadius;
         }
@@ -80,7 +80,7 @@ public class TourRequest extends Request {
             return optimizedTrip;
         }
         // filled with test logic to be replaced
-        public int[] nearestNeighbor(int[] tour) {
+        private int[] nearestNeighbor(int[] tour) {
             tour[0] = 2;
             tour[1] = 1;
             tour[2] = 0;
