@@ -24,7 +24,7 @@ export default function TripActions(props){
                         <FaSortAlphaDown onClick={()=> alphaSort(props.places, {bulkAppend: props.bulkAppend}, setChangedTrip)} size ={24}/>
                     </DropdownItem>
                     <DropdownItem>
-                        <ImShuffle size = {24}/>
+                        <ImShuffle onClick={()=> shuffleTrip(props.places, {bulkAppend: props.bulkAppend}, setChangedTrip)} size = {24}/>
                     </DropdownItem>
                     <DropdownItem>
                         <FaAngleDoubleLeft onClick={()=> reversePlaces(props.places, {bulkAppend: props.bulkAppend}, setChangedTrip)}  size = {24} />
@@ -100,4 +100,19 @@ function alphaSort(places, bulkAppend, setChangedTrip) {
     })
     bulkAppend.bulkAppend(places);
     setChangedTrip(true);
+}
+
+function shuffleTrip(places, bulkAppend, setChangedTrip) {
+        let currentIndex = places.length,  randomIndex;
+      
+        while (currentIndex != 0) {
+
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex--;
+
+          [places[currentIndex], places[randomIndex]] = [
+            places[randomIndex], places[currentIndex]];
+        }
+
+        bulkAppend.bulkAppend(places);
 }
