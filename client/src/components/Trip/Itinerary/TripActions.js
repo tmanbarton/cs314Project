@@ -115,4 +115,5 @@ function shuffleTrip(places, bulkAppend, setChangedTrip) {
         }
 
         bulkAppend.bulkAppend(places);
+        setChangedTrip(true);
 }
