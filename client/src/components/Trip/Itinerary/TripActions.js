@@ -21,13 +21,13 @@ export default function TripActions(props){
                         <IoIosSpeedometer onClick={()=> optimizeTrip(setRevert, buildTripObject(props.places, props.distances),{bulkAppend: props.bulkAppend, serverSettings: props.serverSettings, showMessage: props.showMessage}, setChangedTrip)} size={24}/>
                     </DropdownItem>
                     <DropdownItem>
-                        <FaSortAlphaDown onClick={()=> alphaSort(props.places, {bulkAppend: props.bulkAppend})} size ={24}/>
+                        <FaSortAlphaDown onClick={()=> alphaSort(props.places, {bulkAppend: props.bulkAppend}, setChangedTrip)} size ={24}/>
                     </DropdownItem>
                     <DropdownItem>
                         <ImShuffle size = {24}/>
                     </DropdownItem>
                     <DropdownItem>
-                        <FaAngleDoubleLeft onClick={()=> reversePlaces(props.places, {bulkAppend: props.bulkAppend})}  size = {24} />
+                        <FaAngleDoubleLeft onClick={()=> reversePlaces(props.places, {bulkAppend: props.bulkAppend}, setChangedTrip)}  size = {24} />
                     </DropdownItem>
                 </ActionsDropdown>
             </Collapse>
@@ -86,13 +86,13 @@ async function sendTourRequest(request, apiObject, setChangedTrip){
     }    
 }
 
-function reversePlaces(places, bulkAppend) {
+function reversePlaces(places, bulkAppend, setChangedTrip) {
     places.reverse();
     bulkAppend.bulkAppend(places);
     setChangedTrip(true);
 }
 
-function alphaSort(places, bulkAppend) {
+function alphaSort(places, bulkAppend, setChangedTrip) {
     places.sort(function(a, b){
         if(a.name < b.name) { return -1; }
         if(a.name > b.name) { return 1; }
