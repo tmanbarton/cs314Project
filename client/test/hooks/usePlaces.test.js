@@ -2,7 +2,7 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import {act, renderHook} from '@testing-library/react-hooks';
 import { beforeEach, describe, expect, it } from '@jest/globals';
-import { REVERSE_GEOCODE_RESPONSE } from '../sharedMocks';
+import { REVERSE_GEOCODE_RESPONSE, MOCK_PLACES } from '../sharedMocks';
 import { LOG } from '../../src/utils/constants';
 import { usePlaces } from '../../src/hooks/usePlaces';
 
@@ -139,4 +139,29 @@ describe('usePlaces', () => {
         });
         expect(hook.current.places).toEqual([]);
     });
+
+    it('bulk appends', () =>{
+        expect(hook.current.places).toEqual([]);
+
+        act(()=>{
+            hook.current.placeActions.bulkAppend(MOCK_PLACES);
+        });
+    });
+
+    it('undoes', ()=>{
+        act(()=>{
+            hook.current.placeActions.bulkAppend(MOCK_PLACES);
+        });
+
+        act(()=>{
+            hook.current.placeActions.undo();
+        });
+    });
+
+    it('moves to home', ()=>{
+        act(()=>{
+            hook.current.placeActions.moveToHome();
+        });
+    });
+
 });
