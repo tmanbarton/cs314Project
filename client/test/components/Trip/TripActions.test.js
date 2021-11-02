@@ -8,6 +8,7 @@ import { sendAPIRequest } from '../../../src/utils/restfulAPI';
 
 
 describe('Trip Actions',()=>{
+    const shuffleTrip = jest.fn();
     beforeEach(()=>{
         render(<TripActions />);
     });
@@ -15,7 +16,7 @@ describe('Trip Actions',()=>{
         const append = jest.fn();
         const serverSettings = {serverUrl: "http://localhost:8000"};
         const distances = [1, 2, 3, 4];
-        render(<TripActions distances={distances} places={MOCK_PLACES} serverSettings={serverSettings} bulkAppend={append}/>);
+        render(<TripActions shuffleTrip={shuffleTrip} distances={distances} places={MOCK_PLACES} serverSettings={serverSettings} bulkAppend={append}/>);
     });
     
 
@@ -28,5 +29,24 @@ describe('Trip Actions',()=>{
         const optimize = screen.getByTestId('optimize');
         user.click(optimize);
     });
+
+    it('Has a shuffle button that calls shuffle trip', ()=>{
+        const shuffle = screen.getByTestId('shuffleBtn');
+        expect(shuffle).toBeTruthy();
+        user.click(shuffle);
+        shuffleTrip();
+        expect(shuffleTrip).toHaveBeenCalled();
+    });
+
+    it('Has a reverse button', ()=>{
+        const rev = screen.getByTestId('reverse');
+        expect(rev).toBeTruthy();
+    });
+
+    it('Has a alphasort button', ()=>{
+        const alpha = screen.getByTestId('alphasort');
+        expect(alpha).toBeTruthy();
+    });
+
 
 });
