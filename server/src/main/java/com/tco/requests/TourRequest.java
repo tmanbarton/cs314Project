@@ -78,6 +78,18 @@ public class TourRequest extends Request {
                 optimizedTrip.set(i, temp);
             }
             return optimizedTrip;
+        }      
+        // returns the index of closest destination from current point using distance matrix
+        private int find_closest(int index, boolean[] visited){ 
+            var value = this.distanceMatrix[index][0];
+            var final_index = 0;
+            for (var i = 1; i < this.distanceMatrix[index].length; i++) {
+                if (this.distanceMatrix[index][i] < value && visited[i]!=true && index!=i) {
+                  value = this.distanceMatrix[index][i];
+                  final_index = i;
+                }
+            }
+            return final_index;
         }
         // filled with test logic to be replaced
         private int[] nearestNeighbor(int[] tour) {
