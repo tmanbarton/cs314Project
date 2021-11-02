@@ -12,6 +12,7 @@ export default function Page(props) {
 	const [showAbout, toggleAbout] = useToggle(false);
 	const [serverSettings, processServerConfigSuccess] = useServerSettings(props.showMessage);
 	const [disableSearch, setDisableSearch] = useToggle(false);
+	const [disableTour, setDisableTour] = useToggle(false);
 
 	return (
 		<>
@@ -21,12 +22,14 @@ export default function Page(props) {
 					<About closePage={toggleAbout} />
 				</Collapse>
 				<Collapse isOpen={!showAbout} data-testid="planner-collapse">
-					<Planner serverSettings={serverSettings} disableSearch={disableSearch} showMessage={props.showMessage} />
+					<Planner serverSettings={serverSettings} disableSearch={disableSearch} disableTour={disableTour} showMessage={props.showMessage} />
 				</Collapse>
 			</div>
 			<Footer
 				disableSearch={disableSearch}
 				setDisableSearch={setDisableSearch}
+				disableTour={disableTour}
+				setDisableTour={setDisableTour}
 				showMessage={props.showMessage}
 				serverSettings={serverSettings}
 				processServerConfigSuccess={processServerConfigSuccess}
