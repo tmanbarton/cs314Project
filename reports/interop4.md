@@ -12,7 +12,10 @@ This table lists each student in the team, the team they verified interoperabili
 | Name | Team | Time |
 | ---- | ---- | ---- |
 | Andy H | 3 | |
-
+|Amir| 22| |
+| | 14| |
+| | 5| |
+| | 10| |
 
 ### Client Problems found
 
