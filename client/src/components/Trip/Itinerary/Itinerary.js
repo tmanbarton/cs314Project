@@ -12,14 +12,16 @@ import {
 	sortableElement,
 	sortableHandle,
   } from 'react-sortable-hoc';
-import { LOG } from "../../../utils/constants";
 
 export default function Itinerary(props) {
 	const [showSearch, toggleSearch] = useToggle(false);
 	const [showToolbox, toggleToolbox ] = useToggle(false);
+	const [tripName , setTripName] = useState("My Trip");
 	return (
 		<Container>
 			<Header
+				tripName={tripName}
+				setTripName={setTripName}
 				placeActions={props.placeActions}
 				showMessage={props.showMessage}
 				showToolbox = {showToolbox}
@@ -36,7 +38,8 @@ export default function Itinerary(props) {
 					showMessage={props.showMessage}
 				/>
 			</Collapse>	
-			<TripHeader 
+			<TripHeader
+				tripName={tripName} 
 				undo={props.placeActions.undo} 
 				distances={props.distances} 
 				places={props.places}
@@ -58,12 +61,11 @@ export default function Itinerary(props) {
 }
 
 function Header(props) {
-	const [tripName , setTripName] = useState("My Trip")
 	let toolboxMethods = {
 		bulkAppend: props.placeActions.bulkAppend,
 		removeAll: props.placeActions.removeAll,
 		showMessage: props.showMessage,
-		setTripName: setTripName
+		setTripName: props.setTripName
 	};
 	
 	return (
@@ -72,7 +74,7 @@ function Header(props) {
 				<Row>
 					<Col>
 						<h4>	
-							<Input value={tripName} data-testid="My Trip" placeholder={tripName} onChange={e => setTripName(e.target.value)}></Input>				
+							<Input value={props.tripName} data-testid="My Trip" placeholder={props.tripName} onChange={e => props.setTripName(e.target.value)}></Input>				
 						</h4>
 					</Col>
 					<FaToolbox data-testid="toolbox-btn" size={24} onClick={()=>{props.toggleToolbox();}}/>
@@ -103,7 +105,7 @@ function Header(props) {
 				</div>
 			</Col>
 
-			<TripToolbox tripName={tripName} toolboxMethods={toolboxMethods} isOpen={props.showToolbox} toggleToolbox={props.toggleToolbox} places={props.places}/>			
+			<TripToolbox tripName={props.tripName} toolboxMethods={toolboxMethods} isOpen={props.showToolbox} toggleToolbox={props.toggleToolbox} places={props.places}/>			
 		</Row>
 	);
 }
@@ -155,7 +157,6 @@ function Body(props) {
 		  setPlace(newplace)
 		  props.placeActions.bulkAppend(newplace) 
 		};
-	LOG.info(props.places)
 	let i = -1;
 	return (
 		<tbody>
@@ -211,12 +212,14 @@ function TripHeader(props){
 		</Col>
 			{props.places.length > 0 ?
 			<TripActions
+				tripName={props.tripName}
 				disableTour={props.disableTour}
 				distances={props.distances} 
 				places={props.places} 
 				serverSettings={props.serverSettings} 
 				bulkAppend={props.bulkAppend} 
-				undo={props.undo}/>
+				undo={props.undo}
+				showMessage={props.showMessage}/>
 			: null}
 	</Row>
 	);
@@ -236,7 +239,7 @@ function TotalDistances(props)
 	
 }
 
-function totalDistance(distances)
+export function totalDistance(distances)
 {
 	let total = 0;
 
