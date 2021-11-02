@@ -19,7 +19,7 @@ export default function TripActions(props){
             </Collapse>
             <Collapse data-testid="dropdown" isOpen={!changedTrip}>
                 <ActionsDropdown>
-                    <DropdownItem disabled={true}>
+                    <DropdownItem disabled={false}>
                         <IoIosSpeedometer data-testid="optimize" onClick={()=> optimizeTrip(buildTripObject(props.places, props.distances),{bulkAppend: props.bulkAppend, serverSettings: props.serverSettings, showMessage: props.showMessage}, setChangedTrip)} size={24}/>
                     </DropdownItem>
                     <DropdownItem>
