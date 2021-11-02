@@ -10,6 +10,9 @@ import { isJsonResponseValid, SCHEMAS, sendAPIRequest } from "../../../utils/res
 import { buildDistanceRequest, sendDistanceRequest } from "../../../hooks/usePlaces";
 import { totalDistance } from "./Itinerary";
 
+const csuSuccess = "#105456";
+const csuWarning = "#ECC530";
+
 export default function TripActions(props){
     const [changedTrip, setChangedTrip] = useState(false);
     const tripObject = buildTripObject(props.places, props.distances);
@@ -46,9 +49,9 @@ function ConfirmAction(props){
                 <p><strong>Save Changes?</strong></p>
                 <Col>
                     <div>
-                        <FaCheckSquare data-testid="save-btn" className="success" size={30} onClick={()=>props.setChangedTrip(false)} />
+                        <FaCheckSquare data-testid="save-btn" color={csuSuccess} size={30} onClick={()=>props.setChangedTrip(false)} />
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <FaWindowClose data-testid="undo-btn" className="warning" size={30} onClick={()=> revertTrip(props.setChangedTrip, props.undo)} />
+                        <FaWindowClose data-testid="undo-btn" color={csuWarning} size={30} onClick={()=> revertTrip(props.setChangedTrip, props.undo)} />
                     </div>
                 </Col>                
             </Col>
