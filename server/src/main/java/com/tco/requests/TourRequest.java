@@ -3,15 +3,12 @@ package com.tco.requests;
 import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Collections;
 
 public class TourRequest extends Request {
     private Places places;
     private double earthRadius;
     private double response;
-
-    private double[] tour;
-    private boolean[] visited;
-    private double[][] distanceMatrix;
  
     private final transient Logger log =
     LoggerFactory.getLogger(TourRequest.class);
@@ -19,7 +16,9 @@ public class TourRequest extends Request {
     @Override
     public void buildResponse(){
         if (places != null){
-            buildDataStructures(places);
+            OptimizeTrip tripObject = new OptimizeTrip(places, earthRadius);
+            tripObject.buildDataStructures();
+            this.places = tripObject.optimize();
         }
         log.trace("buildResponse -> {}", this);
     }
@@ -36,27 +35,56 @@ public class TourRequest extends Request {
         this.earthRadius = earthRadius;
     }
 
-    public void buildDataStructures(Places places){
-        int placeSize = places.size();
-        this.tour = new double[placeSize];
-        this.visited = new boolean[placeSize];
-        this.distanceMatrix = new double[placeSize][placeSize];
-        DistanceCalculator calculator = new DistanceCalculator(places, this.earthRadius);
-        for(int i = 0; i < placeSize; i++){
-            this.tour[i] = i;
-            this.visited[i] = false;
-            for (int j = 0; j < places.size(); j++) {
-                double latitude1 = Double.parseDouble(places.get(i).get("latitude"));
-                double latitude2 = Double.parseDouble(places.get(j).get("latitude"));
-                double longitude1 = Double.parseDouble(places.get(i).get("longitude"));
-                double longitude2 = Double.parseDouble(places.get(j).get("longitude"));
-                this.distanceMatrix[i][j] =
-                    calculator.computeDistance(latitude1, latitude2, longitude1, longitude2);
+
+    private class OptimizeTrip {
+        private int[] tour;
+        private boolean[] visited;
+        private double[][] distanceMatrix;
+        private Places preOptimizedPlaces;
+        private double earthRadius;
+
+        private OptimizeTrip(Places Places, double earthRadius){
+            this.preOptimizedPlaces = places;
+            this.earthRadius = earthRadius;
+        }
+
+
+        public void buildDataStructures(){
+            int placeSize = this.preOptimizedPlaces.size();
+            this.tour = new int[placeSize];
+            this.visited = new boolean[placeSize];
+            this.distanceMatrix = new double[placeSize][placeSize];
+            DistanceCalculator calculator = new DistanceCalculator(places, this.earthRadius);
+            for(int i = 0; i < placeSize; i++){
+                this.tour[i] = i;
+                this.visited[i] = false;
+                for (int j = 0; j < this.preOptimizedPlaces.size(); j++) {
+                    double latitude1 = Double.parseDouble(this.preOptimizedPlaces.get(i).get("latitude"));
+                    double latitude2 = Double.parseDouble(this.preOptimizedPlaces.get(j).get("latitude"));
+                    double longitude1 = Double.parseDouble(this.preOptimizedPlaces.get(i).get("longitude"));
+                    double longitude2 = Double.parseDouble(this.preOptimizedPlaces.get(j).get("longitude"));
+                    this.distanceMatrix[i][j] =
+                        calculator.computeDistance(latitude1, latitude2, longitude1, longitude2);
             }
         }
     }
-
-    public double[] nearestNeighbor(double[] tour) {
-        return tour;
+        // returns an optimized list of places
+        public Places optimize(){
+            int[] optimizedTour = nearestNeighbor(this.tour);
+            Places optimizedTrip = this.preOptimizedPlaces;
+            for (int i = 0; i < this.preOptimizedPlaces.size(); i++){
+                int newIndex = this.tour[i];
+                Place temp = preOptimizedPlaces.get(newIndex);
+                optimizedTrip.set(i, temp);
+            }
+            return optimizedTrip;
+        }
+        // filled with test logic to be replaced
+        private int[] nearestNeighbor(int[] tour) {
+            tour[0] = 2;
+            tour[1] = 1;
+            tour[2] = 0;
+            return tour;
+        }
     }
 }
