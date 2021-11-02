@@ -116,12 +116,15 @@ async function sendTourRequest(request, apiObject, tripObject, setChangedTrip){
         setChangedTrip(false);
     }    
 }
-
 function reversePlaces(places, bulkAppend, setChangedTrip) {
     if(places != undefined) {
-    places.reverse();
-    bulkAppend.bulkAppend(places);
-    setChangedTrip(true);
+    if(places.length > 2){
+	places.push(places[0]) 
+	places.shift();   
+	places.reverse();
+	bulkAppend.bulkAppend(places)
+	setChangedTrip(true);
+    }
     }
     return 0;
 }
