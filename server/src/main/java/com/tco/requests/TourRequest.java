@@ -71,19 +71,18 @@ public class TourRequest extends Request {
         // returns an optimized list of places
         public Places optimize(){
             int[] optimizedTour = nearestNeighbor(this.tour);
-            Places optimizedTrip = this.preOptimizedPlaces;
+            Places optimizedTrip = new Places(this.preOptimizedPlaces);
             for (int i = 0; i < this.preOptimizedPlaces.size(); i++){
-                int newIndex = this.tour[i];
-                Place temp = preOptimizedPlaces.get(newIndex);
+                int indexOfPlace = this.tour[i];
+                Place temp = this.preOptimizedPlaces.get(indexOfPlace);
                 optimizedTrip.set(i, temp);
             }
             return optimizedTrip;
         }
         // filled with test logic to be replaced
         private int[] nearestNeighbor(int[] tour) {
-            tour[0] = 2;
-            tour[1] = 1;
-            tour[2] = 0;
+            tour[0] = 1;
+            tour[1] = 0;
             return tour;
         }
     }
