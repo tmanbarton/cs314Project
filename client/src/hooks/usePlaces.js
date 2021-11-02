@@ -63,17 +63,22 @@ function buildAndSendDistanceRequest(newPlaces, setDistances, serverSettings, sh
     const request = buildDistanceRequest(formatPlaces(newPlaces), EARTH_RADIUS_UNITS_DEFAULT.miles);
     sendDistanceRequest(request, setDistances, serverSettings,showMessage);
 }
-function buildDistanceRequest(places, radius){
+export function buildDistanceRequest(places, radius){
 	return {
 		requestType: "distances",
 		places: places,
 		earthRadius: radius,
 	};
 }
-async function sendDistanceRequest(request, setDistances, serverSettings, showMessage) {
+export async function sendDistanceRequest(request, setDistances = undefined, serverSettings, showMessage) {
 	const distanceResponse = await sendAPIRequest(request, serverSettings.serverUrl);
 	if (distanceResponse && isJsonResponseValid(distanceResponse, distanceResponse)) {
-		setDistances(distanceResponse["distances"]);
+        if(setDistances){
+            setDistances(distanceResponse["distances"]);
+        }else{
+            return distanceResponse["distances"];
+        }
+		
 	} else {
 		showMessage(
 			`Distance request to ${serverSettings.serverUrl} failed. Check the log for more details.`,

@@ -3,22 +3,24 @@ import { ButtonGroup, Collapse, Col, Container, DropdownItem, DropdownMenu, Drop
 import { BiDotsVerticalRounded } from 'react-icons/bi';
 import { formatPlaces } from "../../../utils/transformers";
 import { IoIosSpeedometer } from "react-icons/io";
-import { FaAngleDoubleLeft, FaSortAlphaDown } from "react-icons/fa"
+import { FaAngleDoubleLeft, FaSortAlphaDown, FaCheckSquare, FaWindowClose } from "react-icons/fa"
 import { ImShuffle } from "react-icons/im"
 import { EARTH_RADIUS_UNITS_DEFAULT, DEFAULT_RESPONSE_TIME } from "../../../utils/constants";
 import { isJsonResponseValid, SCHEMAS, sendAPIRequest } from "../../../utils/restfulAPI";
+import { buildDistanceRequest, sendDistanceRequest } from "../../../hooks/usePlaces";
 
 export default function TripActions(props){
-    const [revert, setRevert] = useState();
     const [changedTrip, setChangedTrip] = useState(false);
 
     return (
         <Row>
-
+            <Collapse isOpen={changedTrip}>
+                <ConfirmAction setChangedTrip={setChangedTrip} undo={props.undo}/>
+            </Collapse>
             <Collapse data-testid="dropdown" isOpen={!changedTrip}>
                 <ActionsDropdown>
-                    <DropdownItem>
-                        <IoIosSpeedometer data-testid="optimize" onClick={()=> optimizeTrip(setRevert, buildTripObject(props.places, props.distances),{bulkAppend: props.bulkAppend, serverSettings: props.serverSettings, showMessage: props.showMessage}, setChangedTrip)} size={24}/>
+                    <DropdownItem disabled={true}>
+                        <IoIosSpeedometer data-testid="optimize" onClick={()=> optimizeTrip(buildTripObject(props.places, props.distances),{bulkAppend: props.bulkAppend, serverSettings: props.serverSettings, showMessage: props.showMessage}, setChangedTrip)} size={24}/>
                     </DropdownItem>
                     <DropdownItem>
                         <FaSortAlphaDown onClick={()=> alphaSort(props.places, {bulkAppend: props.bulkAppend}, setChangedTrip)} size ={24}/>
@@ -36,6 +38,28 @@ export default function TripActions(props){
     );
 }
 
+function ConfirmAction(props){
+    return(
+        <Container>
+            <Col>
+                <p><strong>Save Changes?</strong></p>
+                <Col>
+                    <div>
+                        <FaCheckSquare data-testid="save-btn" className="success" size={30} onClick={()=>props.setChangedTrip(false)} />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <FaWindowClose data-testid="undo-btn" className="warning" size={30} onClick={()=> revertTrip(props.setChangedTrip, props.undo)} />
+                    </div>
+                </Col>                
+            </Col>
+        </Container>
+    );
+}
+
+function revertTrip(setChangedTrip, undo){
+    undo();
+    setChangedTrip(false);
+}
+
 function ActionsDropdown(props) {
     return (
         <UncontrolledDropdown direction="left">
@@ -51,9 +75,8 @@ function ActionsDropdown(props) {
     );
 }
 
-function optimizeTrip(setRevert, tripObject, apiObject, setChangedTrip){
-    setRevert(tripObject);
-    sendTourRequest(buildTourRequest(tripObject.places), apiObject, setChangedTrip);
+function optimizeTrip(tripObject, apiObject, setChangedTrip){
+    sendTourRequest(buildTourRequest(tripObject.places), apiObject, setChangedTrip, tripObject);
 }
 
 function buildTripObject(places, distances){
@@ -72,12 +95,14 @@ function buildTourRequest(places){
     };
 }
 
-async function sendTourRequest(request, apiObject, setChangedTrip){
+async function sendTourRequest(request, apiObject, setChangedTrip, tripObject){
+    const prevDistances = tripObject.distances;
     const tourResponse = await sendAPIRequest(request, apiObject.serverSettings.serverUrl);
     if(tourResponse && isJsonResponseValid(tourResponse, SCHEMAS.tour)){
-        apiObject.bulkAppend(request.places);
+        const newDistances = sendDistanceRequest(buildDistanceRequest(tripObject.places, EARTH_RADIUS_UNITS_DEFAULT.miles),apiObject.serverSettings.serverUrl, apiObject.showMessage);
         setChangedTrip(true);
-        apiObject.showMessage();
+        apiObject.showMessage(`Saved `);
+        apiObject.bulkAppend(request.places);
     }else{
         apiObject.showMessage(
 			`Tour request to ${apiObject.serverSettings.serverUrl} failed. Check the log for more details.`,
@@ -103,17 +128,17 @@ function alphaSort(places, bulkAppend, setChangedTrip) {
 }
 
 function shuffleTrip(places, bulkAppend, setChangedTrip) {
-        let currentIndex = places.length,  randomIndex;
-      
-        while (currentIndex != 0) {
+    let currentIndex = places.length,  randomIndex;
+    
+    while (currentIndex != 0) {
 
-          randomIndex = Math.floor(Math.random() * currentIndex);
-          currentIndex--;
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
 
-          [places[currentIndex], places[randomIndex]] = [
-            places[randomIndex], places[currentIndex]];
-        }
+        [places[currentIndex], places[randomIndex]] = [
+        places[randomIndex], places[currentIndex]];
+    }
 
-        bulkAppend.bulkAppend(places);
-        setChangedTrip(true);
+    bulkAppend.bulkAppend(places);
+    setChangedTrip(true);
 }
