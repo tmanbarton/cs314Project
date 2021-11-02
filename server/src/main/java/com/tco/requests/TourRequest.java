@@ -42,7 +42,8 @@ public class TourRequest extends Request {
         private double[][] distanceMatrix;
         private Places preOptimizedPlaces;
         private double earthRadius;
-
+        private double inf  = Math.pow(10, 1000);
+        
         private OptimizeTrip(Places Places, double earthRadius){
             this.preOptimizedPlaces = places;
             this.earthRadius = earthRadius;
@@ -81,9 +82,9 @@ public class TourRequest extends Request {
         }      
         // returns the index of closest destination from current point using distance matrix
         private int find_closest(int index, boolean[] visited){ 
-            var value = this.distanceMatrix[index][0];
+            var value = this.inf;
             var final_index = 0;
-            for (var i = 1; i < this.distanceMatrix[index].length; i++) {
+            for (var i = 0; i < this.distanceMatrix[index].length; i++) {
                 if (this.distanceMatrix[index][i] < value && visited[i]!=true && index!=i) {
                   value = this.distanceMatrix[index][i];
                   final_index = i;
@@ -91,11 +92,30 @@ public class TourRequest extends Request {
             }
             return final_index;
         }
+
         // filled with test logic to be replaced
         private int[] nearestNeighbor(int[] tour) {
-            tour[0] = 1;
-            tour[1] = 0;
-            return tour;
+            if(this.preOptimizedPlaces.size() > 1){
+
+            this.tour[0] = 0;
+            this.visited[0] = true;
+            int i = 0;
+            int currrent = 0; 
+
+            int tour_size = this.preOptimizedPlaces.size();
+            while (i < tour_size - 1){
+                int close_index = find_closest(currrent, this.visited);
+                i++;
+                this.tour[i] = close_index;
+                this.visited[close_index] = true;
+                currrent = close_index;
+            }
+            return this.tour;
         }
+        else{
+            this.tour[0] = 0;
+            return this.tour;
+        }
+    }
     }
 }
