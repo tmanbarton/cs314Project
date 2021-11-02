@@ -8,10 +8,11 @@ import { ImShuffle } from "react-icons/im"
 import { EARTH_RADIUS_UNITS_DEFAULT, DEFAULT_RESPONSE_TIME } from "../../../utils/constants";
 import { isJsonResponseValid, SCHEMAS, sendAPIRequest } from "../../../utils/restfulAPI";
 import { buildDistanceRequest, sendDistanceRequest } from "../../../hooks/usePlaces";
+import { totalDistance } from "./Itinerary";
 
 export default function TripActions(props){
     const [changedTrip, setChangedTrip] = useState(false);
-
+    const tripObject = buildTripObject(props.places, props.distances);
     return (
         <Row>
             <Collapse isOpen={changedTrip}>
@@ -20,7 +21,7 @@ export default function TripActions(props){
             <Collapse data-testid="dropdown" isOpen={!changedTrip}>
                 <ActionsDropdown>
                     <DropdownItem disabled={props.disableTour}>
-                        <IoIosSpeedometer data-testid="optimize" onClick={()=> optimizeTrip(buildTripObject(props.places, props.distances),{bulkAppend: props.bulkAppend, serverSettings: props.serverSettings, showMessage: props.showMessage}, setChangedTrip)} size={24}/>
+                        <IoIosSpeedometer data-testid="optimize" onClick={()=> optimizeTrip(tripObject,{bulkAppend: props.bulkAppend, serverSettings: props.serverSettings, showMessage: props.showMessage, tripName: props.tripName}, setChangedTrip)} size={24}/>
                     </DropdownItem>
                     <DropdownItem>
                         <FaSortAlphaDown onClick={()=> alphaSort(props.places, {bulkAppend: props.bulkAppend}, setChangedTrip)} size ={24}/>
@@ -76,7 +77,7 @@ function ActionsDropdown(props) {
 }
 
 function optimizeTrip(tripObject, apiObject, setChangedTrip){
-    sendTourRequest(buildTourRequest(tripObject.places), apiObject, setChangedTrip, tripObject);
+    sendTourRequest(buildTourRequest(tripObject.places), apiObject, tripObject, setChangedTrip);
 }
 
 function buildTripObject(places, distances){
@@ -95,19 +96,21 @@ function buildTourRequest(places){
     };
 }
 
-async function sendTourRequest(request, apiObject, setChangedTrip, tripObject){
-    const prevDistances = tripObject.distances;
+async function sendTourRequest(request, apiObject, tripObject, setChangedTrip){
+    const prevTotal = totalDistance(tripObject.distances);
     const tourResponse = await sendAPIRequest(request, apiObject.serverSettings.serverUrl);
     if(tourResponse && isJsonResponseValid(tourResponse, SCHEMAS.tour)){
-        const newDistances = sendDistanceRequest(buildDistanceRequest(tripObject.places, EARTH_RADIUS_UNITS_DEFAULT.miles),apiObject.serverSettings.serverUrl, apiObject.showMessage);
+        const newTotal = totalDistance(await sendDistanceRequest(buildDistanceRequest(tripObject.places, EARTH_RADIUS_UNITS_DEFAULT.miles), null, apiObject.serverSettings, apiObject.showMessage, true));
+        const diffTotal = prevTotal - newTotal;
+        apiObject.showMessage(`Successfully optimized ${apiObject.tripName}. Saved ${diffTotal} miles.`, "success");
+        apiObject.bulkAppend(tourResponse.places);
         setChangedTrip(true);
-        apiObject.showMessage(`Saved `);
-        apiObject.bulkAppend(request.places);
     }else{
         apiObject.showMessage(
 			`Tour request to ${apiObject.serverSettings.serverUrl} failed. Check the log for more details.`,
 			"error"
 		);
+        setChangedTrip(false);
     }    
 }
 

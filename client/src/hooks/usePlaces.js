@@ -70,10 +70,10 @@ export function buildDistanceRequest(places, radius){
 		earthRadius: radius,
 	};
 }
-export async function sendDistanceRequest(request, setDistances = undefined, serverSettings, showMessage) {
+export async function sendDistanceRequest(request, setDistances, serverSettings, showMessage, returnDistance = false) {
 	const distanceResponse = await sendAPIRequest(request, serverSettings.serverUrl);
 	if (distanceResponse && isJsonResponseValid(distanceResponse, distanceResponse)) {
-        if(setDistances){
+        if(!returnDistance){
             setDistances(distanceResponse["distances"]);
         }else{
             return distanceResponse["distances"];
