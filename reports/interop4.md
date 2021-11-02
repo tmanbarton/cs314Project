@@ -11,7 +11,7 @@ This table lists each student in the team, the team they verified interoperabili
 
 | Name | Team | Time |
 | ---- | ---- | ---- |
-| Andy H | 3 | |
+| Andy H | 3 | 45min |
 |Amir| 22| |
 | | 14| |
 | | 5| |
@@ -23,7 +23,9 @@ We found these problems when connecting our client to another team's server.
 
 | team | problem | github# |
 | :--- |  :--- | --- |
-|  |  |  |
+| 3 | Found not sending the correct amount. | N/A  |
+| 3 | Save as json not working | N/A  |
+| 13 | Console.log found | already addressed  |
 
 
 ### Server Problems found
@@ -32,4 +34,4 @@ We found these problems when connecting the other team's client to our server.
 
 | team |  problem | github# |
 | :--- |  :--- | --- |
-|  |  |  |
+| 3 | Save as json not working | N/A  |
