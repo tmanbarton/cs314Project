@@ -39,7 +39,8 @@ export default function Itinerary(props) {
 			<TripHeader 
 				undo={props.placeActions.undo} 
 				distances={props.distances} 
-				places={props.places} 
+				places={props.places}
+				disableTour={props.disableTour} 
 				serverSettings={props.serverSettings} 
 				bulkAppend={props.placeActions.bulkAppend} 
 				showMessage={props.showMessage}/>
@@ -209,7 +210,8 @@ function TripHeader(props){
 			{props.distances ? <TotalDistances distances={props.distances} /> : null}
 		</Col>
 			{props.places.length > 0 ?
-			<TripActions 
+			<TripActions
+				disableTour={props.disableTour}
 				distances={props.distances} 
 				places={props.places} 
 				serverSettings={props.serverSettings} 

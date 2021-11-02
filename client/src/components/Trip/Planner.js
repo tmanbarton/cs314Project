@@ -22,6 +22,7 @@ export default function Planner(props) {
 					serverSettings={props.serverSettings}
 					showMessage={props.showMessage}
 					disableSearch={props.disableSearch}
+					disableTour={props.disableTour}
 					places={places}
 					selectedIndex={selectedIndex}
 					placeActions={placeActions}

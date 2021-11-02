@@ -15,7 +15,7 @@ const UNICODE_LINK_SYMBOL = "\uD83D\uDD17";
 const UNICODE_WARNING_SIGN = "\u26A0";
 const UNKNOWN_SERVER_NAME = "Unknown";
 
-const supportedFeatures = ["config", "find", "distances"];
+const supportedFeatures = ["config", "find", "distances", "tour"];
 
 export default function Footer(props) {
 	const [featuresChecklistOpen, toggleFeaturesChecklist] = useToggle(false);
@@ -25,11 +25,13 @@ export default function Footer(props) {
 		setFeaturesRecieved: setFeaturesRecieved,
 		setDisableSearch: props.setDisableSearch,
 		processServerConfigSuccess: props.processServerConfigSuccess,
+		setDisableTour: props.setDisableTour
 	};
 	let stateVariables = {
 		featuresChecklistOpen: featuresChecklistOpen,
 		featuresRecieved: featuresRecieved,
 		disableSearch: props.disableSearch,
+		disableTour: props.disableTour
 	};
 
 	return (
@@ -44,19 +46,23 @@ export default function Footer(props) {
 	);
 }
 
-function evaluateFeatures(avaliableFeatures, stateMethods, stateVariables) {
-	for (let i = 0; i < supportedFeatures.length; i++) {
-		if (supportedFeatures[i] == "find") {
-			if (
-				(avaliableFeatures.indexOf(supportedFeatures[i]) == -1 &&
-					!stateVariables.disableSearch) ||
-				(avaliableFeatures.indexOf(supportedFeatures[i]) > -1 &&
-					stateVariables.disableSearch)
-			) {
-				stateMethods.setDisableSearch();
-			}
-		}
+function toggleFeatures(avaliableFeatures, stateVariable, feature){
+	if(avaliableFeatures.indexOf(feature) == -1 && !stateVariable || avaliableFeatures.indexOf(feature) > -1 && stateVariable){
+		return true;
 	}
+	return false;
+}
+
+function evaluateFeatures(avaliableFeatures, stateMethods, stateVariables) {
+
+	if (toggleFeatures(avaliableFeatures, stateVariables.disableSearch, "find")){
+		stateMethods.setDisableSearch();
+	}
+
+	if(toggleFeatures(avaliableFeatures, stateVariables.disableTour, "tour")){
+		stateMethods.setDisableTour();
+	}
+	
 }
 
 async function changeServers(
@@ -74,8 +80,8 @@ async function changeServers(
 		stateMethods.setFeaturesRecieved(response.features);
 		evaluateFeatures(
 			response.features,
-			{ setDisableSearch: stateMethods.setDisableSearch },
-			{ disableSearch: stateVariables.disableSearch }
+			{ setDisableSearch: stateMethods.setDisableSearch, setDisableTour: stateMethods.setDisableTour },
+			{ disableSearch: stateVariables.disableSearch, disableTour: stateVariables.disableTour }
 		);
 		stateMethods.toggleFeaturesChecklist();
 	} else {
@@ -97,7 +103,6 @@ function ServerInformation(props) {
 	const linkStatusSymbol = connectedToValidServer()
 		? UNICODE_LINK_SYMBOL
 		: UNICODE_WARNING_SIGN;
-
 	const [dropdownOpen, setDropdownOpen] = useToggle(false);
 
 	return (
@@ -114,24 +119,24 @@ function ServerInformation(props) {
 							data-testid="interop-dropdown"
 						>
 							<DropdownToggle caret>{serverName}</DropdownToggle>
-							<DropdownMenu data-testid="interop-dropdown-menu">
-								{avaliableServers.map((server, index) => (
-									<DropdownItem data-testid="dropdownitem"
-										key={`table-${JSON.stringify(server)}-${index}`}
-										onClick={() =>
-											changeServers(
-												server,
-												props.stateMethods,
-												props.stateVariables,
-												props.showMessage
-											)
-										}
-									>
-										{server.teamName}
-									</DropdownItem>
-								))}
-							</DropdownMenu>
-						</Dropdown>
+								<DropdownMenu data-testid="interop-dropdown-menu">
+									{avaliableServers.map((server, index) => (
+										<DropdownItem data-testid="dropdownitem"
+											key={`table-${JSON.stringify(server)}-${index}`}
+											onClick={() =>
+												changeServers(
+													server,
+													props.stateMethods,
+													props.stateVariables,
+													props.showMessage
+												)
+											}
+										>
+											{server.teamName}
+										</DropdownItem>
+									))}
+								</DropdownMenu>
+						</Dropdown>	
 					</div>
 					<br />
 					<a
@@ -151,3 +156,5 @@ function ServerInformation(props) {
 		</div>
 	);
 }
+
+	
