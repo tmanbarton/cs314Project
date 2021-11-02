@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Collections;
+import java.lang.Math;
 
 public class TourRequest extends Request {
     private Places places;
@@ -15,8 +16,11 @@ public class TourRequest extends Request {
 
     @Override
     public void buildResponse(){
+        if (response <= 0.001){ // send back places unchanged
+            return;
+        }
         if (places != null){
-            OptimizeTrip tripObject = new OptimizeTrip(places, earthRadius);
+            OptimizeTrip tripObject = new OptimizeTrip(places, earthRadius, response);
             tripObject.buildDataStructures();
             this.places = tripObject.optimize();
         }
@@ -42,11 +46,13 @@ public class TourRequest extends Request {
         private double[][] distanceMatrix;
         private Places preOptimizedPlaces;
         private double earthRadius;
+        private double response;
         private double inf  = Math.pow(10, 1000);
         
-        private OptimizeTrip(Places Places, double earthRadius){
+        private OptimizeTrip(Places Places, double earthRadius, double response){
             this.preOptimizedPlaces = places;
             this.earthRadius = earthRadius;
+            this.response = response;
         }
 
 
@@ -79,7 +85,8 @@ public class TourRequest extends Request {
                 optimizedTrip.set(i, temp);
             }
             return optimizedTrip;
-        }      
+        } 
+
         // returns the index of closest destination from current point using distance matrix
         private int find_closest(int index, boolean[] visited){ 
             var value = this.inf;
@@ -93,7 +100,7 @@ public class TourRequest extends Request {
             return final_index;
         }
 
-        // filled with test logic to be replaced
+        
         private int[] nearestNeighbor(int[] tour) {
             if(this.preOptimizedPlaces.size() > 1){
 
@@ -102,13 +109,18 @@ public class TourRequest extends Request {
             int i = 0;
             int currrent = 0; 
 
-            int tour_size = this.preOptimizedPlaces.size();
-            while (i < tour_size - 1){
-                int close_index = find_closest(currrent, this.visited);
-                i++;
-                this.tour[i] = close_index;
-                this.visited[close_index] = true;
-                currrent = close_index;
+            double ms = Math.floor(this.response/2);
+            double start = System.currentTimeMillis();
+            double end = start + (ms*1000); 
+            while (System.currentTimeMillis() < end){
+                int tour_size = this.preOptimizedPlaces.size();
+                while (i < tour_size - 1){
+                    int close_index = find_closest(currrent, this.visited);
+                    i++;
+                    this.tour[i] = close_index;
+                    this.visited[close_index] = true;
+                    currrent = close_index;
+                }
             }
             return this.tour;
         }
