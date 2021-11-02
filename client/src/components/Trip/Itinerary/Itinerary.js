@@ -42,7 +42,8 @@ export default function Itinerary(props) {
 				places={props.places} 
 				serverSettings={props.serverSettings} 
 				bulkAppend={props.placeActions.bulkAppend} 
-				showMessage={props.showMessage}/>		
+				showMessage={props.showMessage}/>
+			<br />		
 			<Table responsive striped>
 				<Body
 					distances={props.distances}
@@ -50,7 +51,7 @@ export default function Itinerary(props) {
 					placeActions={props.placeActions}
 				/>
 			</Table>
-			{props.distances ?
+			{props.places.length > 0 ?
 				<TotalDistances 
 				undo={props.placeActions.undo} 
 				distances={props.distances} 
@@ -226,7 +227,9 @@ function TotalDistances(props)
 			<Row>
 				<Col>
 				</Col>
-				<TripActions distances={props.distances} places={props.places} serverSettings={props.serverSettings} bulkAppend={props.bulkAppend} undo={props.undo}/>
+				<Collapse isOpen={props.places.length > 0}>
+					<TripActions distances={props.distances} places={props.places} serverSettings={props.serverSettings} bulkAppend={props.bulkAppend} undo={props.undo}/>
+				</Collapse>
 			</Row>
 		);
 	}
