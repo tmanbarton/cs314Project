@@ -27,13 +27,13 @@ export default function TripActions(props){
                         <IoIosSpeedometer data-testid="optimize" onClick={()=> optimizeTrip(tripObject,{bulkAppend: props.bulkAppend, serverSettings: props.serverSettings, showMessage: props.showMessage, tripName: props.tripName}, setChangedTrip)} size={24}/>
                     </DropdownItem>
                     <DropdownItem>
-                        <FaSortAlphaDown onClick={()=> alphaSort(props.places, {bulkAppend: props.bulkAppend}, setChangedTrip)} size ={24}/>
+                        <FaSortAlphaDown data-testid="alphasort" onClick={()=> alphaSort(props.places, {bulkAppend: props.bulkAppend}, setChangedTrip)} size ={24}/>
                     </DropdownItem>
                     <DropdownItem>
-                        <ImShuffle onClick={()=> shuffleTrip(props.places, {bulkAppend: props.bulkAppend}, setChangedTrip)} size = {24}/>
+                        <ImShuffle data-testid="shuffleBtn" onClick={()=> shuffleTrip(props.places, {bulkAppend: props.bulkAppend}, setChangedTrip)} size = {24}/>
                     </DropdownItem>
                     <DropdownItem>
-                        <FaAngleDoubleLeft onClick={()=> reversePlaces(props.places, {bulkAppend: props.bulkAppend}, setChangedTrip)}  size = {24} />
+                        <FaAngleDoubleLeft data-testid="reverse" onClick={()=> reversePlaces(props.places, {bulkAppend: props.bulkAppend}, setChangedTrip)}  size = {24} />
                     </DropdownItem>
                 </ActionsDropdown>
             </Collapse>
@@ -118,33 +118,43 @@ async function sendTourRequest(request, apiObject, tripObject, setChangedTrip){
 }
 
 function reversePlaces(places, bulkAppend, setChangedTrip) {
+    if(places != undefined) {
     places.reverse();
     bulkAppend.bulkAppend(places);
     setChangedTrip(true);
+    }
+    return 0;
 }
 
 function alphaSort(places, bulkAppend, setChangedTrip) {
-    places.sort(function(a, b){
-        if(a.name < b.name) { return -1; }
-        if(a.name > b.name) { return 1; }
-        return 0;
-    })
-    bulkAppend.bulkAppend(places);
-    setChangedTrip(true);
+    if(places != undefined) {
+        places.sort(function(a, b){
+            if(a.name < b.name) { return -1; }
+            if(a.name > b.name) { return 1; }
+            return 0;
+        })
+        bulkAppend.bulkAppend(places);
+        setChangedTrip(true);
+    }
+    return 0;
+    
 }
 
 function shuffleTrip(places, bulkAppend, setChangedTrip) {
-    let currentIndex = places.length,  randomIndex;
-    
-    while (currentIndex != 0) {
+    if(places != undefined) {
+        let currentIndex = places.length,  randomIndex;
+        
+        while (currentIndex != 0) {
 
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex--;
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
 
-        [places[currentIndex], places[randomIndex]] = [
-        places[randomIndex], places[currentIndex]];
+            [places[currentIndex], places[randomIndex]] = [
+            places[randomIndex], places[currentIndex]];
+        }
+
+        bulkAppend.bulkAppend(places);
+        setChangedTrip(true);
     }
-
-    bulkAppend.bulkAppend(places);
-    setChangedTrip(true);
+    return 0;
 }
