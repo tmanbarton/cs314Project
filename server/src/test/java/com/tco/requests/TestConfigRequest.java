@@ -13,7 +13,7 @@ public class TestConfigRequest {
 
   private ConfigRequest conf;
   private final ArrayList<String> ourFeatures =
-      new ArrayList<String>(Arrays.asList("config", "find", "distances"));
+      new ArrayList<String>(Arrays.asList("config", "find", "distances", "tour"));
 
   @BeforeEach
   public void createConfigurationForTestCases() {

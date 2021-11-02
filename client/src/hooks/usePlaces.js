@@ -11,20 +11,28 @@ export function usePlaces(serverSettings, showMessage) {
     const [places, setPlaces] = useState([]);
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const [distances, setDistances] = useState();
+    const [previous, setPrevious] = useState([]);
+    const currentTrip = places;
+
+    useEffect(()=>{
+        updatePrevious(previous, setPrevious, currentTrip);
+    }, [currentTrip]);
+
     useEffect(() => {
-        console.log(showMessage)
-      }, [showMessage])
-    const context = { places, setPlaces, selectedIndex, setSelectedIndex, serverSettings, showMessage, distances, setDistances };
+        console.log(showMessage);
+      }, [showMessage]);
+    const context = { places, setPlaces, selectedIndex, setSelectedIndex, previous, setPrevious, serverSettings, showMessage, distances, setDistances };
     const placeActions = {
         append: async (place) => append(place, context),
         removeAtIndex: (index) => removeAtIndex(index, context),
         removeAll: () => removeAll(context),
         selectIndex: (index) => selectIndex(index, context),
         moveToHome: () => moveToHome(context),
-        bulkAppend: async (newPlaces) => bulkAppend(newPlaces, context)
+        bulkAppend: async (newPlaces) => bulkAppend(newPlaces, context),
+        undo: () => undo(context)
     };
 
-    return {places, selectedIndex, placeActions, distances};
+    return {places, selectedIndex, placeActions, distances, previous};
 }
 
 async function bulkAppend(newPlaces, context){
@@ -41,14 +49,13 @@ async function append(place, context) {
     const { places, setPlaces, setSelectedIndex, serverSettings, showMessage, setDistances } = context;
 
     const fullPlace = await reverseGeocode(placeToLatLng(place));
-    places.push(fullPlace);
+    const newPlaces = [...places, fullPlace]
     
     if(serverSettings.serverConfig.features.indexOf("distances") > -1){
         buildAndSendDistanceRequest(places, setDistances, serverSettings, showMessage);
     }
-
-    setPlaces(places);
-    setSelectedIndex(places.length - 1);
+    setPlaces(newPlaces);
+    setSelectedIndex(newPlaces.length - 1);
 
 }
 
@@ -56,17 +63,22 @@ function buildAndSendDistanceRequest(newPlaces, setDistances, serverSettings, sh
     const request = buildDistanceRequest(formatPlaces(newPlaces), EARTH_RADIUS_UNITS_DEFAULT.miles);
     sendDistanceRequest(request, setDistances, serverSettings,showMessage);
 }
-function buildDistanceRequest(places, radius){
+export function buildDistanceRequest(places, radius){
 	return {
 		requestType: "distances",
 		places: places,
 		earthRadius: radius,
 	};
 }
-async function sendDistanceRequest(request, setDistances, serverSettings, showMessage) {
+export async function sendDistanceRequest(request, setDistances = undefined, serverSettings, showMessage) {
 	const distanceResponse = await sendAPIRequest(request, serverSettings.serverUrl);
 	if (distanceResponse && isJsonResponseValid(distanceResponse, distanceResponse)) {
-		setDistances(distanceResponse["distances"]);
+        if(setDistances){
+            setDistances(distanceResponse["distances"]);
+        }else{
+            return distanceResponse["distances"];
+        }
+		
 	} else {
 		showMessage(
 			`Distance request to ${serverSettings.serverUrl} failed. Check the log for more details.`,
@@ -129,9 +141,17 @@ async function moveToHome(context) {
     function onError(error) {
       console.log(error.message);
     }
-  }
+}
 
-//   export function getPlaces()
-//   {
-//       return places;
-//   }
+function updatePrevious(previous, setPrevious, places){
+     setPrevious([...previous, {places:formatPlaces(places)}]);
+}
+
+function undo(context){
+    const {previous, setPrevious} = context;
+    const n = previous.length - 1;
+    const lastTrip = previous[n - 1];
+    const newPrev = previous.filter((prev, i) => n !== i);
+    setPrevious(newPrev);
+    bulkAppend(lastTrip.places, context);
+}

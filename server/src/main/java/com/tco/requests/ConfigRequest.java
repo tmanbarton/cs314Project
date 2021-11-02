@@ -18,6 +18,7 @@ public class ConfigRequest extends Request {
         features.add("config");
         features.add("find");
         features.add("distances");
+        features.add("tour");
         log.trace("buildResponse -> {}", this);
     }
 
