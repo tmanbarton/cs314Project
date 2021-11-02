@@ -36,7 +36,7 @@ export default function Itinerary(props) {
 					showMessage={props.showMessage}
 				/>
 			</Collapse>	
-			<TotalDistances 
+			<TripHeader 
 				undo={props.placeActions.undo} 
 				distances={props.distances} 
 				places={props.places} 
@@ -51,15 +51,7 @@ export default function Itinerary(props) {
 					placeActions={props.placeActions}
 				/>
 			</Table>
-			{props.places.length > 0 ?
-				<TotalDistances 
-				undo={props.placeActions.undo} 
-				distances={props.distances} 
-				places={props.places} 
-				serverSettings={props.serverSettings} 
-				bulkAppend={props.placeActions.bulkAppend} 
-				showMessage={props.showMessage}/>	
-			: null}
+			{props.distances ? <TotalDistances distances={props.distances} /> : null}
 		</Container>
 	);
 }
@@ -210,29 +202,35 @@ function parseDistance(distances, index) {
 	}
 }
 
+function TripHeader(props){
+	return(
+	<Row>
+		<Col>
+			{props.distances ? <TotalDistances distances={props.distances} /> : null}
+		</Col>
+			{props.places.length > 0 ?
+			<TripActions 
+				distances={props.distances} 
+				places={props.places} 
+				serverSettings={props.serverSettings} 
+				bulkAppend={props.bulkAppend} 
+				undo={props.undo}/>
+			: null}
+	</Row>
+	);
+}
+
 function TotalDistances(props)
 {
-	if(props.distances){
-		const total = totalDistance(props.distances);
-		return (
-			<Row>
-				<Col>
-					<h5><FaMapSigns />{" "}<strong>Total Trip Distance: {total}</strong></h5>
-				</Col>
-				<TripActions distances={props.distances} places={props.places} serverSettings={props.serverSettings} bulkAppend={props.bulkAppend} undo={props.undo}/>
-			</Row>
-		);
-	}else{
-		return(
-			<Row>
-				<Col>
-				</Col>
-				<Collapse isOpen={props.places.length > 0}>
-					<TripActions distances={props.distances} places={props.places} serverSettings={props.serverSettings} bulkAppend={props.bulkAppend} undo={props.undo}/>
-				</Collapse>
-			</Row>
-		);
-	}
+	const total = totalDistance(props.distances)
+	return (
+		<Row>
+			<Col>
+				<h5><FaMapSigns />{" "}<strong>Total Trip Distance: {total}</strong></h5>
+			</Col>
+			
+		</Row>
+	);
 	
 }
 
