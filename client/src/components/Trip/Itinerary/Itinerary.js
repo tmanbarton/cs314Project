@@ -112,31 +112,46 @@ function Header(props) {
 
 const DragHandle = sortableHandle(() => <MdDragHandle size={30}/>);
 
+function splitName(placeName){
+	let seperated = placeName.split(',');
+
+	if(isNaN(seperated[0])){
+		return seperated;
+	}else{
+		const temp = seperated[0] + seperated[1];
+		seperated[0] = temp;
+		seperated.splice(1, 1);
+		return seperated;
+	}
+}
+
 const SortableItem = sortableElement( props  => {
-	const name = props.place.name ? props.place.name : "-";
+	const seperatedName = props.place.name ? splitName(props.place.name) : ["-"];
+	const name = seperatedName[0];
+	seperatedName.shift();
 	const location = latLngToText(placeToLatLng(props.place));
 	const distance = parseDistance(props.distances, props.id);
 	const units = "mi"; // at some point need to be dynamic
-	const numRow = .1
+	const numRow = .1;
+	const [rowClicked, setRowClicked] = useToggle(false);
 	return (
 		<tr>
 			<th>
-			<DragHandle style={{width: numRow + 'em'}}/>
+				<DragHandle style={{width: numRow + 'em'}}/>
 			</th>
-			<th scope="row" style={{width: numRow + 'em'}}> 
-				{props.id + 1}
-			</th>
-			<td style={{width: 100 + '%'}}> 
-				{name}
+			<td style={{width: 100 + '%'}} onClick={()=> clickedRow(props.place, setRowClicked)}> 
+				{name}{rowClicked && seperatedName.length > 0 ? ',' + seperatedName.join(',') : ''}
 				<br />
-				{ props.distances ?
-					<small>
-						<strong>One Way Distance: {distance} {units}</strong>
-					</small>
-				: null
-				}
-				<br />
-				<small className="text-muted">{location}</small>
+				<Collapse isOpen={rowClicked}>
+					{ props.distances ?
+						<small>
+							<strong>One Way Distance: {distance} {units}</strong>
+						</small>
+					: null
+					}
+					<br />
+					<small className="text-muted">{location}</small>
+				</Collapse>
 			</td>
 			<td style={{width: numRow + 'em'}}>
 				<FaTrash onClick={() => props.placeActions.removeAtIndex(props.id)} data-testid={`delete-button-${props.id}`}/>
@@ -144,6 +159,10 @@ const SortableItem = sortableElement( props  => {
 		</tr>
 	);
 })
+
+function clickedRow(place, setRowClicked){
+	setRowClicked();
+}
 
 const SortableContainer = sortableContainer(({children}) => {
 	return <ListGroup>{children}</ListGroup>;
