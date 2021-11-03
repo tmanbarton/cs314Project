@@ -88,10 +88,13 @@ public class TourRequest extends Request {
         } 
 
         // returns the index of closest destination from current point using distance matrix
-        private int find_closest(int index, boolean[] visited){ 
+        private int find_closest(int index, boolean[] visited, double end){ 
             var value = this.inf;
             var final_index = 0;
             for (var i = 0; i < this.distanceMatrix[index].length; i++) {
+                if (System.currentTimeMillis()+10 >= end){
+                    return final_index;
+                }
                 if (this.distanceMatrix[index][i] < value && visited[i]!=true && index!=i) {
                   value = this.distanceMatrix[index][i];
                   final_index = i;
@@ -112,16 +115,17 @@ public class TourRequest extends Request {
             double ms = this.response/2;
             double start = System.currentTimeMillis();
             double end = start + (ms*1000); 
-            while (System.currentTimeMillis() < end){
-                int tour_size = this.preOptimizedPlaces.size();
-                while (i < tour_size - 1){
-                    int close_index = find_closest(currrent, this.visited);
-                    i++;
-                    this.tour[i] = close_index;
-                    this.visited[close_index] = true;
-                    currrent = close_index;
+            int tour_size = this.preOptimizedPlaces.size();
+            while (i < tour_size - 1){
+                if (System.currentTimeMillis() >= end){
+                    return this.tour;
                 }
-            }
+                int close_index = find_closest(currrent, this.visited, end);
+                i++;
+                this.tour[i] = close_index;
+                this.visited[close_index] = true;
+                currrent = close_index;
+                }
             return this.tour;
         }
         else{
