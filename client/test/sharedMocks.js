@@ -10,6 +10,8 @@ export const INVALID_REQUEST = JSON.stringify({
 
 export const MOCK_PLACES = [
     { name: 'Place A', lat: 40.0, lng: 50.0 },
+    { name: 'Place B', lat: 45.0, lng: 55.0 },
+    { name: 'Place B', lat: 45.0, lng: 55.0 },
     { name: 'Place B', lat: 45.0, lng: 55.0 }
 ];
 
