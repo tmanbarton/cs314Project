@@ -12,7 +12,7 @@ This table lists each student in the team, the team they verified interoperabili
 | Name | Team | Time |
 | ---- | ---- | ---- |
 | Andy H | 3 | 45min |
-|Amir| 22| |
+|Amir| 22| 30mins|
 |Bill | 14| 30mins|
 | | 5| |
 | | 10| |
@@ -27,7 +27,7 @@ We found these problems when connecting our client to another team's server.
 | 3 | Save as json not working | N/A  |
 | 13 | Console.log found | already addressed  |
 |14| No problems encountered| N/A |
-
+|22| None found | N/A |
 
 ### Server Problems found
 
@@ -38,3 +38,4 @@ We found these problems when connecting the other team's client to our server.
 | 3 | Save as json not working | N/A  |
 | 14 | Distances unit says meters, but the actual values seems to be miles | N/A|
 | 14 | Other than units, no errors encountered | N/A |
+|22| None found| N/A |
