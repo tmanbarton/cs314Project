@@ -16,6 +16,7 @@ We note the amount of time each person spent reviewing the code in preparation f
 | Name | Preparation Time |
 | ---- | ---------------- |
 | Amir |  45mins          |
+| Andy |  45mins          |
 
 ### Problems found
 
@@ -26,3 +27,6 @@ We add a GitHub issue for each defect that requires a modification to the system
 | --------- | ------------------------------------------------------------- | :--------: | :-------: | ------- |
 | 84-105    | Could probably be moved into a different component.           |    Low     |   Amir    |         |
 | 182 - 197 | Could be moved into another file (transformers.js).           |    Low     |   Amir    |         |
+| 22-31     | Takes a lot of props (9) / could potentially be further broken up.|    Low     |   Andy    |         |
+| 120-146   | Solves styling issue with manual styling, shouldn't be needed.  |    Low     |   Andy    |         |
+| 22-31     | Takes a lot of props (9) / could potentially be further broken up.|    Low     |   Andy    |         |
