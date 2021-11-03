@@ -7,7 +7,6 @@ import { MOCK_PLACES } from "../../sharedMocks";
 import user from '@testing-library/user-event';
 import { sendAPIRequest } from '../../../src/utils/restfulAPI';
 
-
 describe('Trip Actions',()=>{
     const shuffleTrip = jest.fn();
     const reversePlaces = jest.fn();
@@ -24,18 +23,15 @@ describe('Trip Actions',()=>{
     const placesAlpha = jest.fn(()=> {
         return [{lat: '35.22', lng: '17.31', name: 'aPlace3'},{lat: '10.005', lng: '20.12', name: 'dPlace1'},{lat: '60.005', lng: '22.52', name: 'zPlace2'}];
     });
+
+    const append = jest.fn();
+    const serverSettings = {serverUrl: "http://localhost:8000"};
+    const distances = [1, 2, 3, 4];
     
 
     beforeEach(()=>{
-        render(<TripActions />);
-    });
-    it('renders', async ()=>{
-        const append = jest.fn();
-        const serverSettings = {serverUrl: "http://localhost:8000"};
-        const distances = [1, 2, 3, 4];
         render(<TripActions reversePlaces={reversePlaces} alphaSort={alphaSort} shuffleTrip={shuffleTrip} distances={distances} places={MOCK_PLACES} serverSettings={serverSettings} bulkAppend={append}/>);
     });
-    
 
     it('opens a menu', ()=>{
         const dropdown = screen.getByTestId('dropdown');
