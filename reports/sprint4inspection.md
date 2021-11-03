@@ -18,6 +18,7 @@ We note the amount of time each person spent reviewing the code in preparation f
 | Amir |  45mins          |
 | Andy |  45mins          |
 | Tyler | 45 mins         |
+| Bill | 45mins  |
 
 ### Problems found
 
@@ -33,3 +34,6 @@ We add a GitHub issue for each defect that requires a modification to the system
 | 22-31     | Takes a lot of props (9) / could potentially be further broken up.|    Low     |   Andy    |         |
 | 246-249   | Could make this a for in loop.                                |    Low     |   Tyler   |         |
 | 122-144   | React components instead of HTML tags?                        |    Low     |   Tyler   |         |
+|242-251 | Could be put into a different file that contains calculations on places | Low | Bill | |
+| 63-111 | Header as a whole could probably be broken up into atleast two components | Low | Bill | |
+| 182-end | Could restructure bottom of file so components are first, other funcs last for better readability | Low | Bill | |
