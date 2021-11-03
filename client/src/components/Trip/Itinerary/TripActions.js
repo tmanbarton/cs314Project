@@ -117,47 +117,44 @@ async function sendTourRequest(request, apiObject, tripObject, setChangedTrip){
     }    
 }
 function reversePlaces(places, bulkAppend, setChangedTrip) {
-    if(places != undefined) {
+    
     if(places.length > 2){
-	places.push(places[0]) 
-	places.shift();   
-	places.reverse();
-	bulkAppend.bulkAppend(places)
-	setChangedTrip(true);
+        places.push(places[0]) 
+        places.shift();   
+        places.reverse();
+        bulkAppend.bulkAppend(places)
+        setChangedTrip(true);
     }
-    }
-    return 0;
+    
 }
 
 function alphaSort(places, bulkAppend, setChangedTrip) {
-    if(places != undefined) {
-        places.sort(function(a, b){
-            if(a.name < b.name) { return -1; }
-            if(a.name > b.name) { return 1; }
-            return 0;
-        })
-        bulkAppend.bulkAppend(places);
-        setChangedTrip(true);
-    }
-    return 0;
+    
+    places.sort(function(a, b){
+        if(a.name < b.name) { return -1; }
+        if(a.name > b.name) { return 1; }
+        return 0;
+    })
+    bulkAppend.bulkAppend(places);
+    setChangedTrip(true);
+    
     
 }
 
 function shuffleTrip(places, bulkAppend, setChangedTrip) {
-    if(places != undefined) {
-        let currentIndex = places.length,  randomIndex;
-        
-        while (currentIndex != 0) {
+    
+    let currentIndex = places.length,  randomIndex;
+    
+    while (currentIndex != 0) {
 
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex--;
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
 
-            [places[currentIndex], places[randomIndex]] = [
-            places[randomIndex], places[currentIndex]];
-        }
-
-        bulkAppend.bulkAppend(places);
-        setChangedTrip(true);
+        [places[currentIndex], places[randomIndex]] = [
+        places[randomIndex], places[currentIndex]];
     }
-    return 0;
+
+    bulkAppend.bulkAppend(places);
+    setChangedTrip(true);
+    
 }
