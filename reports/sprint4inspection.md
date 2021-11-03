@@ -17,6 +17,7 @@ We note the amount of time each person spent reviewing the code in preparation f
 | ---- | ---------------- |
 | Amir |  45mins          |
 | Andy |  45mins          |
+| Tyler | 45 mins         |
 
 ### Problems found
 
@@ -30,3 +31,5 @@ We add a GitHub issue for each defect that requires a modification to the system
 | 22-31     | Takes a lot of props (9) / could potentially be further broken up.|    Low     |   Andy    |         |
 | 120-146   | Solves styling issue with manual styling, shouldn't be needed.  |    Low     |   Andy    |         |
 | 22-31     | Takes a lot of props (9) / could potentially be further broken up.|    Low     |   Andy    |         |
+| 246-249   | Could make this a for in loop.                                |    Low     |   Tyler   |         |
+| 122-144   | React components instead of HTML tags?                        |    Low     |   Tyler   |         |
