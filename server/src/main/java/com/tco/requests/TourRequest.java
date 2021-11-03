@@ -109,7 +109,7 @@ public class TourRequest extends Request {
             int i = 0;
             int currrent = 0; 
 
-            double ms = Math.floor(this.response/2);
+            double ms = this.response/2;
             double start = System.currentTimeMillis();
             double end = start + (ms*1000); 
             while (System.currentTimeMillis() < end){
