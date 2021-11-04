@@ -1,4 +1,4 @@
-import  React, { useState } from "react";
+import  React, { useEffect, useState } from "react";
 import { Table, Container, Row, Col, Collapse, Input, ListGroup } from "reactstrap";
 import { latLngToText, placeToLatLng } from "../../../utils/transformers";
 import { FaHome, FaTrashAlt, FaSearch, FaToolbox, FaMapSigns, FaTrash } from "react-icons/fa";
@@ -12,6 +12,7 @@ import {
 	sortableElement,
 	sortableHandle,
   } from 'react-sortable-hoc';
+import { reverseGeocode } from "../../../utils/reverseGeocode";
 
 export default function Itinerary(props) {
 	const [showSearch, toggleSearch] = useToggle(false);
@@ -125,10 +126,17 @@ function splitName(placeName){
 	}
 }
 
+function placeHasName(placeName){
+	return placeName;
+}
+
 const SortableItem = sortableElement( props  => {
-	const seperatedName = props.place.name ? splitName(props.place.name) : ["-"];
-	const name = seperatedName[0];
-	seperatedName.shift();
+	const[seperatedName, setSeperatedName] = useState(placeHasName(props.place.name) ? splitName(props.place.name) : ["-"]);
+	const[name, setName] = useState(seperatedName[0]);
+	useEffect(()=>{
+		setName(seperatedName[0]);
+	},[seperatedName]);
+	const [,...nameArr] = seperatedName;
 	const location = latLngToText(placeToLatLng(props.place));
 	const distance = parseDistance(props.distances, props.id);
 	const units = "mi"; // at some point need to be dynamic
@@ -139,8 +147,8 @@ const SortableItem = sortableElement( props  => {
 			<th>
 				<DragHandle style={{width: numRow + 'em'}}/>
 			</th>
-			<td style={{width: 100 + '%'}} onClick={()=> clickedRow(props.place, setRowClicked)}> 
-				{name}{rowClicked && seperatedName.length > 0 ? ',' + seperatedName.join(',') : ''}
+			<td style={{width: 100 + '%'}} onClick={()=> clickedRow(props.place, setRowClicked, seperatedName, setSeperatedName)}> 
+				{name}{rowClicked && nameArr.length > 0 ? ',' + nameArr.join(',') : ''}
 				<br />
 				<Collapse isOpen={rowClicked}>
 					{ props.distances ?
@@ -160,7 +168,11 @@ const SortableItem = sortableElement( props  => {
 	);
 })
 
-function clickedRow(place, setRowClicked){
+async function clickedRow(place, setRowClicked, seperatedName, setSeperatedName){
+	if(seperatedName.length === 1){
+		const fullName = await reverseGeocode(placeToLatLng(place));
+		setSeperatedName(splitName(`${placeHasName(place.name) ? place.name : ''}${fullName.name !== 'Unknown' ? ', ' + fullName.name : ', Unknown Place'}`));
+	}
 	setRowClicked();
 }
 
