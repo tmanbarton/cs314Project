@@ -14,8 +14,8 @@ This table lists each student in the team, the team they verified interoperabili
 | Andy H | 3 | 45min |
 |Amir| 22| 30mins|
 |Bill | 14| 30mins|
-| | 5| |
-| | 10| |
+|Sonu | 26| 25mins |
+|     | 10|        |
 
 ### Client Problems found
 
@@ -28,6 +28,7 @@ We found these problems when connecting our client to another team's server.
 | 13 | Console.log found | already addressed  |
 |14| No problems encountered| N/A |
 |22| None found | N/A |
+|26| Server config response json is invalid ERROR | N/A |
 
 ### Server Problems found
 
