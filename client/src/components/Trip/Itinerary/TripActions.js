@@ -99,15 +99,25 @@ function buildTourRequest(places){
     };
 }
 
+function evaluateOptimization(apiObject, diffTotal, setChangedTrip, optimizedPlaces){
+    if(diffTotal !== 0){
+        apiObject.showMessage(`Successfully optimized ${apiObject.tripName}. Saved ${diffTotal} miles!`, "success");
+        apiObject.bulkAppend(optimizedPlaces);
+        setChangedTrip(true);
+    }else{
+        apiObject.showMessage(`${apiObject.tripName} is already optimized!`, "info");
+        setChangedTrip(false);
+    }
+    
+}
+
 async function sendTourRequest(request, apiObject, tripObject, setChangedTrip){
     const prevTotal = totalDistance(tripObject.distances);
     const tourResponse = await sendAPIRequest(request, apiObject.serverSettings.serverUrl);
     if(tourResponse && isJsonResponseValid(tourResponse, SCHEMAS.tour)){
         const newTotal = totalDistance(await sendDistanceRequest(buildDistanceRequest(tourResponse.places, EARTH_RADIUS_UNITS_DEFAULT.miles), null, apiObject.serverSettings, apiObject.showMessage, true));
         const diffTotal = Math.abs(prevTotal - newTotal);
-        apiObject.showMessage(`Successfully optimized ${apiObject.tripName}. Saved ${diffTotal} miles!`, "success");
-        apiObject.bulkAppend(tourResponse.places);
-        setChangedTrip(true);
+        evaluateOptimization(apiObject, diffTotal, setChangedTrip, tourResponse.places);
     }else{
         apiObject.showMessage(
 			`Tour request to ${apiObject.serverSettings.serverUrl} failed. Check the log for more details.`,
