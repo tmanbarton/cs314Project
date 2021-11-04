@@ -39,8 +39,16 @@ public class TourRequest extends Request {
         this.earthRadius = earthRadius;
     }
 
+    public void setPlaces(Places places) {
+        this.places = places;
+    }
 
-    private class OptimizeTrip {
+    public Places getPlaces() {
+        return this.places;
+    }
+
+
+    public class OptimizeTrip {
         private int[] tour;
         private boolean[] visited;
         private double[][] distanceMatrix;
@@ -49,7 +57,7 @@ public class TourRequest extends Request {
         private double response;
         private double inf  = Math.pow(10, 1000);
         
-        private OptimizeTrip(Places Places, double earthRadius, double response){
+        public OptimizeTrip(Places Places, double earthRadius, double response){
             this.preOptimizedPlaces = places;
             this.earthRadius = earthRadius;
             this.response = response;
