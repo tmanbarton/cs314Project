@@ -6,7 +6,7 @@ We first identify the code we wish to inspect, determine the time we wish to mee
 |           | Details             |
 | --------- | ------------------- |
 | Subject   | _Itinerary.js_      |
-| Meeting   | _date, time, teams_ |
+| Meeting   | 11/03/2021, 5:30 pm, T13 |
 | Checklist | _checklist.md_      |
 
 ### Roles
@@ -18,7 +18,8 @@ We note the amount of time each person spent reviewing the code in preparation f
 | Amir |  45mins          |
 | Andy |  45mins          |
 | Tyler | 45 mins         |
-| Bill | 45mins  |
+| Bill | 45mins           |
+| Sonu | 40mins           |
 
 ### Problems found
 
@@ -37,3 +38,4 @@ We add a GitHub issue for each defect that requires a modification to the system
 |242-251 | Could be put into a different file that contains calculations on places | Low | Bill | |
 | 63-111 | Header as a whole could probably be broken up into atleast two components | Low | Bill | |
 | 182-end | Could restructure bottom of file so components are first, other funcs last for better readability | Low | Bill | |
+| 139 | Table does not necessarily has to display location. Details has to be shown only in the map | Low | Sonu | |
