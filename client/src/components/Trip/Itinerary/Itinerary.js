@@ -126,8 +126,12 @@ function splitName(placeName){
 	}
 }
 
+function placeHasName(placeName){
+	return placeName;
+}
+
 const SortableItem = sortableElement( props  => {
-	const[seperatedName, setSeperatedName] = useState(props.place.name ? splitName(props.place.name) : ["-"]);
+	const[seperatedName, setSeperatedName] = useState(placeHasName(props.place.name) ? splitName(props.place.name) : ["-"]);
 	const[name, setName] = useState(seperatedName[0]);
 	useEffect(()=>{
 		setName(seperatedName[0]);
@@ -167,7 +171,7 @@ const SortableItem = sortableElement( props  => {
 async function clickedRow(place, setRowClicked, seperatedName, setSeperatedName){
 	if(seperatedName.length === 1){
 		const fullName = await reverseGeocode(placeToLatLng(place));
-		setSeperatedName(splitName(`${place.name}${fullName.name !== 'Unknown' ? ', ' + fullName.name : ', Unknown Place'}`));
+		setSeperatedName(splitName(`${placeHasName(place.name) ? place.name : ''}${fullName.name !== 'Unknown' ? ', ' + fullName.name : ', Unknown Place'}`));
 	}
 	setRowClicked();
 }
