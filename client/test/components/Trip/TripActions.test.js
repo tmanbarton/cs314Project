@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { beforeEach, describe, expect, it } from '@jest/globals';
+import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import TripActions from '../../../src/components/Trip/Itinerary/TripActions';
 import { MOCK_PLACES } from "../../sharedMocks";
 import user from '@testing-library/user-event';
@@ -27,10 +27,12 @@ describe('Trip Actions',()=>{
     const append = jest.fn();
     const serverSettings = {serverUrl: "http://localhost:8000"};
     const distances = [1, 2, 3, 4];
+    const undo = jest.fn();
+
     
 
     beforeEach(()=>{
-        render(<TripActions reversePlaces={reversePlaces} alphaSort={alphaSort} shuffleTrip={shuffleTrip} distances={distances} places={MOCK_PLACES} serverSettings={serverSettings} bulkAppend={append}/>);
+        render(<TripActions undo={undo} reversePlaces={reversePlaces} alphaSort={alphaSort} shuffleTrip={shuffleTrip} distances={distances} places={MOCK_PLACES} serverSettings={serverSettings} bulkAppend={append}/>);
     });
 
     it('opens a menu', ()=>{
@@ -69,6 +71,17 @@ describe('Trip Actions',()=>{
         expect(alphaSort).toHaveBeenCalled();
         expect(places == placesAlpha);
     });
+
+    it('Allows the User to confirm the optimization', ()=>{
+        const saveBtn = screen.getByTestId('save-btn');
+        user.click(saveBtn);
+    });
+
+    it('Allows the User to revert the optimization changes', ()=>{
+        const undoBtn = screen.getByTestId('undo-btn');
+        user.click(undoBtn);
+    });
+
 
 
 });

@@ -47,25 +47,17 @@ describe('Trip Toolbox Modal', ()=>{
         expect(input.files[0]).toStrictEqual(file);
     });
 
-    it('has a CSV download button', ()=>{
-        const download = screen.getByTestId('CSV-download-button');
-        expect(download).toBeTruthy();
-    });
-
-    it('has a JSON download button', ()=>{
-        const download = screen.getByTestId('JSON-download-button');
-        expect(download).toBeTruthy();
-    });
-
     it('Downloads a CSV file', ()=>{
         global.URL.createObjectURL = jest.fn();
         const download = screen.getByTestId('CSV-download-button');
+        expect(download).toBeTruthy();
         user.click(download);
     });
 
     it('Downloads a JSO file', ()=>{
         global.URL.createObjectURL = jest.fn();
         const download = screen.getByTestId('JSON-download-button');
+        expect(download).toBeTruthy();
         user.click(download);
     });
 
