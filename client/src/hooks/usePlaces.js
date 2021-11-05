@@ -70,15 +70,14 @@ export function buildDistanceRequest(places, radius){
 		earthRadius: radius,
 	};
 }
-export async function sendDistanceRequest(request, setDistances, serverSettings, showMessage, returnDistance = false) {
+export async function sendDistanceRequest(request, setDistances, serverSettings, showMessage) {
 	const distanceResponse = await sendAPIRequest(request, serverSettings.serverUrl);
 	if (distanceResponse && isJsonResponseValid(distanceResponse, distanceResponse)) {
-        if(!returnDistance){
+        if(setDistances){
             setDistances(distanceResponse["distances"]);
-        }else{
-            return distanceResponse["distances"];
         }
-		
+        return distanceResponse["distances"];
+        
 	} else {
 		showMessage(
 			`Distance request to ${serverSettings.serverUrl} failed. Check the log for more details.`,
