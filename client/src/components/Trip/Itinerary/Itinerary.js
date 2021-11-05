@@ -14,6 +14,8 @@ import {
   } from 'react-sortable-hoc';
 import { reverseGeocode } from "../../../utils/reverseGeocode";
 
+const csuGold = '#C8C372';
+
 export default function Itinerary(props) {
 	const [showSearch, toggleSearch] = useToggle(false);
 	const [showToolbox, toggleToolbox ] = useToggle(false);
@@ -54,6 +56,8 @@ export default function Itinerary(props) {
 					distances={props.distances}
 					places={props.places}
 					placeActions={props.placeActions}
+					selectedIndex={props.selectedIndex}
+					setSelectedIndex={props.setSelectedIndex}
 				/>
 			</Table>
 			{props.distances ? <TotalDistances distances={props.distances} /> : null}
@@ -142,12 +146,20 @@ const SortableItem = sortableElement( props  => {
 	const units = "mi"; // at some point need to be dynamic
 	const numRow = .1;
 	const [rowClicked, setRowClicked] = useToggle(false);
+	const rowStates = {
+		setRowClicked: setRowClicked,
+		setSeperatedName: setSeperatedName,
+		seperatedName: seperatedName,
+		setSelectedIndex: props.setSelectedIndex,
+		index: props.id,
+		place: props.place
+	}
 	return (
-		<tr>
+		<tr style={{backgroundColor: props.selectedIndex === props.id ? csuGold : ''}}>
 			<th>
 				<DragHandle style={{width: numRow + 'em'}}/>
 			</th>
-			<td style={{width: 100 + '%'}} onClick={()=> clickedRow(props.place, setRowClicked, seperatedName, setSeperatedName)}> 
+			<td style={{width: 100 + '%'}} onClick={()=> clickedRow(rowStates)}> 
 				{name}{rowClicked && nameArr.length > 0 ? ',' + nameArr.join(',') : ''}
 				<br />
 				<Collapse isOpen={rowClicked}>
@@ -168,12 +180,13 @@ const SortableItem = sortableElement( props  => {
 	);
 })
 
-async function clickedRow(place, setRowClicked, seperatedName, setSeperatedName){
-	if(seperatedName.length === 1){
-		const fullName = await reverseGeocode(placeToLatLng(place));
-		setSeperatedName(splitName(`${placeHasName(place.name) ? place.name : ''}${fullName.name !== 'Unknown' ? ', ' + fullName.name : ', Unknown Place'}`));
+async function clickedRow(rowStates){
+	if(rowStates.seperatedName.length === 1){
+		const fullName = await reverseGeocode(placeToLatLng(rowStates.place));
+		rowStates.setSeperatedName(splitName(`${placeHasName(rowStates.place.name) ? rowStates.place.name : ''}${fullName.name !== 'Unknown' ? ', ' + fullName.name : ', Unknown Place'}`));
 	}
-	setRowClicked();
+	rowStates.setSelectedIndex(rowStates.index);
+	rowStates.setRowClicked();
 }
 
 const SortableContainer = sortableContainer(({children}) => {
@@ -201,6 +214,8 @@ function Body(props) {
 					index={index}
 					places={props.places}
 					distances={props.distances} 
+					selectedIndex={props.selectedIndex}
+					setSelectedIndex={props.setSelectedIndex}
 					id={i}
 					lockToContainerEdges={true}
 					/>
