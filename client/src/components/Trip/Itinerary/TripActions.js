@@ -115,7 +115,7 @@ async function sendTourRequest(request, apiObject, tripObject, setChangedTrip){
     const prevTotal = totalDistance(tripObject.distances);
     const tourResponse = await sendAPIRequest(request, apiObject.serverSettings.serverUrl);
     if(tourResponse && isJsonResponseValid(tourResponse, SCHEMAS.tour)){
-        const newTotal = totalDistance(await sendDistanceRequest(buildDistanceRequest(tourResponse.places, EARTH_RADIUS_UNITS_DEFAULT.miles), null, apiObject.serverSettings, apiObject.showMessage, true));
+        const newTotal = totalDistance(await sendDistanceRequest(buildDistanceRequest(tourResponse.places, EARTH_RADIUS_UNITS_DEFAULT.miles), undefined, apiObject.serverSettings, apiObject.showMessage));
         const diffTotal = Math.abs(prevTotal - newTotal);
         evaluateOptimization(apiObject, diffTotal, setChangedTrip, tourResponse.places);
     }else{
