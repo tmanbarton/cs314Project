@@ -32,7 +32,7 @@ export function usePlaces(serverSettings, showMessage) {
         undo: () => undo(context)
     };
 
-    return {places, selectedIndex, placeActions, distances, previous};
+    return {places, selectedIndex, placeActions, distances, setSelectedIndex};
 }
 
 async function bulkAppend(newPlaces, context){
@@ -42,7 +42,7 @@ async function bulkAppend(newPlaces, context){
         buildAndSendDistanceRequest(formattedPlaces, setDistances, serverSettings, showMessage);
     }
     setPlaces(formattedPlaces);
-    setSelectedIndex(formattedPlaces.length - 1);
+    setSelectedIndex(0);
 }
 
 async function append(place, context) {
