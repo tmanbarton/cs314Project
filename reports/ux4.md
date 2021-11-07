@@ -36,7 +36,7 @@ Age, nationality, and other background information can sometimes be helpful unde
 
 | Pseudonym | Demographics |
 | :--- | :--- |
-|  |  |
+| Cube | 19, American, Male, Sophomore CS Major |
 
 
 ### Observations
@@ -46,6 +46,8 @@ Record the success, failures, and problems the user encountered for each task.
 Note any aid that wass given along with anything you notice from their use of the application.
 Add issues to GitHub for any changes necessary to the system.
 
-| Task | problem, aid, observation | hi/med/low | github#  |
+| Task | problem, aid, observation | hi/med/low | github# |
 | :--- | :--- | :---: | :---: | 
-| | | | | 
+| Add tooltips for icons | Icons weren't enough for Cube to know what each one does. He wished there were tooltips to know what they do without trial and error. | med | 533 |
+| Show distances when an item in the itinerary is collapsed | Cube was didn't find the total distance useful at first. He didn't know you could expand the items in the itinerary. I had to help him there. Then he thought the distances were all from the starting place and didn't sum to the total. I had to explain that it was a round trip and that there was one more distance added to get the total. He thought it would be nice to see the distances without clicking into the list item. | low | 534 |
+| Find alternative to "save changes" when trip is changed | Cube didn't like having to confirm changes every time he changed the trip and thought that it might be saving the trip to local storage. | low | 535 |
