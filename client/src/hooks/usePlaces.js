@@ -28,21 +28,25 @@ export function usePlaces(serverSettings, showMessage) {
         removeAll: () => removeAll(context),
         selectIndex: (index) => selectIndex(index, context),
         moveToHome: () => moveToHome(context),
-        bulkAppend: async (newPlaces) => bulkAppend(newPlaces, context),
+        bulkAppend: async (newPlaces, selectedPlace) => bulkAppend(newPlaces, selectedPlace, context),
         undo: () => undo(context)
     };
 
     return {places, selectedIndex, placeActions, distances, setSelectedIndex};
 }
 
-async function bulkAppend(newPlaces, context){
+async function bulkAppend(newPlaces, selectedPlace={}, context){
     const {setPlaces, setSelectedIndex, setDistances, serverSettings, showMessage} = context;
     const formattedPlaces = formatPlaces(newPlaces);
     if(serverSettings.serverConfig.features.indexOf("distances") > -1){
         buildAndSendDistanceRequest(formattedPlaces, setDistances, serverSettings, showMessage);
     }
     setPlaces(formattedPlaces);
-    setSelectedIndex(0);
+    if(Object.keys(selectedPlace).length !== 0){
+        setSelectedIndex(newPlaces.indexOf(selectedPlace));
+    }else{
+        setSelectedIndex(0);
+    }
 }
 
 async function append(place, context) {

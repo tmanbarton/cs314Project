@@ -197,9 +197,10 @@ const SortableContainer = sortableContainer(({children}) => {
 function Body(props) {
 	const [places, setPlace] = useState(props.places);
 	let onSortEnd = ({oldIndex, newIndex}) => {
-		  let newplace = arrayMove(props.places, oldIndex, newIndex)
-		  setPlace(newplace)
-		  props.placeActions.bulkAppend(newplace) 
+		  let newplace = arrayMove(props.places, oldIndex, newIndex);
+		  const selectedPlace = props.places[props.selectedIndex];
+		  setPlace(newplace);
+		  props.placeActions.bulkAppend(newplace, selectedPlace); 
 		};
 	let i = -1;
 	return (
