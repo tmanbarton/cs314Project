@@ -16,7 +16,7 @@ public class TourRequest extends Request {
 
     @Override
     public void buildResponse(){
-        if (response <= 0.001){ // send back places unchanged
+        if (response == 0 || places.size() < 4){ // send back places unchanged
             return;
         }
         if (places != null){
@@ -56,11 +56,13 @@ public class TourRequest extends Request {
         private double earthRadius;
         private double response;
         private double inf  = Math.pow(10, 1000);
+        private long start;
         
         public OptimizeTrip(Places Places, double earthRadius, double response){
+            this.start = System.currentTimeMillis();
             this.preOptimizedPlaces = places;
             this.earthRadius = earthRadius;
-            this.response = response;
+            this.response = (response * 1000) * .5;
         }
 
 
@@ -73,6 +75,7 @@ public class TourRequest extends Request {
             for(int i = 0; i < placeSize; i++){
                 this.tour[i] = i;
                 this.visited[i] = false;
+                if(outOfTime()) break;
                 for (int j = 0; j < this.preOptimizedPlaces.size(); j++) {
                     double latitude1 = Double.parseDouble(this.preOptimizedPlaces.get(i).get("latitude"));
                     double latitude2 = Double.parseDouble(this.preOptimizedPlaces.get(j).get("latitude"));
@@ -80,9 +83,12 @@ public class TourRequest extends Request {
                     double longitude2 = Double.parseDouble(this.preOptimizedPlaces.get(j).get("longitude"));
                     this.distanceMatrix[i][j] =
                         calculator.computeDistance(latitude1, latitude2, longitude1, longitude2);
+                    if(outOfTime()){
+                        break;
+                    }
+                }
             }
         }
-    }
         // returns an optimized list of places
         public Places optimize(){
             int[] optimizedTour = nearestNeighbor(this.tour);
@@ -91,6 +97,7 @@ public class TourRequest extends Request {
                 int indexOfPlace = this.tour[i];
                 Place temp = this.preOptimizedPlaces.get(indexOfPlace);
                 optimizedTrip.set(i, temp);
+                if(outOfTime()) break;
             }
             return optimizedTrip;
         } 
@@ -104,6 +111,7 @@ public class TourRequest extends Request {
                   value = this.distanceMatrix[index][i];
                   final_index = i;
                 }
+                if(outOfTime()) break;
             }
             return final_index;
         }
@@ -116,26 +124,26 @@ public class TourRequest extends Request {
             this.visited[0] = true;
             int i = 0;
             int currrent = 0; 
-
-            double ms = this.response/2;
-            double start = System.currentTimeMillis();
-            double end = start + (ms*1000); 
-            while (System.currentTimeMillis() < end){
-                int tour_size = this.preOptimizedPlaces.size();
-                while (i < tour_size - 1){
-                    int close_index = find_closest(currrent, this.visited);
-                    i++;
-                    this.tour[i] = close_index;
-                    this.visited[close_index] = true;
-                    currrent = close_index;
-                }
+            int tour_size = this.preOptimizedPlaces.size();
+            while (i < tour_size - 1){
+                int close_index = find_closest(currrent, this.visited);
+                i++;
+                this.tour[i] = close_index;
+                this.visited[close_index] = true;
+                currrent = close_index;
+                if(outOfTime()) break;
+                
             }
+            
             return this.tour;
+            }else{
+                this.tour[0] = 0;
+                return this.tour;
+            }
         }
-        else{
-            this.tour[0] = 0;
-            return this.tour;
+        
+        private boolean outOfTime(){
+            return System.currentTimeMillis() > this.start + (long)this.response;
         }
-    }
     }
 }
