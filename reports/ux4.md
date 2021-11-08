@@ -26,10 +26,8 @@ Consider this a failure when it happens.
 10. Remove as many places from the trip as you want
 
 ### Post Tasks Questions 
-Was it easy to complete all the tasks? If not, why?
-How does this compare to other trip planning applications?
-Would you use this application to plan your next trip? Why/why not?
-
+|Pseudonym|Was it easy to complete all the tasks? If not, why?|How does this compare to other trip planning applications?|Would you use this application to plan your next trip? Why/why not?|
+| Isabel | Unclear how to modify trip besides basic dragging. | Easier to plan in advance/bulk than GPS maps. | Would use if already knew general idea of trip she would want to take. |
 ### Demographics
 
 Age, nationality, and other background information can sometimes be helpful understanding the problems a user encountered.
@@ -37,8 +35,7 @@ Age, nationality, and other background information can sometimes be helpful unde
 | Pseudonym | Demographics |
 | :--- | :--- |
 | Cube | 19, American, Male, Sophomore CS Major |
-
-
+| Isabel | 20, White, Female, Communications Major Junior |
 ### Observations
 
 Note the users interactions with the system for each of the tasks.
@@ -51,3 +48,6 @@ Add issues to GitHub for any changes necessary to the system.
 | Add tooltips for icons | Icons weren't enough for Cube to know what each one does. He wished there were tooltips to know what they do without trial and error. | med | 533 |
 | Show distances when an item in the itinerary is collapsed | Cube was didn't find the total distance useful at first. He didn't know you could expand the items in the itinerary. I had to help him there. Then he thought the distances were all from the starting place and didn't sum to the total. I had to explain that it was a round trip and that there was one more distance added to get the total. He thought it would be nice to see the distances without clicking into the list item. | low | 534 |
 | Find alternative to "save changes" when trip is changed | Cube didn't like having to confirm changes every time he changed the trip and thought that it might be saving the trip to local storage. | low | 535 |
+| Make modify trip more clear | Isabel at first did not know where the modify trip buttons were located, until she had finished exploring the whole app. | low | TBD |
+| Add showMessage or promt whenever appending a place | Isabel noted that the only way she knew a place was being added was when the distances updated. | med | TBD |
+| Add units to total distances | Pretty self explanatory. | med | TBD |
