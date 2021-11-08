@@ -61,4 +61,12 @@ public class TestFindRequest {
     assertEquals(dbqFound, findFound);
   }
 
+  @Test
+  @DisplayName("Returns places with limit 0")
+  public void testLimitZero(){
+    find.setLimit(0);
+    find.buildResponse();
+    assertTrue(find.getPlaces().size() > 0);
+  }
+
 }
