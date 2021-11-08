@@ -21,6 +21,7 @@ export function usePlaces(serverSettings, showMessage) {
     useEffect(() => {
         console.log(showMessage);
       }, [showMessage]);
+    
     const context = { places, setPlaces, selectedIndex, setSelectedIndex, previous, setPrevious, serverSettings, showMessage, distances, setDistances };
     const placeActions = {
         append: async (place) => append(place, context),
@@ -130,20 +131,26 @@ function selectIndex(index, context) {
 }
 
 async function moveToHome(context) {
-    if (navigator.geolocation) {
-      await navigator.geolocation.getCurrentPosition(onSuccess, onError);
-    }
-    
-    function onSuccess({coords}) {
-      const place = {latitude: coords.latitude, longitude: coords.longitude};
-      append(place, context);
-  
-    //   console.log(`The user is located at ${JSON.stringify(place)}.`); // use LOG.info() instead
-    }
-  
-    function onError(error) {
-      console.log(error.message);
-    }
+	const { places, selectedIndex } = context;
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(onSuccess, onError);
+	}
+
+	function onSuccess({ coords }) {
+		const place = {
+			latitude: '' + coords.latitude,
+			longitude: '' + coords.longitude,
+			name: "Home",
+		};
+        const newPlaces = [place, ...places];
+		const selectedPlace = places[selectedIndex];
+		bulkAppend(newPlaces, selectedPlace, context);
+		//   console.log(`The user is located at ${JSON.stringify(place)}.`); // use LOG.info() instead
+	}
+
+	function onError(error) {
+		console.log(error.message);
+	}
 }
 
 function updatePrevious(previous, setPrevious, places){
