@@ -27,13 +27,13 @@ export default function TripActions(props){
                         <IoIosSpeedometer data-testid="optimize" onClick={()=> optimizeTrip(tripObject,{bulkAppend: props.bulkAppend, serverSettings: props.serverSettings, showMessage: props.showMessage, tripName: props.tripName}, setChangedTrip)} size={24}/>
                     </DropdownItem>
                     <DropdownItem>
-                        <FaSortAlphaDown data-testid="alphasort" onClick={()=> alphaSort(tripObject, {bulkAppend: props.bulkAppend}, setChangedTrip)} size ={24}/>
+                        <FaSortAlphaDown data-testid="alphasort" onClick={()=> alphaSort(tripObject, {bulkAppend: props.bulkAppend}, props.selectedIndex, setChangedTrip)} size ={24}/>
                     </DropdownItem>
                     <DropdownItem>
-                        <ImShuffle data-testid="shuffleBtn" onClick={()=> shuffleTrip(tripObject, {bulkAppend: props.bulkAppend}, setChangedTrip)} size = {24}/>
+                        <ImShuffle data-testid="shuffleBtn" onClick={()=> shuffleTrip(tripObject, {bulkAppend: props.bulkAppend}, props.selectedIndex, setChangedTrip)} size = {24}/>
                     </DropdownItem>
                     <DropdownItem>
-                        <FaAngleDoubleLeft data-testid="reverse" onClick={()=> reversePlaces(tripObject, {bulkAppend: props.bulkAppend}, setChangedTrip)}  size = {24} />
+                        <FaAngleDoubleLeft data-testid="reverse" onClick={()=> reversePlaces(tripObject, {bulkAppend: props.bulkAppend}, props.selectedIndex, setChangedTrip)}  size = {24} />
                     </DropdownItem>
                 </ActionsDropdown>
             </Collapse>
@@ -126,32 +126,36 @@ async function sendTourRequest(request, apiObject, tripObject, setChangedTrip){
         setChangedTrip(false);
     }    
 }
-function reversePlaces(tripObject, bulkAppend, setChangedTrip) {
+function reversePlaces(tripObject, bulkAppend, selectedIndex, setChangedTrip) {
+    const selectedPlace = tripObject.places[selectedIndex];
     
     if(tripObject.places.length > 2){
         tripObject.places.push(tripObject.places[0]) 
         tripObject.places.shift();   
         tripObject.places.reverse();
-        bulkAppend.bulkAppend(tripObject.places)
+
+        bulkAppend.bulkAppend(tripObject.places, selectedPlace);
         setChangedTrip(true);
     }
     
 }
 
-function alphaSort(tripObject, bulkAppend, setChangedTrip) {
+function alphaSort(tripObject, bulkAppend, selectedIndex, setChangedTrip) {
+    const selectedPlace = tripObject.places[selectedIndex];
     
     tripObject.places.sort(function(a, b){
         if(a.name < b.name) { return -1; }
         if(a.name > b.name) { return 1; }
         return 0;
     })
-    bulkAppend.bulkAppend(tripObject.places);
+    bulkAppend.bulkAppend(tripObject.places, selectedPlace);
     setChangedTrip(true);
     
     
 }
 
-function shuffleTrip(tripObject, bulkAppend, setChangedTrip) {
+function shuffleTrip(tripObject, bulkAppend, selectedIndex, setChangedTrip) {
+    const selectedPlace = tripObject.places[selectedIndex];
     
     let currentIndex = tripObject.places.length,  randomIndex;
     
@@ -164,7 +168,7 @@ function shuffleTrip(tripObject, bulkAppend, setChangedTrip) {
         tripObject.places[randomIndex], tripObject.places[currentIndex]];
     }
 
-    bulkAppend.bulkAppend(tripObject.places);
+    bulkAppend.bulkAppend(tripObject.places, selectedPlace);
     setChangedTrip(true);
     
 }

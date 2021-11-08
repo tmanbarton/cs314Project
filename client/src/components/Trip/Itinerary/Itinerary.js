@@ -49,7 +49,9 @@ export default function Itinerary(props) {
 				disableTour={props.disableTour} 
 				serverSettings={props.serverSettings} 
 				bulkAppend={props.placeActions.bulkAppend} 
-				showMessage={props.showMessage}/>
+				showMessage={props.showMessage}
+				selectedIndex={props.selectedIndex}
+				/>
 			<br />		
 			<Table responsive striped>
 				<Body
@@ -259,6 +261,7 @@ function TripHeader(props){
 		</Col>
 			{props.places.length > 0 ?
 			<TripActions
+				selectedIndex={props.selectedIndex}
 				tripName={props.tripName}
 				disableTour={props.disableTour}
 				distances={props.distances} 
