@@ -75,9 +75,7 @@ public class TourRequest extends Request {
             for(int i = 0; i < placeSize; i++){
                 this.tour[i] = i;
                 this.visited[i] = false;
-                if(System.currentTimeMillis() > this.start + (long)this.response){
-                    break;
-                }
+                if(outOfTime()) break;
                 for (int j = 0; j < this.preOptimizedPlaces.size(); j++) {
                     double latitude1 = Double.parseDouble(this.preOptimizedPlaces.get(i).get("latitude"));
                     double latitude2 = Double.parseDouble(this.preOptimizedPlaces.get(j).get("latitude"));
@@ -85,12 +83,12 @@ public class TourRequest extends Request {
                     double longitude2 = Double.parseDouble(this.preOptimizedPlaces.get(j).get("longitude"));
                     this.distanceMatrix[i][j] =
                         calculator.computeDistance(latitude1, latitude2, longitude1, longitude2);
-                    if(System.currentTimeMillis() > this.start + (long)this.response){
+                    if(outOfTime()){
                         break;
                     }
+                }
             }
         }
-    }
         // returns an optimized list of places
         public Places optimize(){
             int[] optimizedTour = nearestNeighbor(this.tour);
@@ -99,9 +97,7 @@ public class TourRequest extends Request {
                 int indexOfPlace = this.tour[i];
                 Place temp = this.preOptimizedPlaces.get(indexOfPlace);
                 optimizedTrip.set(i, temp);
-                if(System.currentTimeMillis() > this.start + (long)this.response){
-                    break;
-                }
+                if(outOfTime()) break;
             }
             return optimizedTrip;
         } 
@@ -115,9 +111,7 @@ public class TourRequest extends Request {
                   value = this.distanceMatrix[index][i];
                   final_index = i;
                 }
-                if(System.currentTimeMillis() > this.start + (long)this.response){
-                    break;
-                }
+                if(outOfTime()) break;
             }
             return final_index;
         }
@@ -137,17 +131,19 @@ public class TourRequest extends Request {
                 this.tour[i] = close_index;
                 this.visited[close_index] = true;
                 currrent = close_index;
-                if(System.currentTimeMillis() > this.start + (long)this.response){
-                    break;
-                }
+                if(outOfTime()) break;
+                
             }
             
             return this.tour;
+            }else{
+                this.tour[0] = 0;
+                return this.tour;
+            }
         }
-        else{
-            this.tour[0] = 0;
-            return this.tour;
+        
+        private boolean outOfTime(){
+            return System.currentTimeMillis() > this.start + (long)this.response;
         }
-    }
     }
 }
