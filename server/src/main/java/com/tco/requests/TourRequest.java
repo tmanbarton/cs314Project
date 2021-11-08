@@ -116,6 +116,7 @@ public class TourRequest extends Request {
                     finalTrip = optimizedTrip;
                     prev = total_distance;
                 }
+                if(outOfTime()) break;
             }
             return finalTrip;
         } 
@@ -169,6 +170,7 @@ public class TourRequest extends Request {
             for (var i = 0; i < distances.size(); i++)
             {
                 total += distances.get(i);
+                if(outOfTime()) break;
             }
             return total;
         }	
