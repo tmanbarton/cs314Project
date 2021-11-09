@@ -46,7 +46,7 @@ function ConfirmAction(props){
     return(
         <Container>
             <Col>
-                <p><strong>Save Changes?</strong></p>
+                <p><strong>Confirm Changes?</strong></p>
                 <Col>
                     <div>
                         <FaCheckSquare data-testid="save-btn" color={csuSuccess} size={30} onClick={()=>props.setChangedTrip(false)} />
