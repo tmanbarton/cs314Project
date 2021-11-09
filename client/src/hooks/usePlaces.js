@@ -36,18 +36,14 @@ export function usePlaces(serverSettings, showMessage) {
     return {places, selectedIndex, placeActions, distances, setSelectedIndex};
 }
 
-async function bulkAppend(newPlaces, selectedPlace={}, context){
+async function bulkAppend(newPlaces, index=0, context){
     const {setPlaces, setSelectedIndex, setDistances, serverSettings, showMessage} = context;
     const formattedPlaces = formatPlaces(newPlaces);
     if(serverSettings.serverConfig.features.indexOf("distances") > -1){
         buildAndSendDistanceRequest(formattedPlaces, setDistances, serverSettings, showMessage);
     }
     setPlaces(formattedPlaces);
-    if(Object.keys(selectedPlace).length !== 0){
-        setSelectedIndex(newPlaces.indexOf(selectedPlace));
-    }else{
-        setSelectedIndex(0);
-    }
+    setSelectedIndex(index);
 }
 
 async function append(place, context) {
@@ -157,11 +153,28 @@ function updatePrevious(previous, setPrevious, places){
      setPrevious([...previous, {places:formatPlaces(places)}]);
 }
 
-function undo(context){
-    const {previous, setPrevious} = context;
-    const n = previous.length - 1;
-    const lastTrip = previous[n - 1];
-    const newPrev = previous.filter((prev, i) => n !== i);
-    setPrevious(newPrev);
-    bulkAppend(lastTrip.places, undefined, context);
+function undo(context) {
+	const { places, selectedIndex, previous, setPrevious } = context;
+	const n = previous.length - 1;
+	const selectedPlace = places[selectedIndex];
+	const lastTrip = previous[n - 1].place ? previous[n - 1].place : [];
+	const newPrev = previous.filter((prev, i) => n !== i);
+	for (let i = 0; i < lastTrip.length; i++) {
+		if (isSelectedPlace(lastTrip[i], selectedPlace)) {
+			bulkAppend(lastTrip, i, context);
+			setPrevious(newPrev);
+			break;
+		}
+	}
+	// Why doesn't this work 😭
+	// bulkAppend(lastTrip, lastTrip.indexOf(selectedPlace), context);
+	// setPrevious(newPrev);
+}
+
+function isSelectedPlace(lastTripPlace, selectedPlace) {
+	return (
+		lastTripPlace.name === selectedPlace.name &&
+		lastTripPlace.latitude === selectedPlace.latitude &&
+		lastTripPlace.longitude === selectedPlace.longitude
+	);
 }
