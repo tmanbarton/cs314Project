@@ -74,7 +74,7 @@ function ActionsDropdown(props) {
         size="sm"
         >
             <DropdownToggle>
-                Options       <FaSlidersH size="1.5em" />
+                Modify       <FaSlidersH size="1.5em" />
             </DropdownToggle>
             <DropdownMenu right>
                 
