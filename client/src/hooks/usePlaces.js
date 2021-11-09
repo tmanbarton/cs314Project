@@ -140,7 +140,8 @@ async function moveToHome(context) {
 		};
         const newPlaces = [place, ...places];
 		const selectedPlace = places[selectedIndex];
-		bulkAppend(newPlaces, selectedPlace, context);
+        const index = selectedPlace ? getPlaceIndex(newPlaces, selectedPlace) : 0;
+		bulkAppend(newPlaces, index, context);
 		//   console.log(`The user is located at ${JSON.stringify(place)}.`); // use LOG.info() instead
 	}
 
@@ -157,18 +158,22 @@ function undo(context) {
 	const { places, selectedIndex, previous, setPrevious } = context;
 	const n = previous.length - 1;
 	const selectedPlace = places[selectedIndex];
-	const lastTrip = previous[n - 1].place ? previous[n - 1].place : [];
+	const lastTrip = previous[n - 1] ? previous[n - 1] : [];
 	const newPrev = previous.filter((prev, i) => n !== i);
-	for (let i = 0; i < lastTrip.length; i++) {
-		if (isSelectedPlace(lastTrip[i], selectedPlace)) {
-			bulkAppend(lastTrip, i, context);
-			setPrevious(newPrev);
-			break;
-		}
-	}
+    const index = getPlaceIndex(lastTrip.places, selectedPlace);
+    bulkAppend(lastTrip.places, index, context);
+    setPrevious(newPrev);
 	// Why doesn't this work 😭
 	// bulkAppend(lastTrip, lastTrip.indexOf(selectedPlace), context);
 	// setPrevious(newPrev);
+}
+
+function getPlaceIndex(newPlaces, selectedPlace){
+    for(let i = 0; i < newPlaces.length; i++){
+        if(isSelectedPlace(newPlaces[i], selectedPlace)){
+            return i;
+        }
+    }
 }
 
 function isSelectedPlace(lastTripPlace, selectedPlace) {
