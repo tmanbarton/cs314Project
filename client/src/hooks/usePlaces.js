@@ -163,5 +163,5 @@ function undo(context){
     const lastTrip = previous[n - 1];
     const newPrev = previous.filter((prev, i) => n !== i);
     setPrevious(newPrev);
-    bulkAppend(lastTrip.places, context);
+    bulkAppend(lastTrip.places, undefined, context);
 }
