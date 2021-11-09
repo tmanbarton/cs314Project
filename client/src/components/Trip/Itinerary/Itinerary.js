@@ -1,7 +1,7 @@
 import  React, { useEffect, useState } from "react";
 import { Table, Container, Row, Col, Collapse, Input, ListGroup } from "reactstrap";
 import { latLngToText, placeToLatLng } from "../../../utils/transformers";
-import { FaHome, FaTrashAlt, FaSearch, FaToolbox, FaMapSigns, FaTrash } from "react-icons/fa";
+import { FaHome, FaTrashAlt, FaSearch, FaToolbox, FaMapSigns, FaTrash, FaChevronRight, FaChevronDown } from "react-icons/fa";
 import { MdDragHandle } from "react-icons/md";
 import { useToggle } from "../../../hooks/useToggle";
 import Search from "../Search/Search";
@@ -177,6 +177,9 @@ const SortableItem = sortableElement( props  => {
 			</td>
 			<td style={{width: numRow + 'em'}}>
 				<FaTrash onClick={() => props.placeActions.removeAtIndex(props.id)} data-testid={`delete-button-${props.id}`}/>
+			</td>
+			<td style={{width: numRow + 'em'}}>
+				{rowClicked ? <FaChevronDown size={10}/> : <FaChevronRight size={10}/>}
 			</td>
 		</tr>
 	);
