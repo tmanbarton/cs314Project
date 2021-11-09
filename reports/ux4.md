@@ -31,6 +31,7 @@ Consider this a failure when it happens.
 | Isabel | Unclear how to modify trip besides basic dragging. | Easier to plan in advance/bulk than GPS maps. | Would use if already knew general idea of trip she would want to take. |
 | Rob | User struggled to locate modify trip menu | Easier to plan large trips since most other applications don't involve uploading specific trip files | User would use to plan potential future trip ideas, however, probably wouldnt rely on it alone |
 | Shai | Was able to use intuition to complete most taks, had trouble finding/using the modify trip menu. | Simple but more helpful in the area of transportation planning then other sites. | Maybe, but it is hard to plan a trip when you don't get any informatioon about where you are going. Could be used with the help of another application. |
+| Pratyoosh | User had some trouble using the Modify trip function, was not sure about the functions of each buttons. | User found the application useful and simpler than other trip planning applications | User will definitely checkout this application for planning trips in the future |
 ### Demographics
 
 Age, nationality, and other background information can sometimes be helpful understanding the problems a user encountered.
@@ -41,6 +42,7 @@ Age, nationality, and other background information can sometimes be helpful unde
 | Isabel | 20, White, Female, Communications Major Junior |
 |Rob | 20, Male, 2nd year CS Major |
 |Shai | 20, Female, Junior, Zoology Major |
+|Pratyoosh | 25, Male, PhD Student, Agricultural Economics Major |
 ### Observations
 
 Note the users interactions with the system for each of the tasks.
