@@ -134,10 +134,9 @@ function reversePlaces(tripObject, bulkAppend, selectedIndex, setChangedTrip) {
         tripObject.places.shift();   
         tripObject.places.reverse();
 
-        bulkAppend.bulkAppend(tripObject.places, selectedPlace);
+        bulkAppend.bulkAppend(tripObject.places, tripObject.places.indexOf(selectedPlace));
         setChangedTrip(true);
     }
-    
 }
 
 function alphaSort(tripObject, bulkAppend, selectedIndex, setChangedTrip) {
@@ -148,10 +147,8 @@ function alphaSort(tripObject, bulkAppend, selectedIndex, setChangedTrip) {
         if(a.name > b.name) { return 1; }
         return 0;
     })
-    bulkAppend.bulkAppend(tripObject.places, selectedPlace);
+    bulkAppend.bulkAppend(tripObject.places, tripObject.places.indexOf(selectedPlace));
     setChangedTrip(true);
-    
-    
 }
 
 function shuffleTrip(tripObject, bulkAppend, selectedIndex, setChangedTrip) {
@@ -168,7 +165,6 @@ function shuffleTrip(tripObject, bulkAppend, selectedIndex, setChangedTrip) {
         tripObject.places[randomIndex], tripObject.places[currentIndex]];
     }
 
-    bulkAppend.bulkAppend(tripObject.places, selectedPlace);
+    bulkAppend.bulkAppend(tripObject.places, tripObject.places.indexOf(selectedPlace));
     setChangedTrip(true);
-    
 }
