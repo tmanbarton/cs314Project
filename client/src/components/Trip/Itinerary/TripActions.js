@@ -141,19 +141,20 @@ function reversePlaces(tripObject, bulkAppend, selectedIndex, setChangedTrip) {
 
 function alphaSort(tripObject, bulkAppend, selectedIndex, setChangedTrip) {
     const selectedPlace = tripObject.places[selectedIndex];
-    
+    const firstPlace = tripObject.places.shift();
     tripObject.places.sort(function(a, b){
         if(a.name < b.name) { return -1; }
         if(a.name > b.name) { return 1; }
         return 0;
-    })
-    bulkAppend.bulkAppend(tripObject.places, tripObject.places.indexOf(selectedPlace));
+    });
+    const newPlace = maintainStartingLocation(firstPlace, tripObject.places);
+    bulkAppend.bulkAppend(newPlace, newPlace.indexOf(selectedPlace));
     setChangedTrip(true);
 }
 
 function shuffleTrip(tripObject, bulkAppend, selectedIndex, setChangedTrip) {
     const selectedPlace = tripObject.places[selectedIndex];
-    
+    const firstPlace = tripObject.places.shift();
     let currentIndex = tripObject.places.length,  randomIndex;
     
     while (currentIndex != 0) {
@@ -164,7 +165,11 @@ function shuffleTrip(tripObject, bulkAppend, selectedIndex, setChangedTrip) {
         [tripObject.places[currentIndex], tripObject.places[randomIndex]] = [
         tripObject.places[randomIndex], tripObject.places[currentIndex]];
     }
-
-    bulkAppend.bulkAppend(tripObject.places, tripObject.places.indexOf(selectedPlace));
+    const newPlace = maintainStartingLocation(firstPlace, tripObject.places);
+    bulkAppend.bulkAppend(newPlace, newPlace.indexOf(selectedPlace));
     setChangedTrip(true);
+}
+
+function maintainStartingLocation(firstPlace, modifedPlaces){
+    return [firstPlace, ...modifedPlaces];
 }

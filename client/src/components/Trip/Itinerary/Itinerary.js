@@ -206,7 +206,7 @@ function Body(props) {
 		  let newplace = arrayMove(props.places, oldIndex, newIndex);
 		  const selectedPlace = props.places[props.selectedIndex];
 		  setPlace(newplace);
-		  props.placeActions.bulkAppend(newplace, selectedPlace); 
+		  props.placeActions.bulkAppend(newplace, newplace.indexOf(selectedPlace)); 
 		};
 	let i = -1;
 	return (
