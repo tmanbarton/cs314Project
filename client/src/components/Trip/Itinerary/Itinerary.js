@@ -1,7 +1,7 @@
 import  React, { useEffect, useState } from "react";
 import { Table, Container, Row, Col, Collapse, Input, ListGroup } from "reactstrap";
 import { latLngToText, placeToLatLng } from "../../../utils/transformers";
-import { FaHome, FaTrashAlt, FaSearch, FaToolbox, FaMapSigns, FaTrash } from "react-icons/fa";
+import { FaHome, FaTrashAlt, FaSearch, FaToolbox, FaMapSigns, FaTrash, FaChevronRight, FaChevronDown } from "react-icons/fa";
 import { MdDragHandle } from "react-icons/md";
 import { useToggle } from "../../../hooks/useToggle";
 import Search from "../Search/Search";
@@ -169,8 +169,7 @@ const SortableItem = sortableElement( props  => {
 						<small>
 							<strong>One Way Distance: {distance} {units}</strong>
 						</small>
-					: null
-					}
+					: null}
 					<br />
 					<small className="text-muted">{location}</small>
 				</Collapse>
@@ -178,10 +177,15 @@ const SortableItem = sortableElement( props  => {
 			<td style={{width: numRow + 'em'}}>
 				<FaTrash onClick={() => props.placeActions.removeAtIndex(props.id)} data-testid={`delete-button-${props.id}`}/>
 			</td>
+			<td style={{width: numRow + 'em'}}>
+				<ArrowIcon rowClicked={rowClicked}/>		
+			</td>
 		</tr>
 	);
 })
-
+function ArrowIcon(props){
+	return props.rowClicked ? <FaChevronDown size={10}/> : <FaChevronRight size={10}/>
+}
 async function clickedRow(rowStates){
 	if(rowStates.seperatedName.length === 1){
 		const fullName = await reverseGeocode(placeToLatLng(rowStates.place));
