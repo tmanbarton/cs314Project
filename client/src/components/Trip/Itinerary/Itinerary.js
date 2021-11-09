@@ -169,8 +169,7 @@ const SortableItem = sortableElement( props  => {
 						<small>
 							<strong>One Way Distance: {distance} {units}</strong>
 						</small>
-					: null
-					}
+					: null}
 					<br />
 					<small className="text-muted">{location}</small>
 				</Collapse>
@@ -179,12 +178,14 @@ const SortableItem = sortableElement( props  => {
 				<FaTrash onClick={() => props.placeActions.removeAtIndex(props.id)} data-testid={`delete-button-${props.id}`}/>
 			</td>
 			<td style={{width: numRow + 'em'}}>
-				{rowClicked ? <FaChevronDown size={10}/> : <FaChevronRight size={10}/>}
+				<ArrowIcon rowClicked={rowClicked}/>		
 			</td>
 		</tr>
 	);
 })
-
+function ArrowIcon(props){
+	return props.rowClicked ? <FaChevronDown size={10}/> : <FaChevronRight size={10}/>
+}
 async function clickedRow(rowStates){
 	if(rowStates.seperatedName.length === 1){
 		const fullName = await reverseGeocode(placeToLatLng(rowStates.place));
