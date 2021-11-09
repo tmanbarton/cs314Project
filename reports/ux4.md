@@ -30,6 +30,7 @@ Consider this a failure when it happens.
 | :--- | :--- | :---: | :---: |
 | Isabel | Unclear how to modify trip besides basic dragging. | Easier to plan in advance/bulk than GPS maps. | Would use if already knew general idea of trip she would want to take. |
 | Rob | User struggled to locate modify trip menu | Easier to plan large trips since most other applications don't involve uploading specific trip files | User would use to plan potential future trip ideas, however, probably wouldnt rely on it alone |
+| Shai | Was able to use intuition to complete most taks, had trouble finding/using the modify trip menu. | Simple but more helpful in the area of transportation planning then other sites. | Maybe, but it is hard to plan a trip when you don't get any informatioon about where you are going. Could be used with the help of another application. |
 ### Demographics
 
 Age, nationality, and other background information can sometimes be helpful understanding the problems a user encountered.
@@ -39,6 +40,7 @@ Age, nationality, and other background information can sometimes be helpful unde
 | Cube | 19, American, Male, Sophomore CS Major |
 | Isabel | 20, White, Female, Communications Major Junior |
 |Rob | 20, Male, 2nd year CS Major |
+|Shai | 20, Female, Junior, Zoology Major |
 ### Observations
 
 Note the users interactions with the system for each of the tasks.
@@ -57,4 +59,6 @@ Add issues to GitHub for any changes necessary to the system.
 | Add labels to buttons | same as above | Med | TBD |
 | Make modify trip menu more visible | same as above | Med | TBD |
 | Make trip toolbox more obvious | user struggled to find toolbox first try | Low | TBD |
-
+| Add places through lat/lng | Allows for more a more custom trip without clicling on the map | Low | TBD |
+| Add total found to search results | Shai wanted to be able to see if there was more results | med | TBD |
+| Add "more results" to search results | If there was more results, Shai wanted to be able to add them | Low | TBD |
