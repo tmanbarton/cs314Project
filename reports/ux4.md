@@ -31,7 +31,7 @@ Consider this a failure when it happens.
 | Isabel | Unclear how to modify trip besides basic dragging. | Easier to plan in advance/bulk than GPS maps. | Would use if already knew general idea of trip she would want to take. |
 | Rob | User struggled to locate modify trip menu | Easier to plan large trips since most other applications don't involve uploading specific trip files | User would use to plan potential future trip ideas, however, probably wouldnt rely on it alone |
 | Shai | Was able to use intuition to complete most taks, had trouble finding/using the modify trip menu. | Simple but more helpful in the area of transportation planning then other sites. | Maybe, but it is hard to plan a trip when you don't get any informatioon about where you are going. Could be used with the help of another application. |
-| Pratyoosh | User had some trouble using the Modify trip function, was not sure about the functions of each buttons. | User found the application useful and simpler than other trip planning applications | User will definitely checkout this application for planning trips in the future |
+| Pratyoosh | User had some trouble using the Modify trip function, was not sure about the functions of each button. | User found the application useful and simpler than other trip planning applications | User will definitely checkout this application for planning trips in the future |
 ### Demographics
 
 Age, nationality, and other background information can sometimes be helpful understanding the problems a user encountered.
@@ -64,3 +64,4 @@ Add issues to GitHub for any changes necessary to the system.
 | Add places through lat/lng | Allows for more a more custom trip without clicling on the map | Low | TBD |
 | Add total found to search results | Shai wanted to be able to see if there was more results | med | TBD |
 | Add "more results" to search results | If there was more results, Shai wanted to be able to add them | Low | TBD |
+| A help button which explains the website and it's functionalities | A short explanation would be useful for Users to start with | Med | TBD |
