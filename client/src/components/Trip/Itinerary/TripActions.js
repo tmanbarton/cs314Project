@@ -1,9 +1,10 @@
 import  React, {useState} from "react";
-import { ButtonGroup, Collapse, Col, Container, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledDropdown, Button } from 'reactstrap';
+import { useToggle } from "../../../hooks/useToggle";
+import { ButtonGroup, Collapse, Col, Container, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledDropdown, Button } from 'reactstrap';
 import { BiDotsVerticalRounded } from 'react-icons/bi';
 import { formatPlaces } from "../../../utils/transformers";
 import { IoIosSpeedometer } from "react-icons/io";
-import { FaAngleDoubleLeft, FaSortAlphaDown, FaCheckSquare, FaWindowClose } from "react-icons/fa"
+import { FaAngleDoubleLeft, FaSortAlphaDown, FaCheckSquare, FaWindowClose, FaSlidersH } from "react-icons/fa"
 import { ImShuffle } from "react-icons/im"
 import { EARTH_RADIUS_UNITS_DEFAULT, DEFAULT_RESPONSE_TIME } from "../../../utils/constants";
 import { isJsonResponseValid, SCHEMAS, sendAPIRequest } from "../../../utils/restfulAPI";
@@ -15,27 +16,23 @@ const csuWarning = "#ECC530";
 
 export default function TripActions(props){
     const [changedTrip, setChangedTrip] = useState(false);
-    const tripObject = buildTripObject(props.places, props.distances);
     return (
         <Row>
             <Collapse isOpen={changedTrip}>
                 <ConfirmAction setChangedTrip={setChangedTrip} undo={props.undo}/>
             </Collapse>
-            <Collapse data-testid="dropdown" isOpen={!changedTrip}>
-                <ActionsDropdown>
-                    <DropdownItem disabled={props.disableTour}>
-                        <IoIosSpeedometer data-testid="optimize" onClick={()=> optimizeTrip(tripObject,{bulkAppend: props.bulkAppend, serverSettings: props.serverSettings, showMessage: props.showMessage, tripName: props.tripName}, setChangedTrip)} size={24}/>
-                    </DropdownItem>
-                    <DropdownItem>
-                        <FaSortAlphaDown data-testid="alphasort" onClick={()=> alphaSort(tripObject, {bulkAppend: props.bulkAppend}, props.selectedIndex, setChangedTrip)} size ={24}/>
-                    </DropdownItem>
-                    <DropdownItem>
-                        <ImShuffle data-testid="shuffleBtn" onClick={()=> shuffleTrip(tripObject, {bulkAppend: props.bulkAppend}, props.selectedIndex, setChangedTrip)} size = {24}/>
-                    </DropdownItem>
-                    <DropdownItem>
-                        <FaAngleDoubleLeft data-testid="reverse" onClick={()=> reversePlaces(tripObject, {bulkAppend: props.bulkAppend}, props.selectedIndex, setChangedTrip)}  size = {24} />
-                    </DropdownItem>
-                </ActionsDropdown>
+            <Collapse  data-testid="dropdown" isOpen={!changedTrip}>
+                <ActionsDropdown
+                     disabled={props.disableTour}
+                     bulkAppend={props.bulkAppend}
+                     serverSettings={props.serverSettings}
+                     showMessage={props.showMessage}
+                     tripName={props.tripName}
+                     setChangedTrip={setChangedTrip}
+                     selectedIndex={props.selectedIndex}
+                     places={props.places}
+                     distances={props.distances}
+                />
             </Collapse>
         </Row>
 
@@ -65,17 +62,43 @@ function revertTrip(setChangedTrip, undo){
 }
 
 function ActionsDropdown(props) {
+    const [dropdownOpen, setDropdownOpen] = useToggle(false);
     return (
-        <UncontrolledDropdown direction="left">
-            <DropdownToggle tag="div">
-                <BiDotsVerticalRounded size="1.5em" />
-            </DropdownToggle>
-            <DropdownMenu>
-                <ButtonGroup>
-                    {props.children}
-                </ButtonGroup>
-            </DropdownMenu>
-        </UncontrolledDropdown>
+        <div className="my-dropdown">
+            <div className="div-inline">
+                <Dropdown 
+                isOpen={dropdownOpen}
+                toggle={setDropdownOpen}
+                direction="up"
+                size="sm"
+                >
+                    <DropdownToggle>
+                        Modify&nbsp;&nbsp;<FaSlidersH size="1.5em" />
+                    </DropdownToggle>
+                    <TripModifications {...props}/>
+                </Dropdown>
+            </div>
+        </div>
+    );
+}
+
+function TripModifications(props){
+    const tripObject = buildTripObject(props.places, props.distances);
+    return(
+        <DropdownMenu right>
+            <DropdownItem onClick={()=> optimizeTrip(tripObject,{bulkAppend: props.bulkAppend, serverSettings: props.serverSettings, showMessage: props.showMessage, tripName: props.tripName}, props.setChangedTrip)} disabled={props.disabled}>
+                <Row><IoIosSpeedometer className="fa-inline" data-testid="optimize" size={24}/>&nbsp;&nbsp;<h4>Optimize</h4></Row>
+            </DropdownItem>
+            <DropdownItem onClick={()=> shuffleTrip(tripObject, {bulkAppend: props.bulkAppend}, props.selectedIndex, props.setChangedTrip)}>
+                <Row><ImShuffle className="fa-inline" data-testid="shuffleBtn" size = {24}/>&nbsp;&nbsp;<h4>Shuffle</h4></Row>
+            </DropdownItem>
+            <DropdownItem onClick={()=> reversePlaces(tripObject, {bulkAppend: props.bulkAppend}, props.selectedIndex, props.setChangedTrip)}>
+                <Row><FaAngleDoubleLeft className="fa-inline" data-testid="reverse" size = {24} />&nbsp;&nbsp;<h4>Reverse</h4></Row>
+            </DropdownItem>
+            <DropdownItem onClick={()=> alphaSort(tripObject, {bulkAppend: props.bulkAppend}, props.selectedIndex, props.setChangedTrip)}>
+                <Row><FaSortAlphaDown className="fa-inline" data-testid="alphasort" size ={24}/>&nbsp;&nbsp;<h4>Sort</h4></Row>
+            </DropdownItem>
+        </DropdownMenu>
     );
 }
 
