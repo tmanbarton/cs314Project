@@ -139,9 +139,7 @@ async function moveToHome(context) {
 			name: "Home",
 		};
         const newPlaces = [place, ...places];
-		const selectedPlace = places[selectedIndex];
-        const index = selectedPlace ? getPlaceIndex(newPlaces, selectedPlace) : 0;
-		bulkAppend(newPlaces, index, context);
+		bulkAppend(newPlaces, 0, context);
 		//   console.log(`The user is located at ${JSON.stringify(place)}.`); // use LOG.info() instead
 	}
 
