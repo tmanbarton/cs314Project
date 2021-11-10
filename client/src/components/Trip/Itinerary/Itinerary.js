@@ -143,10 +143,9 @@ const SortableItem = sortableElement( props  => {
 		setName(seperatedName[0]);
 	},[seperatedName]);
 	const [,...nameArr] = seperatedName;
-	const location = latLngToText(placeToLatLng(props.place));
 	const distance = parseDistance(props.distances, props.id);
-	const units = "mi"; // at some point need to be dynamic
 	const numRow = .1;
+	const units = 'mi'; // at some point need to be dynamic
 	const [rowClicked, setRowClicked] = useToggle(false);
 	const rowStates = {
 		setRowClicked: setRowClicked,
@@ -170,8 +169,6 @@ const SortableItem = sortableElement( props  => {
 							<strong>One Way Distance: {distance} {units}</strong>
 						</small>
 					: null}
-					<br />
-					<small className="text-muted">{location}</small>
 				</Collapse>
 			</td>
 			<td style={{width: numRow + 'em'}}>
@@ -282,7 +279,7 @@ function TripHeader(props){
 function TotalDistances(props)
 {
 	const total = totalDistance(props.distances)
-	const units = "miles";
+	const units = "miles"; // at some point need to be dynamic
 	return (
 		<h5><FaMapSigns />{" "}<strong>Total Trip Distance: {total} {units}</strong></h5>
 	);
