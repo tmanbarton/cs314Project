@@ -34,11 +34,6 @@ describe('Itinerary', () => {
         screen.debug();
     });
 
-    it('renders a cell with given place expected', () => {
-        expect(screen.getByRole('cell', { name: /40.0/i }).textContent)
-            .toContain('40.00, 50.00');
-    });
-
     it('renders the name attribute', () => {
        
         screen.getByRole('cell', { name: /Place A/i });
