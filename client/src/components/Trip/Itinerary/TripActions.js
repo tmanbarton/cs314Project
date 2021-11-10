@@ -21,7 +21,7 @@ export default function TripActions(props){
             <Collapse isOpen={changedTrip}>
                 <ConfirmAction setChangedTrip={setChangedTrip} undo={props.undo}/>
             </Collapse>
-            <Collapse style={{textAlign: 'left'}} data-testid="dropdown" isOpen={!changedTrip}>
+            <Collapse  data-testid="dropdown" isOpen={!changedTrip}>
                 <ActionsDropdown
                      disabled={props.disableTour}
                      bulkAppend={props.bulkAppend}
@@ -66,38 +66,36 @@ function ActionsDropdown(props) {
     const tripObject = buildTripObject(props.places, props.distances);
     const t = true
     return (
-        <div className="div-inline">
-        <Dropdown 
-        isOpen={dropdownOpen}
-        toggle={setDropdownOpen}
-        direction="up"
-        size="sm"
-        >
-            <DropdownToggle>
-                Options       <FaSlidersH size="1.5em" />
-            </DropdownToggle>
-            <DropdownMenu right>
-                
-                    
-                <DropdownItem style={{padding: .35+'em'}} onClick={()=> optimizeTrip(tripObject,{bulkAppend: props.bulkAppend, serverSettings: props.serverSettings, showMessage: props.showMessage, tripName: props.tripName}, props.setChangedTrip)} disabled={props.disabled}>
-                    <IoIosSpeedometer className="fa-inline" data-testid="optimize" size={24}/> Optimize
-                </DropdownItem>
+        <div className="my-dropdown">
+            <div className="div-inline">
+                <Dropdown 
+                isOpen={dropdownOpen}
+                toggle={setDropdownOpen}
+                direction="up"
+                size="sm"
+                >
+                    <DropdownToggle>
+                        Options&nbsp;&nbsp;<FaSlidersH size="1.5em" />
+                    </DropdownToggle>
+                    <DropdownMenu right>
+                        <DropdownItem onClick={()=> optimizeTrip(tripObject,{bulkAppend: props.bulkAppend, serverSettings: props.serverSettings, showMessage: props.showMessage, tripName: props.tripName}, props.setChangedTrip)} disabled={props.disabled}>
+                            <Row><IoIosSpeedometer className="fa-inline" data-testid="optimize" size={24}/>&nbsp;&nbsp;<h4>Optimize</h4></Row>
+                        </DropdownItem>
 
-                <DropdownItem style={{padding: .35+'em'}} onClick={()=> shuffleTrip(tripObject, {bulkAppend: props.bulkAppend}, props.selectedIndex, props.setChangedTrip)}>
-                    <ImShuffle className="fa-inline" data-testid="shuffleBtn" size = {24}/> Shuffle
-                </DropdownItem>
+                        <DropdownItem onClick={()=> shuffleTrip(tripObject, {bulkAppend: props.bulkAppend}, props.selectedIndex, props.setChangedTrip)}>
+                            <Row><ImShuffle className="fa-inline" data-testid="shuffleBtn" size = {24}/>&nbsp;&nbsp;<h4>Shuffle</h4></Row>
+                        </DropdownItem>
 
-                <DropdownItem style={{padding: .35+'em'}} onClick={()=> reversePlaces(tripObject, {bulkAppend: props.bulkAppend}, props.selectedIndex, props.setChangedTrip)}>
-                    <FaAngleDoubleLeft className="fa-inline" data-testid="reverse" size = {24} /> Reverse
-                </DropdownItem>
+                        <DropdownItem onClick={()=> reversePlaces(tripObject, {bulkAppend: props.bulkAppend}, props.selectedIndex, props.setChangedTrip)}>
+                            <Row><FaAngleDoubleLeft className="fa-inline" data-testid="reverse" size = {24} />&nbsp;&nbsp;<h4>Reverse</h4></Row>
+                        </DropdownItem>
 
-                <DropdownItem style={{padding: .35+'em'}} onClick={()=> alphaSort(tripObject, {bulkAppend: props.bulkAppend}, props.selectedIndex, props.setChangedTrip)}>
-                    <FaSortAlphaDown className="fa-inline" data-testid="alphasort" size ={24}/> Sort 
-                </DropdownItem>
-
-                
-            </DropdownMenu>
-        </Dropdown>
+                        <DropdownItem onClick={()=> alphaSort(tripObject, {bulkAppend: props.bulkAppend}, props.selectedIndex, props.setChangedTrip)}>
+                            <Row><FaSortAlphaDown className="fa-inline" data-testid="alphasort" size ={24}/>&nbsp;&nbsp;<h4>Sort</h4></Row>
+                        </DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
+            </div>
         </div>
     );
 }
