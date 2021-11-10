@@ -1,7 +1,6 @@
 import  React, {useState} from "react";
 import { useToggle } from "../../../hooks/useToggle";
-import { ButtonGroup, Collapse, Col, Container, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledDropdown, Button } from 'reactstrap';
-import { BiDotsVerticalRounded } from 'react-icons/bi';
+import { Collapse, Col, Container, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row } from 'reactstrap';
 import { formatPlaces } from "../../../utils/transformers";
 import { IoIosSpeedometer } from "react-icons/io";
 import { FaAngleDoubleLeft, FaSortAlphaDown, FaCheckSquare, FaWindowClose, FaSlidersH } from "react-icons/fa"
@@ -72,7 +71,7 @@ function ActionsDropdown(props) {
                 direction="up"
                 size="sm"
                 >
-                    <DropdownToggle>
+                    <DropdownToggle color='primary'>
                         Modify&nbsp;&nbsp;<FaSlidersH size="1.5em" />
                     </DropdownToggle>
                     <TripModifications {...props}/>
