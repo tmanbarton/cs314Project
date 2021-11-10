@@ -98,9 +98,26 @@ public class TourRequest extends Request {
                 }
             }
         }
+
+        // Arrange trip so that the starting location is preserved
+        public void arrange_trip(Places place, int start_index){
+            int length = place.size();
+            int i = start_index;
+            Places temp = new Places(place);
+            for (var j = 0; j < temp.size(); j++) {
+                temp.set(j, place.get(i));
+                i++;
+                if(i==temp.size()){
+                    i = 0;
+                }
+            }
+            place = temp;
+        }
+
         //returns an optimized list of places
         public Places optimize(){
             var prev = this.inf;
+            var start_index = 0;
             Places finalTrip = new Places(this.preOptimizedPlaces);
 
             for (var j = 0; j < this.preOptimizedPlaces.size(); j++) {
@@ -120,9 +137,11 @@ public class TourRequest extends Request {
                 if (total_distance < prev){
                     finalTrip = optimizedTrip;
                     prev = total_distance;
+                    start_index = j;
                 }
                 if(outOfTime()) break;
             }
+            arrange_trip(finalTrip, start_index);
             return finalTrip;
         }
 
