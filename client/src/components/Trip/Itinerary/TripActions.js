@@ -75,7 +75,7 @@ function ActionsDropdown(props) {
                 size="sm"
                 >
                     <DropdownToggle>
-                        Options&nbsp;&nbsp;<FaSlidersH size="1.5em" />
+                        Modify&nbsp;&nbsp;<FaSlidersH size="1.5em" />
                     </DropdownToggle>
                     <DropdownMenu right>
                         <DropdownItem onClick={()=> optimizeTrip(tripObject,{bulkAppend: props.bulkAppend, serverSettings: props.serverSettings, showMessage: props.showMessage, tripName: props.tripName}, props.setChangedTrip)} disabled={props.disabled}>
