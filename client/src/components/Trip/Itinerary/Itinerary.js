@@ -282,15 +282,10 @@ function TripHeader(props){
 function TotalDistances(props)
 {
 	const total = totalDistance(props.distances)
+	const units = "miles";
 	return (
-		<Row>
-			<Col>
-				<h5><FaMapSigns />{" "}<strong>Total Trip Distance: {total}</strong></h5>
-			</Col>
-			
-		</Row>
+		<h5><FaMapSigns />{" "}<strong>Total Trip Distance: {total} {units}</strong></h5>
 	);
-	
 }
 
 export function totalDistance(distances)
