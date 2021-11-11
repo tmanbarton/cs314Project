@@ -20,19 +20,19 @@ export default function TripManager(props) {
 	const [fileName, setFileName] = useState("");
 	const [loading, setLoading] = useState(false);
 	return (
-		<Modal isOpen={props.isOpen} toggle={!loading ? props.toggleToolbox : null}>
+		<Modal isOpen={props.isOpen} toggle={!loading ? props.toggleManager : null}>
 			<Header />
 			<Body
 				places={props.places}
 				fileName={fileName}
 				setFileName={setFileName}
-				toggle={props.toggleToolbox}
+				toggle={props.toggleManager}
 				managerMethods={props.managerMethods}
 				tripName={props.tripName}
 				loading={loading}
 				setLoading={setLoading}
 			/>
-			<Footer loading={loading} fileName={fileName} toggleToolbox={props.toggleToolbox} />
+			<Footer loading={loading} fileName={fileName} toggleManager={props.toggleManager} />
 		</Modal>
 	);
 }
@@ -130,7 +130,7 @@ function SaveTrip(props) {
 function Footer(props) {
 	return (
 	<ModalFooter className="centered">
-		<Button data-testid="continue-button" color="primary" disabled={props.loading} onClick={()=>props.toggleToolbox()}>
+		<Button data-testid="continue-button" color="primary" disabled={props.loading} onClick={()=>props.toggleManager()}>
 			{props.loading ? `Please Wait for ${props.fileName} to Upload` : 'Continue'}
 		</Button>
 	</ModalFooter>

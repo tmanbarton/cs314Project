@@ -18,13 +18,13 @@ const csuGold = '#C8C372';
 
 export default function Itinerary(props) {
 	const [showSearch, toggleSearch] = useToggle(false);
-	const [showToolbox, toggleToolbox ] = useToggle(false);
+	const [showManager, toggleManager ] = useToggle(false);
 	const [tripName , setTripName] = useState("My Trip");
 	return (
 		<Container>
 			<Header
-				tripName={tripName} setTripName={setTripName} placeActions={props.placeActions} showMessage={props.showMessage} showToolbox = {showToolbox}
-				toggleToolbox = {toggleToolbox} toggleSearch={toggleSearch} disableSearch={props.disableSearch} places={props.places}
+				tripName={tripName} setTripName={setTripName} placeActions={props.placeActions} showMessage={props.showMessage} showManager = {showManager}
+				toggleManager = {toggleManager} toggleSearch={toggleSearch} disableSearch={props.disableSearch} places={props.places}
 			/>
 			<hr />
 			<Collapse isOpen={showSearch}>
@@ -54,7 +54,7 @@ function Header(props) {
 							<Input value={props.tripName} data-testid="My Trip" placeholder={props.tripName} onChange={e => props.setTripName(e.target.value)}></Input>				
 						</h4>
 					</Col>
-					<FaSave data-testid="manager-btn" size={24} onClick={()=>{props.toggleToolbox();}}/>
+					<FaSave data-testid="manager-btn" size={24} onClick={()=>{props.toggleManager();}}/>
 				</Row>
 			</Col>
 			<Col>
@@ -72,7 +72,7 @@ function Header(props) {
 					<FaTrashAlt size={24} onClick={() => props.placeActions.removeAll()} data-testid="delete-all-button"/>
 				</div>
 			</Col>
-			<TripManager tripName={props.tripName} managerMethods={managerMethods} isOpen={props.showToolbox} toggleToolbox={props.toggleToolbox} places={props.places}/>			
+			<TripManager tripName={props.tripName} managerMethods={managerMethods} isOpen={props.showManager} toggleManager={props.toggleManager} places={props.places}/>			
 		</Row>
 	);
 }
@@ -116,11 +116,11 @@ const SortableItem = sortableElement( props  => {
 		place: props.place
 	}
 	return (
-		<tr style={{backgroundColor: props.selectedIndex === props.id ? csuGold : ''}}>
+		<tr style={{backgroundColor: props.selectedIndex === props.id ? csuGold : ''}} onClick={()=> clickedRow(rowStates)}>
 			<th>
 				<DragHandle style={{width: numRow + 'em'}}/>
 			</th>
-			<td style={{width: 100 + '%'}} onClick={()=> clickedRow(rowStates)}> 
+			<td style={{width: 100 + '%'}}> 
 				{name}{rowClicked && nameArr.length > 0 ? ',' + nameArr.join(',') : ''}
 				<br />
 				<Collapse isOpen={rowClicked}>
