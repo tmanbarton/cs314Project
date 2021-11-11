@@ -119,24 +119,8 @@ function ServerInformation(props) {
 							data-testid="interop-dropdown"
 						>
 							<DropdownToggle caret>{serverName}</DropdownToggle>
-								<DropdownMenu data-testid="interop-dropdown-menu">
-									{avaliableServers.map((server, index) => (
-										<DropdownItem data-testid="dropdownitem"
-											key={`table-${JSON.stringify(server)}-${index}`}
-											onClick={() =>
-												changeServers(
-													server,
-													props.stateMethods,
-													props.stateVariables,
-													props.showMessage
-												)
-											}
-										>
-											{server.teamName}
-										</DropdownItem>
-									))}
-								</DropdownMenu>
-						</Dropdown>	
+							<Servers {...props} />
+						</Dropdown>
 					</div>
 					<br />
 					<a
@@ -157,4 +141,26 @@ function ServerInformation(props) {
 	);
 }
 
+function Servers(props) {
+	return (
+		<DropdownMenu data-testid="interop-dropdown-menu">
+			{avaliableServers.map((server, index) => (
+				<DropdownItem
+					data-testid="dropdownitem"
+					key={`table-${JSON.stringify(server)}-${index}`}
+					onClick={() =>
+						changeServers(
+							server,
+							props.stateMethods,
+							props.stateVariables,
+							props.showMessage
+						)
+					}
+				>
+					{server.teamName}
+				</DropdownItem>
+			))}
+		</DropdownMenu>
+	);
+}
 	
