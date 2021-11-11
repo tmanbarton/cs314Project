@@ -1,11 +1,11 @@
 import  React, { useEffect, useState } from "react";
 import { Table, Container, Row, Col, Collapse, Input, ListGroup } from "reactstrap";
 import { placeToLatLng } from "../../../utils/transformers";
-import { FaLocationArrow, FaTrashAlt, FaSearch, FaToolbox, FaMapSigns, FaTrash, FaChevronRight, FaChevronDown } from "react-icons/fa";
+import { FaLocationArrow, FaTrashAlt, FaSearch, FaSave, FaMapSigns, FaTrash, FaChevronRight, FaChevronDown } from "react-icons/fa";
 import { MdDragHandle } from "react-icons/md";
 import { useToggle } from "../../../hooks/useToggle";
 import Search from "../Search/Search";
-import TripToolbox from "./TripToolbox";
+import TripManager from "./TripManager";
 import TripActions from "./TripActions";
 import {
 	sortableContainer,
@@ -43,8 +43,8 @@ export default function Itinerary(props) {
 	);
 }
 
-function Header(props) {
-	let toolboxMethods = { bulkAppend: props.placeActions.bulkAppend, removeAll: props.placeActions.removeAll, showMessage: props.showMessage, setTripName: props.setTripName};
+function Header(props) {	
+	const managerMethods = { bulkAppend: props.placeActions.bulkAppend, removeAll: props.placeActions.removeAll, showMessage: props.showMessage, setTripName: props.setTripName};
 	return (
 		<Row>
 			<Col>
@@ -54,7 +54,7 @@ function Header(props) {
 							<Input value={props.tripName} data-testid="My Trip" placeholder={props.tripName} onChange={e => props.setTripName(e.target.value)}></Input>				
 						</h4>
 					</Col>
-					<FaToolbox data-testid="toolbox-btn" size={24} onClick={()=>{props.toggleToolbox();}}/>
+					<FaSave data-testid="manager-btn" size={24} onClick={()=>{props.toggleToolbox();}}/>
 				</Row>
 			</Col>
 			<Col>
@@ -72,7 +72,7 @@ function Header(props) {
 					<FaTrashAlt size={24} onClick={() => props.placeActions.removeAll()} data-testid="delete-all-button"/>
 				</div>
 			</Col>
-			<TripToolbox tripName={props.tripName} toolboxMethods={toolboxMethods} isOpen={props.showToolbox} toggleToolbox={props.toggleToolbox} places={props.places}/>			
+			<TripManager tripName={props.tripName} managerMethods={managerMethods} isOpen={props.showToolbox} toggleToolbox={props.toggleToolbox} places={props.places}/>			
 		</Row>
 	);
 }

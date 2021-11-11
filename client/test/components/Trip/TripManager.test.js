@@ -1,11 +1,11 @@
 import React from 'react';
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
-import TripToolbox from '../../../src/components/Trip/Itinerary/TripToolbox';
+import TripManager from '../../../src/components/Trip/Itinerary/TripManager';
 import { render,screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
 
 
-describe('Trip Toolbox Modal', ()=>{
+describe('Trip Manager Modal', ()=>{
     const toggleOpen = jest.fn();
     const tripName = "testTrip";
     const tripToolbox={
@@ -21,11 +21,11 @@ describe('Trip Toolbox Modal', ()=>{
     });
 
     beforeEach(()=>{
-        render(<TripToolbox tripName={tripName} places={places} toolboxMethods={tripToolbox} isOpen={true} toggleToolbox={toggleOpen}/>);
+        render(<TripManager tripName={tripName} places={places} managerMethods={tripToolbox} isOpen={true} toggleToolbox={toggleOpen}/>);
     });
 
     it('renders', async () =>{
-        render(<TripToolbox toolboxMethods={tripToolbox} isOpen={true} toggleToolbox={toggleOpen}/>)
+        render(<TripManager managerMethods={tripToolbox} isOpen={true} toggleToolbox={toggleOpen}/>)
     });
 
     it('has an upload button', ()=>{
