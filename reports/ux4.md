@@ -53,15 +53,15 @@ Add issues to GitHub for any changes necessary to the system.
 | Task | problem, aid, observation | hi/med/low | github# |
 | :--- | :--- | :---: | :---: | 
 | Add tooltips for icons | Icons weren't enough for Cube to know what each one does. He wished there were tooltips to know what they do without trial and error. | med | 533 |
-| Show distances when an item in the itinerary is collapsed | Cube was didn't find the total distance useful at first. He didn't know you could expand the items in the itinerary. I had to help him there. Then he thought the distances were all from the starting place and didn't sum to the total. I had to explain that it was a round trip and that there was one more distance added to get the total. He thought it would be nice to see the distances without clicking into the list item. | low | 534 |
+| Show distances when an item in the itinerary is collapsed | Cube was didn't find the total distance useful at first. He didn't know you could expand the items in the itinerary. I had to help him there. Then he thought the distances were all from the starting place and didn't sum to the total. I had to explain that it was a round trip and that there was one more distance added to get the total. He thought it would be nice to see the distances without clicking into the list item. | low | NA |
 | Find alternative to "save changes" when trip is changed | Cube didn't like having to confirm changes every time he changed the trip and thought that it might be saving the trip to local storage. | low | 535 |
-| Make modify trip more clear | Isabel at first did not know where the modify trip buttons were located, until she had finished exploring the whole app. | low | TBD |
+| Make modify trip more clear | Isabel at first did not know where the modify trip buttons were located, until she had finished exploring the whole app. | low | 558 |
 | Add showMessage or promt whenever appending a place | Isabel noted that the only way she knew a place was being added was when the distances updated. | med | TBD |
-| Add units to total distances | Pretty self explanatory. | med | TBD |
-| Add labels to buttons | same as above | Med | TBD |
-| Make modify trip menu more visible | same as above | Med | 566 |
-| Make trip toolbox more obvious | user struggled to find toolbox first try | Low | TBD |
+| Add units to total distances | Pretty self explanatory. | med | 555 |
+| Add labels to buttons | same as above | Med | 533 |
+| Make modify trip menu more visible | same as above | Med | 558 |
+| Make trip toolbox more obvious | user struggled to find toolbox first try | Low | 572 |
 | Add places through lat/lng | Allows for more a more custom trip without clicling on the map | Low | TBD |
-| Add total found to search results | Shai wanted to be able to see if there was more results | med | TBD |
-| Add "more results" to search results | If there was more results, Shai wanted to be able to add them | Low | TBD |
+| Add total found to search results | Shai wanted to be able to see if there was more results | med | 560 |
+| Add "more results" to search results | If there was more results, Shai wanted to be able to add them | Low | 560 |
 | A help button which explains the website and it's functionalities | A short explanation would be useful for Users to start with | Med | TBD |
