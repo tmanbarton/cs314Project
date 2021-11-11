@@ -168,7 +168,7 @@ function Body(props) {
 	let i = -1;
 	return (
 		<tbody>
-			<SortableContainer onSortEnd={onSortEnd} useDragHandle>
+			<SortableContainer onSortEnd={onSortEnd} useDragHandle useWindowAsScrollContainer>
 			{props.places.map((place,index) => (
 				i++,
 			  <SortableItem 					
