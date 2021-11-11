@@ -16,14 +16,12 @@ public class TourRequest extends Request {
 
     @Override
     public void buildResponse(){
-        if (response == 0 || places.size() < 4){ // send back places unchanged
+        if (response == 0 || places.size() < 3){ // send back places unchanged
             return;
         }
-        if (places != null){
-            OptimizeTrip tripObject = new OptimizeTrip(places, earthRadius, response);
-            tripObject.buildDataStructures();
-            this.places = tripObject.optimize();
-        }
+        OptimizeTrip tripObject = new OptimizeTrip(places, earthRadius, response);
+        tripObject.buildDataStructures();
+        this.places = tripObject.optimize();
         log.trace("buildResponse -> {}", this);
     }
 
@@ -69,7 +67,7 @@ public class TourRequest extends Request {
             this.start = System.currentTimeMillis();
             this.preOptimizedPlaces = places;
             this.earthRadius = earthRadius;
-            this.response = (response * 1000) * .5;
+            this.response = (response * 1000) * .75;
         }
 
 
@@ -91,7 +89,6 @@ public class TourRequest extends Request {
                 this.opt_tour[i] = i;
                 this.visited[i] = false;
                 this.visited_1[i] = false;
-                if(outOfTime()) break;
                 for (int j = 0; j < this.preOptimizedPlaces.size(); j++) {
                     double latitude1 = Double.parseDouble(this.preOptimizedPlaces.get(i).get("latitude"));
                     double latitude2 = Double.parseDouble(this.preOptimizedPlaces.get(j).get("latitude"));
@@ -99,7 +96,6 @@ public class TourRequest extends Request {
                     double longitude2 = Double.parseDouble(this.preOptimizedPlaces.get(j).get("longitude"));
                     this.distanceMatrix[i][j] =
                         calculator.computeDistance(latitude1, latitude2, longitude1, longitude2);
-                    if(outOfTime()) break;
                 }
             }
         }
@@ -133,7 +129,6 @@ public class TourRequest extends Request {
                 if(i == temp.size()){
                     i = 0;
                 }
-                if(outOfTime()) break;
             }
             return temp;
         }
@@ -156,14 +151,13 @@ public class TourRequest extends Request {
                     int indexOfPlace = this.opt_tour[i];
                     Place temp = this.preOptimizedPlaces.get(indexOfPlace);
                     optimizedTrip.set(i, temp);
-                    if(outOfTime()) break;
                 }
+                if(outOfTime()) break;
                 var total_distance = get_distances(optimizedTrip);
                 if (total_distance < prev){
                     finalTrip = new Places(optimizedTrip);
                     prev = total_distance;
                 }
-                if(outOfTime()) break;
             }
             finalTrip = arrange_trip(finalTrip);
             return finalTrip;
@@ -185,6 +179,7 @@ public class TourRequest extends Request {
                 tour[j] = temp;
                 i++;
                 j--;
+                if(outOfTime()) break;
             }   
             return 0; 
         }
@@ -199,7 +194,9 @@ public class TourRequest extends Request {
                             opt_2_reverse(tour, i+1, j);
                             improvement = true;
                         }
+                        if(outOfTime()) break;
                     }
+                    if(outOfTime()) break;
                 }
             }
             return 0;
