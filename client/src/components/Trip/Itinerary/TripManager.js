@@ -10,13 +10,13 @@ import {
 	Col,
 	Spinner
 } from "reactstrap";
-import { FaToolbox, FaUpload, FaCheck, FaDownload } from "react-icons/fa";
+import { FaSave, FaUpload, FaCheck, FaDownload } from "react-icons/fa";
 import * as TripSchema from '../../../../schemas/TripFile.json';
 import { formatPlaces  } from "../../../utils/transformers";
 import Papa from 'papaparse';
 import { isJsonResponseValid } from "../../../utils/restfulAPI";
 
-export default function TripToolbox(props) {
+export default function TripManager(props) {
 	const [fileName, setFileName] = useState("");
 	const [loading, setLoading] = useState(false);
 	return (
@@ -27,7 +27,7 @@ export default function TripToolbox(props) {
 				fileName={fileName}
 				setFileName={setFileName}
 				toggle={props.toggleToolbox}
-				toolboxMethods={props.toolboxMethods}
+				managerMethods={props.managerMethods}
 				tripName={props.tripName}
 				loading={loading}
 				setLoading={setLoading}
@@ -40,8 +40,8 @@ export default function TripToolbox(props) {
 function Header() {
 	return (
 		<ModalHeader tag="h3" cssModule={{'modal-title': 'w-100 text-center'}}>
-			<strong>Trip Toolbox</strong> &nbsp; 
-			<FaToolbox className="fa-inline" size={26}/>
+			<strong>Trip Manager</strong> &nbsp; 
+			<FaSave size={26}/>
 		</ModalHeader>
 	);
 }
@@ -50,10 +50,10 @@ function Body(props) {
 	return (
 		<ModalBody className="center-modal-body">
 			<Row>
-				<LoadTrip loading={props.loading} setLoading={props.setLoading} toolboxMethods={props.toolboxMethods} setFileName={props.setFileName} fileName={props.fileName} />
+				<LoadTrip loading={props.loading} setLoading={props.setLoading} managerMethods={props.managerMethods} setFileName={props.setFileName} fileName={props.fileName} />
 			</Row>
 			<Row>
-				<SaveTrip loading={props.loading} tripName={props.tripName} fileName={props.fileName} places={props.places} showMessage={props.toolboxMethods.showMessage}/>
+				<SaveTrip loading={props.loading} tripName={props.tripName} fileName={props.fileName} places={props.places} showMessage={props.managerMethods.showMessage}/>
 			</Row>
 		</ModalBody>
 	);
@@ -66,7 +66,7 @@ function LoadTrip(props) {
 		props.setLoading(true);
 		let file = fileObject.target.files[0];
 		props.setFileName(fileObject.target.files[0].name);
-		processFile(file, fileObject.target.files[0].name, {...props.toolboxMethods, setFileName: props.setFileName}, props.setLoading);
+		processFile(file, fileObject.target.files[0].name, {...props.managerMethods, setFileName: props.setFileName}, props.setLoading);
 	}
 
 	return (
@@ -137,17 +137,17 @@ function Footer(props) {
 	);
 }
 
-async function processFile(file, fileName, toolboxMethods, setLoading){
-	toolboxMethods.setTripName(trimFileName(fileName));
+async function processFile(file, fileName, managerMethods, setLoading){
+	managerMethods.setTripName(trimFileName(fileName));
 	let fileType = getFileType(fileName);
-	toolboxMethods.removeAll();
+	managerMethods.removeAll();
 	switch (fileType){
 		case "csv":
-			await csvToTrip(file, {bulkAppend: toolboxMethods.bulkAppend, showMessage: toolboxMethods.showMessage, setFileName: toolboxMethods.setFileName}, fileName);
+			await csvToTrip(file, {bulkAppend: managerMethods.bulkAppend, showMessage: managerMethods.showMessage, setFileName: managerMethods.setFileName}, fileName);
 			setLoading(false);
 			break;
 		case "json":
-			await jsonToTrip(file, {bulkAppend: toolboxMethods.bulkAppend, showMessage: toolboxMethods.showMessage, setFileName: toolboxMethods.setFileName}, fileName);
+			await jsonToTrip(file, {bulkAppend: managerMethods.bulkAppend, showMessage: managerMethods.showMessage, setFileName: managerMethods.setFileName}, fileName);
 			setLoading(false);
 			break
 		default:
@@ -166,31 +166,31 @@ function getFileType(fileName){
 	return parts[parts.length - 1].toLowerCase();
 }
 
-async function csvToTrip(file, toolboxMethods, fileName){
+async function csvToTrip(file, managerMethods, fileName){
 	const papaAwait = file => new Promise(resolve => Papa.parse(file, {header: true, complete: results => resolve(results.data)}));
 	const places = await papaAwait(file);
 	if(isValidFile({places:places})){
-		toolboxMethods.bulkAppend(places);
-		toolboxMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
+		managerMethods.bulkAppend(places);
+		managerMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
 	}else{
-		toolboxMethods.showMessage(`Failed to upload ${fileName}.`, "error");
-		toolboxMethods.setFileName("");
+		managerMethods.showMessage(`Failed to upload ${fileName}.`, "error");
+		managerMethods.setFileName("");
 		return;
 	}
 
 }
 
-async function jsonToTrip(file, toolboxMethods, fileName){
+async function jsonToTrip(file, managerMethods, fileName){
 	const fileContents = await readFile(file);
 	let jsonFile = JSON.parse(fileContents);
 	if(isValidFile(jsonFile)){
 		const places = jsonFile["places"];
-		toolboxMethods.bulkAppend(places);
-		toolboxMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
+		managerMethods.bulkAppend(places);
+		managerMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
 		return;
 	}else{
-		toolboxMethods.showMessage(`Failed to upload ${fileName}.`, "error");
-		toolboxMethods.setFileName("");
+		managerMethods.showMessage(`Failed to upload ${fileName}.`, "error");
+		managerMethods.setFileName("");
 		return;
 	}
 }
