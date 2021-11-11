@@ -59,7 +59,7 @@ Add issues to GitHub for any changes necessary to the system.
 | Add showMessage or promt whenever appending a place | Isabel noted that the only way she knew a place was being added was when the distances updated. | med | TBD |
 | Add units to total distances | Pretty self explanatory. | med | TBD |
 | Add labels to buttons | same as above | Med | TBD |
-| Make modify trip menu more visible | same as above | Med | TBD |
+| Make modify trip menu more visible | same as above | Med | 566 |
 | Make trip toolbox more obvious | user struggled to find toolbox first try | Low | TBD |
 | Add places through lat/lng | Allows for more a more custom trip without clicling on the map | Low | TBD |
 | Add total found to search results | Shai wanted to be able to see if there was more results | med | TBD |

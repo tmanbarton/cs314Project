@@ -1,7 +1,7 @@
 import  React, { useEffect, useState } from "react";
 import { Table, Container, Row, Col, Collapse, Input, ListGroup } from "reactstrap";
-import { latLngToText, placeToLatLng } from "../../../utils/transformers";
-import { FaHome, FaTrashAlt, FaSearch, FaSave, FaMapSigns, FaTrash, FaChevronRight, FaChevronDown } from "react-icons/fa";
+import { placeToLatLng } from "../../../utils/transformers";
+import { FaLocationArrow, FaTrashAlt, FaSearch, FaSave, FaMapSigns, FaTrash, FaChevronRight, FaChevronDown } from "react-icons/fa";
 import { MdDragHandle } from "react-icons/md";
 import { useToggle } from "../../../hooks/useToggle";
 import Search from "../Search/Search";
@@ -89,7 +89,7 @@ function Header(props) {
 			</Col>
 			<Col>
 				<div className="float-right">
-					<FaHome
+					<FaLocationArrow
 						size={24}
 						onClick={() => {
 							props.placeActions.moveToHome();
