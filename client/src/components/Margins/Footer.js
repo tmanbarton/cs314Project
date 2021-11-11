@@ -97,13 +97,8 @@ function ServerInformation(props) {
 		const serverConfig = props.serverSettings.serverConfig;
 		return serverConfig && serverConfig.serverName;
 	}
-	const serverName = connectedToValidServer()
-		? props.serverSettings.serverConfig.serverName
-		: UNKNOWN_SERVER_NAME;
-	const linkStatusSymbol = connectedToValidServer()
-		? UNICODE_LINK_SYMBOL
-		: UNICODE_WARNING_SIGN;
-	const [dropdownOpen, setDropdownOpen] = useToggle(false);
+	const serverName = connectedToValidServer() ? props.serverSettings.serverConfig.serverName : UNKNOWN_SERVER_NAME;
+	const linkStatusSymbol = connectedToValidServer() ? UNICODE_LINK_SYMBOL : UNICODE_WARNING_SIGN;
 
 	return (
 		<div className="vertical-center tco-text">
@@ -111,56 +106,34 @@ function ServerInformation(props) {
 				<div className="my-dropdown">
 					{linkStatusSymbol} Connected to{" "}
 					<div className="div-inline">
-						<Dropdown
-							isOpen={dropdownOpen}
-							toggle={setDropdownOpen}
-							direction="up"
-							size="sm"
-							data-testid="interop-dropdown"
-						>
-							<DropdownToggle caret>{serverName}</DropdownToggle>
-							<Servers {...props} />
-						</Dropdown>
+						<ServersDropdown {...props} serverName={serverName} />
 					</div>
 					<br />
-					<a
-						className="tco-text"
-						onClick={props.stateMethods.toggleFeaturesChecklist}
-					>
-						({props.serverSettings.serverUrl}).
-					</a>
-					<FeaturesChecklist
-						isOpen={props.stateVariables.featuresChecklistOpen}
-						toggleOpen={props.stateMethods.toggleFeaturesChecklist}
-						features={props.stateVariables.featuresRecieved}
-						supportedFeatures={supportedFeatures}
-					/>
+					<a className="tco-text" onClick={props.stateMethods.toggleFeaturesChecklist}>({props.serverSettings.serverUrl}).</a>
+					<FeaturesChecklist isOpen={props.stateVariables.featuresChecklistOpen} toggleOpen={props.stateMethods.toggleFeaturesChecklist} features={props.stateVariables.featuresRecieved} supportedFeatures={supportedFeatures}/>
 				</div>
 			</Container>
 		</div>
 	);
 }
 
-function Servers(props) {
+function ServersDropdown(props) {
+	const [dropdownOpen, setDropdownOpen] = useToggle(false);
 	return (
-		<DropdownMenu data-testid="interop-dropdown-menu">
-			{avaliableServers.map((server, index) => (
-				<DropdownItem
-					data-testid="dropdownitem"
-					key={`table-${JSON.stringify(server)}-${index}`}
-					onClick={() =>
-						changeServers(
-							server,
-							props.stateMethods,
-							props.stateVariables,
-							props.showMessage
-						)
-					}
-				>
-					{server.teamName}
-				</DropdownItem>
-			))}
-		</DropdownMenu>
+		<Dropdown isOpen={dropdownOpen} toggle={setDropdownOpen} direction="up" size="sm" data-testid="interop-dropdown">
+			<DropdownToggle caret>{props.serverName}</DropdownToggle>
+			<DropdownMenu data-testid="interop-dropdown-menu">
+				{avaliableServers.map((server, index) => (
+					<DropdownItem
+						data-testid="dropdownitem"
+						key={`table-${JSON.stringify(server)}-${index}`}
+						onClick={() => changeServers(server, props.stateMethods, props.stateVariables, props.showMessage)}
+					>
+						{server.teamName}
+					</DropdownItem>
+				))}
+			</DropdownMenu>
+		</Dropdown>
 	);
 }
 	
