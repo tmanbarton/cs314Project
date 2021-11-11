@@ -21,11 +21,11 @@ describe('Trip Manager Modal', ()=>{
     });
 
     beforeEach(()=>{
-        render(<TripManager tripName={tripName} places={places} managerMethods={tripToolbox} isOpen={true} toggleToolbox={toggleOpen}/>);
+        render(<TripManager tripName={tripName} places={places} managerMethods={tripToolbox} isOpen={true} toggleManager={toggleOpen}/>);
     });
 
     it('renders', async () =>{
-        render(<TripManager managerMethods={tripToolbox} isOpen={true} toggleToolbox={toggleOpen}/>)
+        render(<TripManager managerMethods={tripToolbox} isOpen={true} toggleManager={toggleOpen}/>)
     });
 
     it('has an upload button', ()=>{
