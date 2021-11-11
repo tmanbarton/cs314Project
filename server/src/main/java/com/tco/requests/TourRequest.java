@@ -62,6 +62,8 @@ public class TourRequest extends Request {
         private long start;
         Places finalTrip;
         private ArrayList<Long> distances = new ArrayList<Long>();
+        String initial_name;
+        Double initial_lat, initial_lon;
 
         public OptimizeTrip(Places Places, double earthRadius, double response){
             this.start = System.currentTimeMillis();
@@ -73,6 +75,9 @@ public class TourRequest extends Request {
 
         public void buildDataStructures(){
             int placeSize = this.preOptimizedPlaces.size();
+            initial_name = this.preOptimizedPlaces.get(0).get("name");
+            initial_lat = Double.parseDouble(this.preOptimizedPlaces.get(0).get("latitude"));
+            initial_lon = Double.parseDouble(this.preOptimizedPlaces.get(0).get("longitude"));
             this.tour = new int[placeSize];
             this.visited = new boolean[placeSize];
             this.tour_1 = new int[placeSize];
@@ -98,13 +103,50 @@ public class TourRequest extends Request {
                 }
             }
         }
+
+        // Finds the index of 
+        public int find_index(Places place){ 
+            for (var j = 0; j < place.size(); j++) { 
+                double epsilon = 0.000001d;
+                Place temp = place.get(j);
+                String temp_name = place.get(j).get("name");
+                Double temp_lat = Double.parseDouble(place.get(j).get("latitude"));
+                Double temp_lon = Double.parseDouble(place.get(j).get("longitude"));
+                if(temp_name == initial_name ){
+                    if(Math.abs(temp_lat - initial_lat) < epsilon){
+                        if(Math.abs(temp_lon - initial_lon) < epsilon){
+                                return j;
+                        }
+                    }
+                }
+            }
+            return 0;
+        }
+
+        // Arrange trip so that the starting location is preserved
+        public Places arrange_trip(Places place){
+            int i = find_index(place);
+            Places temp = new Places(place);
+            for (var j = 0; j < temp.size(); j++) {
+                temp.set(j, place.get(i));
+                i++;
+                if(i == temp.size()){
+                    i = 0;
+                }
+                if(outOfTime()) break;
+            }
+            return temp;
+        }
+
         //returns an optimized list of places
         public Places optimize(){
             var prev = this.inf;
+            var start_index = 0;
             Places finalTrip = new Places(this.preOptimizedPlaces);
 
             for (var j = 0; j < this.preOptimizedPlaces.size(); j++) {
-                int[] optimizedTour = nearestNeighbor(this.tour, j);
+
+                this.tour = nearestNeighbor(this.tour, j);
                 this.opt_tour[this.tour.length] = this.tour[0];
                 if(this.tour.length > 3){
                     opt_2(this.opt_tour);
@@ -118,11 +160,12 @@ public class TourRequest extends Request {
                 }
                 var total_distance = get_distances(optimizedTrip);
                 if (total_distance < prev){
-                    finalTrip = optimizedTrip;
+                    finalTrip = new Places(optimizedTrip);
                     prev = total_distance;
                 }
                 if(outOfTime()) break;
             }
+            finalTrip = arrange_trip(finalTrip);
             return finalTrip;
         }
 
@@ -188,7 +231,7 @@ public class TourRequest extends Request {
             int i = 0;
             int currrent = start_index; 
             int tour_size = this.preOptimizedPlaces.size();
-            while (i < tour_size - 1){
+            while (i < (tour_size - 1)){
                 int close_index = find_closest(currrent, this.visited);
                 i++;
                 this.tour[i] = close_index;
