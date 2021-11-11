@@ -24,12 +24,12 @@ describe('Itinerary', () => {
         expect(input.value).toEqual('TEST TRIP');
     });
 
-    it('has a toolbox button and opens TripToolBox', async ()=>{
+    it('has a manager button and opens Trip Manager', async ()=>{
         const onClick = jest.fn();
-        const toolboxBtn = screen.getByTestId('toolbox-btn',);
+        const toolboxBtn = screen.getByTestId('manager-btn',);
         user.click(toolboxBtn);
         await waitFor(()=>{
-            expect(screen.getByText(/trip toolbox/i)).toBeTruthy();
+            expect(screen.getByText(/trip manager/i)).toBeTruthy();
         });
         screen.debug();
     });
