@@ -136,7 +136,7 @@ async function moveToHome(context) {
 		const place = {
 			latitude: '' + coords.latitude,
 			longitude: '' + coords.longitude,
-			name: "Home",
+			name: "Current Location",
 		};
         const newPlaces = [place, ...places];
 		bulkAppend(newPlaces, 0, context);
