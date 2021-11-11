@@ -23,58 +23,28 @@ export default function Itinerary(props) {
 	return (
 		<Container>
 			<Header
-				tripName={tripName}
-				setTripName={setTripName}
-				placeActions={props.placeActions}
-				showMessage={props.showMessage}
-				showToolbox = {showToolbox}
-				toggleToolbox = {toggleToolbox}
-				toggleSearch={toggleSearch}
-				disableSearch={props.disableSearch}
-				places={props.places}
+				tripName={tripName} setTripName={setTripName} placeActions={props.placeActions} showMessage={props.showMessage} showToolbox = {showToolbox}
+				toggleToolbox = {toggleToolbox} toggleSearch={toggleSearch} disableSearch={props.disableSearch} places={props.places}
 			/>
 			<hr />
 			<Collapse isOpen={showSearch}>
-				<Search
-					serverSettings={props.serverSettings}
-					append={props.placeActions.append}
-					showMessage={props.showMessage}
-				/>
+				<Search serverSettings={props.serverSettings} append={props.placeActions.append} showMessage={props.showMessage}/>
 			</Collapse>	
 			<TripHeader
-				tripName={tripName} 
-				undo={props.placeActions.undo} 
-				distances={props.distances} 
-				places={props.places}
-				disableTour={props.disableTour} 
-				serverSettings={props.serverSettings} 
-				bulkAppend={props.placeActions.bulkAppend} 
-				showMessage={props.showMessage}
-				selectedIndex={props.selectedIndex}
+				tripName={tripName} undo={props.placeActions.undo} distances={props.distances} places={props.places} disableTour={props.disableTour} 
+				serverSettings={props.serverSettings} bulkAppend={props.placeActions.bulkAppend} showMessage={props.showMessage} selectedIndex={props.selectedIndex}
 				/>
 			<br />		
 			<Table responsive striped>
-				<Body
-					distances={props.distances}
-					places={props.places}
-					placeActions={props.placeActions}
-					selectedIndex={props.selectedIndex}
-					setSelectedIndex={props.setSelectedIndex}
-				/>
+				<Body distances={props.distances} places={props.places} placeActions={props.placeActions} selectedIndex={props.selectedIndex} setSelectedIndex={props.setSelectedIndex}/>
 			</Table>
 			{props.distances ? <TotalDistances distances={props.distances} /> : null}
 		</Container>
 	);
 }
 
-function Header(props) {
-	let managerMethods = {
-		bulkAppend: props.placeActions.bulkAppend,
-		removeAll: props.placeActions.removeAll,
-		showMessage: props.showMessage,
-		setTripName: props.setTripName
-	};
-	
+function Header(props) {	
+	const managerMethods = { bulkAppend: props.placeActions.bulkAppend, removeAll: props.placeActions.removeAll, showMessage: props.showMessage, setTripName: props.setTripName};
 	return (
 		<Row>
 			<Col>
@@ -97,21 +67,11 @@ function Header(props) {
 						data-testid="home-button"
 					/>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<FaSearch
-						className={props.disableSearch ? "fa-disabled" : ""}
-						size={24}
-						onClick={props.disableSearch ? null : props.toggleSearch}
-						data-testid="srch-button"
-					/>
+					<FaSearch className={props.disableSearch ? "fa-disabled" : ""} size={24} onClick={props.disableSearch ? null : props.toggleSearch} data-testid="srch-button"/>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<FaTrashAlt
-						size={24}
-						onClick={() => props.placeActions.removeAll()}
-						data-testid="delete-all-button"
-					/>
+					<FaTrashAlt size={24} onClick={() => props.placeActions.removeAll()} data-testid="delete-all-button"/>
 				</div>
 			</Col>
-
 			<TripManager tripName={props.tripName} managerMethods={managerMethods} isOpen={props.showToolbox} toggleToolbox={props.toggleToolbox} places={props.places}/>			
 		</Row>
 	);
@@ -212,17 +172,9 @@ function Body(props) {
 			{props.places.map((place,index) => (
 				i++,
 			  <SortableItem 					
-					key={`table-${JSON.stringify(place)}-${index}`}
-					place={place}
-					placeActions={props.placeActions}
-					index={index}
-					places={props.places}
-					distances={props.distances} 
-					selectedIndex={props.selectedIndex}
-					setSelectedIndex={props.setSelectedIndex}
-					id={i}
-					lockToContainerEdges={true}
-					/>
+					key={`table-${JSON.stringify(place)}-${index}`} place={place} placeActions={props.placeActions} index={index} places={props.places}
+					distances={props.distances} selectedIndex={props.selectedIndex} setSelectedIndex={props.setSelectedIndex} id={i} lockToContainerEdges={true}
+				/>
 			))}
 		  	</SortableContainer>
 		</tbody>
@@ -231,10 +183,8 @@ function Body(props) {
 
 function arrayMoveMutable(array, fromIndex, toIndex) {
 	const startIndex = fromIndex < 0 ? array.length + fromIndex : fromIndex;
-
 	if (startIndex >= 0 && startIndex < array.length) {
 		const endIndex = toIndex < 0 ? array.length + toIndex : toIndex;
-
 		const [item] = array.splice(fromIndex, 1);
 		array.splice(endIndex, 0, item);
 	}
@@ -244,14 +194,6 @@ function arrayMove(array, fromIndex, toIndex) {
 	array = [...array];
 	arrayMoveMutable(array, fromIndex, toIndex);
 	return array;
-}
-
-function parseDistance(distances, index) {
-	if (distances == undefined || index == 0) {
-		return 0;
-	} else {
-		return totalDistance(distances.slice(0, index));
-	}
 }
 
 function TripHeader(props){
@@ -274,6 +216,14 @@ function TripHeader(props){
 			: null}
 	</Row>
 	);
+}
+
+function parseDistance(distances, index) {
+	if (distances == undefined || index == 0) {
+		return 0;
+	} else {
+		return totalDistance(distances.slice(0, index));
+	}
 }
 
 function TotalDistances(props)
