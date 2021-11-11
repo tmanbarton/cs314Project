@@ -133,6 +133,7 @@ public class TourRequest extends Request {
                 if(i == temp.size()){
                     i = 0;
                 }
+                if(outOfTime()) break;
             }
             return temp;
         }
