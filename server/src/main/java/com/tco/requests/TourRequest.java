@@ -61,8 +61,6 @@ public class TourRequest extends Request {
         Places finalTrip;
         Place startingPlace;
         private ArrayList<Long> distances = new ArrayList<Long>();
-        String initial_name;
-        Double initial_lat, initial_lon;
 
         public OptimizeTrip(Places places, double earthRadius, double response){
             this.start = System.currentTimeMillis();
@@ -75,9 +73,6 @@ public class TourRequest extends Request {
 
         public void buildDataStructures(){
             int placeSize = this.preOptimizedPlaces.size();
-            initial_name = this.preOptimizedPlaces.get(0).get("name");
-            initial_lat = Double.parseDouble(this.preOptimizedPlaces.get(0).get("latitude"));
-            initial_lon = Double.parseDouble(this.preOptimizedPlaces.get(0).get("longitude"));
             this.tour = new int[placeSize];
             this.visited = new boolean[placeSize];
             this.tour_1 = new int[placeSize];
