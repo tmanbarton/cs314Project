@@ -70,13 +70,28 @@ Past Performance: Based on our team’s metrics from sprint #3, we should be abl
 ## Review
 
 ### Epics completed  
+#### Highlight Place
+When the user clicks on places in their trip, the application will now highlight that place in CSU gold and pull up the marker on the map! This epic was fairly easy to complete and we didn't really run into issues completing it.
+
+#### Shorter Place
+The user can now optimize the distance of an added trip! This epic required a lot of work on both the front-end and back-end of the application. It took the most time out of all the epics to complete and we did run into numerous issues throughout this epic. For the most part it seems to be working, although we will need to further test our tour API to ensure that is the case.
+
+#### Modify Trip
+The user can now move places around, and they have fun new commands they use on their trip! This epic was fairly easy to complete but did take the second most time to implement. 
+
+#### User Experience
+We each conducted user interviews and made small UI tweaks to improve the experience of users. This epic was fairly easy to complete and we didn't run into any issues completing it.
 
 ### Epics not completed 
+## None
 
 ## Retrospective
 
 ### Things that went well
+Communication and team contribution was much better this sprint. We also planned fairly well this sprint and made sure we were testing our code as we went along.
 
 ### Things we need to improve
+ Some of our github eddiqute has been poor (slight changes as pq, failed checks, ect.) but could also be a result of other coding practices. This next sprint we plan on honing in our software skills and providing entire solutions when we make changes.
 
-### One thing we will change next time
+#### One thing we will change next time
+ We will further tighten clean code and TDD in mind while developing. This way we are contributing complete solutions (when not bug finding/error testing) when adding changes.
