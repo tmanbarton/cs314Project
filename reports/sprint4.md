@@ -71,26 +71,29 @@ Past Performance: Based on our team’s metrics from sprint #3, we should be abl
 
 ## Review
 
-### Epics completed
-#### Modify Trip
-The places in the itinerary can now be dragged using drag handles, allowing the user to modify the trip as they wish. We used the SortableContainer react component to implement this. We also addded some progressive disclosure for the items in the list. They now only show the beginning of the address of the place, and when the user clicks on that place it expands to shows the full address and the distance.
-
-#### Shorter Trip
-In this epic we were able to complete nearest neighbor and 2-opt. The user can load very large trips and we do as much optimization as we can in the given time limit. 
-
+### Epics completed  
 #### Highlight Place
-The user can now select a place in the itinerary, and the marker to that place on the map. The item selected also gets highlighted in the list of places in the itinerary to further notify the user that it has been selected. This epic was fairly easy. The whole epic was completed in one day.
+When the user clicks on places in their trip, the application will now highlight that place in CSU gold and pull up the marker on the map! This epic was fairly easy to complete and we didn't really run into issues completing it.
+
+#### Shorter Place
+The user can now optimize the distance of an added trip! This epic required a lot of work on both the front-end and back-end of the application. It took the most time out of all the epics to complete and we did run into numerous issues throughout this epic. For the most part it seems to be working, although we will need to further test our tour API to ensure that is the case.
+
+#### Modify Trip
+The user can now move places around, and they have fun new commands they use on their trip! This epic was fairly easy to complete but did take the second most time to implement. 
 
 #### User Experience
-Every member in the team did the same user test with someone and we had a meeting to decide what tasks to make. We all found from our users that the icons didn't convey their intended meanings as well as we hoped. There was also some confusion with saving trips, loading trips, and saving changes to a modified trips. Our biggest takeaways were our use of icons. We have changed some icons and put words next to others in a dropdown. There will also be tooltips for the ones not in a dropdown. Since the changes were mostly to icons and wording, this epic was pretty easy and quick.
+We each conducted user interviews and made small UI tweaks to improve the experience of users. This epic was fairly easy to complete and we didn't run into any issues completing it.
 
 ### Epics not completed 
-None
+## None
 
 ## Retrospective
 
 ### Things that went well
+Communication and team contribution was much better this sprint. We also planned fairly well this sprint and made sure we were testing our code as we went along.
 
 ### Things we need to improve
+ Some of our github eddiqute has been poor (slight changes as pq, failed checks, ect.) but could also be a result of other coding practices. This next sprint we plan on honing in our software skills and providing entire solutions when we make changes.
 
-### One thing we will change next time
+#### One thing we will change next time
+ We will further tighten clean code and TDD in mind while developing. This way we are contributing complete solutions (when not bug finding/error testing) when adding changes.
