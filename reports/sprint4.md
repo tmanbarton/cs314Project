@@ -54,8 +54,8 @@ The fourth epic is User Experience. This epic focuses on collecting survey respo
 | Statistic | # Planned | # Completed |
 | --- | ---: | ---: |
 | Epics | 4 | 4 |
-| Tasks |  23  | 62 | 
-| Story Points |  33  | 79 | 
+| Tasks |  23  | 105 | 
+| Story Points |  33  | 118 | 
 
 Past Performance: Based on our team’s metrics from sprint #3, we should be able to complete all our planned epics and tasks. Last sprint our team planned 5 epics, 20, tasks, and 32 story points. As a team we managed to successfully complete all 5 epics, 84 total tasks, and 97 total story points.
 
@@ -64,9 +64,9 @@ Past Performance: Based on our team’s metrics from sprint #3, we should be abl
 
 | Date | Tasks closed  | Tasks in progress | Impediments |
 | :--- | :--- | :--- | :--- |
-| 10/25/2021 | #403 | *#task, ...* | None |
-| 11/1/2021 | #392, #402, #407, #413, #424, #434, #438, #301, #393, #396, #399, #400, #417, #420, #421, #422, #449, #404, #461, #398, #465, #482 | *#task, ...* |  |
-| 11/8/2021 | #388, #397, #454, #469, #480, #485, #486, #488, #496, #379, #467, #479, #519, #215, #410, #411, #416, #405, #373, #376, #389, #504, #542, #543 | *#task, ...* |  |
+| 10/25/2021 | #403 | #406-#482 | None |
+| 11/1/2021 | #392, #402, #407, #413, #424, #434, #438, #301, #393, #396, #399, #400, #417, #420, #421, #422, #449, #404, #461, #398, #465, #482 | #483-#543 | Revert Trip, Tour Request  |
+| 11/8/2021 | #388, #397, #454, #469, #480, #485, #486, #488, #496, #379, #467, #479, #519, #215, #410, #411, #416, #405, #373, #376, #389, #504, #542, #543 | #545+ | None |
 
 
 ## Review
