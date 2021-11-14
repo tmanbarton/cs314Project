@@ -148,10 +148,9 @@ public class TourRequest extends Request {
                 Place temp = this.preOptimizedPlaces.get(indexOfPlace);
                 //find the index of original starting location
                 double epsilon = 0.000001d;
-                String temp_name = temp.get("name");
-                Double temp_lat = Double.parseDouble(temp.get("latitude"));
-                Double temp_lon = Double.parseDouble(temp.get("longitude"));
-                if(temp_name == initial_name ){
+                if(temp.get("name") == initial_name ){
+                    Double temp_lat = Double.parseDouble(temp.get("latitude"));
+                    Double temp_lon = Double.parseDouble(temp.get("longitude"));
                     if(Math.abs(temp_lat - initial_lat) < epsilon){
                         if(Math.abs(temp_lon - initial_lon) < epsilon){
                                 start_index = i;
