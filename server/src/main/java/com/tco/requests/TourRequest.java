@@ -102,7 +102,7 @@ public class TourRequest extends Request {
                     double longitude2 = Double.parseDouble(this.preOptimizedPlaces.get(j).get("longitude"));
                     this.distanceMatrix[i][j] =
                         calculator.computeDistance(latitude1, latitude2, longitude1, longitude2);
-                    // if(outOfTime()) break;
+                    if(outOfTime()) break;
                 }
             }
         }
