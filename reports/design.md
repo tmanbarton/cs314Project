@@ -292,6 +292,14 @@ In this sprint, we will focus extending 'find' features and making small UI modi
 
 ![Sprint5UI](images/Sprint5UI.png "Sprint 5 UI")
 
+## Client Components
+In this sprint we plan to enhance our search component much more by adding the ability to search by lat/lng and generate random places. 
+  - Search Input will be Input Group
+    - Stores random button
+    - Stores lat/lng button
+  - Maps will have map layer for choosing maps
+![clientCompS5](images/ClientComponentDiagramSP5.png "Client Component Diagram Sprint5")
+
 ## Class Diagram
 We aren't adding any files on the server side. The only changes we will make to the backend are to get random places from the database.
 ![serverDiagramS4](images/ServerClassesSprint4.png)
