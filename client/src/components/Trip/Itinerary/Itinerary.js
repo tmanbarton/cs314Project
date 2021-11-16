@@ -54,22 +54,27 @@ function Header(props) {
 							<Input value={props.tripName} data-testid="My Trip" placeholder={props.tripName} onChange={e => props.setTripName(e.target.value)}></Input>				
 						</h4>
 					</Col>
-					<FaSave data-testid="manager-btn" size={24} onClick={()=>{props.toggleManager();}}/>
 				</Row>
 			</Col>
 			<Col>
 				<div className="float-right">
+				<FaSave data-testid="manager-btn" size={18} onClick={()=>{props.toggleManager();}}/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<FaLocationArrow
-						size={24}
+						size={18}
 						onClick={() => {
 							props.placeActions.moveToHome();
 						}}
 						data-testid="home-button"
 					/>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<FaSearch className={props.disableSearch ? "fa-disabled" : ""} size={24} onClick={props.disableSearch ? null : props.toggleSearch} data-testid="srch-button"/>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<FaTrashAlt size={24} onClick={() => props.placeActions.removeAll()} data-testid="delete-all-button"/>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<FaSearch className={props.disableSearch ? "fa-disabled" : ""} size={18} onClick={props.disableSearch ? null : props.toggleSearch} data-testid="srch-button"/>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<FaTrashAlt size={18} onClick={() => props.placeActions.removeAll()} data-testid="delete-all-button"/>
+				<Row style={{fontSize: "80%", whiteSpace: "pre"}}>
+					&nbsp;
+					Save   Locate   Search  Clear
+				</Row>
 				</div>
 			</Col>
 			<TripManager tripName={props.tripName} managerMethods={managerMethods} isOpen={props.showManager} toggleManager={props.toggleManager} places={props.places}/>			
