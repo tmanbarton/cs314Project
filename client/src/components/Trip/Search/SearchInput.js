@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input, Container } from "reactstrap";
 import {
 	sendAPIRequest,
@@ -9,13 +9,25 @@ import { SearchResults } from "./SearchResults";
 const limit = 5;
 
 export default function SearchInput(props) {
-	const [places, setPlaces] = useState();
+	const [places, setPlaces] = useState([]);
+	const [match, setMatch] = useState('');
+	const [noResultsFound, setNoResultsFound] = useState(false);
 
-	function inputChanged(input) {
-		let match = input.target.value;
-		const request = buildFindRequest(match);
-		sendFindRequest(request, setPlaces, props.serverSettings, props.showMessage);
-	}
+	useEffect(()=>{
+		setPlaces([]);
+		setMatch('');
+		setNoResultsFound(false);
+	},[props.showSearch]);
+
+	useEffect(()=>{
+		if(match.length){
+			const request = buildFindRequest(match);
+			sendFindRequest(request, {setPlaces: setPlaces, setNoResultsFound: setNoResultsFound}, props.serverSettings, props.showMessage);
+		}else{
+			setPlaces([]);
+			setNoResultsFound(false);
+		}
+	},[match]);
 
 	return (
 		<Container>
@@ -23,13 +35,14 @@ export default function SearchInput(props) {
 				<Input
 					type="text"
 					placeholder="Search for Places"
-					onChange={inputChanged}
+					onChange={(input)=>setMatch(input.target.value)}
 					data-testid="searchBar"
-				></Input>
+					value={match}
+				/>
 			</div>
 			<hr />
 			<div>
-				<SearchResults places={places} append={props.append} />
+				<SearchResults places={places} append={props.append} noResultsFound={noResultsFound}/>
 			</div>
 		</Container>
 	);
@@ -43,10 +56,11 @@ function buildFindRequest(match) {
 	};
 }
 
-async function sendFindRequest(request, setPlaces, serverSettings, showMessage) {
+async function sendFindRequest(request, searchStates, serverSettings, showMessage) {
 	const findResponse = await sendAPIRequest(request, serverSettings.serverUrl);
 	if (findResponse && isJsonResponseValid(findResponse, findResponse)) {
-		setPlaces(findResponse["places"]);
+		searchStates.setPlaces(findResponse["places"]);
+		searchStates.setNoResultsFound(findResponse["places"].length ? false : true);
 	} else {
 		showMessage(
 			`Find request to ${serverSettings.serverUrl} failed. Check the log for more details.`,
