@@ -291,7 +291,3 @@ In this sprint, we will focus extending 'find' features and making small UI modi
        - Button also found on map 
 
 ![Sprint5UI](images/Sprint5UI.png "Sprint 5 UI")
-
-## Class Diagram
-We aren't adding any files on the server side. The only changes we will make to the backend are to get random places from the database.
-![serverDiagramS4](images/ServerClassesSprint4.png)
