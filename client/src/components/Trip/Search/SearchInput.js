@@ -31,19 +31,9 @@ export default function SearchInput(props) {
 
 	return (
 		<Container>
-			<div>
-				<Input
-					type="text"
-					placeholder="Search for Places"
-					onChange={(input)=>setMatch(input.target.value)}
-					data-testid="searchBar"
-					value={match}
-				/>
-			</div>
+			<Input type="text" placeholder="Search for Places" onChange={(input)=>setMatch(input.target.value)} data-testid="searchBar" value={match} />
 			<hr />
-			<div>
-				<SearchResults places={places} append={props.append} noResultsFound={noResultsFound}/>
-			</div>
+			<SearchResults places={places} append={props.append} noResultsFound={noResultsFound}/>
 		</Container>
 	);
 }
