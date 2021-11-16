@@ -28,7 +28,7 @@ export default function Itinerary(props) {
 			/>
 			<hr />
 			<Collapse isOpen={showSearch}>
-				<Search serverSettings={props.serverSettings} append={props.placeActions.append} showMessage={props.showMessage}/>
+				<Search serverSettings={props.serverSettings} append={props.placeActions.append} showMessage={props.showMessage} showSearch={showSearch}/>
 			</Collapse>	
 			<TripHeader
 				tripName={tripName} undo={props.placeActions.undo} distances={props.distances} places={props.places} disableTour={props.disableTour} 
