@@ -23,6 +23,16 @@ describe('SearchInput', () => {
     it('Calls a function when given user input', () => {
     user.paste(screen.getByTestId('searchBar'), 'a');
         });
+
+    it('Can pull up random places', () => {
+        const randomPlaces = screen.getByTestId('randomPlaces');
+        user.click(randomPlaces);
+    });
+
+    it('Can Search by String or Coordinates', () => {
+        const byCoordinates = screen.getByTestId('byCoordinates');
+        user.click(byCoordinates);
+    });
 });
 
 
