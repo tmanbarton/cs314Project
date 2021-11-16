@@ -1,30 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Collapse, Container, Table } from "reactstrap";
 import { FaPlus } from "react-icons/fa";
 import { latLngToText, placeToLatLng } from "../../../utils/transformers";
-import { useToggle } from "../../../hooks/useToggle";
 
 export function SearchResults(props) {
-	const [onStart, toggleOnStart] = useToggle(false);
+	const [onStart, toggleOnStart] = useState(!props.noResultsFound && !props.places.length);
 
-	let places;
-	if (props.places) {
-		places = Object.values(props.places);
-		if (!onStart) {
-			toggleOnStart();
-		}
-	} else {
-		places = [];
-	}
+	useEffect(()=>{
+		toggleOnStart(!props.noResultsFound && !props.places.length);
+	},[props.places, props.noResultsFound]);
 
 	return (
 		<Container>
-			<Collapse isOpen={!onStart}>
+			<Collapse isOpen={onStart}>
 				<ShowOnStart />
 			</Collapse>
-			<Collapse isOpen={onStart}>
+			<Collapse isOpen={!onStart}>
 				<Table responsive striped>
-					<Body append={props.append} places={places} />
+					<Body append={props.append} places={props.places} noResultsFound={props.noResultsFound}/>
 				</Table>
 			</Collapse>
 		</Container>
@@ -42,7 +35,7 @@ function ShowOnStart() {
 }
 
 function Body(props) {
-	return props.places.length > 0 ? (
+	return !props.noResultsFound ? (
 		<tbody data-testid="searchResults"> 
 			{props.places.map((place, index) => (
 				<TableRow
