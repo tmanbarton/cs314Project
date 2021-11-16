@@ -32,14 +32,28 @@ export default function SearchInput(props) {
 
 	return (
 		<Container>
-			<InputGroup>
-				<Input type="text" placeholder="Search for Places" onChange={(input)=>setMatch(input.target.value)} data-testid="searchBar" value={match} />
-				<InputGroupAddon addonType="append"><Button color="primary" className="input-group-buttons" data-testid="randomPlaces" onClick={() => { randomPlaces({setPlaces: setPlaces, setNoResultsFound: setNoResultsFound}, props.serverSettings, props.showMessage)}}><FaDice size={18}/></Button></InputGroupAddon>
-				<InputGroupAddon addonType="append" ><Button color="primary" className="input-group-buttons" data-testid="byCoordinates"><FaGlobe size={18}/></Button></InputGroupAddon>
-			</InputGroup>
+			<Searchbar {...props} setMatch={setMatch} setNoResultsFound={setNoResultsFound} setPlaces={setPlaces} match={match} />
 			<hr />
 			<SearchResults places={places} append={props.append} noResultsFound={noResultsFound}/>
 		</Container>
+	);
+}
+
+function Searchbar(props){
+	return (
+		<InputGroup>
+			<Input type="text" placeholder="Search for Places" onChange={(input)=>props.setMatch(input.target.value)} data-testid="searchBar" value={props.match} />
+			<InputGroupAddon addonType="append">
+				<Button color="primary" className="input-group-buttons" data-testid="randomPlaces" onClick={() => { randomPlaces({setPlaces: props.setPlaces, setNoResultsFound: props.setNoResultsFound}, props.serverSettings, props.showMessage)}}>
+					<FaDice size={18}/>
+				</Button>
+			</InputGroupAddon>
+			<InputGroupAddon addonType="append" >
+				<Button color="primary" className="input-group-buttons" data-testid="byCoordinates">
+					<FaGlobe size={18}/>
+				</Button>
+			</InputGroupAddon>
+		</InputGroup>
 	);
 }
 
