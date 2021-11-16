@@ -26,11 +26,7 @@ export function SearchResults(props) {
 
 function ShowOnStart() {
 	return (
-		<Container>
-			<div>
-				<p>Search to get Started.</p>
-			</div>
-		</Container>
+		<p className="centered">Search to get Started.</p>
 	);
 }
 

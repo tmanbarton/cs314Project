@@ -34,8 +34,8 @@ export default function SearchInput(props) {
 		<Container>
 			<InputGroup>
 				<Input type="text" placeholder="Search for Places" onChange={(input)=>setMatch(input.target.value)} data-testid="searchBar" value={match} />
-				<InputGroupAddon addonType="append"><Button className="button1" data-testid="randomPlaces" onClick={() => { randomPlaces({setPlaces: setPlaces, setNoResultsFound: setNoResultsFound}, props.serverSettings, props.showMessage)}}><FaDice size={18}/></Button></InputGroupAddon>
-				<InputGroupAddon addonType="append" ><Button className="button1" data-testid="byCoordinates"><FaGlobe size={18}/></Button></InputGroupAddon>
+				<InputGroupAddon addonType="append"><Button color="primary" className="input-group-buttons" data-testid="randomPlaces" onClick={() => { randomPlaces({setPlaces: setPlaces, setNoResultsFound: setNoResultsFound}, props.serverSettings, props.showMessage)}}><FaDice size={18}/></Button></InputGroupAddon>
+				<InputGroupAddon addonType="append" ><Button color="primary" className="input-group-buttons" data-testid="byCoordinates"><FaGlobe size={18}/></Button></InputGroupAddon>
 			</InputGroup>
 			<hr />
 			<SearchResults places={places} append={props.append} noResultsFound={noResultsFound}/>
