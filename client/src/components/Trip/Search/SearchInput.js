@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Input, Container } from "reactstrap";
+import { Input, Container, Form, Button } from "reactstrap";
+import { FaDice, FaGlobe } from "react-icons/fa";
 import {
 	sendAPIRequest,
 	isJsonResponseValid
@@ -31,11 +32,20 @@ export default function SearchInput(props) {
 
 	return (
 		<Container>
-			<Input type="text" placeholder="Search for Places" onChange={(input)=>setMatch(input.target.value)} data-testid="searchBar" value={match} />
+			<Form className="form1">
+				<Input type="text" placeholder="Search for Places" onChange={(input)=>setMatch(input.target.value)} data-testid="searchBar" value={match} />
+				<Button className="button1" data-testid="randomPlaces" onClick={() => { randomPlaces({setPlaces: setPlaces, setNoResultsFound: setNoResultsFound}, props.serverSettings, props.showMessage)}}><FaDice size={18}/></Button>
+				<Button className="button1" data-testid="byCoordinates"><FaGlobe size={18}/></Button>
+			</Form>
 			<hr />
 			<SearchResults places={places} append={props.append} noResultsFound={noResultsFound}/>
 		</Container>
 	);
+}
+
+function randomPlaces(searchStates, serverSettings, showMessage){
+	const request = buildFindRequest("");
+	sendFindRequest(request, searchStates, serverSettings, showMessage)
 }
 
 function buildFindRequest(match) {

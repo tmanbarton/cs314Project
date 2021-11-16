@@ -35,3 +35,31 @@
     flex-direction: column;
     font-size: 80%;
 }
+.form1 {
+  /* This bit sets up the horizontal layout */
+  display:flex;
+  flex-direction:row;
+  /* I've used padding so you can see the edges of the elements. */
+  padding:2px;
+}
+
+.input1 {
+  /* Tell the input to use all the available space */
+  flex-grow:2;
+  /* And hide the input's outline, so the form looks like the outline */
+  border:none;
+}
+
+.input1:focus {
+  /* removing the input focus blue box. Put this on the form if you like. */
+  outline: none;
+}
+
+.button1 {
+  /* Just a little styling to make it pretty */
+  background:black;
+  padding:2px;
+  margin-right: .025em;
+  color:white;
+  font-size: 10%;
+}
