@@ -1,5 +1,5 @@
 import  React, { useEffect, useState } from "react";
-import { Table, Container, Row, Col, Collapse, Input, ListGroup } from "reactstrap";
+import { Table, Container, Row, Col, Collapse, Input, ListGroup, ButtonGroup, Button } from "reactstrap";
 import { placeToLatLng } from "../../../utils/transformers";
 import { FaLocationArrow, FaTrashAlt, FaSearch, FaSave, FaMapSigns, FaTrash, FaChevronRight, FaChevronDown } from "react-icons/fa";
 import { MdDragHandle } from "react-icons/md";
@@ -48,35 +48,19 @@ function Header(props) {
 	return (
 		<Row>
 			<Col>
-				<Row>
-					<Col>
-						<h4>	
-							<Input value={props.tripName} data-testid="My Trip" placeholder={props.tripName} onChange={e => props.setTripName(e.target.value)}></Input>				
-						</h4>
-					</Col>
-				</Row>
+				<h4>	
+					<Input value={props.tripName} data-testid="My Trip" placeholder={props.tripName} onChange={e => props.setTripName(e.target.value)}></Input>				
+				</h4>
 			</Col>
-			<Col>
-				<div className="float-right">
-				<FaSave data-testid="manager-btn" size={18} onClick={()=>{props.toggleManager();}}/>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<FaLocationArrow
-						size={18}
-						onClick={() => {
-							props.placeActions.moveToHome();
-						}}
-						data-testid="home-button"
-					/>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<FaSearch className={props.disableSearch ? "fa-disabled" : ""} size={18} onClick={props.disableSearch ? null : props.toggleSearch} data-testid="srch-button"/>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<FaTrashAlt size={18} onClick={() => props.placeActions.removeAll()} data-testid="delete-all-button"/>
-				<Row style={{fontSize: "80%", whiteSpace: "pre"}}>
-					&nbsp;
-					Save   Locate   Search  Clear
-				</Row>
-				</div>
-			</Col>
+			<ButtonGroup size="sm" className="button-group">
+				<Button color="primary" data-testid="manager-btn" onClick={()=>{props.toggleManager();}}><FaSave size={18} /><p className="button-label">Manage</p></Button>
+				<Button color="primary" data-testid="home-button" onClick={() => {props.placeActions.moveToHome();}}><FaLocationArrow size={18} /><p className="button-label">Locate</p></Button>
+				<Button color="primary" data-testid="srch-button" className={props.disableSearch ? "fa-disabled" : ""} onClick={props.disableSearch ? null : props.toggleSearch}>
+					<FaSearch size={18} />
+					<p className="button-label">Search</p>
+				</Button>
+				{props.places.length ? <Button color="primary" data-testid="delete-all-button" onClick={() => props.placeActions.removeAll()}><FaTrashAlt size={18} /><p className="button-label">Clear</p></Button>: null}
+			</ButtonGroup>
 			<TripManager tripName={props.tripName} managerMethods={managerMethods} isOpen={props.showManager} toggleManager={props.toggleManager} places={props.places}/>			
 		</Row>
 	);
