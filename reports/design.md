@@ -274,3 +274,20 @@ To simplify changing the distances while modifying the trip we moved the distanc
 ![serverDiagramS4](images/ServerClassesSprint4.png)
 
 # Sprint 5
+## User Interface
+
+In this sprint, we will focus extending 'find' features and making small UI modifications to further improve UX.
+
+### UI Design for new Find Features
+
+- Dice Icon for Random Query
+     - Shows the user 5 random places
+- Globe Icon for toggling between search by string and search by lat/lng
+     - Allows the user to type a lat and lng into the searchbar
+
+## UI Tweaks
+  - Moved 'find me'/'locate' button to map
+  - Added new map layers feature
+       - Button also found on map 
+
+![Sprint5UI](images/Sprint5UI.png "Sprint 5 UI")
