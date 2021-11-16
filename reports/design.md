@@ -291,3 +291,11 @@ In this sprint, we will focus extending 'find' features and making small UI modi
        - Button also found on map 
 
 ![Sprint5UI](images/Sprint5UI.png "Sprint 5 UI")
+
+## Client Components
+In this sprint we plan to enhance our search component much more by adding the ability to search by lat/lng and generate random places. 
+  - Search Input will be Input Group
+    - Stores random button
+    - Stores lat/lng button
+  - Maps will have map layer for choosing maps
+![clientCompS5](images/ClientComponentDiagramSP5.png "Client Component Diagram Sprint5")
