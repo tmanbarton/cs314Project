@@ -13,9 +13,27 @@ const MAP_MAX_ZOOM = 19;
 const MAP_LAYERS = [
     {
       selected: true,
-      name: "Open Street Map",
+      name: "Default Map",
       attribution: MAP_LAYER_ATTRIBUTION,
       url: MAP_LAYER_URL,
+    },
+     {
+      selected: false,
+      name: "Topographic",
+      attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
+      url: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
+    },
+    {
+      selected: false,
+      name: "Satellite",
+      attribution: "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community",
+      url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+    },
+    {
+        selected: false,
+        name: "Sea",
+        attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri',
+        url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}',
     },
   ];
 
