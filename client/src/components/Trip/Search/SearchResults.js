@@ -4,10 +4,10 @@ import { FaPlus } from "react-icons/fa";
 import { latLngToText, placeToLatLng } from "../../../utils/transformers";
 
 export function SearchResults(props) {
-	const [onStart, toggleOnStart] = useState(!props.noResultsFound && !props.places.length);
+	const [onStart, toggleOnStart] = useState(!props.noResultsFound && !props.places.length && props.searchMode.toLowerCase() === 'search');
 
 	useEffect(()=>{
-		toggleOnStart(!props.noResultsFound && !props.places.length);
+		toggleOnStart(!props.noResultsFound && !props.places.length && props.searchMode.toLowerCase() === 'search');
 	},[props.places, props.noResultsFound]);
 
 	return (
