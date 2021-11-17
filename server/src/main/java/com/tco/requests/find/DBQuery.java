@@ -58,6 +58,18 @@ public class DBQuery {
         return count;
     }
 
+    public Places getRandom() {
+        Places places = new Places();
+        try {
+            Credential dbCredential = new Credential();
+            String sql = Select.random(limit, match);
+            places = searchDB.query(sql, dbCredential);
+        } catch (Exception e) {
+            log.error("Exception: ", e);
+        }
+        return places;
+    }
+
     static class Credential {
         final static String USER = "cs314-db";
         final static String PASSWORD = "eiK5liet1uej";
@@ -75,6 +87,7 @@ public class DBQuery {
     }
 
     static class Select {
+        private static Logger log = LoggerFactory.getLogger(Select.class);
         static String match(String column, int limit) {
             if(limit == 0){
                 limit = 100;
@@ -101,7 +114,7 @@ public class DBQuery {
         static String count(String column){
             return "SELECT " 
             + " DISTINCT count(*) " 
-             + "FROM continent "
+            + "FROM continent "
             + "INNER JOIN country ON continent.id = country.continent "
             + "INNER JOIN region ON country.id = region.iso_country "
             + "INNER JOIN world ON region.id = world.iso_region "
@@ -115,6 +128,27 @@ public class DBQuery {
             + "LIKE '%" + column + "%' "
             + "OR world.id "
             + "LIKE '%" + column + "%' "
+            + ";";
+        }
+
+        static String random(int limit, String column) {
+            return "SELECT world.name as airport, world.municipality, region.name as region, country.name as country, continent.name as continent, world.id as id, latitude, longitude "
+            + "FROM continent "
+            + "INNER JOIN country ON continent.id = country.continent "
+            + "INNER JOIN region ON country.id = region.iso_country "
+            + "INNER JOIN world ON region.id = world.iso_region "
+            + "WHERE country.name "
+            + "LIKE '%" + column + "%' "
+            + "OR region.name "
+            + "LIKE '%" + column + "%' "
+            + "OR world.name "
+            + "LIKE '%" + column + "%' "
+            + "OR world.municipality "
+            + "LIKE '%" + column + "%' "
+            + "OR world.id "
+            + "LIKE '%" + column + "%' "
+            + "ORDER BY RAND() "
+            + "LIMIT " + limit + ""
             + ";";
         }
     }
