@@ -59,7 +59,7 @@ function Searchbar(props){
 	return (
 		<InputGroup>
 			<InputBar {...props.searchStates} />
-			<InputGroupAddon addonType="append" hidden={props.searchStates.searchMode.toLowerCase() === 'random'}>
+			<InputGroupAddon addonType="append">
 				<Button color="primary" className="input-group-buttons" data-testid="randomPlaces" onClick={() => { randomPlaces(props.searchStates, props.serverSettings, props.showMessage)}}>
 					<FaDice size={18} />
 				</Button>
