@@ -1,5 +1,5 @@
 import React from 'react';
-import { Map as LeafletMap, Polyline, TileLayer } from 'react-leaflet';
+import { Map as LeafletMap, Polyline, LayersControl, TileLayer } from 'react-leaflet';
 import Marker from './Marker';
 import { latLngToPlace, placeToLatLng } from '../../../utils/transformers';
 import { DEFAULT_STARTING_PLACE } from '../../../utils/constants';
@@ -10,6 +10,14 @@ const MAP_LAYER_ATTRIBUTION = "&copy; <a href=&quot;http://osm.org/copyright&quo
 const MAP_LAYER_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const MAP_MIN_ZOOM = 1;
 const MAP_MAX_ZOOM = 19;
+const MAP_LAYERS = [
+    {
+      selected: true,
+      name: "Open Street Map",
+      attribution: MAP_LAYER_ATTRIBUTION,
+      url: MAP_LAYER_URL,
+    },
+  ];
 
 export default function Map(props) {
     function handleMapClick(mapClickInfo) {
@@ -30,12 +38,24 @@ export default function Map(props) {
             onClick={handleMapClick}
             data-testid="Map"
         >
-            <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION} />
+        <LayersControl className="smaller" position="topright">
+            {MAP_LAYERS.map(
+                layerData => renderMapLayer(layerData)
+                )}
+      </LayersControl>
             <TripLines places={props.places} />
             <PlaceMarker places={props.places} selectedIndex={props.selectedIndex} />
         </LeafletMap>
     );
 }
+
+function renderMapLayer(layerData) {
+    return (
+      <LayersControl.BaseLayer checked={layerData.selected} name={layerData.name}>
+        <TileLayer {...layerData} />
+      </LayersControl.BaseLayer>
+    );
+  }
 
 function TripLines(props) {
     const pathData = computePaths(props.places);
