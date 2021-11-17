@@ -16,9 +16,15 @@ public class FindRequest extends Request{
     public void buildResponse() {
         DBQuery db = new DBQuery(match, limit);
         places = new Places();
-        places = db.findByString();
-        this.found = db.getFound();
-        log.trace("buildResponse -> {}", this);
+        if(!match.isEmpty()) {
+            places = db.findByString();
+        }
+        else {
+            places = db.getRandom();
+        }
+            this.found = db.getFound();
+            log.trace("buildResponse -> {}", this);
+
     }
 
     public FindRequest() {
