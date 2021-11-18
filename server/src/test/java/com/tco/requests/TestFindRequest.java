@@ -2,10 +2,15 @@ package com.tco.requests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import com.google.gson.Gson;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TestFindRequest {
 
@@ -69,4 +74,22 @@ public class TestFindRequest {
     assertTrue(find.getPlaces().size() > 0);
   }
 
+  @Test
+  @DisplayName("Random returns places not equal to first 5 in table")
+  public void testRandom() {
+    ArrayList<String> jsonStrings = new ArrayList<String>(Arrays.asList(
+      "{\"continent\":\"North America\",\"country\":\"United States\",\"latitude\":\"40.07080078125\",\"name\":\"Total Rf Heliport\",\"municipality\":\"Bensalem\",\"region\":\"Pennsylvania\",\"longitude\":\"-74.93360137939453\"}",
+      "{\"continent\":\"North America\",\"country\":\"United States\",\"latitude\":\"59.94919968\",\"name\":\"Lowell Field\",\"municipality\":\"Anchor Point\",\"region\":\"Alaska\",\"longitude\":\"-151.695999146\"}",
+      "{\"continent\":\"North America\",\"country\":\"United States\",\"latitude\":\"34.86479949951172\",\"name\":\"Epps Airpark\",\"municipality\":\"Harvest\",\"region\":\"Alabama\",\"longitude\":\"-86.77030181884766\"}",
+      "{\"continent\":\"North America\",\"country\":\"United States\",\"latitude\":\"35.608699798583984\",\"name\":\"Newport Hospital \u0026 Clinic Heliport\",\"municipality\":\"Newport\",\"region\":\"Arkansas\",\"longitude\":\"-91.25489807128906\"}",
+      "{\"continent\":\"North America\",\"country\":\"United States\",\"latitude\":\"34.305599212646484\",\"name\":\"Cordes Airport\",\"municipality\":\"Cordes\",\"region\":\"Arizona\",\"longitude\":\"-112.16500091552734\"}"
+    ));
+    Places firstFivePlaces = new Places();
+    for(int i = 0; i < jsonStrings.size(); i++) {
+      Place place = new Gson().fromJson(jsonStrings.get(i), Place.class);
+      firstFivePlaces.add(place);
+    }
+    Places dbqRandomPlaces = dbq.getRandom();
+    assertNotEquals(dbqRandomPlaces, firstFivePlaces);
+  }
 }
