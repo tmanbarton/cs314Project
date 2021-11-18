@@ -132,6 +132,9 @@ public class DBQuery {
         }
 
         static String random(int limit, String column) {
+            if(limit == 0){
+                limit = 100;
+            }
             return "SELECT world.name as airport, world.municipality, region.name as region, country.name as country, continent.name as continent, world.id as id, latitude, longitude "
             + "FROM continent "
             + "INNER JOIN country ON continent.id = country.continent "
