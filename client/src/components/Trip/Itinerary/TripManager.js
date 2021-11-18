@@ -213,7 +213,6 @@ function isValidFile(places){
 }
 
 function storeCSV(places, tripName, showMessage) {
-	localStorage.clear();
 	localStorage.setItem("fileExtension", "CSV");
 	
 	const formattedPlaces = formatPlaces(places);
@@ -235,7 +234,6 @@ function storeCSV(places, tripName, showMessage) {
 
 function storeJSON(places, tripName, showMessage) 
 {
-	localStorage.clear();
 	localStorage.setItem("fileExtension", "JSON");
 
 	const formattedPlaces = formatPlaces(places);

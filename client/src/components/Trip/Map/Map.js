@@ -10,9 +10,10 @@ const MAP_LAYER_ATTRIBUTION = "&copy; <a href=&quot;http://osm.org/copyright&quo
 const MAP_LAYER_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const MAP_MIN_ZOOM = 1;
 const MAP_MAX_ZOOM = 19;
-const MAP_LAYERS = [
+const LOCAL_STORAGE_KEY = "DEFAULT MAP";
+let MAP_LAYERS = [
     {
-      selected: true,
+      selected: false,
       name: "Default Map",
       attribution: MAP_LAYER_ATTRIBUTION,
       url: MAP_LAYER_URL,
@@ -42,12 +43,14 @@ export default function Map(props) {
         props.placeActions.append(latLngToPlace(mapClickInfo.latlng));
     }
 
+    checkMapSelection();
+
     return (
         <LeafletMap
             className="mapStyle"
             boxZoom={false}
             useFlyTo={true}
-            zoom={15}
+            zoom={10}
             tap={false}
             minZoom={MAP_MIN_ZOOM}
             maxZoom={MAP_MAX_ZOOM}
@@ -56,11 +59,11 @@ export default function Map(props) {
             onClick={handleMapClick}
             data-testid="Map"
         >
-        <LayersControl className="smaller" position="topright">
-            {MAP_LAYERS.map(
-                layerData => renderMapLayer(layerData)
-                )}
-      </LayersControl>
+            <LayersControl className="smaller" position="topright">
+                {MAP_LAYERS.map(
+                    layerData => renderMapLayer(layerData)
+                    )}
+            </LayersControl>
             <TripLines places={props.places} />
             <PlaceMarker places={props.places} selectedIndex={props.selectedIndex} />
         </LeafletMap>
@@ -69,8 +72,8 @@ export default function Map(props) {
 
 function renderMapLayer(layerData) {
     return (
-      <LayersControl.BaseLayer checked={layerData.selected} name={layerData.name}>
-        <TileLayer {...layerData} />
+      <LayersControl.BaseLayer checked={layerData.selected} name={layerData.name} >
+        <TileLayer {...layerData} onloading={()=> localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(layerData))}/>
       </LayersControl.BaseLayer>
     );
   }
@@ -103,4 +106,19 @@ function PlaceMarker({places, selectedIndex}) {
         return null;
     }
     return <Marker place={places[selectedIndex]} />;
+}
+
+function checkMapSelection() {    
+	if (localStorage.getItem(LOCAL_STORAGE_KEY)) {
+        const defaultMap = MAP_LAYERS.find((mapLayer) => {
+            return (
+                mapLayer.name === JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)).name &&
+                mapLayer.url === JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)).url
+            );
+        });
+		MAP_LAYERS[MAP_LAYERS.indexOf(defaultMap)].selected = true;
+	} else {
+		localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(MAP_LAYERS[0]));
+		MAP_LAYERS[0].selected = true;
+	}
 }
