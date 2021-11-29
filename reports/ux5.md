@@ -46,6 +46,8 @@ Record the success, failures, and problems the user encountered for each task.
 Note any aid that wass given along with anything you notice from their use of the application.
 Add issues to GitHub for any changes necessary to the system.
 
-| Task | problem, aid, observation | hi/med/low | github# |
-| :--- | :------------------------ | :--------: | :-----: |
-|      |                           |            |         |
+| Task                              | problem, aid, observation      | hi/med/low | github# |
+| :-------------------------------- | :----------------------------- | :--------: | :-----: |
+| Move clear from button group      | Remove clear from button group |    med     |  #646   |
+| Shirnk modify trip dropdown items | Too big                        |    low     |  #646   |
+| Remove Sort A-Z                   | Unnessary feature              |    low     |         |
