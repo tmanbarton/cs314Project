@@ -18,10 +18,12 @@ describe('Itinerary', () => {
 
     it('has an input and updates teamName', ()=>{
         const input = screen.getByTestId('My Trip');
-        expect(input.value).toEqual('My Trip');
-        user.clear(input);
-        user.paste(input, 'TEST TRIP');
-        expect(input.value).toEqual('TEST TRIP');
+        user.click(input)
+        const textBox = screen.getByTestId('Trip Text');
+        expect(textBox.value).toEqual('My Trip');
+        user.clear(textBox);
+        user.paste(textBox, 'TEST TRIP');
+        expect(textBox.value).toEqual('TEST TRIP');
     });
 
     it('has a manager button and opens Trip Manager', async ()=>{
