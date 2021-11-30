@@ -5,9 +5,9 @@ We first identify the code we wish to inspect, determine the time we wish to mee
 
 |  | Details |
 | ----- | ----- |
-| Subject | *file and methods/line range to review for meeting* |
-| Meeting | *date, time, location* |
-| Checklist | *reference, URL, etc.* |
+| Subject | TourRequest.java |
+| Meeting | 11/30/21 at 3:00pm MST, T13 |
+| Checklist | checklist.md|
 
 ### Roles
 
@@ -15,7 +15,7 @@ We note the amount of time each person spent reviewing the code in preparation f
 
 | Name | Preparation Time |
 | ---- | ---- |
-|  |  |
+| Andy H | 1hr |
 
 
 ### Problems found
@@ -25,4 +25,8 @@ We add a GitHub issue for each defect that requires a modification to the system
 
 | file:line | problem | hi/med/low | who found | github#  |
 | --- | --- | :---: | :---: | --- |
-|  | | | | |
+| 49 | NN should most likely be seperate file | hi | Andy | TBD |
+| 69 | Might want to give less time | low | Andy | TBD |
+| 74 | O(n<sup>2</sup>) is fairly slow-- don't know/think if it can be done faster but worth a look | low | Andy | TBD |
+| 74 | O(n^2) is fairly slow-- don't know if it can be done faster | low | Andy | TBD |
+| 23/24 and 108 | Might want to do an early time check in-case DS take too long to make | low | Andy | TBD |
