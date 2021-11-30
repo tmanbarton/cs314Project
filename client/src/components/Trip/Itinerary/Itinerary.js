@@ -1,40 +1,32 @@
 import  React, { useEffect, useState } from "react";
 import { Table, Container, Row, Col, Collapse, Input, ListGroup, ButtonGroup, Button } from "reactstrap";
 import { placeToLatLng } from "../../../utils/transformers";
-import { FaLocationArrow, FaTrashAlt, FaSearch, FaSave, FaMapSigns, FaTrash, FaChevronRight, FaChevronDown } from "react-icons/fa";
+import { FaLocationArrow, FaCheckSquare, FaWindowClose, FaSearch, FaSave, FaMapSigns, FaTrash, FaChevronRight, FaChevronDown } from "react-icons/fa";
 import { MdDragHandle } from "react-icons/md";
 import { useToggle } from "../../../hooks/useToggle";
 import Search from "../Search/Search";
 import TripManager from "./TripManager";
 import TripActions from "./TripActions";
-import {
-	sortableContainer,
-	sortableElement,
-	sortableHandle,
-  } from 'react-sortable-hoc';
+import {sortableContainer, sortableElement, sortableHandle} from 'react-sortable-hoc';
 import { reverseGeocode } from "../../../utils/reverseGeocode";
 
 const csuGold = '#C8C372';
+const csuSuccess = "#105456";
+const csuWarning = "#ECC530";
 
 export default function Itinerary(props) {
 	const [showSearch, toggleSearch] = useToggle(false);
 	const [showManager, toggleManager ] = useToggle(false);
 	const [tripName , setTripName] = useState("My Trip");
+	const [changedTrip, setChangedTrip] = useState(false);
 	return (
 		<Container>
-			<Header
-				tripName={tripName} setTripName={setTripName} placeActions={props.placeActions} showMessage={props.showMessage} showManager = {showManager}
-				toggleManager = {toggleManager} toggleSearch={toggleSearch} disableSearch={props.disableSearch} places={props.places}
-			/>
+			<Header tripName={tripName} setTripName={setTripName} placeActions={props.placeActions} showMessage={props.showMessage} showManager={showManager} toggleManager={toggleManager} toggleSearch={toggleSearch} disableSearch={props.disableSearch} places={props.places} distances={props.distances} disableTour={props.disableTour} changedTrip={changedTrip} setChangedTrip={setChangedTrip} serverSettings={props.serverSettings} selectedIndex={props.selectedIndex}/>
 			<hr />
 			<Collapse isOpen={showSearch}>
 				<Search serverSettings={props.serverSettings} append={props.placeActions.append} showMessage={props.showMessage} showSearch={showSearch}/>
 			</Collapse>	
-			<TripHeader
-				tripName={tripName} undo={props.placeActions.undo} distances={props.distances} places={props.places} disableTour={props.disableTour} 
-				serverSettings={props.serverSettings} bulkAppend={props.placeActions.bulkAppend} showMessage={props.showMessage} selectedIndex={props.selectedIndex}
-				/>
-			<br />		
+			{props.distances ? <TripHeader setChangedTrip={setChangedTrip} changedTrip={changedTrip} undo={props.placeActions.undo} distances={props.distances} /> : null}	
 			<Table responsive striped>
 				<Body distances={props.distances} places={props.places} placeActions={props.placeActions} selectedIndex={props.selectedIndex} setSelectedIndex={props.setSelectedIndex}/>
 			</Table>
@@ -59,7 +51,9 @@ function Header(props) {
 					<FaSearch size={18} />
 					<p className="button-label">Search</p>
 				</Button>
-				{props.places.length ? <Button color="primary" data-testid="delete-all-button" onClick={() => props.placeActions.removeAll()}><FaTrashAlt size={18} /><p className="button-label">Clear</p></Button>: null}
+				{props.places.length && !props.changedTrip ? 
+					<TripActions selectedIndex={props.selectedIndex} tripName={props.tripName} disableTour={props.disableTour} distances={props.distances}  places={props.places}  serverSettings={props.serverSettings}  bulkAppend={props.placeActions.bulkAppend} undo={props.placeActions.undo} showMessage={props.showMessage} removeAll={props.placeActions.removeAll} setChangedTrip={props.setChangedTrip} />
+				: null}
 			</ButtonGroup>
 			<TripManager tripName={props.tripName} managerMethods={managerMethods} isOpen={props.showManager} toggleManager={props.toggleManager} places={props.places}/>			
 		</Row>
@@ -121,7 +115,7 @@ const SortableItem = sortableElement( props  => {
 				</Collapse>
 			</td>
 			<td style={{width: numRow + 'em'}}>
-				<FaTrash onClick={() => props.placeActions.removeAtIndex(props.id)} data-testid={`delete-button-${props.id}`}/>
+				{rowClicked ? <FaTrash onClick={() => props.placeActions.removeAtIndex(props.id)} data-testid={`delete-button-${props.id}`} /> : null}
 			</td>
 			<td style={{width: numRow + 'em'}}>
 				<ArrowIcon rowClicked={rowClicked}/>		
@@ -191,18 +185,10 @@ function TripHeader(props){
 		<Col>
 			{props.distances ? <TotalDistances distances={props.distances} /> : null}
 		</Col>
-			{props.places.length > 0 ?
-			<TripActions
-				selectedIndex={props.selectedIndex}
-				tripName={props.tripName}
-				disableTour={props.disableTour}
-				distances={props.distances} 
-				places={props.places} 
-				serverSettings={props.serverSettings} 
-				bulkAppend={props.bulkAppend} 
-				undo={props.undo}
-				showMessage={props.showMessage}/>
-			: null}
+		{props.changedTrip ? 
+			<ConfirmAction setChangedTrip={props.setChangedTrip} undo={props.undo}/>
+		: null}
+		<hr />
 	</Row>
 	);
 }
@@ -234,3 +220,25 @@ export function totalDistance(distances)
 	}
 	return total;
 }	
+
+function ConfirmAction(props){
+    return(
+        <div className="float-right">
+            <Col>
+                <p><strong>Confirm Changes?</strong></p>
+                <Col>
+                    <div>
+                        <FaCheckSquare data-testid="save-btn" color={csuSuccess} size={30} onClick={()=>props.setChangedTrip(false)} />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <FaWindowClose data-testid="undo-btn" color={csuWarning} size={30} onClick={()=> revertTrip(props.setChangedTrip, props.undo)} />
+                    </div>
+                </Col>                
+            </Col>
+        </div>
+    );
+}
+
+function revertTrip(setChangedTrip, undo){
+    undo();
+    setChangedTrip(false);
+}

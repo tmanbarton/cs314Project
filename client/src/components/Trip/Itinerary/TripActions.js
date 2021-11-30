@@ -1,83 +1,52 @@
-import  React, {useState} from "react";
+import  React from "react";
 import { useToggle } from "../../../hooks/useToggle";
-import { Collapse, Col, Container, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row } from 'reactstrap';
+import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Row } from 'reactstrap';
 import { formatPlaces } from "../../../utils/transformers";
 import { IoIosSpeedometer } from "react-icons/io";
-import { FaAngleDoubleLeft, FaSortAlphaDown, FaCheckSquare, FaWindowClose, FaSlidersH } from "react-icons/fa"
+import { FaAngleDoubleLeft, FaSortAlphaDown, FaSlidersH, FaTrashAlt } from "react-icons/fa"
 import { ImShuffle } from "react-icons/im"
 import { EARTH_RADIUS_UNITS_DEFAULT, DEFAULT_RESPONSE_TIME } from "../../../utils/constants";
 import { isJsonResponseValid, SCHEMAS, sendAPIRequest } from "../../../utils/restfulAPI";
 import { buildDistanceRequest, sendDistanceRequest } from "../../../hooks/usePlaces";
 import { totalDistance } from "./Itinerary";
 
-const csuSuccess = "#105456";
-const csuWarning = "#ECC530";
+
 
 export default function TripActions(props){
-    const [changedTrip, setChangedTrip] = useState(false);
+
     return (
-        <Row>
-            <Collapse isOpen={changedTrip}>
-                <ConfirmAction setChangedTrip={setChangedTrip} undo={props.undo}/>
-            </Collapse>
-            <Collapse  data-testid="dropdown" isOpen={!changedTrip}>
-                <ActionsDropdown
-                     disabled={props.disableTour}
-                     bulkAppend={props.bulkAppend}
-                     serverSettings={props.serverSettings}
-                     showMessage={props.showMessage}
-                     tripName={props.tripName}
-                     setChangedTrip={setChangedTrip}
-                     selectedIndex={props.selectedIndex}
-                     places={props.places}
-                     distances={props.distances}
-                />
-            </Collapse>
-        </Row>
-
+        <ActionsDropdown
+            disabled={props.disableTour}
+            bulkAppend={props.bulkAppend}
+            serverSettings={props.serverSettings}
+            showMessage={props.showMessage}
+            tripName={props.tripName}
+            setChangedTrip={props.setChangedTrip}
+            selectedIndex={props.selectedIndex}
+            places={props.places}
+            distances={props.distances}
+            removeAll={props.removeAll}
+        />
     );
-}
-
-function ConfirmAction(props){
-    return(
-        <Container>
-            <Col>
-                <p><strong>Confirm Changes?</strong></p>
-                <Col>
-                    <div>
-                        <FaCheckSquare data-testid="save-btn" color={csuSuccess} size={30} onClick={()=>props.setChangedTrip(false)} />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <FaWindowClose data-testid="undo-btn" color={csuWarning} size={30} onClick={()=> revertTrip(props.setChangedTrip, props.undo)} />
-                    </div>
-                </Col>                
-            </Col>
-        </Container>
-    );
-}
-
-function revertTrip(setChangedTrip, undo){
-    undo();
-    setChangedTrip(false);
 }
 
 function ActionsDropdown(props) {
     const [dropdownOpen, setDropdownOpen] = useToggle(false);
     return (
-        <div className="my-dropdown">
-            <div className="div-inline">
-                <Dropdown 
-                isOpen={dropdownOpen}
-                toggle={setDropdownOpen}
-                direction="up"
-                size="sm"
-                >
-                    <DropdownToggle color='primary'>
-                        Modify&nbsp;&nbsp;<FaSlidersH size="1.5em" />
-                    </DropdownToggle>
-                    <TripModifications {...props}/>
-                </Dropdown>
-            </div>
-        </div>
+        <Dropdown 
+            isOpen={dropdownOpen}
+            toggle={setDropdownOpen}
+            direction="up"
+            size="sm"
+            className="button-group"
+            data-testid="dropdown" 
+        >
+            <DropdownToggle color='primary' className="modify-dropdown" style={{borderRadius: '0px', borderTopRightRadius: '.2em'}}>
+                <FaSlidersH size={18} />
+                <p className="button-label">Modify</p>
+            </DropdownToggle>
+            <TripModifications {...props}/>
+        </Dropdown>
     );
 }
 
@@ -86,16 +55,19 @@ function TripModifications(props){
     return(
         <DropdownMenu right>
             <DropdownItem onClick={()=> optimizeTrip(tripObject,{bulkAppend: props.bulkAppend, serverSettings: props.serverSettings, showMessage: props.showMessage, tripName: props.tripName}, props.setChangedTrip)} disabled={props.disabled}>
-                <Row><IoIosSpeedometer className="fa-inline" data-testid="optimize" size={24}/>&nbsp;&nbsp;<h4>Optimize</h4></Row>
+                <Row><IoIosSpeedometer className="fa-inline" data-testid="optimize" size = {20}/>&nbsp;&nbsp;<h4>Optimize</h4></Row>
             </DropdownItem>
             <DropdownItem onClick={()=> shuffleTrip(tripObject, {bulkAppend: props.bulkAppend}, props.selectedIndex, props.setChangedTrip)}>
-                <Row><ImShuffle className="fa-inline" data-testid="shuffleBtn" size = {24}/>&nbsp;&nbsp;<h4>Shuffle</h4></Row>
+                <Row><ImShuffle className="fa-inline" data-testid="shuffleBtn" size = {20}/>&nbsp;&nbsp;<h4>Shuffle</h4></Row>
             </DropdownItem>
             <DropdownItem onClick={()=> reversePlaces(tripObject, {bulkAppend: props.bulkAppend}, props.selectedIndex, props.setChangedTrip)}>
-                <Row><FaAngleDoubleLeft className="fa-inline" data-testid="reverse" size = {24} />&nbsp;&nbsp;<h4>Reverse</h4></Row>
+                <Row><FaAngleDoubleLeft className="fa-inline" data-testid="reverse" size = {20} />&nbsp;&nbsp;<h4>Reverse</h4></Row>
             </DropdownItem>
             <DropdownItem onClick={()=> alphaSort(tripObject, {bulkAppend: props.bulkAppend}, props.selectedIndex, props.setChangedTrip)}>
-                <Row><FaSortAlphaDown className="fa-inline" data-testid="alphasort" size ={24}/>&nbsp;&nbsp;<h4>Sort</h4></Row>
+                <Row><FaSortAlphaDown className="fa-inline" data-testid="alphasort" size = {20}/>&nbsp;&nbsp;<h4>Sort</h4></Row>
+            </DropdownItem>
+            <DropdownItem onClick={() => props.removeAll()}>
+                <Row><FaTrashAlt className="fa-inline" data-testid="delete-all-button" size = {20}/>&nbsp;&nbsp;<h4>Clear</h4></Row>
             </DropdownItem>
         </DropdownMenu>
     );
