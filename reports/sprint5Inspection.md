@@ -17,6 +17,7 @@ We note the amount of time each person spent reviewing the code in preparation f
 | ---- | ---- |
 | Andy H | 1hr |
 | Amir | 1hr |
+| Bill | 30min |
 
 
 ### Problems found
@@ -42,3 +43,7 @@ We add a GitHub issue for each defect that requires a modification to the system
 |193-194| Should be using System.arraycopy() instead of .clone() for speed. | med | Amir | TBD |
 |181| Make into sperate function | low | Amir | TBD |
 |159 - 161| we need to add an outOfTime check to while loop. | med | Amir | TBD | 
+|126 - 131| This could probably be a seperate function | low | Bill | TBD |
+|221 - 242| We could seperate these methods into their own file to reduce size | low | Bill | TBD |
+|191 - 218| nearestNeighbor and 2_opt could be in their own file to reduce size/complexity | med | Bill | TBD|
+
