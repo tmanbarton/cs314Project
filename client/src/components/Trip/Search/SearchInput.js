@@ -1,17 +1,17 @@
 import React, { useEffect, useState, Fragment } from "react";
-import { InputGroup, InputGroupAddon, Input, Container, Button } from "reactstrap";
-import { FaDice, FaGlobe, FaSearch } from "react-icons/fa";
+import { InputGroup, InputGroupAddon, Input, Container, Button, Row, Col } from "reactstrap";
+import { FaDice, FaGlobe, FaSearch, FaArrowDown } from "react-icons/fa";
 import {
 	sendAPIRequest,
 	isJsonResponseValid
 } from "../../../utils/restfulAPI";
 import { SearchResults } from "./SearchResults";
 
-const limit = 5;
-
 export default function SearchInput(props) {
 	const [places, setPlaces] = useState([]);
+	const [found, setFound] = useState();
 	const [match, setMatch] = useState('');
+	const [limit, setLimit] = useState(5)
 	const [noResultsFound, setNoResultsFound] = useState(false);
 	const [searchMode, setSearchMode] = useState('search');
 
@@ -21,7 +21,9 @@ export default function SearchInput(props) {
 		setSearchMode: setSearchMode,
 		searchMode: searchMode,
 		match: match,
+		limit: limit,
 		setMatch: setMatch,
+		setFound: setFound,
 	};
 
 	useEffect(() => {
@@ -38,7 +40,7 @@ export default function SearchInput(props) {
 
 	useEffect(() => {
 		if (match.length) {
-			const request = buildFindRequest(match);
+			const request = buildFindRequest(match, limit);
 			sendFindRequest( request, searchStates, props.serverSettings, props.showMessage);
 		} else {
 			setPlaces([]);
@@ -48,11 +50,31 @@ export default function SearchInput(props) {
 
 	return (
 		<Container>
-			<Searchbar {...props} searchStates={searchStates} />
+			<Searchbar {...props} limit={limit} searchStates={searchStates} />
 			<hr />
-			<SearchResults places={places} append={props.append} noResultsFound={noResultsFound} searchMode={searchMode} />
+			<SearchResults places={places} append={props.append} noResultsFound={noResultsFound} found={found} searchMode={searchMode} />
+			<Row>
+				<Col>
+					{places.length ? <p>Showing: {limit} out of {found} results</p>: null}
+				</Col>
+				{places.length ? <ShowMore searchStates={searchStates} setLimit={setLimit} serverSettings={props.serverSettings} showMessage={props.showMessage}/> : null}		
+			</Row>
 		</Container>
 	);
+}
+
+
+function ShowMore(props){
+	return (
+			<Button size="sm" className="rightButton" color="primary" onClick={()=> getMoreResults(props.searchStates.limit, props.setLimit, props.searchStates, props.serverSettings, props.showMessage )}><FaArrowDown size={16}/> <p className="button-label">More</p></Button>
+	)
+}
+
+function getMoreResults(limit, setLimit, searchStates, serverSettings, showMessage) {
+	let newLimit = limit*2
+	setLimit(newLimit);
+	const request = buildFindRequest(searchStates.match, newLimit);
+	sendFindRequest(request, searchStates, serverSettings, showMessage);
 }
 
 function Searchbar(props){
@@ -60,7 +82,7 @@ function Searchbar(props){
 		<InputGroup>
 			<InputBar {...props.searchStates} />
 			<InputGroupAddon addonType="append">
-				<Button color="primary" className="input-group-buttons" data-testid="randomPlaces" onClick={() => { randomPlaces(props.searchStates, props.serverSettings, props.showMessage)}}>
+				<Button color="primary" className="input-group-buttons" data-testid="randomPlaces" onClick={() => { randomPlaces(props.searchStates, props.serverSettings, props.showMessage, props.limit)}}>
 					<FaDice size={18} />
 				</Button>
 			</InputGroupAddon>
@@ -100,13 +122,13 @@ function InputBar(props){
 	}
 }
 
-function randomPlaces(searchStates, serverSettings, showMessage){
+function randomPlaces(searchStates, serverSettings, showMessage, limit){
 	searchStates.setSearchMode('random');
-	const request = buildFindRequest("");
+	const request = buildFindRequest("", limit);
 	sendFindRequest(request, searchStates, serverSettings, showMessage);
 }
 
-function buildFindRequest(match) {
+function buildFindRequest(match, limit) {
 	return {
 		requestType: "find",
 		match: match,
@@ -118,6 +140,7 @@ async function sendFindRequest(request, searchStates, serverSettings, showMessag
 	const findResponse = await sendAPIRequest(request, serverSettings.serverUrl);
 	if (findResponse && isJsonResponseValid(findResponse, findResponse)) {
 		searchStates.setPlaces(findResponse["places"]);
+		searchStates.setFound(findResponse["found"]);
 		searchStates.setNoResultsFound(findResponse["places"].length ? false : true);
 	} else {
 		showMessage(

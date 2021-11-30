@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Collapse, Container, Table } from "reactstrap";
-import { FaPlus } from "react-icons/fa";
+import { Collapse, Container, Table, ButtonGroup, Button } from "reactstrap";
+import { FaArrowDown, FaPlus } from "react-icons/fa";
 import { latLngToText, placeToLatLng } from "../../../utils/transformers";
 
 export function SearchResults(props) {
@@ -15,14 +15,16 @@ export function SearchResults(props) {
 			<Collapse isOpen={onStart}>
 				<ShowOnStart />
 			</Collapse>
-			<Collapse isOpen={!onStart}>
+			<Collapse style={{overflow:'scroll', height:'25em'}} isOpen={!onStart}>
 				<Table responsive striped>
-					<Body append={props.append} places={props.places} noResultsFound={props.noResultsFound}/>
+					<Body append={props.append} places={props.places} noResultsFound={props.noResultsFound} found={props.found}/>
 				</Table>
 			</Collapse>
 		</Container>
 	);
 }
+
+
 
 function ShowOnStart() {
 	return (
@@ -61,15 +63,15 @@ function TableRow(props) {
 	const location = latLngToText(placeToLatLng(props.place));
 
 	return !added ? (
-		<tr onClick={() => addItem(props.append, props.place, setAdded)}>
-			<td>
-				{name}
-				<br />
-				<small className="text-muted">{location}</small>
-			</td>
-			<td>
-				<FaPlus />
-			</td>
-		</tr>
+			<tr onClick={() => addItem(props.append, props.place, setAdded)}>
+				<td>
+					{name}
+					<br />
+					<small className="text-muted">{location}</small>
+				</td>
+				<td>
+					<FaPlus />
+				</td>
+			</tr>
 	) : null;
 }
