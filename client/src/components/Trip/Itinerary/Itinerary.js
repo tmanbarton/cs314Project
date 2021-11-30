@@ -56,7 +56,7 @@ function Header(props) {
 					<TripActions selectedIndex={props.selectedIndex} tripName={props.tripName} disableTour={props.disableTour} distances={props.distances}  places={props.places}  serverSettings={props.serverSettings}  bulkAppend={props.placeActions.bulkAppend} undo={props.placeActions.undo} showMessage={props.showMessage} removeAll={props.placeActions.removeAll} setChangedTrip={props.setChangedTrip} />
 				: null}
 			</ButtonGroup>
-			<TripManager tripName={props.tripName} managerMethods={managerMethods} isOpen={props.showManager} toggleManager={props.toggleManager} places={props.places}/>			
+			<TripManager tripName={props.tripName} managerMethods={managerMethods} isOpen={props.showManager} toggleManager={props.toggleManager} places={props.places} text={props.tripName} setText={props.setTripName}/>			
 		</Row>
 	);
 }
