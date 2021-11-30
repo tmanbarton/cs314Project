@@ -11,6 +11,7 @@ describe('Trip Actions',()=>{
     const shuffleTrip = jest.fn();
     const reversePlaces = jest.fn();
     const alphaSort = jest.fn();
+    const setChangedTrip = jest.fn();
     const places = jest.fn(()=> {
         return [{lat: '10.005', lng: '20.12', name: 'dPlace1'},{lat: '60.005', lng: '22.52', name: 'zPlace2'},{lat: '35.22', lng: '17.31', name: 'aPlace3'}];
     });
@@ -32,7 +33,7 @@ describe('Trip Actions',()=>{
     
 
     beforeEach(()=>{
-        render(<TripActions undo={undo} reversePlaces={reversePlaces} alphaSort={alphaSort} shuffleTrip={shuffleTrip} distances={distances} places={MOCK_PLACES} serverSettings={serverSettings} bulkAppend={append}/>);
+        render(<TripActions setChangedTrip={setChangedTrip} undo={undo} reversePlaces={reversePlaces} alphaSort={alphaSort} shuffleTrip={shuffleTrip} distances={distances} places={MOCK_PLACES} serverSettings={serverSettings} bulkAppend={append}/>);
     });
 
     it('opens a menu', ()=>{
@@ -71,17 +72,5 @@ describe('Trip Actions',()=>{
         expect(alphaSort).toHaveBeenCalled();
         expect(places == placesAlpha);
     });
-
-    it('Allows the User to confirm the optimization', ()=>{
-        const saveBtn = screen.getByTestId('save-btn');
-        user.click(saveBtn);
-    });
-
-    it('Allows the User to revert the optimization changes', ()=>{
-        const undoBtn = screen.getByTestId('undo-btn');
-        user.click(undoBtn);
-    });
-
-
 
 });

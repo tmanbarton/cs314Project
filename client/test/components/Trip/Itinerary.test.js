@@ -31,7 +31,6 @@ describe('Itinerary', () => {
         await waitFor(()=>{
             expect(screen.getByText(/trip manager/i)).toBeTruthy();
         });
-        screen.debug();
     });
 
     it('renders the name attribute', () => {
@@ -51,4 +50,14 @@ describe('Itinerary', () => {
         user.click(homeBtn);
         expect(placeActions.moveToHome).toHaveBeenCalled();
     })
+
+    // it('Allows the User to confirm the optimization', ()=>{
+    //     const saveBtn = screen.getByTestId('save-btn');
+    //     user.click(saveBtn);
+    // });
+
+    // it('Allows the User to revert the optimization changes', ()=>{
+    //     const undoBtn = screen.getByTestId('undo-btn');
+    //     user.click(undoBtn);
+    // });
 });
