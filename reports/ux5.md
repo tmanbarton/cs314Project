@@ -33,6 +33,7 @@ Consider this a failure when it happens.
 | Pseudonym | Was it easy to complete all the tasks? If not, why? | How does this compare to other trip planning applications? |   Would you use this application to plan your next trip? Why/why not?   | Is there anything you would change about the application? |
 | :-------- | :-------------------------------------------------- | :--------------------------------------------------------: | :---------------------------------------------------------------------: | :-------------------------------------------------------: |
 | Sarah     | Yes                                                 |               simplier however more limited                | Easy to use, _really liked_ the expandable information about each place |                       The colors 😬                       |
+| Shana     | Yes | Easy to use after playing with application but save/load trips was confusing. | Probably not, would like to have an account or a better way to keep track of old trips.  |   The save/load mechanism  |
 
 ### Demographics
 
@@ -41,6 +42,7 @@ Age, nationality, and other background information can sometimes be helpful unde
 | Pseudonym | Demographics                        |
 | :-------- | :---------------------------------- |
 | Sarah     | 20, white, female, journalism major |
+| Shana     | 47, Middle Eastern, female, Lawyer  |
 
 ### Observations
 
@@ -56,3 +58,7 @@ Add issues to GitHub for any changes necessary to the system.
 | Remove Sort A-Z                                                                                                                                                           | Unnessary feature              |    low     |   TBD   |
 | Change Manage to File                                                                                                                                                     | Better name                    |     hi     |   TBD   |
 | Tutorial for app? Sonu mentioned last UX and has been mentioned now. Maybe make features checklist more user friendly and pop up for every new user (check local storage) | med                            |    TBD     |
+| Change Save/Load Trip menu to be more user-friendly | User had trouble understanding file-format options |    med     |  TBD   |
+| Add acount/way to cloud save old trip(s) | User had trouble understanding file-format options |    low     |  TBD   |
+| Move 'find' me to map | User didn't understand why button was next to search |    low     |  TBD   |
+| Make map toggleable | User didn't care much for the map option and felt like it was taking up too much screen |    med     |  TBD   |
