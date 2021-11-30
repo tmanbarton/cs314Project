@@ -115,7 +115,7 @@ const SortableItem = sortableElement( props  => {
 				</Collapse>
 			</td>
 			<td style={{width: numRow + 'em'}}>
-				{rowClicked ? <FaTrash onClick={() => props.placeActions.removeAtIndex(props.id)} data-testid={`delete-button-${props.id}`} /> : null}
+				<DeletePlace removeAtIndex={props.placeActions.removeAtIndex} index={props.id} rowClicked={rowClicked}/>
 			</td>
 			<td style={{width: numRow + 'em'}}>
 				<ArrowIcon rowClicked={rowClicked}/>		
@@ -123,6 +123,9 @@ const SortableItem = sortableElement( props  => {
 		</tr>
 	);
 })
+function DeletePlace(props){
+	return props.rowClicked ? <FaTrash onClick={() => props.removeAtIndex(props.index)} data-testid={`delete-button-${props.id}`} /> : null;
+}
 function ArrowIcon(props){
 	return props.rowClicked ? <FaChevronDown size={10}/> : <FaChevronRight size={10}/>
 }

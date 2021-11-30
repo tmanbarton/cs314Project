@@ -41,7 +41,7 @@ function ActionsDropdown(props) {
             className="button-group"
             data-testid="dropdown" 
         >
-            <DropdownToggle color='primary' className="modify-dropdown" style={{borderTopLeftRadius: '0px'}}>
+            <DropdownToggle color='primary' className="modify-dropdown" style={{borderTopLeftRadius: '0px', borderBottomLeftRadius: '0px'}}>
                 <FaSlidersH size={18} />
                 <p className="button-label">Modify</p>
             </DropdownToggle>
