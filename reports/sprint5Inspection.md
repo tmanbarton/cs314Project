@@ -18,6 +18,7 @@ We note the amount of time each person spent reviewing the code in preparation f
 | Andy H | 1hr |
 | Amir | 1hr |
 | Bill | 30min |
+| Sonu | 30min |
 
 
 ### Problems found
@@ -46,4 +47,13 @@ We add a GitHub issue for each defect that requires a modification to the system
 |126 - 131| This could probably be a seperate function | low | Bill | TBD |
 |221 - 242| We could seperate these methods into their own file to reduce size | low | Bill | TBD |
 |191 - 218| nearestNeighbor and 2_opt could be in their own file to reduce size/complexity | med | Bill | TBD|
-
+|10| Change data structure to Array | high | Sonu | TBD|
+|63| Use double instead of Long, so that smaller distances can be calculated | high | Sonu | TBD |
+|95| Compute distance should return decimal values (Double)| high | Sonu | TBD | 
+|101, 111, 120| Replace Places with places array| high | Sonu | TBD | 
+|102-104| Should rearrange the trip in time.| high | Sonu | TBD | 
+|121-125| Avoid creating new Places again, instead save only the index | high | Sonu | TBD |
+|89-95| Avoid repeated calculations.| high | Sonu | TBD |
+|129| Avoid creating new Places insted save an array of integers to save the index | high | Sonu | TBD |
+|221, 237, 63| Use array instead of arraylist| high | Sonu | TBD | 
+|245| If time runs out return the original tour array without optimizing | high | Sonu | TBD |
