@@ -34,6 +34,7 @@ Consider this a failure when it happens.
 | :-------- | :-------------------------------------------------- | :--------------------------------------------------------: | :---------------------------------------------------------------------: | :-------------------------------------------------------: |
 | Sarah     | Yes                                                 |               simplier however more limited                | Easy to use, _really liked_ the expandable information about each place |                       The colors 😬                       |
 | Shana     | Yes | Easy to use after playing with application but save/load trips was confusing. | Probably not, would like to have an account or a better way to keep track of old trips.  |   The save/load mechanism  |
+| Ben | Yes | Easy to use once they understood the purpose, after 2 minutes the user understood the application well | User would use if they just wanted to gather information on distances as an initial planning tool | User would change how the application manages saving/loading, they recomended just having 2 save/load trip buttons rather than one manage button. |
 
 ### Demographics
 
@@ -43,6 +44,7 @@ Age, nationality, and other background information can sometimes be helpful unde
 | :-------- | :---------------------------------- |
 | Sarah     | 20, white, female, journalism major |
 | Shana     | 47, Middle Eastern, female, Lawyer  |
+| Ben | 24, Psychology grad student |
 
 ### Observations
 
@@ -62,3 +64,7 @@ Add issues to GitHub for any changes necessary to the system.
 | Add acount/way to cloud save old trip(s) | User had trouble understanding file-format options |    low     |  TBD   |
 | Move 'find' me to map | User didn't understand why button was next to search |    low     |  TBD   |
 | Make map toggleable | User didn't care much for the map option and felt like it was taking up too much screen |    med     |  TBD   |
+| Adjust how trip is named/search button | User first went to type in the trip name box before noticing the search button | low | TBD |
+| Move random button outside search | User at first could not find random button, maybe make it more visible next to search rather than inside | low | TBD |
+| Add help option/tutorial | User asked if there was a help menu | hi | TBD |
+
