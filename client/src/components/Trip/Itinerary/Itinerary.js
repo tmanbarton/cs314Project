@@ -46,7 +46,7 @@ function Header(props) {
 				</h4>
 			</Col>
 			<ButtonGroup size="sm" className="button-group">
-				<Button color="primary" data-testid="manager-btn" onClick={()=>{props.toggleManager();}}><FaSave size={18} /><p className="button-label">Manage</p></Button>
+				<Button color="primary" data-testid="manager-btn" onClick={()=>{props.toggleManager();}}><FaSave size={18} /><p className="button-label">&nbsp;File&nbsp;</p></Button>
 				<Button color="primary" data-testid="home-button" onClick={() => {props.placeActions.moveToHome();}}><FaLocationArrow size={18} /><p className="button-label">Locate</p></Button>
 				<Button color="primary" data-testid="srch-button" className={props.disableSearch ? "fa-disabled" : ""} onClick={props.disableSearch ? null : props.toggleSearch}>
 					<FaSearch size={18} />

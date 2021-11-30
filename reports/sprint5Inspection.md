@@ -16,6 +16,7 @@ We note the amount of time each person spent reviewing the code in preparation f
 | Name | Preparation Time |
 | ---- | ---- |
 | Andy H | 1hr |
+| Amir | 1hr |
 
 
 ### Problems found
@@ -25,8 +26,19 @@ We add a GitHub issue for each defect that requires a modification to the system
 
 | file:line | problem | hi/med/low | who found | github#  |
 | --- | --- | :---: | :---: | --- |
-| 49 | NN should most likely be seperate file | hi | Andy | TBD |
+| 49 | NN should most likely be seperate file | hi | Andy <br> Amir | TBD |
 | 69 | Might want to give less time | low | Andy | TBD |
 | 74 | O(n<sup>2</sup>) is fairly slow-- don't know/think if it can be done faster but worth a look | low | Andy | TBD |
 | 74 | O(n^2) is fairly slow-- don't know if it can be done faster | low | Andy | TBD |
 | 23/24 and 108 | Might want to do an early time check in-case DS take too long to make | low | Andy | TBD |
+|19| Could probably make into a method and test for more things| med | Amir | TBD|
+|22-23| Can we call buildDataStructures in the constructor? May speed some things up | low | Amir|TBD|
+| 69 | Needs less time, but wont optimize in time without it | med | Amir | TBD|
+|74-98| This is probably one of the parts that's slowing us down the most. Not sure if we could add an early exit within the second for loop, or if there is a more effective way to go from hashmap to 2d array| hi | Amir | TBD |
+|101| Lazy adding starting place to trip | med | Amir | TBD |
+|117-119| Make into seperate function | low | Amir | TBD |
+|111 & 120| Are these variables really necessary? We have have finalTrip as global, could we just use that? | med | Amir | TBD |
+|121| Make into seperate function | low | Amir | TBD |
+|193-194| Should be using System.arraycopy() instead of .clone() for speed. | med | Amir | TBD |
+|181| Make into sperate function | low | Amir | TBD |
+|159 - 161| we need to add an outOfTime check to while loop. | med | Amir | TBD | 
