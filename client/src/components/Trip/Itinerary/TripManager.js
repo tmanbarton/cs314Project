@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
 	Row,
 	Modal,
@@ -19,6 +19,10 @@ import { isJsonResponseValid } from "../../../utils/restfulAPI";
 export default function TripManager(props) {
 	const [fileName, setFileName] = useState("");
 	const [loading, setLoading] = useState(false);
+	useEffect(()=>{
+		setFileName("");
+		setLoading(false);
+	},[props.isOpen]);
 	return (
 		<Modal isOpen={props.isOpen} toggle={!loading ? props.toggleManager : null}>
 			<Header />
@@ -114,12 +118,12 @@ function SaveTrip(props) {
 			<Row className="save-trip-row">
 				<Col>
 					<Button data-testid="CSV-download-button" disabled={props.loading} color="primary" onClick={() =>storeCSV(props.places, props.tripName, props.showMessage)}>
-						<FaDownload/> <p className="button-label">CSV</p>
+						<FaDownload/><p className="button-label">CSV</p>
 					</Button>
 				</Col>
 				<Col>
 					<Button data-testid="JSON-download-button" disabled={props.loading} color="primary" onClick={() =>storeJSON(props.places, props.tripName, props.showMessage)}>
-						<FaDownload/> <p className="button-label">JSON</p>
+						<FaDownload/><p className="button-label">JSON</p>
 					</Button>
 				</Col>
 			</Row>
