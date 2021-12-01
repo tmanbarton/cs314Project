@@ -27,7 +27,7 @@ public class TestDistancesRequest {
 
   private DistancesRequest distances;
   private DistanceCalculator calc;
-  private Places places = new Places();
+  private Place[] places = new Place[8];
   private double earthRadius = 3958.8;
 
   @BeforeEach
@@ -37,7 +37,7 @@ public class TestDistancesRequest {
 
     for (int i = 0; i < jsonStrings.size(); i++) {
       Place place = new Gson().fromJson(jsonStrings.get(i), Place.class);
-      places.add(place);
+      places[i] = place;
     }
     distances.setPlaces(places);
     calc = new DistanceCalculator(places, earthRadius);

@@ -14,19 +14,21 @@ import org.junit.jupiter.api.Test;
 public class TestTourRequest {  
   private ArrayList<String> jsonStrings = new ArrayList<String>(Arrays.asList(
       "{\"latitude\": \"0\", \"longitude\": \"0\"}",
-      "{\"latitude\": \"35.350498199499995\",\"longitude\": \"-116.888000488\"}",
+      "{\"latitude\": \"31\",\"longitude\": \"-116\"}",
+      "{\"latitude\": \"35\",\"longitude\": \"-116\"}",
       "{\"latitude\": \"0\",\"longitude\": \"0\"}"));
   //Distances came from https://keisan.casio.com/exec/system/1224587128#! and that value was convert to miles using Google's km to miles converter.
   //Everything rounded down.
    private ArrayList<String> jsonStringsInOrder = new ArrayList<String>(Arrays.asList(
-      "{\"latitude\": \"0\", \"longitude\": \"0\"}",
-      "{\"latitude\": \"0\",\"longitude\": \"0\"}",
-      "{\"latitude\": \"35.350498199499995\",\"longitude\": \"-116.888000488\"}"));
+    "{\"latitude\": \"0\", \"longitude\": \"0\"}",
+    "{\"latitude\": \"0\",\"longitude\": \"0\"}",
+    "{\"latitude\": \"35\",\"longitude\": \"-116\"}",
+    "{\"latitude\": \"31\",\"longitude\": \"-116\"}"));
 
   private TourRequest tour;
   private DistanceCalculator calc;
-  private Places places = new Places();
-  private Places placesInOrder = new Places();
+  private Place[] places = new Place[jsonStrings.size()];
+  private Place[] placesInOrder = new Place[jsonStrings.size()]; 
   private double earthRadius = 3958.8;
   private double response = 1;
 
@@ -38,8 +40,8 @@ public class TestTourRequest {
     for (int i = 0; i < jsonStrings.size(); i++) {
       Place place = new Gson().fromJson(jsonStrings.get(i), Place.class);
       Place placeInOrder = new Gson().fromJson(jsonStringsInOrder.get(i), Place.class);
-      places.add(place);
-      placesInOrder.add(placeInOrder);
+      places[i] = place;
+      placesInOrder[i] = placeInOrder;
     }
     tour.setPlaces(places);
     calc = new DistanceCalculator(places, earthRadius);
@@ -65,7 +67,7 @@ public class TestTourRequest {
   public void TestResponse() {
     OptimizeTrip tripObject = tour.new OptimizeTrip(tour.getPlaces(), tour.getEarthRadius(), 1);
     tripObject.buildDataStructures();
-    Places responsePlaces = tripObject.optimize();
-    assertEquals(responsePlaces, placesInOrder);
+    Place[] responsePlaces = tripObject.optimize();
+    Arrays.equals(responsePlaces, placesInOrder);
   }
 }
