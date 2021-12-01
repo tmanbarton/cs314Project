@@ -14,7 +14,7 @@ public class TourRequest extends Request {
 
     @Override
     public void buildResponse(){
-        if (response == 0 || places.length < 4){ // send back places unchanged
+        if (response < 0.1 || places.length < 4){ // send back places unchanged
             return;
         }
         if (places != null){
@@ -57,23 +57,16 @@ public class TourRequest extends Request {
         private double response;
         private double inf  = 100000000000.0d;
         private long start;
-        String initial_name;
-        Double initial_lat, initial_lon;
-        Place startingPlace;
-        boolean timeout = false;
 
         public OptimizeTrip(Place[] place, double earthRadius, double response){
             this.start = System.currentTimeMillis();
             this.earthRadius = earthRadius;
-            this.response = (response * 1000) * .95;
+            this.response = (response * 1000) * .8;
         }
 
 
         public void buildDataStructures(){
             int placeSize = places.length;
-            initial_name = places[0].get("name");
-            initial_lat = Double.parseDouble(places[0].get("latitude"));
-            initial_lon = Double.parseDouble(places[0].get("longitude"));
             this.tour = new int[placeSize];
             this.visited = new boolean[placeSize];
             this.tour_1 = new int[placeSize];
@@ -120,7 +113,6 @@ public class TourRequest extends Request {
                 if(i == (tour.length - 1)){
                     i = 0;
                 }
-                // if(outOfTime()) break;
             }
         }
 
@@ -134,15 +126,15 @@ public class TourRequest extends Request {
 
                 this.tour = nearestNeighbor(this.tour, j);
                 this.opt_tour[this.tour.length] = this.tour[0];
-                // if(this.tour.length > 3){
-                //     opt_2(this.opt_tour);
-                // }
+                if(this.tour.length > 3){
+                    opt_2(this.opt_tour);
+                }
                 var total_distance = get_distances(this.opt_tour);
                 if (total_distance < prev){
                     temp_tour = this.opt_tour.clone();
                     prev = total_distance;
                 }
-                // if(outOfTime()) break;
+                if(outOfTime()) break;
             }
             if(finalTrip.length > 3){arrange_trip(finalTrip,temp_tour);}
             return finalTrip;
@@ -164,6 +156,7 @@ public class TourRequest extends Request {
                 tour[j] = temp;
                 i++;
                 j--;
+                if(outOfTime()) break;
             }   
             return 0; 
         }
@@ -178,7 +171,9 @@ public class TourRequest extends Request {
                             opt_2_reverse(tour, i+1, j);
                             improvement = true;
                         }
+                        if(outOfTime()) break;
                     }
+                    if(outOfTime()) break;
                 }
             }
         }
@@ -237,7 +232,6 @@ public class TourRequest extends Request {
         }
         
         private boolean outOfTime(){
-            this.timeout = true;
             return System.currentTimeMillis() > this.start + (long)this.response;
         }
     }
