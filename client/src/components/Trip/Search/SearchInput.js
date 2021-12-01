@@ -46,6 +46,7 @@ export default function SearchInput(props) {
 			setPlaces([]);
 			setNoResultsFound(false);
 		}
+		setLimit(5);
 	}, [match]);
 
 	return (
