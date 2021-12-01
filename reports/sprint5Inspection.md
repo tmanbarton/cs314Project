@@ -6,7 +6,7 @@ We first identify the code we wish to inspect, determine the time we wish to mee
 |  | Details |
 | ----- | ----- |
 | Subject | TourRequest.java |
-| Meeting | 11/30/21 at 3:00pm MST, T13 |
+| Meeting | 12/01/21 at 2:30pm MST, T13 |
 | Checklist | checklist.md|
 
 ### Roles
@@ -19,6 +19,7 @@ We note the amount of time each person spent reviewing the code in preparation f
 | Amir | 1hr |
 | Bill | 30min |
 | Sonu | 30min |
+| Tyler | 30min |
 
 
 ### Problems found
@@ -57,3 +58,6 @@ We add a GitHub issue for each defect that requires a modification to the system
 |129| Avoid creating new Places insted save an array of integers to save the index | high | Sonu | TBD |
 |221, 237, 63| Use array instead of arraylist| high | Sonu | TBD | 
 |245| If time runs out return the original tour array without optimizing | high | Sonu | TBD |
+|all over| Change var to specific type declarations | low | Tyler | TBD |
+|159| Variable Name is confusing, could be a little more clear | Tyler | TBD |
+
