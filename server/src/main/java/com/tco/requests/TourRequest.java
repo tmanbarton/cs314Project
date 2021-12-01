@@ -1,13 +1,11 @@
 package com.tco.requests;
 
-import java.util.ArrayList;
+import java.lang.Math;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.util.Collections;
-import java.lang.Math;
 
 public class TourRequest extends Request {
-    private Places places;
+    private Place[] places;
     private double earthRadius;
     private double response;
 
@@ -16,12 +14,14 @@ public class TourRequest extends Request {
 
     @Override
     public void buildResponse(){
-        if (response == 0 || places.size() < 3){ // send back places unchanged
+        if (response == 0 || places.length < 4){ // send back places unchanged
             return;
         }
-        OptimizeTrip tripObject = new OptimizeTrip(places, earthRadius, response);
-        tripObject.buildDataStructures();
-        this.places = tripObject.optimize();
+        if (places != null){
+            OptimizeTrip tripObject = new OptimizeTrip(places, earthRadius, response);
+            tripObject.buildDataStructures();
+            this.places = tripObject.optimize();
+        }
         log.trace("buildResponse -> {}", this);
     }
 
@@ -37,11 +37,11 @@ public class TourRequest extends Request {
         this.earthRadius = earthRadius;
     }
 
-    public void setPlaces(Places places) {
+    public void setPlaces(Place[] places) {
         this.places = places;
     }
 
-    public Places getPlaces() {
+    public Place[] getPlaces() {
         return this.places;
     }
 
@@ -53,26 +53,27 @@ public class TourRequest extends Request {
         private int[] opt_tour;
         private boolean[] visited_1;
         private double[][] distanceMatrix;
-        private Places preOptimizedPlaces;
         private double earthRadius;
         private double response;
-        private double inf  = Math.pow(10, 1000);
+        private double inf  = 100000000000.0d;
         private long start;
-        Places finalTrip;
+        String initial_name;
+        Double initial_lat, initial_lon;
         Place startingPlace;
-        private ArrayList<Long> distances = new ArrayList<Long>();
+        boolean timeout = false;
 
-        public OptimizeTrip(Places places, double earthRadius, double response){
+        public OptimizeTrip(Place[] place, double earthRadius, double response){
             this.start = System.currentTimeMillis();
-            this.preOptimizedPlaces = places;
             this.earthRadius = earthRadius;
             this.response = (response * 1000) * .95;
-            this.startingPlace = places.get(0);
         }
 
 
         public void buildDataStructures(){
-            int placeSize = this.preOptimizedPlaces.size();
+            int placeSize = places.length;
+            initial_name = places[0].get("name");
+            initial_lat = Double.parseDouble(places[0].get("latitude"));
+            initial_lon = Double.parseDouble(places[0].get("longitude"));
             this.tour = new int[placeSize];
             this.visited = new boolean[placeSize];
             this.tour_1 = new int[placeSize];
@@ -86,51 +87,64 @@ public class TourRequest extends Request {
                 this.opt_tour[i] = i;
                 this.visited[i] = false;
                 this.visited_1[i] = false;
-                for (int j = 0; j < this.preOptimizedPlaces.size(); j++) {
-                    double latitude1 = Double.parseDouble(this.preOptimizedPlaces.get(i).get("latitude"));
-                    double latitude2 = Double.parseDouble(this.preOptimizedPlaces.get(j).get("latitude"));
-                    double longitude1 = Double.parseDouble(this.preOptimizedPlaces.get(i).get("longitude"));
-                    double longitude2 = Double.parseDouble(this.preOptimizedPlaces.get(j).get("longitude"));
-                    this.distanceMatrix[i][j] =
-                        calculator.computeDistance(latitude1, latitude2, longitude1, longitude2);
+                if(outOfTime()) break;
+                for (int j = i; j < places.length; j++) {
+                    if(i==j){
+                        this.distanceMatrix[i][j] = 0;
+                        this.distanceMatrix[j][i] = 0;
+                        continue;
+                    }
+                    double latitude1 = Double.parseDouble(places[i].get("latitude"));
+                    double latitude2 = Double.parseDouble(places[j].get("latitude"));
+                    double longitude1 = Double.parseDouble(places[i].get("longitude"));
+                    double longitude2 = Double.parseDouble(places[j].get("longitude"));
+                    this.distanceMatrix[i][j] = calculator.computeDistance(latitude1, latitude2, longitude1, longitude2);
+                    this.distanceMatrix[j][i] = this.distanceMatrix[i][j];
+                    if(outOfTime()) break;
                 }
             }
         }
 
         // Arrange trip so that the starting location is preserved
-        public Places arrange_trip(Places place){
-            place.remove(place.indexOf(startingPlace));
-            place.add(0, startingPlace);
-            return place;
+        public void arrange_trip(Place[] place, int[] tour){
+            int i = 0;
+            for (var j = 0; j < tour.length ; j++) {
+                if(tour[j] == 0){
+                    i = j;
+                    break;
+                }
+            }
+            for (var j = 0; j < tour.length - 1; j++) {
+                place[j] = places[tour[i]];
+                i++;
+                if(i == (tour.length - 1)){
+                    i = 0;
+                }
+                // if(outOfTime()) break;
+            }
         }
 
         //returns an optimized list of places
-        public Places optimize(){
+        public Place[] optimize(){
             var prev = this.inf;
-            var start_index = 0;
-            Places finalTrip = new Places(this.preOptimizedPlaces);
+            int[] temp_tour = new int[this.tour.length + 1];
+            Place[] finalTrip = new Place[places.length];
 
-            for (var j = 0; j < this.preOptimizedPlaces.size(); j++) {
+            for (var j = 0; j < places.length; j++) {
 
                 this.tour = nearestNeighbor(this.tour, j);
                 this.opt_tour[this.tour.length] = this.tour[0];
-                if(this.tour.length > 3){
-                    opt_2(this.opt_tour);
-                }
-                Places optimizedTrip = new Places(this.preOptimizedPlaces);
-                for (int i = 0; i < (this.opt_tour.length - 1); i++){
-                    int indexOfPlace = this.opt_tour[i];
-                    Place temp = this.preOptimizedPlaces.get(indexOfPlace);
-                    optimizedTrip.set(i, temp);
-                }
-                if(outOfTime()) break;
-                var total_distance = get_distances(optimizedTrip);
+                // if(this.tour.length > 3){
+                //     opt_2(this.opt_tour);
+                // }
+                var total_distance = get_distances(this.opt_tour);
                 if (total_distance < prev){
-                    finalTrip = new Places(optimizedTrip);
+                    temp_tour = this.opt_tour.clone();
                     prev = total_distance;
                 }
+                // if(outOfTime()) break;
             }
-            finalTrip = arrange_trip(finalTrip);
+            if(finalTrip.length > 3){arrange_trip(finalTrip,temp_tour);}
             return finalTrip;
         }
 
@@ -150,27 +164,23 @@ public class TourRequest extends Request {
                 tour[j] = temp;
                 i++;
                 j--;
-                if(outOfTime()) break;
             }   
             return 0; 
         }
 
-        private int opt_2(int[] tour){
+        private void opt_2(int[] tour){
             var improvement = true;
             while (improvement){
                 improvement = false;
-                for (var i = 0; i <= (tour.length - 4); i++) { //Change size
-                    for (var j = i + 2; j <= (tour.length - 2); j++) { //Change size
+                for (var i = 0; i <= (tour.length - 4); i++) { 
+                    for (var j = i + 2; j <= (tour.length - 2); j++) { 
                         if (opt_2_improves(tour, i, j)){
                             opt_2_reverse(tour, i+1, j);
                             improvement = true;
                         }
-                        if(outOfTime()) break;
                     }
-                    if(outOfTime()) break;
                 }
             }
-            return 0;
         }
 
         // returns the index of closest destination from current point using distance matrix
@@ -182,14 +192,14 @@ public class TourRequest extends Request {
                   value = this.distanceMatrix[index][i];
                   final_index = i;
                 }
-                if(outOfTime()) break;
+                // if(outOfTime()) break;
             }
             return final_index;
         }
 
         
         private int[] nearestNeighbor(int[] tour, int start_index) {
-            if(this.preOptimizedPlaces.size() > 1){
+            if(places.length > 1){
             this.tour = this.tour_1.clone();
             this.visited = this.visited_1.clone();
 
@@ -198,7 +208,7 @@ public class TourRequest extends Request {
             this.visited[start_index] = true;
             int i = 0;
             int currrent = start_index; 
-            int tour_size = this.preOptimizedPlaces.size();
+            int tour_size = places.length;
             while (i < (tour_size - 1)){
                 int close_index = find_closest(currrent, this.visited);
                 i++;
@@ -206,7 +216,7 @@ public class TourRequest extends Request {
                 this.opt_tour[i] = close_index;
                 this.visited[close_index] = true;
                 currrent = close_index;
-                if(outOfTime()) break;  
+                // if(outOfTime()) break;  
             }
             return this.tour;
             }
@@ -217,31 +227,17 @@ public class TourRequest extends Request {
             }
         }
 
-        //Calculates total Distance
-        private double totalDistance(ArrayList<Long> distances)
-        {
-            var total = 0;
-        
-            for (var i = 0; i < distances.size(); i++)
-            {
-                total += distances.get(i);
-                if(outOfTime()) break;
+
+        private double get_distances(int[] tour){ 
+            double total = 0;
+            for (var i = 0; i < (tour.length - 1); i++){
+                total += this.distanceMatrix[tour[i]][tour[i+1]];
             }
             return total;
-        }	
-
-
-        private double get_distances(Places places){ 
-            DistanceCalculator calc = new DistanceCalculator(places, this.earthRadius);
-            if (places.size() == 0) {
-            this.distances = new ArrayList<Long>();
-            } else {
-            this.distances = calc.getDistances();
-            }
-            return totalDistance(this.distances);
         }
         
         private boolean outOfTime(){
+            this.timeout = true;
             return System.currentTimeMillis() > this.start + (long)this.response;
         }
     }
