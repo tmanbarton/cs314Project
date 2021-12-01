@@ -1,7 +1,7 @@
-import  React, { useEffect, useState } from "react";
-import { Table, Container, Row, Col, Collapse, Input, ListGroup, ButtonGroup, Button } from "reactstrap";
+import  React, { useEffect, useState, useRef } from "react";
+import { Table, Container, Row, Col, Collapse, ListGroup, ButtonGroup, Button } from "reactstrap";
 import { placeToLatLng } from "../../../utils/transformers";
-import { FaLocationArrow, FaCheckSquare, FaWindowClose, FaSearch, FaSave, FaMapSigns, FaTrash, FaChevronRight, FaChevronDown } from "react-icons/fa";
+import { FaLocationArrow, FaCheckSquare, FaWindowClose, FaSearch, FaSave, FaMapSigns, FaTrash, FaChevronRight, FaChevronDown, FaEdit } from "react-icons/fa";
 import { MdDragHandle } from "react-icons/md";
 import { useToggle } from "../../../hooks/useToggle";
 import Search from "../Search/Search";
@@ -42,7 +42,7 @@ function Header(props) {
 		<Row>
 			<Col>
 				<h4>	
-					<Input value={props.tripName} data-testid="My Trip" placeholder={props.tripName} onChange={e => props.setTripName(e.target.value)}></Input>				
+					<EditableInput className="tripText" text={props.tripName} setText={props.setTripName}/>			
 				</h4>
 			</Col>
 			<ButtonGroup size="sm" className="button-group">
@@ -56,9 +56,49 @@ function Header(props) {
 					<TripActions selectedIndex={props.selectedIndex} tripName={props.tripName} disableTour={props.disableTour} distances={props.distances}  places={props.places}  serverSettings={props.serverSettings}  bulkAppend={props.placeActions.bulkAppend} undo={props.placeActions.undo} showMessage={props.showMessage} removeAll={props.placeActions.removeAll} setChangedTrip={props.setChangedTrip} />
 				: null}
 			</ButtonGroup>
-			<TripManager tripName={props.tripName} managerMethods={managerMethods} isOpen={props.showManager} toggleManager={props.toggleManager} places={props.places}/>			
+			<TripManager tripName={props.tripName} managerMethods={managerMethods} isOpen={props.showManager} toggleManager={props.toggleManager} places={props.places} text={props.tripName} setText={props.setTripName}/>			
 		</Row>
 	);
+}
+
+
+export function EditableInput(props){
+	const inputRef = useRef(null);
+	const [inputVisible, setInputVisible] = useState(false);
+
+	function onClickOutSide(e) {
+		if (inputRef.current && !inputRef.current.contains(e.target)) {
+		  setInputVisible(false);
+		}
+	  }
+
+	  useEffect(() => {
+		if (inputVisible) {
+		  document.addEventListener("mousedown", onClickOutSide);
+		}
+		return () => {
+		  document.removeEventListener("mousedown", onClickOutSide);
+		};
+	  });
+
+	  return (
+		<React.Fragment>
+		  {inputVisible ? (
+			<input
+			data-testid="Trip Text"
+    		  className="tripText"
+			  style = {{ width: '99%' }}
+			  ref={inputRef} // Set the Ref
+			  value={props.text} // Now input value uses local state
+			  onChange={e => {
+				props.setText(e.target.value);
+			  }}
+			/>
+		  ) : (
+			<span data-testid="My Trip" className="tripText" onClick={() => setInputVisible(true)}>{props.text}<FaEdit style={{paddingLeft: ".25em"}} hidden={inputVisible}/></span>
+		  )}
+		</React.Fragment>
+	  );
 }
 
 const DragHandle = sortableHandle(() => <MdDragHandle size={30}/>);

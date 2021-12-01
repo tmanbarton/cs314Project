@@ -15,6 +15,7 @@ import * as TripSchema from '../../../../schemas/TripFile.json';
 import { formatPlaces  } from "../../../utils/transformers";
 import Papa from 'papaparse';
 import { isJsonResponseValid } from "../../../utils/restfulAPI";
+import { EditableInput } from "./Itinerary";
 
 export default function TripManager(props) {
 	const [fileName, setFileName] = useState("");
@@ -27,6 +28,8 @@ export default function TripManager(props) {
 		<Modal isOpen={props.isOpen} toggle={!loading ? props.toggleManager : null}>
 			<Header />
 			<Body
+				text={props.text} 
+				setText={props.setText}
 				places={props.places}
 				fileName={fileName}
 				setFileName={setFileName}
@@ -57,7 +60,7 @@ function Body(props) {
 				<LoadTrip loading={props.loading} setLoading={props.setLoading} managerMethods={props.managerMethods} setFileName={props.setFileName} fileName={props.fileName} />
 			</Row>
 			<Row>
-				<SaveTrip loading={props.loading} tripName={props.tripName} fileName={props.fileName} places={props.places} showMessage={props.managerMethods.showMessage}/>
+				<SaveTrip text={props.text} setText={props.setText} loading={props.loading} tripName={props.tripName} fileName={props.fileName} places={props.places} showMessage={props.managerMethods.showMessage}/>
 			</Row>
 		</ModalBody>
 	);
@@ -113,7 +116,7 @@ function LoadTrip(props) {
 function SaveTrip(props) {
 	return (
 		<Container>
-			<h4>Save {props.tripName}</h4>
+			<h4>Save <EditableInput className="tripText" text={props.text} setText={props.setText}/></h4>
 			<hr />
 			<Row className="save-trip-row">
 				<Col>
