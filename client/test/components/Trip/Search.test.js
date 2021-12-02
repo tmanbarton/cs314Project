@@ -29,10 +29,10 @@ describe('SearchInput', () => {
         user.click(randomPlaces);
     });
 
-    it('Can Search by String or Coordinates', () => {
-        const byCoordinates = screen.getByTestId('byCoordinates');
-        user.click(byCoordinates);
-    });
+    // it('Can Search by String or Coordinates', () => {
+    //     const byCoordinates = screen.getByTestId('byCoordinates');
+    //     user.click(byCoordinates);
+    // });
 });
 
 

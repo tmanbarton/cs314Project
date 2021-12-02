@@ -50,7 +50,7 @@ export default function Map(props) {
             className="mapStyle"
             boxZoom={false}
             useFlyTo={true}
-            zoom={10}
+            zoom={15}
             tap={false}
             minZoom={MAP_MIN_ZOOM}
             maxZoom={MAP_MAX_ZOOM}
@@ -59,11 +59,12 @@ export default function Map(props) {
             onClick={handleMapClick}
             data-testid="Map"
         >
-            <LayersControl className="smaller" position="topright">
+            {/* <LayersControl className="smaller" position="topright">
                 {MAP_LAYERS.map(
                     layerData => renderMapLayer(layerData)
                     )}
-            </LayersControl>
+            </LayersControl> */}
+            <TileLayer {...MAP_LAYERS[0]} />
             <TripLines places={props.places} />
             <PlaceMarker places={props.places} selectedIndex={props.selectedIndex} />
         </LeafletMap>

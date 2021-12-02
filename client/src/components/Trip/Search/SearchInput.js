@@ -87,11 +87,11 @@ function Searchbar(props){
 					<FaDice size={18} />
 				</Button>
 			</InputGroupAddon>
-			<InputGroupAddon addonType="append" hidden={props.searchStates.searchMode.toLowerCase() === 'coords'}>
+			{/* <InputGroupAddon addonType="append" hidden={props.searchStates.searchMode.toLowerCase() === 'coords'}>
 				<Button color="primary" className="input-group-buttons" data-testid="byCoordinates" onClick={()=> props.searchStates.setSearchMode('coords')}>
 					<FaGlobe size={18} />
 				</Button>
-			</InputGroupAddon>
+			</InputGroupAddon> */}
 			<InputGroupAddon addonType="append" hidden={props.searchStates.searchMode.toLowerCase() === 'search'}>
 				<Button color="primary" className="input-group-buttons" data-testid="byString" onClick={()=> props.searchStates.setSearchMode('search')}>
 					<FaSearch size={18} />
