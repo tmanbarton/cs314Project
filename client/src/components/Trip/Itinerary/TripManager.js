@@ -16,6 +16,7 @@ import { formatPlaces  } from "../../../utils/transformers";
 import Papa from 'papaparse';
 import { isJsonResponseValid } from "../../../utils/restfulAPI";
 import { EditableInput } from "./Itinerary";
+import { CENTER_OF_EARTH } from "../../../utils/constants";
 
 export default function TripManager(props) {
 	const [fileName, setFileName] = useState("");
@@ -148,15 +149,18 @@ async function processFile(file, fileName, managerMethods, setLoading){
 	managerMethods.setTripName(trimFileName(fileName));
 	let fileType = getFileType(fileName);
 	managerMethods.removeAll();
+	console.log(JSON.stringify(managerMethods));
 	switch (fileType){
 		case "csv":
 			await csvToTrip(file, {bulkAppend: managerMethods.bulkAppend, showMessage: managerMethods.showMessage, setFileName: managerMethods.setFileName}, fileName);
 			setLoading(false);
+			managerMethods.setCenter(CENTER_OF_EARTH);
 			break;
 		case "json":
 			await jsonToTrip(file, {bulkAppend: managerMethods.bulkAppend, showMessage: managerMethods.showMessage, setFileName: managerMethods.setFileName}, fileName);
 			setLoading(false);
-			break
+			managerMethods.setCenter(CENTER_OF_EARTH);
+			break;
 		default:
 			break;
 	}
