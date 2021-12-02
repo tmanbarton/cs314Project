@@ -131,7 +131,7 @@ public class TourRequest extends Request {
                 }
                 var total_distance = get_distances(this.opt_tour);
                 if (total_distance < prev){
-                    temp_tour = this.opt_tour.clone();
+                    System.arraycopy(this.opt_tour, 0, temp_tour, 0, this.opt_tour.length);
                     prev = total_distance;
                 }
                 if(outOfTime()) break;
@@ -195,8 +195,8 @@ public class TourRequest extends Request {
         
         private int[] nearestNeighbor(int[] tour, int start_index) {
             if(places.length > 1){
-            this.tour = this.tour_1.clone();
-            this.visited = this.visited_1.clone();
+            System.arraycopy(this.visited_1, 0, this.visited, 0, this.visited_1.length);
+            System.arraycopy(this.tour_1, 0, this.tour, 0, this.tour_1.length);
 
             this.tour[0] = start_index;
             this.opt_tour[0] =  start_index;
