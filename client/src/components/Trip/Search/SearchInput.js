@@ -7,6 +7,8 @@ import {
 } from "../../../utils/restfulAPI";
 import { SearchResults } from "./SearchResults";
 import Coordinates from "coordinate-parser"
+import { reverseGeocode } from '../../../utils/reverseGeocode';
+import { LOG } from "../../../utils/constants";
 
 export default function SearchInput(props) {
 	const [places, setPlaces] = useState([]);
