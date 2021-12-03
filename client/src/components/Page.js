@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Collapse } from 'reactstrap';
+import { Collapse, Button } from 'reactstrap';
+import { FaMap } from 'react-icons/fa';
 import Header from './Margins/Header';
 import Footer from './Margins/Footer';
 import About from './About/About';
@@ -13,6 +14,7 @@ export default function Page(props) {
 	const [serverSettings, processServerConfigSuccess] = useServerSettings(props.showMessage);
 	const [disableSearch, setDisableSearch] = useToggle(false);
 	const [disableTour, setDisableTour] = useToggle(false);
+	const [showMap, toggleMap] = useToggle(true);
 
 	return (
 		<>
@@ -22,8 +24,11 @@ export default function Page(props) {
 					<About closePage={toggleAbout} />
 				</Collapse>
 				<Collapse isOpen={!showAbout} data-testid="planner-collapse">
-					<Planner serverSettings={serverSettings} disableSearch={disableSearch} disableTour={disableTour} showMessage={props.showMessage} />
+					<Planner serverSettings={serverSettings} disableSearch={disableSearch} disableTour={disableTour} showMessage={props.showMessage} showMap={showMap}/>
 				</Collapse>
+			</div>
+			<div className="fab-div">
+				<Button size="lg" color="primary" style={{borderRadius: 100, display: 'float-right'}} onClick={() => mapToggle(showMap, toggleMap)}><FaMap /></Button>
 			</div>
 			<Footer
 				disableSearch={disableSearch}
@@ -36,6 +41,16 @@ export default function Page(props) {
 			/>
 		</>
 	)
+}
+
+function mapToggle(showMap, toggleMap){
+	const show = !showMap;
+	toggleMap();
+
+	if(show){
+		window.scroll({top: '14vh', behavior: 'smooth'});
+	}
+
 }
 
 function useServerSettings(showMessage) {
