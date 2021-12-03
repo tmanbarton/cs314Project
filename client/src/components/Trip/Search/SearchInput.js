@@ -6,6 +6,7 @@ import {
 	isJsonResponseValid
 } from "../../../utils/restfulAPI";
 import { SearchResults } from "./SearchResults";
+import Coordinates from "coordinate-parser"
 
 export default function SearchInput(props) {
 	const [places, setPlaces] = useState([]);
