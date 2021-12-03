@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { Col, Container, Row } from "reactstrap";
 import Map from "./Map/Map";
 import Itinerary from "./Itinerary/Itinerary";
-import { CENTER_OF_EARTH, DEFAULT_STARTING_PLACE } from '../../utils/constants';
+import { DEFAULT_STARTING_PLACE } from '../../utils/constants';
 import { usePlaces } from "../../hooks/usePlaces";
 import { placeToLatLng } from "../../utils/transformers";
 
@@ -10,22 +10,12 @@ export default function Planner(props) {
 	const { places, selectedIndex, placeActions, distances, setSelectedIndex } = usePlaces(props.serverSettings, props.showMessage);
 	const [center, setCenter] = useState(DEFAULT_STARTING_PLACE);
 	const mapRef = useRef();
+
 	useEffect(()=>{
-		if(center !== CENTER_OF_EARTH || centeredOnPlace(places, center)){
+		if(selectedIndex !== -1){
 			setCenter(places[selectedIndex]);
-		}else{
-			let bounds = [];
-			if(places.length){
-				places.forEach(place => {
-					bounds.push(placeToLatLng(place));
-				});
-				if(bounds.length){
-					mapRef.current.leafletElement.fitBounds(bounds);
-				}
-				setCenter(mapRef.current.leafletElement.getCenter());
-			}
 		}
-    },[selectedIndex, center]);
+	},[selectedIndex])
 
 
 	return (
@@ -39,7 +29,7 @@ export default function Planner(props) {
 				</React.Fragment>
 			)}
 			<Section>
-				<Itinerary serverSettings={props.serverSettings} showMessage={props.showMessage} disableSearch={props.disableSearch} disableTour={props.disableTour} places={places} selectedIndex={selectedIndex} placeActions={placeActions} distances={distances} setSelectedIndex={setSelectedIndex} />
+				<Itinerary mapRef={mapRef} serverSettings={props.serverSettings} showMessage={props.showMessage} disableSearch={props.disableSearch} disableTour={props.disableTour} places={places} selectedIndex={selectedIndex} placeActions={placeActions} distances={distances} setSelectedIndex={setSelectedIndex} />
 			</Section>
 		</Container>
 	);

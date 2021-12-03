@@ -149,3 +149,15 @@ function evaluateZoom(currentZoom){
     console.log(currentZoom);
     return (currentZoom >= 1 && currentZoom < 10) ? currentZoom : 15;
 }
+
+export function getMapBounds(places){
+    let bounds = [];
+    if(places.length){
+        places.forEach(place => {
+            bounds.push(placeToLatLng(place));
+        });
+        if(bounds.length){
+            return bounds;
+        }
+    }
+}
