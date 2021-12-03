@@ -30,23 +30,16 @@ export default function Planner(props) {
 
 	return (
 		<Container>
+			{props.showMap && (
+				<React.Fragment>
+					<Section>
+						<Map places={places} selectedIndex={selectedIndex} placeActions={placeActions} center={center} mapRef={mapRef} setCenter={setCenter}/>
+					</Section>
+					<hr style={{marginTop: '.5rem'}}/>
+				</React.Fragment>
+			)}
 			<Section>
-				<Map places={places} selectedIndex={selectedIndex} placeActions={placeActions} center={center} mapRef={mapRef} setCenter={setCenter}/>
-			</Section>
-			<hr />
-			<Section>
-				<Itinerary
-					serverSettings={props.serverSettings}
-					showMessage={props.showMessage}
-					disableSearch={props.disableSearch}
-					disableTour={props.disableTour}
-					places={places}
-					selectedIndex={selectedIndex}
-					placeActions={placeActions}
-					distances={distances}
-					setSelectedIndex={setSelectedIndex}
-					setCenter={setCenter}
-				/>
+				<Itinerary serverSettings={props.serverSettings} showMessage={props.showMessage} disableSearch={props.disableSearch} disableTour={props.disableTour} places={places} selectedIndex={selectedIndex} placeActions={placeActions} distances={distances} setSelectedIndex={setSelectedIndex} />
 			</Section>
 		</Container>
 	);

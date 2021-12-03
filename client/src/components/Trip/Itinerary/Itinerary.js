@@ -25,8 +25,8 @@ export default function Itinerary(props) {
 			<hr />
 			<Collapse isOpen={showSearch}>
 				<Search serverSettings={props.serverSettings} append={props.placeActions.append} showMessage={props.showMessage} showSearch={showSearch}/>
+				<hr hidden={true}/>
 			</Collapse>	
-			<hr style={{visibility: "hidden"}}/>
 			{props.distances ? <TripHeader setChangedTrip={setChangedTrip} changedTrip={changedTrip} undo={props.placeActions.undo} distances={props.distances} /> : null}	
 			<Table responsive striped>
 				<Body distances={props.distances} places={props.places} placeActions={props.placeActions} selectedIndex={props.selectedIndex} setSelectedIndex={props.setSelectedIndex}/>

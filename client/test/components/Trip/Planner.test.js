@@ -6,7 +6,7 @@ describe('Planner', () => {
     const createSnackBar = jest.fn();
 
     beforeEach(() => {
-        render(<Planner createSnackBar={createSnackBar} />);
+        render(<Planner createSnackBar={createSnackBar} showMap={true}/>);
     });
 
     it('renders a Leaflet map', async () => {

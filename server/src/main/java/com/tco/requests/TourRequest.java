@@ -118,20 +118,21 @@ public class TourRequest extends Request {
 
         //returns an optimized list of places
         public Place[] optimize(){
+            TourUtility Util = new TourUtility(places, this.response, this.start);
             var prev = this.inf;
             int[] temp_tour = new int[this.tour.length + 1];
             Place[] finalTrip = new Place[places.length];
 
             for (var j = 0; j < places.length; j++) {
 
-                this.tour = nearestNeighbor(this.tour, j);
+                this.tour = Util.nearestNeighbor(this.tour, j, this.distanceMatrix, this. opt_tour, this.tour_1, this.visited_1);
                 this.opt_tour[this.tour.length] = this.tour[0];
                 if(this.tour.length > 3){
-                    opt_2(this.opt_tour);
+                    Util.opt_2(this.opt_tour, this.distanceMatrix);
                 }
-                var total_distance = get_distances(this.opt_tour);
+                var total_distance = Util.get_distances(this.opt_tour, this.distanceMatrix);
                 if (total_distance < prev){
-                    temp_tour = this.opt_tour.clone();
+                    System.arraycopy(this.opt_tour, 0, temp_tour, 0, this.opt_tour.length);
                     prev = total_distance;
                 }
                 if(outOfTime()) break;
@@ -140,97 +141,7 @@ public class TourRequest extends Request {
             return finalTrip;
         }
 
-        // Find distance from point j to point k
-        private double leg_dist(int[] tour, int j, int k){ 
-            return this.distanceMatrix[tour[j]][tour[k]];
-        }
 
-        private boolean opt_2_improves(int[] tour, int i, int j){
-            return ((leg_dist(tour, i, j) + leg_dist(tour, i+1, j+1)) < (leg_dist(tour, i, i+1) + leg_dist(tour, j, j+1)));    
-        }
-
-        private int opt_2_reverse(int[] tour, int i, int j){
-            while (i < j)  {
-                int temp = tour[i];
-                tour[i] = tour[j];
-                tour[j] = temp;
-                i++;
-                j--;
-                if(outOfTime()) break;
-            }   
-            return 0; 
-        }
-
-        private void opt_2(int[] tour){
-            var improvement = true;
-            while (improvement){
-                improvement = false;
-                for (var i = 0; i <= (tour.length - 4); i++) { 
-                    for (var j = i + 2; j <= (tour.length - 2); j++) { 
-                        if (opt_2_improves(tour, i, j)){
-                            opt_2_reverse(tour, i+1, j);
-                            improvement = true;
-                        }
-                        if(outOfTime()) break;
-                    }
-                    if(outOfTime()) break;
-                }
-            }
-        }
-
-        // returns the index of closest destination from current point using distance matrix
-        private int find_closest(int index, boolean[] visited){ 
-            var value = this.inf;
-            var final_index = 0;
-            for (var i = 0; i < this.distanceMatrix[index].length; i++) {
-                if (this.distanceMatrix[index][i] < value && visited[i]!=true && index!=i) {
-                  value = this.distanceMatrix[index][i];
-                  final_index = i;
-                }
-                // if(outOfTime()) break;
-            }
-            return final_index;
-        }
-
-        
-        private int[] nearestNeighbor(int[] tour, int start_index) {
-            if(places.length > 1){
-            this.tour = this.tour_1.clone();
-            this.visited = this.visited_1.clone();
-
-            this.tour[0] = start_index;
-            this.opt_tour[0] =  start_index;
-            this.visited[start_index] = true;
-            int i = 0;
-            int currrent = start_index; 
-            int tour_size = places.length;
-            while (i < (tour_size - 1)){
-                int close_index = find_closest(currrent, this.visited);
-                i++;
-                this.tour[i] = close_index;
-                this.opt_tour[i] = close_index;
-                this.visited[close_index] = true;
-                currrent = close_index;
-                // if(outOfTime()) break;  
-            }
-            return this.tour;
-            }
-            else{
-                this.tour[0] = 0;
-                this.opt_tour[0] = 0;
-                return this.tour;
-            }
-        }
-
-
-        private double get_distances(int[] tour){ 
-            double total = 0;
-            for (var i = 0; i < (tour.length - 1); i++){
-                total += this.distanceMatrix[tour[i]][tour[i+1]];
-            }
-            return total;
-        }
-        
         private boolean outOfTime(){
             return System.currentTimeMillis() > this.start + (long)this.response;
         }
