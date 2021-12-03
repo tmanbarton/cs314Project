@@ -109,9 +109,7 @@ function ServerInformation(props) {
 					<div className="div-inline">
 						<ServersDropdown {...props} serverName={serverName} />
 					</div>
-					{/* <br /> */}
-					&nbsp;&nbsp;&nbsp;&nbsp;
-					{/* <a className="tco-text" onClick={props.stateMethods.toggleFeaturesChecklist}>({props.serverSettings.serverUrl}).</a> */}
+					&nbsp;&nbsp;
 					<a data-testid="help-button" onClick={props.stateMethods.toggleFeaturesChecklist}><FaInfoCircle size={18} /></a>
 					<FeaturesChecklist isOpen={props.stateVariables.featuresChecklistOpen} toggleOpen={props.stateMethods.toggleFeaturesChecklist} features={props.stateVariables.featuresRecieved} supportedFeatures={supportedFeatures}/>
 				</div>
