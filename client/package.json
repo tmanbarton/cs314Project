@@ -23,7 +23,8 @@
     "react-papaparse": "^3.17.2",
     "react-sortable-hoc": "^2.0.0",
     "reactstrap": "^8.4.1",
-    "ulog": "^1.1.0"
+    "ulog": "^1.1.0",
+    "coordinate-parser": "^1.0.7"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
