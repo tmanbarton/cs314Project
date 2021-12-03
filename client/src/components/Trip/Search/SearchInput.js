@@ -160,7 +160,7 @@ async function cordinateSearch(searchStates) {
 	if (useCoordinateValidation(latLng.lat + "," + latLng.lng)) {
 		const newPlace = await reverseGeocode(latLng);
 		LOG.info(newPlace);
-		searchStates.setPlaces([{ lat: parseFloat(newPlace.lat), lng: parseFloat(newPlace.lng)}]);
+		searchStates.setPlaces([{ lat: parseFloat(newPlace.lat), lng: parseFloat(newPlace.lng), name:newPlace.name}]);
 	} 
 }
 
