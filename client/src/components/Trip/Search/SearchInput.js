@@ -150,3 +150,23 @@ async function sendFindRequest(request, searchStates, serverSettings, showMessag
 		);
 	}
 }
+
+function useCoordinateValidation(newPlace) {
+    const newLatLng = getCoordinatesOrNull(newPlace);
+	if(newLatLng!=null){return true;}
+	else {return false;}
+}
+  
+  
+function getCoordinatesOrNull(coordinatesString) {
+    try {
+      const convertedCoordinates = new Coordinates(coordinatesString);
+	  return {
+        	lat: convertedCoordinates.getLatitude(),
+        	lng: convertedCoordinates.getLongitude()
+      	   };
+    } 
+    catch (error) {
+      return null;
+    }
+  }
