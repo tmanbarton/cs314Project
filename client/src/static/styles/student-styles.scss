@@ -63,3 +63,11 @@
     font-size: 85%;
 }
 
+.fab-div {
+    position: fixed;
+    border-radius: 100px;
+    bottom: 8vh;
+    right: 1vh;
+    z-index: 2;
+    box-shadow: 0 0 20px $csu-gold;
+}

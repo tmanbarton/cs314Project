@@ -8,10 +8,14 @@ export default function Planner(props) {
 	const { places, selectedIndex, placeActions, distances, setSelectedIndex } = usePlaces(props.serverSettings, props.showMessage);
 	return (
 		<Container>
-			<Section>
-				<Map places={places} selectedIndex={selectedIndex} placeActions={placeActions}/>
-			</Section>
-			<hr />
+			{props.showMap && (
+				<React.Fragment>
+					<Section>
+						<Map places={places} selectedIndex={selectedIndex} placeActions={placeActions}/>
+					</Section>
+					<hr style={{marginTop: '.5rem'}}/>
+				</React.Fragment>
+			)}
 			<Section>
 				<Itinerary
 					serverSettings={props.serverSettings}
