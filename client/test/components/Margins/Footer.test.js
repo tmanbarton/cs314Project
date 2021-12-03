@@ -24,7 +24,7 @@ describe('Footer', () => {
             processServerConfigSuccess={processServerConfigSuccess}
         />);
 
-        serverSettingsLink = screen.getByText(`(${serverSettings.serverUrl}).`);
+        serverSettingsLink = screen.getByTestId(`help-button`);
     });
 
     it('renders', async () =>{
