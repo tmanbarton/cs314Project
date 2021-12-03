@@ -16,6 +16,8 @@ import { formatPlaces  } from "../../../utils/transformers";
 import Papa from 'papaparse';
 import { isJsonResponseValid } from "../../../utils/restfulAPI";
 import { EditableInput } from "./Itinerary";
+import { CENTER_OF_EARTH } from "../../../utils/constants";
+import { getMapBounds } from "../Map/Map";
 
 export default function TripManager(props) {
 	const [fileName, setFileName] = useState("");
@@ -150,13 +152,13 @@ async function processFile(file, fileName, managerMethods, setLoading){
 	managerMethods.removeAll();
 	switch (fileType){
 		case "csv":
-			await csvToTrip(file, {bulkAppend: managerMethods.bulkAppend, showMessage: managerMethods.showMessage, setFileName: managerMethods.setFileName}, fileName);
+			await csvToTrip(file, {bulkAppend: managerMethods.bulkAppend, showMessage: managerMethods.showMessage, setFileName: managerMethods.setFileName, mapRef: managerMethods.mapRef}, fileName);
 			setLoading(false);
 			break;
 		case "json":
-			await jsonToTrip(file, {bulkAppend: managerMethods.bulkAppend, showMessage: managerMethods.showMessage, setFileName: managerMethods.setFileName}, fileName);
+			await jsonToTrip(file, {bulkAppend: managerMethods.bulkAppend, showMessage: managerMethods.showMessage, setFileName: managerMethods.setFileName, mapRef: managerMethods.mapRef}, fileName);
 			setLoading(false);
-			break
+			break;
 		default:
 			break;
 	}
@@ -178,6 +180,7 @@ async function csvToTrip(file, managerMethods, fileName){
 	const places = await papaAwait(file);
 	if(isValidFile({places:places})){
 		managerMethods.bulkAppend(places);
+		managerMethods.mapRef.current.leafletElement.fitBounds(getMapBounds(places));
 		managerMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
 	}else{
 		managerMethods.showMessage(`Failed to upload ${fileName}.`, "error");
@@ -193,6 +196,7 @@ async function jsonToTrip(file, managerMethods, fileName){
 	if(isValidFile(jsonFile)){
 		const places = jsonFile["places"];
 		managerMethods.bulkAppend(places);
+		managerMethods.mapRef.current.leafletElement.fitBounds(getMapBounds(places));
 		managerMethods.showMessage(`Successfully imported ${fileName} to your Trip.`, "success");
 		return;
 	}else{

@@ -21,7 +21,7 @@ export default function Itinerary(props) {
 	const [changedTrip, setChangedTrip] = useState(false);
 	return (
 		<Container>
-			<Header tripName={tripName} setTripName={setTripName} placeActions={props.placeActions} showMessage={props.showMessage} showManager={showManager} toggleManager={toggleManager} toggleSearch={toggleSearch} disableSearch={props.disableSearch} places={props.places} distances={props.distances} disableTour={props.disableTour} changedTrip={changedTrip} setChangedTrip={setChangedTrip} serverSettings={props.serverSettings} selectedIndex={props.selectedIndex}/>
+			<Header mapRef={props.mapRef} tripName={tripName} setTripName={setTripName} placeActions={props.placeActions} showMessage={props.showMessage} showManager={showManager} toggleManager={toggleManager} toggleSearch={toggleSearch} disableSearch={props.disableSearch} places={props.places} distances={props.distances} disableTour={props.disableTour} changedTrip={changedTrip} setChangedTrip={setChangedTrip} serverSettings={props.serverSettings} selectedIndex={props.selectedIndex}/>
 			<hr />
 			<Collapse isOpen={showSearch}>
 				<Search serverSettings={props.serverSettings} append={props.placeActions.append} showMessage={props.showMessage} showSearch={showSearch}/>
@@ -37,7 +37,7 @@ export default function Itinerary(props) {
 }
 
 function Header(props) {	
-	const managerMethods = { bulkAppend: props.placeActions.bulkAppend, removeAll: props.placeActions.removeAll, showMessage: props.showMessage, setTripName: props.setTripName};
+	const managerMethods = { bulkAppend: props.placeActions.bulkAppend, mapRef: props.mapRef, removeAll: props.placeActions.removeAll, showMessage: props.showMessage, setTripName: props.setTripName};
 	return (
 		<Row>
 			<Col>
@@ -53,7 +53,7 @@ function Header(props) {
 					<p className="button-label">Search</p>
 				</Button>
 				{props.places.length && !props.changedTrip ? 
-					<TripActions selectedIndex={props.selectedIndex} tripName={props.tripName} disableTour={props.disableTour} distances={props.distances}  places={props.places}  serverSettings={props.serverSettings}  bulkAppend={props.placeActions.bulkAppend} undo={props.placeActions.undo} showMessage={props.showMessage} removeAll={props.placeActions.removeAll} setChangedTrip={props.setChangedTrip} />
+					<TripActions mapRef={props.mapRef} selectedIndex={props.selectedIndex} tripName={props.tripName} disableTour={props.disableTour} distances={props.distances}  places={props.places}  serverSettings={props.serverSettings}  bulkAppend={props.placeActions.bulkAppend} undo={props.placeActions.undo} showMessage={props.showMessage} removeAll={props.placeActions.removeAll} setChangedTrip={props.setChangedTrip} />
 				: null}
 			</ButtonGroup>
 			<TripManager tripName={props.tripName} managerMethods={managerMethods} isOpen={props.showManager} toggleManager={props.toggleManager} places={props.places} text={props.tripName} setText={props.setTripName}/>			

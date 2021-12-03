@@ -1,9 +1,9 @@
-import React from 'react';
-import { Map as LeafletMap, Polyline, LayersControl, TileLayer } from 'react-leaflet';
+import React, { useEffect, useRef, useState } from 'react';
+import { Map as LeafletMap, Polyline, LayersControl, TileLayer, } from 'react-leaflet';
 import Marker from './Marker';
 import { latLngToPlace, placeToLatLng } from '../../../utils/transformers';
-import { DEFAULT_STARTING_PLACE } from '../../../utils/constants';
 import 'leaflet/dist/leaflet.css';
+import { Button, Container } from 'reactstrap';
 
 const MAP_BOUNDS = [[-90, -180], [90, 180]];
 const MAP_LAYER_ATTRIBUTION = "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors";
@@ -32,30 +32,52 @@ let MAP_LAYERS = [
     },
     {
         selected: false,
-        name: "Sea",
-        attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri',
-        url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}',
+        name: "Hybrid",
+        url:"https://mt0.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}",
     },
+    {
+        selected: false,
+        name: "US Traffic",
+        url: "https://mt0.google.com/vt/lyrs=m@221097413,traffic&x={x}&y={y}&z={z}"
+    }
   ];
 
 export default function Map(props) {
+    const [showLines, setShowLines] = useState(true);
     function handleMapClick(mapClickInfo) {
         props.placeActions.append(latLngToPlace(mapClickInfo.latlng));
+    }
+
+    useEffect(()=>{
+        if(props.center){
+            handleFlyTo();
+        }
+    },[props.center]);
+
+    function handleFlyTo(){
+        const { current = {}} = props.mapRef;
+        const { leafletElement: map} = current;
+        const currentZoom = map.getZoom();
+        map.flyTo(placeToLatLng(props.center), evaluateZoom(currentZoom));
     }
 
     checkMapSelection();
 
     return (
         <LeafletMap
+            ref={props.mapRef}
             className="mapStyle"
-            boxZoom={false}
+            animate={true}
+            boxZoom={true}
             useFlyTo={true}
-            zoom={10}
+            zoom={15}
             tap={false}
+            onzoomstart={()=>setShowLines(false)}
+            onzoomend={()=>setShowLines(true)}
             minZoom={MAP_MIN_ZOOM}
             maxZoom={MAP_MAX_ZOOM}
             maxBounds={MAP_BOUNDS}
-            center={placeToLatLng(DEFAULT_STARTING_PLACE)}
+            center={placeToLatLng(props.center)}
             onClick={handleMapClick}
             data-testid="Map"
         >
@@ -64,8 +86,8 @@ export default function Map(props) {
                     layerData => renderMapLayer(layerData)
                     )}
             </LayersControl>
-            <TripLines places={props.places} />
-            <PlaceMarker places={props.places} selectedIndex={props.selectedIndex} />
+            {showLines ? <TripLines places={props.places} />: null} 
+            <PlaceMarker places={props.places} selectedIndex={props.selectedIndex} /> 
         </LeafletMap>
     );
 }
@@ -121,4 +143,21 @@ function checkMapSelection() {
 		localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(MAP_LAYERS[0]));
 		MAP_LAYERS[0].selected = true;
 	}
+}
+
+function evaluateZoom(currentZoom){
+    console.log(currentZoom);
+    return (currentZoom >= 1 && currentZoom < 10) ? currentZoom : 15;
+}
+
+export function getMapBounds(places){
+    let bounds = [];
+    if(places.length){
+        places.forEach(place => {
+            bounds.push(placeToLatLng(place));
+        });
+        if(bounds.length){
+            return bounds;
+        }
+    }
 }
