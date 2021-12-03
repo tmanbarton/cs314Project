@@ -17,17 +17,7 @@ export default function Planner(props) {
 				</React.Fragment>
 			)}
 			<Section>
-				<Itinerary
-					serverSettings={props.serverSettings}
-					showMessage={props.showMessage}
-					disableSearch={props.disableSearch}
-					disableTour={props.disableTour}
-					places={places}
-					selectedIndex={selectedIndex}
-					placeActions={placeActions}
-					distances={distances}
-					setSelectedIndex={setSelectedIndex}
-				/>
+				<Itinerary serverSettings={props.serverSettings} showMessage={props.showMessage} disableSearch={props.disableSearch} disableTour={props.disableTour} places={places} selectedIndex={selectedIndex} placeActions={placeActions} distances={distances} setSelectedIndex={setSelectedIndex} />
 			</Section>
 		</Container>
 	);
