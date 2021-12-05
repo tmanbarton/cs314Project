@@ -146,7 +146,6 @@ function checkMapSelection() {
 }
 
 function evaluateZoom(currentZoom){
-    console.log(currentZoom);
     return (currentZoom >= 1 && currentZoom < 10) ? currentZoom : 15;
 }
 
