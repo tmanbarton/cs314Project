@@ -6,6 +6,9 @@ import {
 	isJsonResponseValid
 } from "../../../utils/restfulAPI";
 import { SearchResults } from "./SearchResults";
+import Coordinates from "coordinate-parser"
+import { reverseGeocode } from '../../../utils/reverseGeocode';
+import { LOG } from "../../../utils/constants";
 
 export default function SearchInput(props) {
 	const [places, setPlaces] = useState([]);
@@ -149,4 +152,33 @@ async function sendFindRequest(request, searchStates, serverSettings, showMessag
 			"error"
 		);
 	}
+}
+
+async function cordinateSearch(searchStates) {
+	searchStates.setSearchMode('coords');
+	const latLng = { lat: searchStates.lat, lng: searchStates.lon };
+	if (useCoordinateValidation(latLng.lat + "," + latLng.lng)) {
+		const newPlace = await reverseGeocode(latLng);
+		LOG.info(newPlace);
+		searchStates.setPlaces([{ lat: parseFloat(newPlace.lat), lng: parseFloat(newPlace.lng), name:newPlace.name}]);
+	} 
+}
+
+function useCoordinateValidation(newPlace) {
+    	const newLatLng = getCoordinatesOrNull(newPlace);
+	if(newLatLng!=null){return true;}
+	else {return false;}
+}
+  
+  
+function getCoordinatesOrNull(coordinatesString) {
+    	try {
+      		const convertedCoordinates = new Coordinates(coordinatesString);
+	  	return {
+		lat: convertedCoordinates.getLatitude(),
+		lng: convertedCoordinates.getLongitude()
+	   	};
+   	} 
+    	catch (error) {
+      	return null;}
 }
