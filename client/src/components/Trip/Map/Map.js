@@ -1,16 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Map as LeafletMap, Polyline, LayersControl, TileLayer, } from 'react-leaflet';
 import Marker from './Marker';
 import { latLngToPlace, placeToLatLng } from '../../../utils/transformers';
 import 'leaflet/dist/leaflet.css';
-import { Button, Container } from 'reactstrap';
+import { LOCAL_STORAGE_KEY } from '../../../utils/constants';
 
 const MAP_BOUNDS = [[-90, -180], [90, 180]];
 const MAP_LAYER_ATTRIBUTION = "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors";
 const MAP_LAYER_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const MAP_MIN_ZOOM = 1;
 const MAP_MAX_ZOOM = 19;
-const LOCAL_STORAGE_KEY = "DEFAULT MAP";
+
 let MAP_LAYERS = [
     {
       selected: false,
