@@ -9,6 +9,7 @@ import { SearchResults } from "./SearchResults";
 import { LOG } from "../../../utils/constants";
 import Coordinates from "coordinate-parser"
 import { reverseGeocode } from '../../../utils/reverseGeocode';
+import { formatPlaces } from "../../../utils/transformers";
 
 export default function SearchInput(props) {
 	const [places, setPlaces] = useState([]);
@@ -67,12 +68,14 @@ export default function SearchInput(props) {
 			<Searchbar {...props} limit={limit} searchStates={searchStates}/>
 			<hr />
 			<SearchResults places={places} append={props.append} noResultsFound={noResultsFound} found={found} searchMode={searchMode} />
-			<Row>
-				<Col>
-					{places.length ? <p>Showing: {limit} out of {found} results</p>: null}
-				</Col>
-				{places.length ? <ShowMore searchStates={searchStates} setLimit={setLimit} serverSettings={props.serverSettings} showMessage={props.showMessage}/> : null}		
-			</Row>
+			{places.length && searchMode !== 'coords' ?
+				<Row>
+					<Col>
+						<p>Showing: {limit} out of {found} results</p>
+					</Col>
+					<ShowMore searchStates={searchStates} setLimit={setLimit} serverSettings={props.serverSettings} showMessage={props.showMessage}/> 		
+				</Row>
+			: null}
 		</Container>
 	);
 }
@@ -80,7 +83,7 @@ export default function SearchInput(props) {
 
 function ShowMore(props){
 	return (
-			<Button size="sm" className="rightButton" color="primary" onClick={()=> getMoreResults(props.searchStates.limit, props.setLimit, props.searchStates, props.serverSettings, props.showMessage )}><FaArrowDown size={16}/> <p className="button-label">More</p></Button>
+		<Button size="sm" className="rightButton" color="primary" onClick={()=> getMoreResults(props.searchStates.limit, props.setLimit, props.searchStates, props.serverSettings, props.showMessage )}><FaArrowDown size={16}/> <p className="button-label">More</p></Button>
 	)
 }
 
@@ -181,7 +184,7 @@ async function cordinateSearch(searchStates) {
 		if(newPlace.lng>=180){
 			newPlace.lng = newPlace.lng%(180);
 		}
-		searchStates.setPlaces([{ lat: parseFloat(newPlace.lat), lng: parseFloat(newPlace.lng), name:newPlace.name}]);
+		searchStates.setPlaces(formatPlaces([{ lat: parseFloat(newPlace.lat), lng: parseFloat(newPlace.lng), name:newPlace.name}]));
 	} 
   }
 

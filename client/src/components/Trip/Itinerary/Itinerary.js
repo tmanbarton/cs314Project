@@ -149,7 +149,7 @@ const SortableItem = sortableElement( props  => {
 				<Collapse isOpen={rowClicked}>
 					{ props.distances ?
 						<small>
-							<strong>One Way Distance: {distance} {units}</strong>
+							<strong>Distance so far: {distance.toLocaleString()} {units}</strong>
 						</small>
 					: null}
 				</Collapse>
@@ -249,7 +249,7 @@ function TotalDistances(props)
 	const total = totalDistance(props.distances)
 	const units = "miles"; // at some point need to be dynamic
 	return (
-		<h5><FaMapSigns />{" "}<strong>Total Trip Distance: {total} {units}</strong></h5>
+		<h5><FaMapSigns />{" "}<strong>Total Trip Distance: {total.toLocaleString()} {units}</strong></h5>
 	);
 }
 
