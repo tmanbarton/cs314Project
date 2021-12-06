@@ -169,7 +169,18 @@ async function cordinateSearch(searchStates) {
 	const latLng = { lat: searchStates.lat, lng: searchStates.lon };
 	if (useCoordinateValidation(latLng.lat + "," + latLng.lng)) {
 		const newPlace = await reverseGeocode(latLng);
-		LOG.info(newPlace);
+		if(newPlace.lat<=-90){
+			newPlace.lat = newPlace.lat%(-90);
+		}
+		if(newPlace.lat>=90){
+			newPlace.lat = newPlace.lat%(90);
+		}
+		if(newPlace.lng<=-180){
+			newPlace.lng = newPlace.lng%(-180);
+		}
+		if(newPlace.lng>=180){
+			newPlace.lng = newPlace.lng%(180);
+		}
 		searchStates.setPlaces([{ lat: parseFloat(newPlace.lat), lng: parseFloat(newPlace.lng), name:newPlace.name}]);
 	} 
   }
