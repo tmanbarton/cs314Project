@@ -6,9 +6,9 @@ import {
 	isJsonResponseValid
 } from "../../../utils/restfulAPI";
 import { SearchResults } from "./SearchResults";
+import { LOG } from "../../../utils/constants";
 import Coordinates from "coordinate-parser"
 import { reverseGeocode } from '../../../utils/reverseGeocode';
-import { LOG } from "../../../utils/constants";
 
 export default function SearchInput(props) {
 	const [places, setPlaces] = useState([]);
@@ -17,6 +17,8 @@ export default function SearchInput(props) {
 	const [limit, setLimit] = useState(5)
 	const [noResultsFound, setNoResultsFound] = useState(false);
 	const [searchMode, setSearchMode] = useState('search');
+	const [lat, setLat] = useState('');
+	const [lon, setLon] = useState('');
 
 	const searchStates = {
 		setPlaces: setPlaces,
@@ -27,6 +29,10 @@ export default function SearchInput(props) {
 		limit: limit,
 		setMatch: setMatch,
 		setFound: setFound,
+		setLon: setLon,
+		setLat: setLat,
+		lat: lat,
+		lon: lon,
 	};
 
 	useEffect(() => {
@@ -52,9 +58,13 @@ export default function SearchInput(props) {
 		setLimit(5);
 	}, [match]);
 
+	useEffect(() => {
+		cordinateSearch(searchStates)
+	}, [lon, lat]);
+
 	return (
 		<Container>
-			<Searchbar {...props} limit={limit} searchStates={searchStates} />
+			<Searchbar {...props} limit={limit} searchStates={searchStates}/>
 			<hr />
 			<SearchResults places={places} append={props.append} noResultsFound={noResultsFound} found={found} searchMode={searchMode} />
 			<Row>
@@ -84,7 +94,7 @@ function getMoreResults(limit, setLimit, searchStates, serverSettings, showMessa
 function Searchbar(props){
 	return (
 		<InputGroup>
-			<InputBar {...props.searchStates} />
+			<InputBar {...props.searchStates}/>
 			<InputGroupAddon addonType="append">
 				<Button color="primary" className="input-group-buttons" data-testid="randomPlaces" onClick={() => { randomPlaces(props.searchStates, props.serverSettings, props.showMessage, props.limit)}}>
 					<FaDice size={18} />
@@ -108,7 +118,7 @@ function InputBar(props){
 	switch (props.searchMode.toLowerCase()){
 		case 'search':
 			return (
-				<Input type="text" placeholder="Search for Places" onChange={(input)=>props.setMatch(input.target.value)} data-testid="searchBar" value={props.match} />
+				<Input type="text" placeholder="Search for Places" onChange={(input)=>props.setMatch(input.target.value)} value={props.match} />
 			)
 		case 'random':
 			return(
@@ -117,8 +127,8 @@ function InputBar(props){
 		case 'coords':
 			return(
 				<React.Fragment>
-					<Input type="text" placeholder="Latitude" data-testid="latInput"/>
-					<Input type="text" placeholder="Longitude" data-testid="lngInput"/>
+					<Input type="text" placeholder="Latitude" onChange={(input)=>props.setLat(input.target.value)} data-testid="latInput" value={props.lat}/>
+					<Input type="text" placeholder="Longitude" onChange={(input)=>props.setLon(input.target.value)} data-testid="lngInput" value={props.lon}/>
 				</React.Fragment>
 			);
 		default:
@@ -162,23 +172,27 @@ async function cordinateSearch(searchStates) {
 		LOG.info(newPlace);
 		searchStates.setPlaces([{ lat: parseFloat(newPlace.lat), lng: parseFloat(newPlace.lng), name:newPlace.name}]);
 	} 
-}
+  }
 
 function useCoordinateValidation(newPlace) {
-    	const newLatLng = getCoordinatesOrNull(newPlace);
-	if(newLatLng!=null){return true;}
-	else {return false;}
-}
+    const newLatLng = getCoordinatesOrNull(newPlace);
+	if(newLatLng!=null){
+		return true;
+	}
+	else{
+		return false;
+	}
+    }
   
   
 function getCoordinatesOrNull(coordinatesString) {
-    	try {
-      		const convertedCoordinates = new Coordinates(coordinatesString);
-	  	return {
-		lat: convertedCoordinates.getLatitude(),
-		lng: convertedCoordinates.getLongitude()
-	   	};
-   	} 
-    	catch (error) {
-      	return null;}
-}
+    try {
+      const convertedCoordinates = new Coordinates(coordinatesString);
+	  return {
+        lat: convertedCoordinates.getLatitude(),
+        lng: convertedCoordinates.getLongitude()
+      };
+    } catch (error) {
+      return null;
+    }
+  }

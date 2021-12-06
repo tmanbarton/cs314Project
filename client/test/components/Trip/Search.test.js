@@ -13,25 +13,22 @@ describe('SearchInput', () => {
     const append = jest.fn();
     
     beforeEach(() => {
-        render(<SearchInput serverSettings={serverSettings} showMessage={mockMessage} append={append} />);
+        render(<SearchInput serverSettings={serverSettings} showMessage={mockMessage} append={append} showSearch={true}/>);
     });
-
-    it('Has a textbox', () => {
-    screen.getByTestId('searchBar');
-    });
-
-    it('Calls a function when given user input', () => {
-    user.paste(screen.getByTestId('searchBar'), 'a');
-        });
 
     it('Can pull up random places', () => {
         const randomPlaces = screen.getByTestId('randomPlaces');
         user.click(randomPlaces);
     });
 
-    it('Can Search by String or Coordinates', () => {
+    it('Can Search by Coordinates', () => {
         const byCoordinates = screen.getByTestId('byCoordinates');
         user.click(byCoordinates);
+    });
+
+    it('Can Search by String', () => {
+        const byString = screen.getByTestId('byString');
+        user.click(byString);
     });
 });
 
