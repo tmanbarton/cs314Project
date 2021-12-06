@@ -46,7 +46,7 @@ function Header(props) {
 				</h4>
 			</Col>
 			<ButtonGroup size="sm" className="button-group">
-				<Button color="primary" data-testid="manager-btn" onClick={()=>{props.toggleManager();}}><FaSave size={18} /><p className="button-label">&nbsp;File&nbsp;</p></Button>
+				<TripManager places={props.places} tripName={props.tripName} className="makeWider" managerMethods={managerMethods}/>
 				<Button color="primary" data-testid="home-button" onClick={() => {props.placeActions.moveToHome();}}><FaLocationArrow size={18} /><p className="button-label">Locate</p></Button>
 				<Button color="primary" data-testid="srch-button" className={props.disableSearch ? "fa-disabled" : ""} onClick={props.disableSearch ? null : props.toggleSearch}>
 					<FaSearch size={18} />
@@ -55,8 +55,7 @@ function Header(props) {
 				{props.places.length && !props.changedTrip ? 
 					<TripActions mapRef={props.mapRef} selectedIndex={props.selectedIndex} tripName={props.tripName} disableTour={props.disableTour} distances={props.distances}  places={props.places}  serverSettings={props.serverSettings}  bulkAppend={props.placeActions.bulkAppend} undo={props.placeActions.undo} showMessage={props.showMessage} removeAll={props.placeActions.removeAll} setChangedTrip={props.setChangedTrip} />
 				: null}
-			</ButtonGroup>
-			<TripManager tripName={props.tripName} managerMethods={managerMethods} isOpen={props.showManager} toggleManager={props.toggleManager} places={props.places} text={props.tripName} setText={props.setTripName}/>			
+			</ButtonGroup>		
 		</Row>
 	);
 }

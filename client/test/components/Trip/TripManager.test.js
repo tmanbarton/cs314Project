@@ -21,11 +21,11 @@ describe('Trip Manager Modal', ()=>{
     });
 
     beforeEach(()=>{
-        render(<TripManager tripName={tripName} places={places} managerMethods={tripToolbox} isOpen={true} toggleManager={toggleOpen}/>);
+        render(<TripManager tripName={tripName} places={places} managerMethods={tripToolbox}/>);
     });
 
     it('renders', async () =>{
-        render(<TripManager managerMethods={tripToolbox} isOpen={true} toggleManager={toggleOpen}/>)
+        render(<TripManager tripName={tripName} places={places} managerMethods={tripToolbox} />)
     });
 
     it('has an upload button', ()=>{
@@ -54,17 +54,10 @@ describe('Trip Manager Modal', ()=>{
         user.click(download);
     });
 
-    it('Downloads a JSO file', ()=>{
+    it('Downloads a JSON file', ()=>{
         global.URL.createObjectURL = jest.fn();
         const download = screen.getByTestId('JSON-download-button');
         expect(download).toBeTruthy();
         user.click(download);
     });
-
-    it('has a continue button and when clicked it closes the modal', async ()=>{
-        const cont = screen.getByTestId('continue-button');
-        user.click(cont);
-        expect(toggleOpen).toHaveBeenCalled();
-    });
-
 });
