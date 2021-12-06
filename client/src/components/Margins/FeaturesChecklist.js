@@ -34,30 +34,38 @@ function Header() {
 }
 
 function Body(props) {
+	const findDescription = "Select the search icon to search for a place and choose to switch from searching by name to searching by coordinates with the globe icon. You can also choose to get random places with the dice icon.";
+	const distancesDescription = "";
+	const tourDescription = "";
 	return (
 		<ModalBody className="center-modal-body">
 			{props.supportedFeatures.map((feature, index) => (
-				<Row className="centered" key={`${index} - ${feature}`}>
-					<Col>
-						<h2
-							style={
-								evaluateSupport(props.features, feature)
-									? { color: "#2e8540" }
-									: { color: "#cd2026" }
-							}
-						>
-							{feature}
-						</h2>
-					</Col>
-					<Col>
-						{evaluateSupport(props.features, feature) ? (
-							<FaCheckSquare style={{ color: "#2e8540" }} size={32} />
-						) : (
-							<FaWindowClose style={{ color: "#cd2026" }} size={32} />
-						)}
-					</Col>
-					<hr />
-				</Row>
+				<div>
+					<Row className="centered" key={`${index} - ${feature}`}>
+						<Col>
+							<h2
+								style={
+									evaluateSupport(props.features, feature)
+										? { color: "#2e8540" }
+										: { color: "#cd2026" }
+								}
+							>
+								{feature}
+							</h2>
+						</Col>
+						<Col>
+							{evaluateSupport(props.features, feature) ? (
+								<FaCheckSquare style={{ color: "#2e8540" }} size={32} />
+							) : (
+								<FaWindowClose style={{ color: "#cd2026" }} size={32} />
+							)}
+						</Col>
+						<hr />
+					</Row>
+					<Row>
+
+					</Row>
+				</div>
 			))}
 		</ModalBody>
 	);
