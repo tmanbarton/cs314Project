@@ -9,7 +9,7 @@ export function SearchResults(props) {
 	const [onStart, toggleOnStart] = useState(!props.noResultsFound && !props.places.length && props.searchMode.toLowerCase() === 'search');
 	const [height, setHeight] = useState({});
 	useEffect(()=>{
-		toggleOnStart(!props.noResultsFound && !props.places.length && props.searchMode.toLowerCase() === 'search');
+		toggleOnStart(!props.noResultsFound && !props.places.length && (props.searchMode.toLowerCase() === 'search' || props.searchMode.toLowerCase() === 'coords'));
 		if(props.places.length > 3){
 			setHeight(BOX_STYLE);
 		}else{
@@ -20,7 +20,7 @@ export function SearchResults(props) {
 	return (
 		<Container>
 			<Collapse isOpen={onStart}>
-				<ShowOnStart />
+				<ShowOnStart searchMode={props.searchMode.toLowerCase()}/>
 			</Collapse>
 			<Collapse style={height} isOpen={!onStart}>
 				<Table responsive striped>
@@ -31,10 +31,17 @@ export function SearchResults(props) {
 	);
 }
 
-function ShowOnStart() {
+function ShowOnStart(props) {
+	if (props.searchMode === 'coords'){
+		return (
+			<p className="centered">Enter Coordinates to get Started.</p>
+		);
+	}
+	
 	return (
 		<p className="centered">Search to get Started.</p>
 	);
+	
 }
 
 function Body(props) {
