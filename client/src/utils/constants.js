@@ -23,3 +23,5 @@ export const EARTH_RADIUS_UNITS_DEFAULT = { "miles": 3959 };
 export const DEFAULT_STARTING_PLACE = { latitude: 40.5734, longitude: -105.0865 };
 
 export const DEFAULT_RESPONSE_TIME = 1;
+
+export const LOCAL_STORAGE_KEY = "DEFAULT MAP";

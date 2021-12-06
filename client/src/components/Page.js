@@ -6,7 +6,7 @@ import Footer from './Margins/Footer';
 import About from './About/About';
 import Planner from './Trip/Planner';
 import { useToggle } from '../hooks/useToggle';
-import { LOG } from '../utils/constants';
+import { LOCAL_STORAGE_KEY, LOG } from '../utils/constants';
 import { getOriginalServerUrl, sendAPIRequest } from '../utils/restfulAPI';
 
 export default function Page(props) {
@@ -15,6 +15,8 @@ export default function Page(props) {
 	const [disableSearch, setDisableSearch] = useToggle(false);
 	const [disableTour, setDisableTour] = useToggle(false);
 	const [showMap, toggleMap] = useToggle(true);
+	const [firstTime, setFirstTime] = useState(!localStorage.getItem(LOCAL_STORAGE_KEY));
+	const [featuresChecklistOpen, toggleFeaturesChecklist] = useToggle(firstTime);
 
 	return (
 		<>
@@ -38,6 +40,8 @@ export default function Page(props) {
 				showMessage={props.showMessage}
 				serverSettings={serverSettings}
 				processServerConfigSuccess={processServerConfigSuccess}
+				featuresChecklistOpen={featuresChecklistOpen}
+				toggleFeaturesChecklist={toggleFeaturesChecklist}
 			/>
 		</>
 	)
@@ -46,11 +50,9 @@ export default function Page(props) {
 function mapToggle(showMap, toggleMap){
 	const show = !showMap;
 	toggleMap();
-
 	if(show){
 		window.scroll({top: '14vh', behavior: 'smooth'});
 	}
-
 }
 
 function useServerSettings(showMessage) {

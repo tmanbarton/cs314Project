@@ -12,6 +12,8 @@ describe('Footer', () => {
         serverConfig: { 'requestType': 'config', 'serverName': 't99' },
         serverUrl: 'http://localhost:8000'
     };
+    const featuresChecklistOpen = jest.fn();
+    const toggleFeaturesOpen = jest.fn();
 
     let serverSettingsLink;
 
@@ -22,6 +24,8 @@ describe('Footer', () => {
         render(<Footer
             serverSettings={serverSettings}
             processServerConfigSuccess={processServerConfigSuccess}
+            featuresChecklistOpen={featuresChecklistOpen}
+            toggleFeaturesOpen={toggleFeaturesOpen}
         />);
 
         serverSettingsLink = screen.getByTestId(`help-button`);

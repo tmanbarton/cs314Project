@@ -19,17 +19,16 @@ const UNKNOWN_SERVER_NAME = "Unknown";
 const supportedFeatures = ["config", "find", "distances", "tour"];
 
 export default function Footer(props) {
-	const [featuresChecklistOpen, toggleFeaturesChecklist] = useToggle(false);
 	const [featuresRecieved, setFeaturesRecieved] = useState(supportedFeatures);
 	let stateMethods = {
-		toggleFeaturesChecklist: toggleFeaturesChecklist,
+		toggleFeaturesChecklist: props.toggleFeaturesChecklist,
 		setFeaturesRecieved: setFeaturesRecieved,
 		setDisableSearch: props.setDisableSearch,
 		processServerConfigSuccess: props.processServerConfigSuccess,
 		setDisableTour: props.setDisableTour
 	};
 	let stateVariables = {
-		featuresChecklistOpen: featuresChecklistOpen,
+		featuresChecklistOpen: props.featuresChecklistOpen,
 		featuresRecieved: featuresRecieved,
 		disableSearch: props.disableSearch,
 		disableTour: props.disableTour
