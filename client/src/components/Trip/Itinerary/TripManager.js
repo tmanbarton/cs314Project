@@ -1,98 +1,70 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
 	Row,
-	Modal,
-	ModalBody,
-	ModalHeader,
 	ModalFooter,
 	Container,
 	Button,
 	Col,
-	Spinner
+	DropdownMenu,
+	DropdownItem,
+	DropdownToggle,
+	Dropdown
 } from "reactstrap";
 import { FaSave, FaUpload, FaCheck, FaDownload } from "react-icons/fa";
 import * as TripSchema from '../../../../schemas/TripFile.json';
 import { formatPlaces  } from "../../../utils/transformers";
 import Papa from 'papaparse';
 import { isJsonResponseValid } from "../../../utils/restfulAPI";
-import { EditableInput } from "./Itinerary";
-import { CENTER_OF_EARTH } from "../../../utils/constants";
 import { getMapBounds } from "../Map/Map";
+import { useToggle } from "../../../hooks/useToggle";
 
 export default function TripManager(props) {
+	const [dropdownOpen, setDropdownOpen] = useToggle(false);
 	const [fileName, setFileName] = useState("");
-	const [loading, setLoading] = useState(false);
 	useEffect(()=>{
 		setFileName("");
-		setLoading(false);
-	},[props.isOpen]);
+	},[]);
+
 	return (
-		<Modal isOpen={props.isOpen} toggle={!loading ? props.toggleManager : null}>
-			<Header />
-			<Body
-				text={props.text} 
-				setText={props.setText}
-				places={props.places}
-				fileName={fileName}
-				setFileName={setFileName}
-				toggle={props.toggleManager}
-				managerMethods={props.managerMethods}
-				tripName={props.tripName}
-				loading={loading}
-				setLoading={setLoading}
-			/>
-			<Footer loading={loading} fileName={fileName} toggleManager={props.toggleManager} />
-		</Modal>
+		<Dropdown 
+		isOpen={dropdownOpen}
+		toggle={setDropdownOpen}
+		direction="up"
+		size="sm"
+		className="button-group"
+		data-testid="file-dropdown">
+		<DropdownToggle color='primary' className="modify-dropdown" style={{borderTopRightRadius: '0px', borderBottomRightRadius: '0px'}}>
+			<FaSave size={18} />
+			<p className="button-label">&nbsp;&nbsp;File&nbsp;&nbsp;</p>
+		</DropdownToggle>
+		<DropdownItems places={props.places} tripName={props.tripName} managerMethods={props.managerMethods} setFileName={setFileName} fileName={fileName}/>
+	</Dropdown>
 	);
 }
 
-function Header() {
-	return (
-		<ModalHeader tag="h3" cssModule={{'modal-title': 'w-100 text-center'}}>
-			<strong>Trip Manager</strong> &nbsp; 
-			<FaSave size={26}/>
-		</ModalHeader>
-	);
-}
-
-function Body(props) {
-	return (
-		<ModalBody className="center-modal-body">
-			<Row>
-				<LoadTrip loading={props.loading} setLoading={props.setLoading} managerMethods={props.managerMethods} setFileName={props.setFileName} fileName={props.fileName} />
-			</Row>
-			<Row>
-				<SaveTrip text={props.text} setText={props.setText} loading={props.loading} tripName={props.tripName} fileName={props.fileName} places={props.places} showMessage={props.managerMethods.showMessage}/>
-			</Row>
-		</ModalBody>
-	);
-}
-
-function LoadTrip(props) {
+function DropdownItems(props){
 	const fileInputRef = useRef();
 
 	function fileUploaded(fileObject) {
-		props.setLoading(true);
 		let file = fileObject.target.files[0];
 		props.setFileName(fileObject.target.files[0].name);
-		processFile(file, fileObject.target.files[0].name, {...props.managerMethods, setFileName: props.setFileName}, props.setLoading);
+		processFile(file, fileObject.target.files[0].name, {...props.managerMethods, setFileName: props.setFileName});
 	}
 
 	return (
-		<Container>
-			<Container>
-				<h4>Load Trip</h4>
-				<hr />
-			</Container>
-			<Container>
-				<Button data-testid="upload-btn" color="primary" onClick={() => fileInputRef.current.click()}>
-					{props.loading ? (
-						<Spinner size="sm"/>
-					):
-						<FaUpload />
-					}
-				</Button>
-				<input
+		<React.Fragment>
+			<DropdownMenu right>
+				<DropdownItem onClick={()=> fileInputRef.current.click()}>
+					<Row><h4><FaUpload data-testid="upload-btn" className="fa-inline"  size = {20}/>&nbsp;&nbsp;Load New Trip</h4></Row>
+				</DropdownItem>
+				<DropdownItem onClick={()=> storeCSV(props.places, props.tripName, props.managerMethods.showMessage)}>
+					<Row><h4><FaDownload data-testid="CSV-download-button" className="fa-inline"  size = {20} />&nbsp;&nbsp;Save as CSV</h4></Row>
+				</DropdownItem>
+				<DropdownItem onClick={() => storeJSON(props.places, props.tripName, props.managerMethods.showMessage)}>
+					<Row><h4><FaDownload data-testid="JSON-download-button" className="fa-inline" size = {20}/>&nbsp;&nbsp;Save as JSON</h4></Row>
+				</DropdownItem>
+			</DropdownMenu>
+			<input
 					data-testid="input"
 					type="file"
 					accept=".json, .csv, application/json, text/csv"
@@ -101,63 +73,21 @@ function LoadTrip(props) {
 					type="file"
 					hidden
 				/>
-				{props.fileName.length > 0 && !props.loading ? (
-					<Container>
-						<br />
-						<p>
-							Uploaded <strong>{props.fileName}</strong> <FaCheck />
-						</p>
-					</Container>
-				) : null}
-			</Container>
-			<hr />
-		</Container>
+		</React.Fragment>
+
 	);
 }
 
-function SaveTrip(props) {
-	return (
-		<Container>
-			<h4>Save <EditableInput className="tripText" text={props.text} setText={props.setText}/></h4>
-			<hr />
-			<Row className="save-trip-row">
-				<Col>
-					<Button data-testid="CSV-download-button" disabled={props.loading} color="primary" onClick={() =>storeCSV(props.places, props.tripName, props.showMessage)}>
-						<FaDownload/><p className="button-label">CSV</p>
-					</Button>
-				</Col>
-				<Col>
-					<Button data-testid="JSON-download-button" disabled={props.loading} color="primary" onClick={() =>storeJSON(props.places, props.tripName, props.showMessage)}>
-						<FaDownload/><p className="button-label">JSON</p>
-					</Button>
-				</Col>
-			</Row>
-		</Container>
-	);
-}
-
-function Footer(props) {
-	return (
-	<ModalFooter className="centered">
-		<Button data-testid="continue-button" color="primary" disabled={props.loading} onClick={()=>props.toggleManager()}>
-			{props.loading ? `Please Wait for ${props.fileName} to Upload` : 'Continue'}
-		</Button>
-	</ModalFooter>
-	);
-}
-
-async function processFile(file, fileName, managerMethods, setLoading){
+async function processFile(file, fileName, managerMethods){
 	managerMethods.setTripName(trimFileName(fileName));
 	let fileType = getFileType(fileName);
 	managerMethods.removeAll();
 	switch (fileType){
 		case "csv":
 			await csvToTrip(file, {bulkAppend: managerMethods.bulkAppend, showMessage: managerMethods.showMessage, setFileName: managerMethods.setFileName, mapRef: managerMethods.mapRef}, fileName);
-			setLoading(false);
 			break;
 		case "json":
 			await jsonToTrip(file, {bulkAppend: managerMethods.bulkAppend, showMessage: managerMethods.showMessage, setFileName: managerMethods.setFileName, mapRef: managerMethods.mapRef}, fileName);
-			setLoading(false);
 			break;
 		default:
 			break;
@@ -263,6 +193,5 @@ function storeJSON(places, tripName, showMessage)
 		document.body.removeChild(link);
 		window.URL.revokeObjectURL(url);
 	  }, 0);
-	
 	showMessage(`Successfully downloaded ${tripName} to JSON.`, "success");
 }
