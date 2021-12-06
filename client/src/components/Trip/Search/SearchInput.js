@@ -64,7 +64,7 @@ export default function SearchInput(props) {
 
 	return (
 		<Container>
-			<Searchbar {...props} limit={limit} searchStates={searchStates} />
+			<Searchbar {...props} limit={limit} searchStates={searchStates}/>
 			<hr />
 			<SearchResults places={places} append={props.append} noResultsFound={noResultsFound} found={found} searchMode={searchMode} />
 			<Row>
@@ -94,7 +94,7 @@ function getMoreResults(limit, setLimit, searchStates, serverSettings, showMessa
 function Searchbar(props){
 	return (
 		<InputGroup>
-			<InputBar {...props.searchStates} />
+			<InputBar {...props.searchStates}/>
 			<InputGroupAddon addonType="append">
 				<Button color="primary" className="input-group-buttons" data-testid="randomPlaces" onClick={() => { randomPlaces(props.searchStates, props.serverSettings, props.showMessage, props.limit)}}>
 					<FaDice size={18} />
@@ -118,7 +118,7 @@ function InputBar(props){
 	switch (props.searchMode.toLowerCase()){
 		case 'search':
 			return (
-				<Input type="text" placeholder="Search for Places" onChange={(input)=>props.setMatch(input.target.value)} data-testid="searchBar" value={props.match} />
+				<Input type="text" placeholder="Search for Places" onChange={(input)=>props.setMatch(input.target.value)} value={props.match} />
 			)
 		case 'random':
 			return(
