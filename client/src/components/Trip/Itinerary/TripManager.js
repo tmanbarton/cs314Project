@@ -1,15 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-	Row,
-	ModalFooter,
-	Container,
-	Button,
-	Col,
-	DropdownMenu,
-	DropdownItem,
-	DropdownToggle,
-	Dropdown
-} from "reactstrap";
+import { Row, DropdownMenu, DropdownItem, DropdownToggle, Dropdown } from "reactstrap";
 import { FaSave, FaUpload, FaCheck, FaDownload } from "react-icons/fa";
 import * as TripSchema from '../../../../schemas/TripFile.json';
 import { formatPlaces  } from "../../../utils/transformers";
@@ -64,15 +54,7 @@ function DropdownItems(props){
 					<Row><h4><FaDownload data-testid="JSON-download-button" className="fa-inline" size = {20}/>&nbsp;&nbsp;Save as JSON</h4></Row>
 				</DropdownItem>
 			</DropdownMenu>
-			<input
-					data-testid="input"
-					type="file"
-					accept=".json, .csv, application/json, text/csv"
-					ref={fileInputRef}
-					onChange={fileUploaded}
-					type="file"
-					hidden
-				/>
+			<input data-testid="input" type="file" accept=".json, .csv, application/json, text/csv" ref={fileInputRef} onChange={fileUploaded} type="file" hidden/>
 		</React.Fragment>
 
 	);
