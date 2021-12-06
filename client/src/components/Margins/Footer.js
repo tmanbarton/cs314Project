@@ -10,6 +10,7 @@ import { useToggle } from "../../hooks/useToggle";
 import FeaturesChecklist from "./FeaturesChecklist";
 import { avaliableServers } from "./avalibleServers";
 import { sendAPIRequest } from "../../utils/restfulAPI";
+import { FaInfoCircle } from "react-icons/fa";
 
 const UNICODE_LINK_SYMBOL = "\uD83D\uDD17";
 const UNICODE_WARNING_SIGN = "\u26A0";
@@ -108,8 +109,8 @@ function ServerInformation(props) {
 					<div className="div-inline">
 						<ServersDropdown {...props} serverName={serverName} />
 					</div>
-					<br />
-					<a className="tco-text" onClick={props.stateMethods.toggleFeaturesChecklist}>({props.serverSettings.serverUrl}).</a>
+					&nbsp;&nbsp;
+					<a data-testid="help-button" onClick={props.stateMethods.toggleFeaturesChecklist}><FaInfoCircle size={18} /></a>
 					<FeaturesChecklist isOpen={props.stateVariables.featuresChecklistOpen} toggleOpen={props.stateMethods.toggleFeaturesChecklist} features={props.stateVariables.featuresRecieved} supportedFeatures={supportedFeatures}/>
 				</div>
 			</Container>
