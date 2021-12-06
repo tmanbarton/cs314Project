@@ -2,11 +2,19 @@ import React, { useEffect, useState } from "react";
 import { Collapse, Container, Table } from "reactstrap";
 import { FaPlus } from "react-icons/fa";
 
+const BOX_STYLE = {
+	overflow:'scroll', height:'17em'
+};
 export function SearchResults(props) {
 	const [onStart, toggleOnStart] = useState(!props.noResultsFound && !props.places.length && props.searchMode.toLowerCase() === 'search');
-
+	const [height, setHeight] = useState({});
 	useEffect(()=>{
 		toggleOnStart(!props.noResultsFound && !props.places.length && props.searchMode.toLowerCase() === 'search');
+		if(props.places.length > 3){
+			setHeight(BOX_STYLE);
+		}else{
+			setHeight({});
+		}
 	},[props.places, props.noResultsFound]);
 
 	return (
@@ -14,7 +22,7 @@ export function SearchResults(props) {
 			<Collapse isOpen={onStart}>
 				<ShowOnStart />
 			</Collapse>
-			<Collapse style={{overflow:'scroll', height:'17em'}} isOpen={!onStart}>
+			<Collapse style={height} isOpen={!onStart}>
 				<Table responsive striped>
 					<Body append={props.append} places={props.places} noResultsFound={props.noResultsFound} found={props.found}/>
 				</Table>
