@@ -23,7 +23,7 @@ export default function Planner(props) {
 			{props.showMap && (
 				<React.Fragment>
 					<Section>
-						<Map places={places} selectedIndex={selectedIndex} placeActions={placeActions} center={center} mapRef={mapRef} setCenter={setCenter}/>
+						<Map places={places} selectedIndex={selectedIndex} placeActions={placeActions} center={center} mapRef={mapRef} setCenter={setCenter} showMap={props.showMap}/>
 					</Section>
 					<hr style={{marginTop: '.5rem'}}/>
 				</React.Fragment>

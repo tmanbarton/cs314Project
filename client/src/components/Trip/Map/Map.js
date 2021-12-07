@@ -49,6 +49,10 @@ export default function Map(props) {
     }
 
     useEffect(()=>{
+        checkMapSelection();
+    },[props.showMap]);
+
+    useEffect(()=>{
         if(props.center){
             handleFlyTo();
         }
@@ -60,8 +64,6 @@ export default function Map(props) {
         const currentZoom = map.getZoom();
         map.flyTo(placeToLatLng(props.center), evaluateZoom(currentZoom));
     }
-
-    checkMapSelection();
 
     return (
         <LeafletMap
