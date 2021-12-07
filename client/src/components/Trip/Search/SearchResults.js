@@ -3,7 +3,7 @@ import { Collapse, Container, Table } from "reactstrap";
 import { FaPlus } from "react-icons/fa";
 
 const BOX_STYLE = {
-	overflow:'scroll', height:'17em'
+	overflow:'auto', height:'17em'
 };
 export function SearchResults(props) {
 	const [onStart, toggleOnStart] = useState(!props.noResultsFound && !props.places.length && props.searchMode.toLowerCase() === 'search');
