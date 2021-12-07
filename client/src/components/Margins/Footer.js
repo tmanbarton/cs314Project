@@ -11,15 +11,16 @@ import FeaturesChecklist from "./FeaturesChecklist";
 import { avaliableServers } from "./avalibleServers";
 import { sendAPIRequest } from "../../utils/restfulAPI";
 import { FaInfoCircle } from "react-icons/fa";
+import { SUPPORTED_FEATURES } from "../../utils/constants";
 
 const UNICODE_LINK_SYMBOL = "\uD83D\uDD17";
 const UNICODE_WARNING_SIGN = "\u26A0";
 const UNKNOWN_SERVER_NAME = "Unknown";
 
-const supportedFeatures = ["config", "find", "distances", "tour"];
+
 
 export default function Footer(props) {
-	const [featuresRecieved, setFeaturesRecieved] = useState(supportedFeatures);
+	const [featuresRecieved, setFeaturesRecieved] = useState(SUPPORTED_FEATURES);
 	let stateMethods = {
 		toggleFeaturesChecklist: props.toggleFeaturesChecklist,
 		setFeaturesRecieved: setFeaturesRecieved,
@@ -110,7 +111,7 @@ function ServerInformation(props) {
 					</div>
 					&nbsp;&nbsp;
 					<a data-testid="help-button" onClick={props.stateMethods.toggleFeaturesChecklist}><FaInfoCircle size={18} /></a>
-					<FeaturesChecklist isOpen={props.stateVariables.featuresChecklistOpen} toggleOpen={props.stateMethods.toggleFeaturesChecklist} features={props.stateVariables.featuresRecieved} supportedFeatures={supportedFeatures}/>
+					<FeaturesChecklist isOpen={props.stateVariables.featuresChecklistOpen} toggleOpen={props.stateMethods.toggleFeaturesChecklist} features={props.stateVariables.featuresRecieved}/>
 				</div>
 			</Container>
 		</div>
