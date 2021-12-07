@@ -72,10 +72,11 @@ export default function SearchInput(props) {
 			<Searchbar {...props} limit={limit} searchStates={searchStates}/>
 			<hr />
 			<SearchResults places={places} append={props.append} noResultsFound={noResultsFound} found={found} searchMode={searchMode} />
+			<br />
 			{places.length && searchMode !== 'coords' ?
 				<Row>
 					<Col>
-						<p>Showing: {limit} out of {found} results</p>
+						<p style={{paddingTop: '.75rem'}}>Showing: {limit} out of {found} results</p>
 					</Col>
 					<ShowMore searchStates={searchStates} setLimit={setLimit} serverSettings={props.serverSettings} showMessage={props.showMessage}/> 		
 				</Row>
@@ -188,19 +189,14 @@ async function cordinateSearch(searchStates) {
 		if(newPlace.lng>=180){
 			newPlace.lng = newPlace.lng%(180);
 		}
-		searchStates.setPlaces(formatPlaces([{ lat: parseFloat(newPlace.lat), lng: parseFloat(newPlace.lng), name:newPlace.name}]));
+		searchStates.setPlaces(formatPlaces([newPlace]));
 	} 
   }
 
 function useCoordinateValidation(newPlace) {
     const newLatLng = getCoordinatesOrNull(newPlace);
-	if(newLatLng!=null){
-		return true;
-	}
-	else{
-		return false;
-	}
-    }
+	return newLatLng;
+}
   
   
 function getCoordinatesOrNull(coordinatesString) {
