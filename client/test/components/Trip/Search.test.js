@@ -35,9 +35,12 @@ describe('SearchInput', () => {
 
 describe('SearchResults', () => {
     const append = jest.fn()
+    const noResultsFound = false
+    const searchMode = "search"
+    const found = 5;
 
     beforeEach(() => {
-        render(<SearchResults places={MOCK_PLACES} append={append} />);
+        render(<SearchResults places={MOCK_PLACES} append={append} noResultsFound={noResultsFound} found={found} searchMode={searchMode}/>);
     });
 
 
