@@ -37,6 +37,10 @@ export default function SearchInput(props) {
 	};
 
 	useEffect(() => {
+		if (limit > found) setLimit(found);
+	}, [found, limit]);
+
+	useEffect(() => {
 		setMatch("");
 		setPlaces([]);
 	}, [searchMode]);
