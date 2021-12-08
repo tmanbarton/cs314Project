@@ -21,6 +21,7 @@ export function SearchResults(props) {
 		<Container>
 			<Collapse isOpen={onStart}>
 				<ShowOnStart searchMode={props.searchMode.toLowerCase()}/>
+				<br />
 			</Collapse>
 			<Collapse style={height} isOpen={!onStart}>
 				<Table responsive striped>

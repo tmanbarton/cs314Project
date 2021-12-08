@@ -29,7 +29,7 @@ export default function Page(props) {
 					<Planner serverSettings={serverSettings} disableSearch={disableSearch} disableTour={disableTour} showMessage={props.showMessage} showMap={showMap}/>
 				</Collapse>
 			</div>
-			<div className="fab-div">
+			<div className="fab-div" hidden={showAbout}>
 				<Button size="lg" color="primary" style={{borderRadius: 100, display: 'float-right'}} onClick={() => mapToggle(showMap, toggleMap)}><FaMap /></Button>
 			</div>
 			<Footer
