@@ -1,7 +1,8 @@
 # Sprint 5 - _t13_ - _Penguinz_
 
 ## Goal
-To allow the user to find and add places by latitude and longitude combinations. To allow the user to select different background maps. To pick random places from the database and display it when there is no user input in the search bar. To improve UX to help user understand the functions of each button in itinerary.  
+
+To allow the user to find and add places by latitude and longitude combinations. To allow the user to select different background maps. To pick random places from the database and display it when there is no user input in the search bar. To improve UX to help user understand the functions of each button in itinerary.
 
 ## Sprint Leader:
 
@@ -42,9 +43,10 @@ To allow the user to find and add places by latitude and longitude combinations.
 - GitHub etiquette is followed always.
 
 ## Planned Epics
+
 The first epic to complete is Where is. This allows the user to search and add places to the trip by coordinates, latitude and longitude. The latitude and longitude can be entered in multiple formats and require validation. Once the entered coordinates are validated the map should move the marker to the location and ask the user whether the place needs to be added to the trip. Finally the trip and marker should show additional details about the place using reverse geocoding.
 
-The second epic that we are focusing on is Random places. The search bar finds and shows some random places from the database if there is no user input. 
+The second epic that we are focusing on is Random places. The search bar finds and shows some random places from the database if there is no user input.
 
 The third epic to complete is Maps. This allows the user to pick different background maps. Also the selected map will be saved for any future sessions until the user changes it.
 
@@ -54,15 +56,17 @@ The fourth epic is improving UX to help the user identify the function of each b
 
 | Statistic    | # Planned | # Completed |
 | ------------ | --------: | ----------: |
-| Epics        |   4       |     N/A |
-| Tasks        |   25      |     N/A |
-| Story Points |   30      |     N/A |
+| Epics        |         4 |         N/A |
+| Tasks        |        25 |         N/A |
+| Story Points |        30 |         N/A |
 
 ## Scrums
 
-| Date   | Tasks closed | Tasks in progress | Impediments |
-| :----- | :----------- | :---------------- | :---------- |
-| _date_ | _#task, ..._ | _#task, ..._      |             |
+| Date       | Tasks closed                 | Tasks in progress                                        | Impediments              |
+| :--------- | :--------------------------- | :------------------------------------------------------- | :----------------------- |
+| _11-15-21_ | _NA_                         | _#599,#606,#607,#616,#617,#624,#625,#629_                | Speeding up Tour Request |
+| _11-29-21_ | _#594-598, #604, #638, #642_ | _#560,#613,#618,#621,#631,#635,#636,#646,#652,#654,#659_ | Map zoom and center      |
+| _12-6-21_  | _#603,#641,#674_             | _#675, #667_                                             | None                     |
 
 ## Review
 
