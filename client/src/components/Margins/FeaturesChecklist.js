@@ -9,19 +9,23 @@ import {
 	Button,
 } from "reactstrap";
 import { FaCheckSquare, FaWindowClose, FaCheck } from "react-icons/fa";
+import { SUPPORTED_FEATURES } from "../../utils/constants";
 
 export default function FeaturesChecklist(props) {
 	return (
 		<Modal isOpen={props.isOpen} toggle={props.toggleOpen}>
 			<Header />
-			<Body supportedFeatures={props.supportedFeatures} features={props.features} />
+			<Body supportedFeatures={SUPPORTED_FEATURES} features={props.features} />
 			<Footer toggleOpen={props.toggleOpen} />
 		</Modal>
 	);
 }
 
 function evaluateSupport(newFeatures, supportedFeature) {
-	return newFeatures.indexOf(supportedFeature) > -1;
+	if(!newFeatures[0].name){
+		return newFeatures.indexOf(supportedFeature) > -1;
+	}
+	return newFeatures.filter((feature, index) => feature.name === supportedFeature);
 }
 
 function Header() {
@@ -34,30 +38,36 @@ function Header() {
 }
 
 function Body(props) {
+
 	return (
-		<ModalBody className="center-modal-body">
+		<ModalBody>
 			{props.supportedFeatures.map((feature, index) => (
-				<Row className="centered" key={`${index} - ${feature}`}>
-					<Col>
-						<h2
-							style={
-								evaluateSupport(props.features, feature)
-									? { color: "#2e8540" }
-									: { color: "#cd2026" }
-							}
-						>
-							{feature}
-						</h2>
-					</Col>
-					<Col>
-						{evaluateSupport(props.features, feature) ? (
-							<FaCheckSquare style={{ color: "#2e8540" }} size={32} />
-						) : (
-							<FaWindowClose style={{ color: "#cd2026" }} size={32} />
-						)}
-					</Col>
-					<hr />
-				</Row>
+				<div>
+					<Row className="centered" key={`${index} - ${feature.name}`}>
+						<Col>
+							<h4
+								style={
+									evaluateSupport(props.features, feature.name)
+										? { color: "#2e8540" }
+										: { color: "#cd2026" }
+								}
+							>
+								{feature.name.charAt(0).toUpperCase() + feature.name.slice(1)}
+							</h4>
+						</Col>
+						<Col>
+							{evaluateSupport(props.features, feature.name) ? (
+								<FaCheckSquare style={{ color: "#2e8540" }} size={32} />
+							) : (
+								<FaWindowClose style={{ color: "#cd2026" }} size={32} />
+							)}
+						</Col>
+						<hr />
+					</Row>
+					<Row>
+						<p>{feature.description}</p>
+					</Row>
+				</div>
 			))}
 		</ModalBody>
 	);
