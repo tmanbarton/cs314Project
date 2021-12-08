@@ -1,9 +1,5 @@
 export const avaliableServers = [
 	{
-		teamName: "t00 Double Aughts",
-		extension: "31400",
-	},
-	{
 		teamName: "t01 TRNG",
 		extension: "31401",
 	},
@@ -34,10 +30,6 @@ export const avaliableServers = [
 	{
 		teamName: "t08 Ambiguous Aardvarks",
 		extension: "31408",
-	},
-	{
-		teamName: "t09 Coding Crew",
-		extension: "31409",
 	},
 	{
 		teamName: "t10 Brunch Boys",
@@ -80,10 +72,6 @@ export const avaliableServers = [
 		extension: "31419",
 	},
 	{
-		teamName: "t20 Squinting in the Back",
-		extension: "31420",
-	},
-	{
 		teamName: "t21 Ctrl Alt Elite",
 		extension: "31421",
 	},
@@ -110,9 +98,5 @@ export const avaliableServers = [
 	{
 		teamName: "t27 Codey Crew",
 		extension: "31427",
-	},
-	{
-		teamName: "t99 team name",
-		extension: "31499",
 	},
 ];
