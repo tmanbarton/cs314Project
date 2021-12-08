@@ -1,15 +1,11 @@
 import React from "react";
-import {
-	Row,
-	Col,
-	Modal,
-	ModalBody,
-	ModalHeader,
-	ModalFooter,
-	Button,
-} from "reactstrap";
+import { useToggle } from "../../hooks/useToggle";
+import { Modal, ModalBody, ModalHeader, ModalFooter, Button, Card, CardBody, CardHeader, CardText, Collapse, CardDeck } from "reactstrap";
 import { FaCheckSquare, FaWindowClose, FaCheck } from "react-icons/fa";
 import { SUPPORTED_FEATURES } from "../../utils/constants";
+
+const supported = '#2e8540';
+const notSupported = '#cd2026';
 
 export default function FeaturesChecklist(props) {
 	return (
