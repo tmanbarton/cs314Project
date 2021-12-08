@@ -40,22 +40,25 @@ export const SUPPORTED_FEATURES = [
 	{
 		name: "tour",
 		description:
-			'You can optimize your trip in order to shorten the total distance.',
+			"You can optimize your trip in order to shorten the total distance. The 'Optimize' button can be found in the 'Modify' menu.",
 	},
 	{
-        name: "modify",
-        description: 'You can edit your trip by dragging and dropping with the drag handles. By using the  \'Modify\' menu, you can shuffle or reverse current trip.'
-    },
-    {
-        name: "load",
-        description: 'You can load a previously saved trip via the file button.'
-    },  
-    {
-        name: "save",
-        description: 'You can save and download your current trip as a JSON or CSV via the file button.'
-    },
-    {
-        name: "locate",
-        description: 'You can click on the \'Locate\' button near the map to add your current position to the start of your trip.'
-    }
+		name: "modify",
+		description:
+			"You can edit your trip by dragging and dropping with the drag handles. By using the 'Modify' menu, you can shuffle or reverse current trip.",
+	},
+	{
+		name: "load",
+		description: "You can load a previously saved trip via the 'File' button.",
+	},
+	{
+		name: "save",
+		description:
+			"You can save and download your current trip as a JSON or CSV via the 'File' button.",
+	},
+	{
+		name: "locate",
+		description:
+			"You can click on the 'Locate' button near the map to add your current position to the start of your trip.",
+	},
 ];

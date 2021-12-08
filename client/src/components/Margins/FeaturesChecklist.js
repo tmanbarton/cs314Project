@@ -19,7 +19,10 @@ export default function FeaturesChecklist(props) {
 
 function evaluateSupport(newFeatures, supportedFeature) {
 	if(!newFeatures[0].name){
-		return newFeatures.indexOf(supportedFeature) > -1;
+		if(supportedFeature === 'find' || supportedFeature === 'distances' || supportedFeature === 'tour'){
+			return newFeatures.indexOf(supportedFeature) > -1;
+		}
+		return true;
 	}
 	return newFeatures.filter((feature) => feature.name === supportedFeature);
 }
