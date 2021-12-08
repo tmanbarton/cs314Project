@@ -46,8 +46,8 @@ export const SUPPORTED_FEATURES = [
 		name: "modify",
 		description:
 			"You can edit your trip by dragging and dropping with the drag handles. By using the 'Modify' menu, you can shuffle or reverse current trip.",
-	},
-	{
+	},  
+    {
 		name: "load",
 		description: "You can load a previously saved trip via the 'File' button.",
 	},
