@@ -40,19 +40,23 @@ export const SUPPORTED_FEATURES = [
 	{
 		name: "tour",
 		description:
-			'You can edit your trip by dragging and dropping with the drag handles, you can also optimize your trip in order to shorten the total distance',
+			'You can edit your trip by dragging and dropping with the drag handles, you can also optimize your trip in order to shorten the total distance.',
 	},
     {
         name: "load",
-        description: 'You can load a previously made trip as a JSON or CSV file via the file button'
+        description: 'You can load a previously made trip as a JSON or CSV file via the file button.'
     },  
     {
         name: "save",
-        description: 'You can saveand download your current trip as a JSON or CSV via the file button'
+        description: 'You can saveand download your current trip as a JSON or CSV via the file button.'
     },
     {
         name: "modify",
-        description: 'You can load a previously made trip as a JSON or CSV via the file button'
+        description: 'Through the modify menu, you may shuffle, reverse, or sort your current trip.'
+    },
+    {
+        name: "locate",
+        description: 'You can click on arrow button near the map to add your current position to the trip.'
     }
 
 ];
