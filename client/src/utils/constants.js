@@ -42,4 +42,8 @@ export const SUPPORTED_FEATURES = [
 		description:
 			'You can edit your trip by dragging and dropping with the drag handles, or with the options in the "Modify" menu: optimize your trip to get a shorter route, shuffle the order the trip, reverse the trip, or remove all of the locations.',
 	},
+    {
+        name: "load",
+        description: ""
+    }
 ];
