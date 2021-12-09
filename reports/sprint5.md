@@ -56,9 +56,9 @@ The fourth epic is improving UX to help the user identify the function of each b
 
 | Statistic    | # Planned | # Completed |
 | ------------ | --------: | ----------: |
-| Epics        |         4 |         N/A |
-| Tasks        |        25 |         N/A |
-| Story Points |        30 |         N/A |
+| Epics        |         4 |         4   |
+| Tasks        |        25 |         51  |
+| Story Points |        30 |         71  |
 
 ## Scrums
 
@@ -72,7 +72,21 @@ The fourth epic is improving UX to help the user identify the function of each b
 
 ### Epics completed
 
+- Where is
+  - Allows the user to search by lat/lng. The input can be inserted in different ways and is validated before the query happens. Overall, this epic was fairly easy for the team to complete.
+  
+- Random Places
+  - Allows the user to search for random places. This feature is moreso for fun then it is for functionality-- although does provide the user with a potentially useful interaction. This epic was also fairly easy to complete.
+
+- Maps
+  - Allows the user to pick different maps, as well as improving the map functionality. This epic was slightly harder then the other due to the poor leaflet docs and version issues. 
+
+- UX
+  - Small interface and interaction tweaks to improve the users experience on our application. This epic was fairly easy but required lots of research and information in order to complete.
+
 ### Epics not completed
+
+We completed all planned epics.
 
 ## Retrospective
 
