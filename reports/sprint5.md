@@ -91,7 +91,12 @@ We completed all planned epics.
 ## Retrospective
 
 ### Things that went well
+Overall, sprint 5 went smoothly. We accomplished everything we had planned. One of our main focuses this sprint was UX. We had ongoing UX throughout the sprint, 
+addressing issues as they were discovered. Through this process we were able to refine the UI so that it is as accessible and user friendly as possible.
+Although we may have gotten more done in sprint 4, the value of what we accomplished this time around is just as important.
 
 ### Things we need to improve
+One thing that fell off a bit this sprint was communication. Keeping communication constant and frequent is imperative.
 
 ### One thing we will change next time
+Next time around our team would focus more on testing and clean code. Although we did test and create clean code, our main focus was on UI. Our UI turned out great, but we could have devoted more time to testing and such.
