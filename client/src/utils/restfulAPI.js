@@ -51,7 +51,7 @@ export function getOriginalServerUrl() {
     const serverHost = location.hostname;
     const serverPort = location.port;
     const alternatePort = process.env.SERVER_PORT;
-    return `${serverProtocol}\/\/${serverHost}:${(!alternatePort ? serverPort : alternatePort)}`;
+    return 'https://cs314-project.herokuapp.com/';
 }
 
 export function isJsonResponseValid(object, schema) {
