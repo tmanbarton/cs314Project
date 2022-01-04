@@ -4,8 +4,8 @@
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.target>1.8.0_191</maven.compiler.target>
-        <maven.compiler.source>1.8.0_191</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
         <exec.mainClass>com.tco.server.WebApplication</exec.mainClass>
     </properties>
 
