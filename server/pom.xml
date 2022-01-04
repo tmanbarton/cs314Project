@@ -6,13 +6,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.target>11</maven.compiler.target>
         <maven.compiler.source>11</maven.compiler.source>
+        <exec.mainClass>com.tco.server.WebApplication</exec.mainClass>
     </properties>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.tco</groupId>
     <artifactId>server</artifactId>
     <packaging>jar</packaging>
-    <version>${revision}</version>
+    <version>1.0</version>
     <name>tco</name>
 
     <profiles>
@@ -22,7 +23,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <build.directory.prefix>..</build.directory.prefix>
+                <build.directory.prefix>.</build.directory.prefix>
             </properties>
         </profile>
     </profiles>
